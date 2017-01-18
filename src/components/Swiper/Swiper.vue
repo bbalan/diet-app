@@ -1,14 +1,12 @@
 <template>
-  <div id="">
+  <div>
     <slot></slot>
   </div>
 </template>
 
 <script>
-import Store from './../util/Store';
-
 export default {
-  name: '',
+  name: 'Swiper',
   data() {
     return {
       //...

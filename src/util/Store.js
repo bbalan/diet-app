@@ -4,7 +4,7 @@ export default {
     birthday: null,
     age: null,
     gender: null,
-    height: null,
+    height: 177,
     weight: null,
     goal: null,
     goalSpeed: null,
