@@ -8,7 +8,7 @@
     },
     "installed_plugins": {
         "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.demo.test"
+            "PACKAGE_NAME": "com.bb.dietapp"
         }
     },
     "dependent_plugins": {}
