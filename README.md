@@ -26,16 +26,17 @@ npm test
 
 For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-# Cordova builds
+## Cordova builds
 
 ``` bash
+# Install Cordova
 sudo npm install -g cordova
 
-# For ios builds, install XCode, then the ios sim:
+# For ios builds, install XCode, then the ios sim.
 sudo npm install -g ios-sim
 cordova platform add ios
 
-# For android builds, install the Android SDK and create a new Virtual Device
+# For android builds, install the Android SDK, then create a new Virtual Device.
 # https://developer.android.com/studio/run/managing-avds.html
 cordova platform add android
 
