@@ -9,7 +9,7 @@
 
 <script>
 // import Store from './../util/Store';
-import store from './../util/Store';
+import store from './../store';
 import Splash from './Splash/Splash';
 import SignupForm from './SignupForm/SignupForm';
 

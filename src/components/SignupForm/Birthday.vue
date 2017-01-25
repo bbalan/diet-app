@@ -20,26 +20,20 @@
 import { mapState } from 'vuex';
 
 import Slide from './../Slide/Slide';
-import store from './../../util/Store';
+import store from './../../store';
 
 export default {
-  name: 'SignupBirthday',
-  data() {
-    return {
-      signupBirthday: null,
-    };
-  },
   components: {
     Slide,
   },
   computed: {
-    ...mapState('moduleUserInfo', [
+    ...mapState('UserInfo', [
       'birthday',
     ]),
   },
   methods: {
     onBirthdayChange(e) {
-      store.commit('moduleUserInfo/setBirthday', e.target.value);
+      store.commit('UserInfo/setBirthday', e.target.value);
     },
   },
 };

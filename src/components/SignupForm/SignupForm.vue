@@ -4,8 +4,8 @@
   <div id="SignupForm">
     <!--<h1>{{ test['.value'] }}</h1>-->
     <form @submit.prevent="onSubmit">
-      <test-component></test-component>
-      <signup-birthday></signup-birthday>
+      <!--<test-component></test-component>-->
+      <birthday></birthday>
       <!--<signup-gender></signup-gender>
       <signup-height></signup-height>
       <signup-weight></signup-weight>
@@ -21,23 +21,19 @@ import './SignupForm.styl';
 
 import db from './../../util/Firebase';
 
-import Slide from './../Slide/Slide';
-
-import SignupBirthday from './SignupBirthday';
+import Birthday from './Birthday';
 // import SignupGender from './SignupGender';
 // import SignupWeight from './SignupWeight';
 // import SignupHeight from './SignupHeight';
 // import SignupGoals from './SignupGoals';
 // import SignupActivityLevel from './SignupActivityLevel';
 // import SignupCredentials from './SignupCredentials';
-import TestComponent from './../TestComponent';
+// import TestComponent from './../TestComponent';
 
 export default {
   name: 'SignupForm',
   components: {
-    Slide,
-    TestComponent,
-    SignupBirthday,
+    Birthday,
     // SignupGender,
     // SignupHeight,
     // SignupWeight,
@@ -48,10 +44,7 @@ export default {
   methods: {
     /** Send user info form data to Firebase. */
     onSubmit() {
-      // console.log('Submitted');
-
-      db
-        .ref('data')
+      db.ref('data')
         .push(this.Store.userInfo);
     },
   },
