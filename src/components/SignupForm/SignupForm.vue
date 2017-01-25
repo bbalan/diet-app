@@ -6,8 +6,8 @@
     <form @submit.prevent="onSubmit">
       <!--<test-component></test-component>-->
       <birthday></birthday>
-      <!--<signup-gender></signup-gender>
-      <signup-height></signup-height>
+      <gender></gender>
+      <!--<signup-height></signup-height>
       <signup-weight></signup-weight>
       <signup-goals></signup-goals>
       <signup-activity-level></signup-activity-level>
@@ -22,7 +22,7 @@ import './SignupForm.styl';
 import db from './../../util/Firebase';
 
 import Birthday from './Birthday';
-// import SignupGender from './SignupGender';
+import Gender from './Gender';
 // import SignupWeight from './SignupWeight';
 // import SignupHeight from './SignupHeight';
 // import SignupGoals from './SignupGoals';
@@ -34,7 +34,7 @@ export default {
   name: 'SignupForm',
   components: {
     Birthday,
-    // SignupGender,
+    Gender,
     // SignupHeight,
     // SignupWeight,
     // SignupGoals,

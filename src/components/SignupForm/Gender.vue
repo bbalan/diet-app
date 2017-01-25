@@ -5,16 +5,20 @@
 
     <input 
       type="radio" 
-      id="male" 
+      name="gender" 
+      id="gender-male" 
       value="male" 
-      v-model="Store.userInfo.gender">
+      :checked="gender == 'male'"
+      @change="onGenderChange">
     <label for="male">Male</label>
 
     <input 
       type="radio" 
-      id="female" 
+      name="gender" 
+      id="gender-female" 
       value="female" 
-      v-model="Store.userInfo.gender">
+      :checked="gender == 'female'"
+      @change="onGenderChange">
     <label for="female">Female</label>
 
     <button class="btn--next">Next</button>
@@ -22,22 +26,25 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+import store from './../../store';
+
 import Slide from './../Slide/Slide';
-import Store from './../../util/Store';
 
 export default {
   name: 'SignupGender',
-  data() {
-    return {
-      Store,
-    };
-  },
   components: {
     Slide,
   },
+  computed: {
+    ...mapState('userInfo', [
+      'gender',
+    ]),
+  },
+  methods: {
+    onGenderChange(e) {
+      store.commit('userInfo/setGender', e.target.value);
+    },
+  },
 };
 </script>
-
-<style scoped>
-
-</style>

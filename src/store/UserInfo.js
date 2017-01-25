@@ -36,5 +36,9 @@ export default {
 
       setLocalStorage(MODULE_KEY, state);
     },
+    setGender(state, gender) {
+      state.gender = gender;
+      setLocalStorage(MODULE_KEY, state);
+    },
   },
 };

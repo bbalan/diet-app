@@ -4,8 +4,8 @@
     <h1>When is your birthday?</h1>
 
     <input 
-      id="birthday" 
       type="date" 
+      id="birthday" 
       :value="birthday" 
       @change="onBirthdayChange">
 
@@ -18,27 +18,23 @@
 
 <script>
 import { mapState } from 'vuex';
+import store from './../../store';
 
 import Slide from './../Slide/Slide';
-import store from './../../store';
 
 export default {
   components: {
     Slide,
   },
   computed: {
-    ...mapState('UserInfo', [
+    ...mapState('userInfo', [
       'birthday',
     ]),
   },
   methods: {
     onBirthdayChange(e) {
-      store.commit('UserInfo/setBirthday', e.target.value);
+      store.commit('userInfo/setBirthday', e.target.value);
     },
   },
 };
 </script>
-
-<style scoped>
-
-</style>
