@@ -8,8 +8,7 @@
       name="gender" 
       id="gender-male" 
       value="male" 
-      :checked="gender == 'male'"
-      @change="onGenderChange">
+      v-model="gender">
     <label for="male">Male</label>
 
     <input 
@@ -17,8 +16,7 @@
       name="gender" 
       id="gender-female" 
       value="female" 
-      :checked="gender == 'female'"
-      @change="onGenderChange">
+      v-model="gender">
     <label for="female">Female</label>
 
     <button class="btn--next">Next</button>
@@ -26,7 +24,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
 import store from './../../store';
 
 import Slide from './../Slide/Slide';
@@ -37,13 +34,13 @@ export default {
     Slide,
   },
   computed: {
-    ...mapState('userInfo', [
-      'gender',
-    ]),
-  },
-  methods: {
-    onGenderChange(e) {
-      store.commit('userInfo/setGender', e.target.value);
+    gender: {
+      get() {
+        return store.state.userInfo.gender;
+      },
+      set(value) {
+        store.commit('userInfo/setGender', value);
+      },
     },
   },
 };
