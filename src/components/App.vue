@@ -8,17 +8,14 @@
 </template>
 
 <script>
-import Store from './../util/Store';
+// import Store from './../util/Store';
+import store from './../util/Store';
 import Splash from './Splash/Splash';
 import SignupForm from './SignupForm/SignupForm';
 
 export default {
   name: 'app',
-  data() {
-    return {
-      Store,
-    };
-  },
+  store,
   components: {
     Splash,
     SignupForm,
