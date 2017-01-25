@@ -5,8 +5,8 @@
     <!--<h1>{{ test['.value'] }}</h1>-->
     <form @submit.prevent="onSubmit">
       <test-component></test-component>
-      <!--<signup-birthday></signup-birthday>
-      <signup-gender></signup-gender>
+      <signup-birthday></signup-birthday>
+      <!--<signup-gender></signup-gender>
       <signup-height></signup-height>
       <signup-weight></signup-weight>
       <signup-goals></signup-goals>
@@ -21,10 +21,9 @@ import './SignupForm.styl';
 
 import db from './../../util/Firebase';
 
-import Store from './../../util/Store';
 import Slide from './../Slide/Slide';
 
-// import SignupBirthday from './SignupBirthday';
+import SignupBirthday from './SignupBirthday';
 // import SignupGender from './SignupGender';
 // import SignupWeight from './SignupWeight';
 // import SignupHeight from './SignupHeight';
@@ -35,15 +34,10 @@ import TestComponent from './../TestComponent';
 
 export default {
   name: 'SignupForm',
-  data() {
-    return {
-      Store,
-    };
-  },
   components: {
     Slide,
     TestComponent,
-    // SignupBirthday,
+    SignupBirthday,
     // SignupGender,
     // SignupHeight,
     // SignupWeight,
