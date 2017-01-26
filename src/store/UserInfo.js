@@ -75,5 +75,9 @@ export default {
 
       setLocalStorage(MODULE_KEY, state)
     },
+    setGoal(state, goal) {
+      state.goal = goal
+      setLocalStorage(MODULE_KEY, state)
+    },
   },
 }
