@@ -24,9 +24,8 @@
 </template>
 
 <script>
-import store from './../../store';
-
-import Slide from './../Slide/Slide';
+import store from './../../store'
+import Slide from './../Slide'
 
 export default {
   name: 'SignupGender',
@@ -36,12 +35,12 @@ export default {
   computed: {
     gender: {
       get() {
-        return store.state.userInfo.gender;
+        return store.state.userInfo.gender
       },
       set(value) {
-        store.commit('userInfo/setGender', value);
+        store.commit('userInfo/setGender', value)
       },
     },
   },
-};
+}
 </script>

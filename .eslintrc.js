@@ -29,6 +29,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 2 : 0,
     'no-param-reassign': 0,
     'prefer-default-export': 0,
+    'semi': 0,
   },
   env: {
     browser: true,

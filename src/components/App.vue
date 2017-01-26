@@ -9,18 +9,17 @@
 
 <script>
 // import Store from './../util/Store';
-import store from './../store';
-import Splash from './Splash/Splash';
-import SignupForm from './SignupForm/SignupForm';
+import store from './../store'
+import Splash from './Splash/Splash'
+import SignupForm from './SignupForm/SignupForm'
 
 export default {
-  name: 'app',
   store,
   components: {
     Splash,
     SignupForm,
   },
-};
+}
 </script>
 
 <style>

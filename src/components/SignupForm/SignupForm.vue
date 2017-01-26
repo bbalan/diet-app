@@ -17,18 +17,16 @@
 </template>
 
 <script>
-import './SignupForm.styl';
-
-import db from './../../util/Firebase';
-
-import Birthday from './Birthday';
-import Gender from './Gender';
-import Height from './Height';
-// import SignupWeight from './SignupWeight';
-// import SignupGoals from './SignupGoals';
-// import SignupActivityLevel from './SignupActivityLevel';
-// import SignupCredentials from './SignupCredentials';
-// import TestComponent from './../TestComponent';
+import './SignupForm.styl'
+// import db from './../../util/Firebase'
+import Birthday from './Birthday'
+import Gender from './Gender'
+import Height from './Height'
+// import SignupWeight from './SignupWeight'
+// import SignupGoals from './SignupGoals'
+// import SignupActivityLevel from './SignupActivityLevel'
+// import SignupCredentials from './SignupCredentials'
+// import TestComponent from './../TestComponent'
 
 export default {
   name: 'SignupForm',
@@ -44,8 +42,8 @@ export default {
   methods: {
     /** Send user info form data to Firebase. */
     onSubmit() {
-      db.ref('data')
-        .push(this.Store.userInfo);
+      // db.ref('data')
+      //   .push(this.Store.userInfo)
     },
   },
   // firebase: {
@@ -55,5 +53,5 @@ export default {
   //     cancelCallback() {},
   //   },
   // },
-};
+}
 </script>

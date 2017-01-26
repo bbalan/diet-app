@@ -26,22 +26,17 @@
 </template>
 
 <script>
-import Slide from './../Slide/Slide';
-import Store from './../../util/Store';
+import Slide from './../Slide'
+import Store from './../../util/Store'
 
 export default {
-  name: 'ActivityLevel',
   data() {
     return {
       Store,
-    };
+    }
   },
   components: {
     Slide,
   },
-};
+}
 </script>
-
-<style scoped>
-
-</style>

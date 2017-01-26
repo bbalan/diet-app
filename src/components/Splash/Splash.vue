@@ -11,17 +11,17 @@
 </template>
 
 <script>
-import Slide from './../Slide/Slide';
+import Slide from './../Slide'
 
 export default {
   name: 'Splash',
   data() {
-    return {};
+    return {}
   },
   components: {
     slide: Slide,
   },
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

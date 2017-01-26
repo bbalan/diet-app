@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import store from './../../store';
+import store from './../../store'
 
-import Slide from './../Slide/Slide';
+import Slide from './../Slide'
 
 export default {
   name: 'Height',
@@ -52,18 +52,18 @@ export default {
   computed: {
     height: {
       get() {
-        return store.state.userInfo.height;
+        return store.state.userInfo.height
       },
       set(height) {
-        store.commit('userInfo/setHeight', height);
+        store.commit('userInfo/setHeight', height)
       },
     },
     unitHeight: {
       get() {
-        return store.state.appSettings.unitHeight;
+        return store.state.appSettings.unitHeight
       },
       set(unitHeight) {
-        store.commit('appSettings/setUnitHeight', unitHeight);
+        store.commit('appSettings/setUnitHeight', unitHeight)
       },
     },
     /**
@@ -71,32 +71,32 @@ export default {
      * For use in a v-for loop that generates <option> tags.
      * <option> values are expressed in metric units. */
     heightsImperial() {
-      const inchesMin = 48; // shortest person in world: 21"
-      const inchesMax = 84; // tallest person ever: 107"
-      const heightStrings = [];
+      const inchesMin = 48 // shortest person in world: 21"
+      const inchesMax = 84 // tallest person ever: 107"
+      const heightStrings = []
 
       for (let i = inchesMin; i <= inchesMax; i += 1) {
-        const feet = Math.floor(i / 12);
-        const inches = i % 12;
+        const feet = Math.floor(i / 12)
+        const inches = i % 12
 
         heightStrings.push({
           label: `${feet}'${inches}"`, // height as imperial units (inches)
           value: Math.floor(i * 2.54), // height in metric units (cm)
-        });
+        })
       }
 
-      return heightStrings;
+      return heightStrings
     },
     /** Generates a range of heights in cm. */
     heightsMetric() {
-      const heights = [];
+      const heights = []
 
       for (let h = 120; h <= 215; h += 1) {
-        heights.push(h);
+        heights.push(h)
       }
 
-      return heights;
+      return heights
     },
   },
-};
+}
 </script>

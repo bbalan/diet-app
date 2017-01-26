@@ -1,7 +1,9 @@
-import VueRouter from 'vue-router';
+import VueRouter from 'vue-router'
+import { sync } from 'vuex-router-sync'
+import store from './../store'
 
-// import Foo from './../components/Foo/Foo';
-// import Bar from './../components/Foo/Bar';
+// import Foo from './../components/Foo/Foo'
+// import Bar from './../components/Foo/Bar'
 
 // Routes
 const routes = [
@@ -13,12 +15,14 @@ const routes = [
   //   path: '/bar',
   //   component: Bar,
   // },
-];
+]
 
 // Router
 const router = new VueRouter({
   routes,
   mode: 'history',
-});
+})
 
-export default router;
+sync(store, router)
+
+export default router

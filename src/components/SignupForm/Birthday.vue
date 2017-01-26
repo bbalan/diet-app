@@ -17,10 +17,9 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import store from './../../store';
-
-import Slide from './../Slide/Slide';
+import { mapState } from 'vuex'
+import store from './../../store'
+import Slide from './../Slide'
 
 export default {
   components: {
@@ -33,8 +32,8 @@ export default {
   },
   methods: {
     onBirthdayChange(e) {
-      store.commit('userInfo/setBirthday', e.target.value);
+      store.commit('userInfo/setBirthday', e.target.value)
     },
   },
-};
+}
 </script>

@@ -21,20 +21,13 @@
 </template>
 
 <script>
-import Slide from './../Slide/Slide';
-import Store from './../../util/Store';
+import Slide from './../Slide'
 
 export default {
-  name: 'SignupGoals',
-  data() {
-    return {
-      Store,
-    };
-  },
   components: {
     Slide,
   },
-};
+}
 </script>
 
 <style scoped>

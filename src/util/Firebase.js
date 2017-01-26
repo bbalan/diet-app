@@ -1,5 +1,4 @@
-// Initialize Firebase
-import firebase from 'firebase';
+import firebase from 'firebase'
 
 const config = {
   apiKey: 'AIzaSyDczUA_Qm5wt1sPd4-Q-wjFC95h3OkmhRM',
@@ -7,21 +6,17 @@ const config = {
   databaseURL: 'https://diet-app-dev.firebaseio.com',
   storageBucket: 'diet-app-dev.appspot.com',
   messagingSenderId: '95744602886',
-};
+}
 
-const firebaseApp = firebase.initializeApp(config);
+const firebaseApp = firebase.initializeApp(config)
+const db = firebaseApp.database()
 
-// console.log(firebaseApp);
-// console.log(firebaseApp.database());
+export default db
 
 // firebaseApp
 //   .database()
 //   .ref('test')
 //   .once('value')
 //   .then((snapshot) => {
-//     console.log('##########', snapshot.val());
-//   });
-const db = firebaseApp.database();
-
-export default db;
-// export default firebaseApp;
+//     console.log('##########', snapshot.val())
+//   })
