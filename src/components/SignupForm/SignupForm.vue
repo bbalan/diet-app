@@ -10,8 +10,8 @@
       <height></height>
       <weight></weight>
       <goals></goals>
-      <!--<activity-level></activity-level>
-      <credentials></credentials>-->
+      <activity-level></activity-level>
+      <!--<credentials></credentials>-->
     </form>
   </div>
 </template>
@@ -24,9 +24,8 @@ import Gender from './Gender'
 import Height from './Height'
 import Weight from './Weight'
 import Goals from './Goals'
-// import ActivityLevel from './ActivityLevel'
+import ActivityLevel from './ActivityLevel'
 // import Credentials from './Credentials'
-// import TestComponent from './../TestComponent'
 
 export default {
   components: {
@@ -35,7 +34,7 @@ export default {
     Height,
     Weight,
     Goals,
-    // ActivityLevel,
+    ActivityLevel,
     // Credentials,
   },
   // methods: {

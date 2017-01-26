@@ -8,15 +8,15 @@
       max=3
       step=1
       id="activityLevel"
-      v-model.number="Store.userInfo.activityLevel">
+      v-model.number="activityLevel">
     <label for="activityLevel">
-      <span v-if="Store.userInfo.activityLevel == 1">
+      <span v-if="activityLevel == 1">
         Sedentary
       </span>
-      <span v-if="Store.userInfo.activityLevel == 2">
+      <span v-if="activityLevel == 2">
         Light activity
       </span>
-      <span v-if="Store.userInfo.activityLevel == 3">
+      <span v-if="activityLevel == 3">
         Heavy activity
       </span>
     </label>
@@ -26,17 +26,22 @@
 </template>
 
 <script>
+import store from './../../store'
 import Slide from './../Slide'
-import Store from './../../util/Store'
 
 export default {
-  data() {
-    return {
-      Store,
-    }
-  },
   components: {
     Slide,
+  },
+  computed: {
+    activityLevel: {
+      get() {
+        return store.state.userInfo.activityLevel
+      },
+      set(activityLevel) {
+        store.commit('userInfo/setActivityLevel', activityLevel)
+      },
+    },
   },
 }
 </script>

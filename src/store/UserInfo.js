@@ -79,5 +79,9 @@ export default {
       state.goal = goal
       setLocalStorage(MODULE_KEY, state)
     },
+    setActivityLevel(state, activityLevel) {
+      state.activityLevel = activityLevel
+      setLocalStorage(MODULE_KEY, state)
+    },
   },
 }
