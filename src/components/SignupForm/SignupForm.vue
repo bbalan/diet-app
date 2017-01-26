@@ -2,16 +2,16 @@
 
 <template>
   <div id="SignupForm">
-    <!--<h1>{{ test['.value'] }}</h1>-->
+    <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
     <form @submit.prevent="onSubmit">
       <!--<test-component></test-component>-->
       <birthday></birthday>
       <gender></gender>
-      <!--<signup-height></signup-height>
-      <signup-weight></signup-weight>
-      <signup-goals></signup-goals>
-      <signup-activity-level></signup-activity-level>
-      <signup-credentials></signup-credentials>-->
+      <height></height>
+      <!--<weight></weight>
+      <goals></goals>
+      <activity-level></activity-level>
+      <credentials></credentials>-->
     </form>
   </div>
 </template>
@@ -23,8 +23,8 @@ import db from './../../util/Firebase';
 
 import Birthday from './Birthday';
 import Gender from './Gender';
+import Height from './Height';
 // import SignupWeight from './SignupWeight';
-// import SignupHeight from './SignupHeight';
 // import SignupGoals from './SignupGoals';
 // import SignupActivityLevel from './SignupActivityLevel';
 // import SignupCredentials from './SignupCredentials';
@@ -35,7 +35,7 @@ export default {
   components: {
     Birthday,
     Gender,
-    // SignupHeight,
+    Height,
     // SignupWeight,
     // SignupGoals,
     // SignupActivityLevel,

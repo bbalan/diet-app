@@ -1,4 +1,4 @@
-import setLocalStorage from './Utils';
+import { setLocalStorage } from './Utils';
 
 const MODULE_KEY = 'userInfo';
 
@@ -38,6 +38,10 @@ export default {
     },
     setGender(state, gender) {
       state.gender = gender;
+      setLocalStorage(MODULE_KEY, state);
+    },
+    setHeight(state, height) {
+      state.height = height;
       setLocalStorage(MODULE_KEY, state);
     },
   },

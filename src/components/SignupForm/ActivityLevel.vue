@@ -30,7 +30,7 @@ import Slide from './../Slide/Slide';
 import Store from './../../util/Store';
 
 export default {
-  name: 'SignupActivityLevel',
+  name: 'ActivityLevel',
   data() {
     return {
       Store,

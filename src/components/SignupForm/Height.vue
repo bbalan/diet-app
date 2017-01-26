@@ -2,10 +2,12 @@
   <slide class="slide--height">
     <h1>How tall are you?</h1>
 
+    {{height}}
+
     <select 
       v-if="unitHeight == 'metric'"
       id="height" 
-      v-model="Store.userInfo.height">
+      v-model="height">
 
       <option 
         v-for="height in heightsMetric" 
@@ -18,7 +20,7 @@
     <select 
       v-else
       id="height" 
-      v-model="Store.userInfo.height">
+      v-model="height">
 
       <option 
         v-for="height in heightsImperial" 
@@ -38,33 +40,32 @@
 </template>
 
 <script>
+import store from './../../store';
+
 import Slide from './../Slide/Slide';
-import Store from './../../util/Store';
 
 export default {
-  name: 'SignupHeight',
-  data() {
-    return {
-      Store,
-      unitHeight: 'imperial',
-    };
-  },
+  name: 'Height',
   components: {
     Slide,
   },
-  watch: {
-    /** Round metric height unit to nearest imperial unit. */
-    unitHeight(unit) {
-      // Switched to imperial units, round value.
-      if (unit === 'imperial') {
-        const height = this.Store.userInfo.height;
-        const roundedHeight = Math.floor(Math.floor(height / 2.54) * 2.54);
-        this.Store.userInfo.height = roundedHeight;
-        this.Store.userSettings.unitHeight = unit;
-      }
-    },
-  },
   computed: {
+    height: {
+      get() {
+        return store.state.userInfo.height;
+      },
+      set(height) {
+        store.commit('userInfo/setHeight', height);
+      },
+    },
+    unitHeight: {
+      get() {
+        return store.state.appSettings.unitHeight;
+      },
+      set(unitHeight) {
+        store.commit('appSettings/setUnitHeight', unitHeight);
+      },
+    },
     /**
      * Generates a reasonable range of body heights, displayed in imperial units (e.g. 5'9").
      * For use in a v-for loop that generates <option> tags.
@@ -99,7 +100,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-
-</style>

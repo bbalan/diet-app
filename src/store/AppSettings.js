@@ -1,4 +1,5 @@
-import setLocalStorage from './Utils';
+import store from '.';
+import { setLocalStorage, roundTo } from './Utils';
 
 const MODULE_KEY = 'appSettings';
 
@@ -21,8 +22,17 @@ export default {
       state.unitWeight = val;
       setLocalStorage(MODULE_KEY, state);
     },
-    setUnitHeight(state, val) {
-      state.unitHeight = val;
+    setUnitHeight(state, unit) {
+      state.unitHeight = unit;
+
+      if (unit === 'imperial') {
+        // Round metric height unit to nearest imperial unit
+        const height = store.state.userInfo.height;
+        const roundedHeight = Math.floor(roundTo(height, 2.54));
+
+        store.commit('userInfo/setHeight', roundedHeight);
+      }
+
       setLocalStorage(MODULE_KEY, state);
     },
     setNumMeals(state, val) {
