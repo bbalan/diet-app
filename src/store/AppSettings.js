@@ -1,5 +1,5 @@
 import store from '.';
-import { setLocalStorage, roundTo } from './Utils';
+import { setLocalStorage, roundTo } from './utils';
 
 const MODULE_KEY = 'appSettings';
 
@@ -18,15 +18,15 @@ export default {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    setUnitWeight(state, val) {
-      state.unitWeight = val;
+    setUnitWeight(state, unitWeight) {
+      state.unitWeight = unitWeight;
       setLocalStorage(MODULE_KEY, state);
     },
-    setUnitHeight(state, unit) {
-      state.unitHeight = unit;
+    setUnitHeight(state, unitHeight) {
+      state.unitHeight = unitHeight;
 
-      if (unit === 'imperial') {
-        // Round metric height unit to nearest imperial unit
+      // Round metric height unit to nearest imperial unit
+      if (unitHeight === 'imperial') {
         const height = store.state.userInfo.height;
         const roundedHeight = Math.floor(roundTo(height, 2.54));
 
@@ -35,8 +35,8 @@ export default {
 
       setLocalStorage(MODULE_KEY, state);
     },
-    setNumMeals(state, val) {
-      state.numMeals = val;
+    setNumMeals(state, numMeals) {
+      state.numMeals = numMeals;
       setLocalStorage(MODULE_KEY, state);
     },
   },

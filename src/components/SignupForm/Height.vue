@@ -2,7 +2,7 @@
   <slide class="slide--height">
     <h1>How tall are you?</h1>
 
-    {{height}}
+    {{height}} cm
 
     <select 
       v-if="unitHeight == 'metric'"

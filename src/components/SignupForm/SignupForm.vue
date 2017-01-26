@@ -8,8 +8,8 @@
       <birthday></birthday>
       <gender></gender>
       <height></height>
-      <!--<weight></weight>
-      <goals></goals>
+      <weight></weight>
+      <!--<goals></goals>
       <activity-level></activity-level>
       <credentials></credentials>-->
     </form>
@@ -22,30 +22,29 @@ import './SignupForm.styl'
 import Birthday from './Birthday'
 import Gender from './Gender'
 import Height from './Height'
-// import SignupWeight from './SignupWeight'
-// import SignupGoals from './SignupGoals'
-// import SignupActivityLevel from './SignupActivityLevel'
-// import SignupCredentials from './SignupCredentials'
+import Weight from './Weight'
+// import Goals from './Goals'
+// import ActivityLevel from './ActivityLevel'
+// import Credentials from './Credentials'
 // import TestComponent from './../TestComponent'
 
 export default {
-  name: 'SignupForm',
   components: {
     Birthday,
     Gender,
     Height,
-    // SignupWeight,
-    // SignupGoals,
-    // SignupActivityLevel,
-    // SignupCredentials,
+    Weight,
+    // Goals,
+    // ActivityLevel,
+    // Credentials,
   },
-  methods: {
-    /** Send user info form data to Firebase. */
-    onSubmit() {
-      // db.ref('data')
-      //   .push(this.Store.userInfo)
-    },
-  },
+  // methods: {
+  //   /** Send user info form data to Firebase. */
+  //   onSubmit() {
+  //     db.ref('data')
+  //       .push(this.Store.userInfo)
+  //   },
+  // },
   // firebase: {
   //   test: {
   //     source: db.ref('test'),

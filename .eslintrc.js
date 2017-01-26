@@ -30,6 +30,7 @@ module.exports = {
     'no-param-reassign': 0,
     'prefer-default-export': 0,
     'semi': 0,
+    'no-extra-semi': 2,
   },
   env: {
     browser: true,

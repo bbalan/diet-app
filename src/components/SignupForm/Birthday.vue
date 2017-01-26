@@ -6,8 +6,7 @@
     <input 
       type="date" 
       id="birthday" 
-      :value="birthday" 
-      @change="onBirthdayChange">
+      v-model="birthday">
 
     <button class="btn--next">
       Next
@@ -17,7 +16,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 import store from './../../store'
 import Slide from './../Slide'
 
@@ -26,13 +24,13 @@ export default {
     Slide,
   },
   computed: {
-    ...mapState('userInfo', [
-      'birthday',
-    ]),
-  },
-  methods: {
-    onBirthdayChange(e) {
-      store.commit('userInfo/setBirthday', e.target.value)
+    birthday: {
+      get() {
+        return store.state.userInfo.birthday
+      },
+      set(birthday) {
+        store.commit('userInfo/setBirthday', birthday)
+      },
     },
   },
 }
