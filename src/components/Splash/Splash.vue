@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Slide from './../Slide'
+import Slide from '../Slide'
 
 export default {
   name: 'Splash',

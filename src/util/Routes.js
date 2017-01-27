@@ -1,9 +1,9 @@
 import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
-import store from './../store'
+import store from '../store'
 
-// import Foo from './../components/Foo/Foo'
-// import Bar from './../components/Foo/Bar'
+// import Foo from '../components/Foo/Foo'
+// import Bar from '../components/Foo/Bar'
 
 // Routes
 const routes = [

@@ -2,19 +2,32 @@
   <slide>
     <h1>What are your goals?</h1>
 
-    <input 
-      type="radio" 
-      id="burn-fat" 
-      value="burn-fat" 
-      v-model="goal">
-    <label for="burn-fat">Burn fat</label>
+    <p>
+      <input 
+        type="radio" 
+        id="burn-fat" 
+        value="burn-fat" 
+        v-model="goal">
+      <label for="burn-fat">Burn fat</label>
+    </p>
 
-    <input 
-      type="radio" 
-      id="build-muscle" 
-      value="build-muscle" 
-      v-model="goal">
-    <label for="build-muscle">Build muscle</label>
+    <p>
+      <input 
+        type="radio" 
+        id="build-muscle" 
+        value="build-muscle" 
+        v-model="goal">
+      <label for="build-muscle">Build muscle</label>
+    </p>
+
+    <p>
+      <input 
+        type="radio" 
+        id="maintain-weight" 
+        value="maintain-weight" 
+        v-model="goal">
+      <label for="maintain-weight">Maintain weight</label>
+    </p>
 
     <button class="btn--next">Next</button>
   </slide>
@@ -22,7 +35,7 @@
 
 <script>
 import store from '../../store'
-import Slide from './../Slide'
+import Slide from '../Slide'
 
 export default {
   components: {
@@ -41,6 +54,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
 
 </style>

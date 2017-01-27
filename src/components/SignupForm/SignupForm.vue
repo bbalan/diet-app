@@ -18,7 +18,7 @@
 
 <script>
 import './SignupForm.styl'
-// import db from './../../util/Firebase'
+// import db from '../../util/Firebase'
 import Birthday from './Birthday'
 import Gender from './Gender'
 import Height from './Height'

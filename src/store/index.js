@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import userInfo from './UserInfo';
-import appSettings from './AppSettings';
+import userInfo from './userInfo';
+import appSettings from './appSettings';
 
 Vue.use(Vuex);
 

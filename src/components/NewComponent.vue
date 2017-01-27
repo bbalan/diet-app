@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Store from './../util/Store';
+import Store from '../util/Store';
 
 export default {
   name: '',

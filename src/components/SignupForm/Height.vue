@@ -40,9 +40,9 @@
 </template>
 
 <script>
-import store from './../../store'
+import store from '../../store'
 
-import Slide from './../Slide'
+import Slide from '../Slide'
 
 export default {
   name: 'Height',
