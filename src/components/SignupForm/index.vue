@@ -12,13 +12,19 @@
       <goals></goals>
       <activity-level></activity-level>
       <!--<credentials></credentials>-->
+
+      <button type="submit">Submit</button>
     </form>
   </div>
 </template>
 
 <script>
 import './SignupForm.styl'
+
+import store from '../../store'
+import router from '../../router'
 // import db from '../../util/Firebase'
+
 import Birthday from './Birthday'
 import Gender from './Gender'
 import Height from './Height'
@@ -28,6 +34,11 @@ import ActivityLevel from './ActivityLevel'
 // import Credentials from './Credentials'
 
 export default {
+  beforeCreate() {
+    if (store.state.userInfo.signupComplete) {
+      router.replace('sampleData')
+    }
+  },
   components: {
     Birthday,
     Gender,
@@ -37,19 +48,20 @@ export default {
     ActivityLevel,
     // Credentials,
   },
-  // methods: {
-  //   /** Send user info form data to Firebase. */
-  //   onSubmit() {
-  //     db.ref('data')
-  //       .push(this.Store.userInfo)
-  //   },
-  // },
+  methods: {
+    /** Send user info form data to Firebase. */
+    onSubmit() {
+      store.commit('userInfo/signupComplete');
+      router.push('sampleData')
+      // db.ref('data')
+      //   .push(this.Store.userInfo)
+    },
+  },
   // firebase: {
   //   test: {
   //     source: db.ref('test'),
   //     asObject: true,
   //     cancelCallback() {},
   //   },
-  // },
 }
 </script>

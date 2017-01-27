@@ -1,0 +1,67 @@
+log {
+  days: [ 
+    day_ids 
+  ]
+}
+
+|
+|
+V
+
+days[day_id]
+
+days {
+  day_id: {
+    weight: number
+    calorieTDEE: number
+    calorieDeficit: number
+    calorieTarget: number
+
+    calorieTotal: number
+
+    ...other saved data from this day
+    nutrition targets
+    etc
+
+    entry: [ 
+      entry_ids 
+    ]
+  }
+}
+
+|
+|
+V
+
+entry[entry_id]
+
+entries {
+  entry_id: {
+    type: string (food/exercise/water/sleep/etc)
+    food: [
+      food_ids
+    ]
+  }
+}
+
+|
+|
+V
+
+foods {
+  food_id: {
+    type: string (ingredient/recipe)
+    source: string (user/usda/etc)
+    ...values from usda api
+    ingredients: {
+
+    }
+  }
+}
+
+|
+|
+V
+
+ingredients
+???

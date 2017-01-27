@@ -2,8 +2,14 @@
   <div id="Splash">
     <slide>
       <h1 id="title">Zombocom</h1>
-      <p>You can do anything here. The only limit is yourself.</p>
-      <button id="next">Get Started</button>
+      
+      <p>
+        You can do anything here. The only limit is yourself.
+      </p>
+
+      <router-link to="/signup" class="splash__signup">
+        Get Started
+      </router-link>
     </slide>
 
     <router-view></router-view>

@@ -1,25 +1,13 @@
 <template>
   <div id="app">
-    <splash></splash>
-    <signup-form></signup-form>
-    <!--<router-link to="/foo">Go to Foo</router-link>-->
-    <!--<router-link to="/bar">Go to Bar</router-link>-->
+    <router-link to="/signup">Sign Up</router-link>
+    <router-link to="/sampleData">Sample Data</router-link>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import Store from '../util/Store';
-import store from '../store'
-import Splash from './Splash/Splash'
-import SignupForm from './SignupForm/SignupForm'
-
-export default {
-  store,
-  components: {
-    Splash,
-    SignupForm,
-  },
-}
+export default {}
 </script>
 
 <style>
@@ -29,6 +17,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

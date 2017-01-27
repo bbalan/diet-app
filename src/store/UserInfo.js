@@ -1,5 +1,5 @@
 import store from '.'
-import { setLocalStorage } from './utils'
+import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'userInfo'
 
@@ -15,6 +15,7 @@ const stateDefault = {
   goal: null,
   goalSpeed: null,
   activityLevel: 1,
+  signupComplete: false,
 }
 
 const stateLocalStorage = JSON.parse(
@@ -83,5 +84,9 @@ export default {
       state.activityLevel = activityLevel
       setLocalStorage(MODULE_KEY, state)
     },
+    signupComplete(state) {
+      state.signupComplete = true
+      setLocalStorage(MODULE_KEY, state)
+    }
   },
 }

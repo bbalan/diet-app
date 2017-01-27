@@ -5,17 +5,22 @@ const MODULE_KEY = 'log'
 
 // Personal info about the user
 const stateDefault = {
-  days: {},
+  days: [],
 }
 
 const stateLocalStorage = JSON.parse(
   localStorage.getItem(MODULE_KEY)
 )
 
-export default {
+const dailyLog = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    // ...
+    addDay(state, day) {
+      state.days.push(day)
+      setLocalStorage(MODULE_KEY, state)
+    }
   },
 }
+
+export default dailyLog

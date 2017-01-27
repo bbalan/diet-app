@@ -1,6 +1,6 @@
 <template>
-  <div id="">
-    <slot></slot>
+  <div id="SampleData">
+    <h1>Sample Data Input</h1>
   </div>
 </template>
 
@@ -9,11 +9,6 @@ import store from '../../store';
 
 export default {
   name: '',
-  data() {
-    return {
-      //...
-    };
-  },
   components: {
     //...
   },
