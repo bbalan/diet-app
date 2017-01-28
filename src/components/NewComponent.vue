@@ -1,14 +1,13 @@
 <template>
   <div id="">
-    <slot></slot>
+    
   </div>
 </template>
 
 <script>
-import store from '../../store';
+import store from '../../store'
 
 export default {
-  name: '',
   data() {
     return {
       //...
@@ -17,7 +16,7 @@ export default {
   components: {
     //...
   },
-};
+}
 </script>
 
 <style scoped>
