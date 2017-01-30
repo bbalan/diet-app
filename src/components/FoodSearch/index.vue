@@ -1,13 +1,13 @@
 <template>
   <div id="FoodSearch">
-    <form>
+    <form @submit.prevent>
       <label for="searchText">Search USDA foods:</label>
-      <input type="text" v-model="searchText" name="searchText">
+      <input type="text" name="searchText" v-model="searchText">
 
-      <food-item :data="selectedItem"></food-item>
+      <food-item :data="foodData"></food-item>
 
       <search-result-list 
-        :list="items" 
+        :list="searchResults" 
         @eventSelectItem="onSelectItem">
       </search-result-list>
       
@@ -16,19 +16,12 @@
 </template>
 
 <script>
+import { USDAfoodReport as foodReport, USDAsearch as search } from '../../api' 
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
 import SearchResultList from './SearchResultList'
 import FoodItem from '../FoodItem'
-
-function searchAPI(query, format = 'json', sort = 'n', max = 100, offset = 0, ds = 'Standard Reference') {
-  return `http://api.nal.usda.gov/ndb/search/?format=${format}&sort=${sort}&max=${max}&offset=${offset}&api_key=sjikhTw3L6EptYE4CmjJs8QUKHPZNTEmQHCgmUUe&q=${query}&ds=${ds}`
-}
-
-function foodReportAPI(ndbno, type = 'b', format = 'json') {
-  return `http://api.nal.usda.gov/ndb/reports/?ndbno=${ndbno}&type=${type}&format=${format}&api_key=sjikhTw3L6EptYE4CmjJs8QUKHPZNTEmQHCgmUUe`
-}
 
 export default {
   components: {
@@ -37,65 +30,74 @@ export default {
   },
   data() {
     return {
-      searchText: null,
-      items: null,
-      selectedItem: null,
-    };
+      searchText: "",
+      searchResults: null,
+      foodData: null,
+    }
   },
   watch: {
+    // User typed something into the search field.
     searchText(text) {
       this.getFoods(text, this)
     },
   },
   methods: {
+    // User clicked a search result item.
     onSelectItem(ndbno) {
-      fetch(foodReportAPI(ndbno))
+      fetch(foodReport(ndbno))
         .then((response) => {
           return response.json()
         }).then((json) => {
-          this.selectedItem = json.report.food
+          this.foodData = json.report.food
         })
     },
-    getFoods: debounce((text, context) => {
-      // TODO: run analytics to determine how many searches done before an option is selected
-      fetch(searchAPI(text))
-        .then((response) => {
-          return response.json()
-        }).then((json) => {
-          context.ajaxResult = json
-          const list = json.list
+    // Hit the search API for a list of foods that match the search field
+    // we pass context as "that" because debounce() breaks "this" keyword
+    getFoods: debounce((text, that) => {
+      if(text == '') {
+        that.searchResults = ''
+      } else {
+        fetch(search(text))
+          .then((response) => {
+            return response.json()
+          }).then((json) => {
+            that.ajaxResult = json
+            const list = json.list
 
-          if (list !== undefined) {
-            context.items = list.item
-          } else {
-            context.items = null
-          }
-        })
+            if (list !== undefined) {
+              that.searchResults = list.item
+            } else {
+              that.searchResults = null
+            }
+          })
 
-      // TODO: error handling
+        // TODO: run analytics to determine how many searches done before an option is selected
 
-      // function checkStatus(response) {
-      //   if (response.status >= 200 && response.status < 300) {
-      //     return response
-      //   } else {
-      //     var error = new Error(response.statusText)
-      //     error.response = response
-      //     throw error
-      //   }
-      // }
+        // TODO: error handling
 
-      // function parseJSON(response) {
-      //   return response.json()
-      // }
+        // function checkStatus(response) {
+        //   if (response.status >= 200 && response.status < 300) {
+        //     return response
+        //   } else {
+        //     var error = new Error(response.statusText)
+        //     error.response = response
+        //     throw error
+        //   }
+        // }
 
-      // fetch('/users')
-      //   .then(checkStatus)
-      //   .then(parseJSON)
-      //   .then(function(data) {
-      //     console.log('request succeeded with JSON response', data)
-      //   }).catch(function(error) {
-      //     console.log('request failed', error)
-      //   })
+        // function parseJSON(response) {
+        //   return response.json()
+        // }
+
+        // fetch('/users')
+        //   .then(checkStatus)
+        //   .then(parseJSON)
+        //   .then(function(data) {
+        //     console.log('request succeeded with JSON response', data)
+        //   }).catch(function(error) {
+        //     console.log('request failed', error)
+        //   })
+      }
         
     }, 250)
   },
