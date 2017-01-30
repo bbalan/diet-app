@@ -2,11 +2,15 @@
   <div id="FoodSearch">
     <form @submit.prevent>
       <label for="searchText">Search USDA foods:</label>
-      <input type="text" name="searchText" v-model="searchText">
+      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
 
-      <food-item :data="foodData"></food-item>
+      <food-item 
+        :foodData="foodData">
+      </food-item>
 
       <search-result-list 
+        v-if="isSearchBarFocused"
+        :searchText="searchText"
         :list="searchResults" 
         @eventSelectItem="onSelectItem">
       </search-result-list>
@@ -31,6 +35,7 @@ export default {
   data() {
     return {
       searchText: "",
+      isSearchBarFocused: false,
       searchResults: null,
       foodData: null,
     }
@@ -42,9 +47,15 @@ export default {
     },
   },
   methods: {
+    onSearchFocus() {
+      this.isSearchBarFocused = true
+    },
+    onSearchBlur() {
+      this.isSearchBarFocused = false
+    },
     // User clicked a search result item.
-    onSelectItem(ndbno) {
-      fetch(foodReport(ndbno))
+    onSelectItem(item) {
+      fetch(foodReport(item.ndbno))
         .then((response) => {
           return response.json()
         }).then((json) => {
