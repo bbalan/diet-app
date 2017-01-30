@@ -54,14 +54,29 @@ export default {
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
     getFoods: debounce((text, that) => {
-      if(text == '') {
+      // TODO: run analytics to determine how many searches done before an option is selected
+
+      if(text == '' || text === undefined) {
         that.searchResults = ''
       } else {
+        function checkStatus(response) {
+          if (response.status >= 200 && response.status < 300) {
+            return response
+          } else {
+            var error = new Error(response.statusText)
+            error.response = response
+            throw error
+          }
+        }
+
+        function parseJSON(response) {
+          return response.json()
+        }
+
         fetch(search(text))
-          .then((response) => {
-            return response.json()
-          }).then((json) => {
-            that.ajaxResult = json
+          .then(checkStatus)
+          .then(parseJSON)
+          .then((json) => {
             const list = json.list
 
             if (list !== undefined) {
@@ -69,34 +84,10 @@ export default {
             } else {
               that.searchResults = null
             }
+          }).catch(function(error) {
+            that.searchResults = null
+            console.error('request failed', error)
           })
-
-        // TODO: run analytics to determine how many searches done before an option is selected
-
-        // TODO: error handling
-
-        // function checkStatus(response) {
-        //   if (response.status >= 200 && response.status < 300) {
-        //     return response
-        //   } else {
-        //     var error = new Error(response.statusText)
-        //     error.response = response
-        //     throw error
-        //   }
-        // }
-
-        // function parseJSON(response) {
-        //   return response.json()
-        // }
-
-        // fetch('/users')
-        //   .then(checkStatus)
-        //   .then(parseJSON)
-        //   .then(function(data) {
-        //     console.log('request succeeded with JSON response', data)
-        //   }).catch(function(error) {
-        //     console.log('request failed', error)
-        //   })
       }
         
     }, 250)
