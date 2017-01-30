@@ -14,50 +14,42 @@
 <script>
 import SearchResult from './SearchResult'
 
-// TODO: order list by something more sensible
 export default {
   props: ['list', 'searchText'],
-  data() {
-    return {
-      orderedList: null,
-    }
-  },
   components: { SearchResult },
   methods: {
     selectItem(foodData) {
       this.$emit('eventSelectItem', foodData)
     },
   },
-  watch: {
+  computed: {
     /* Sort list alphabetically, except items with searchText at
     the beginning of their names float to the top */
-    list(data) {
-      if (data === null) return
+    orderedList() {
+      if (this.list === null) return null
 
-      this.orderedList = data.slice().sort((a, b) => {
-        const text = this.searchText.toLowerCase().split(' ')[0]
+      const text = this.searchText.toLowerCase().split(' ')[0]
+      const startsWithText = []
+      const doesntStartWithText = []
+
+      this.list.forEach((item) => {
+        if (item.name.toLowerCase().indexOf(text) === 0) {
+          startsWithText.push(item)
+        } else {
+          doesntStartWithText.push(item)
+        }
+      })
+
+      doesntStartWithText.sort((a, b) => {
         const aName = a.name.toLowerCase()
         const bName = b.name.toLowerCase()
-        const aPos = aName.indexOf(text)
-        const bPos = bName.indexOf(text)
 
-        let returnVal = 0
-
-        if (aPos === 0 || bPos === 0) {
-          // First, sort by position of search text
-          if (aPos > bPos) {
-            returnVal = 1
-          } else if (aPos < bPos) {
-            returnVal = -1
-          }
-        } else if (aName > bName) {
-          returnVal = 1
-        } else if (aName < bName) {
-          returnVal = -1
-        }
-
-        return returnVal
+        if (aName > bName) return 1
+        if (aName < bName) return -1
+        return 0
       })
+
+      return startsWithText.concat(doesntStartWithText)
     },
   },
 }
