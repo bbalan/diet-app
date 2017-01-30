@@ -6,13 +6,8 @@
 </template>
 
 <script>
-import store from '../../store'
-
 export default {
-  props: [
-    'name', 
-    'ndbno',
-  ],
+  props: ['name', 'ndbno'],
 }
 </script>
 

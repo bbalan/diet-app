@@ -87,6 +87,6 @@ export default {
     signupComplete(state) {
       state.signupComplete = true
       setLocalStorage(MODULE_KEY, state)
-    }
+    },
   },
 }

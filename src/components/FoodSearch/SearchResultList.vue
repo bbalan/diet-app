@@ -16,7 +16,7 @@ import SearchResult from './SearchResult'
 
 // TODO: order list by something more sensible
 export default {
-  props: [ 'list', 'searchText' ],
+  props: ['list', 'searchText'],
   data() {
     return {
       orderedList: null,
@@ -29,9 +29,10 @@ export default {
     },
   },
   watch: {
-    // Sort list alphabetically, except items with searchText at the beginning of their names float to the top
+    /* Sort list alphabetically, except items with searchText at
+    the beginning of their names float to the top */
     list(data) {
-      if(data === null) return
+      if (data === null) return
 
       this.orderedList = data.slice().sort((a, b) => {
         const text = this.searchText.toLowerCase().split(' ')[0]
@@ -39,23 +40,20 @@ export default {
         const bName = b.name.toLowerCase()
         const aPos = aName.indexOf(text)
         const bPos = bName.indexOf(text)
-        
+
         let returnVal = 0
 
-        if(aPos == 0 || bPos == 0) {
+        if (aPos === 0 || bPos === 0) {
           // First, sort by position of search text
           if (aPos > bPos) {
             returnVal = 1
           } else if (aPos < bPos) {
             returnVal = -1
-          } 
-        } else {
-          // Then, sort alphabetically
-          if (aName > bName) {
-            returnVal = 1
-          } else if (aName < bName) {
-            returnVal = -1
-          } 
+          }
+        } else if (aName > bName) {
+          returnVal = 1
+        } else if (aName < bName) {
+          returnVal = -1
         }
 
         return returnVal

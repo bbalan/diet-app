@@ -6,13 +6,10 @@
 </template>
 
 <script>
-import store from '../../store'
 import FoodSearch from '../FoodSearch'
 
 export default {
-  components: {
-    FoodSearch,
-  },
+  components: { FoodSearch },
 }
 </script>
 

@@ -21,10 +21,10 @@
 </template>
 
 <script>
-import { USDAfoodReport as foodReport, USDAsearch as search } from '../../api' 
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
+import { USDAfoodReport as foodReport, USDAsearch as search } from '../../api'
 import SearchResultList from './SearchResultList'
 import FoodItem from '../FoodItem'
 
@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      searchText: "",
+      searchText: '',
       isSearchBarFocused: false,
       searchResults: null,
       foodData: null,
@@ -61,9 +61,8 @@ export default {
     // User clicked a search result item.
     onSelectItem(item) {
       fetch(foodReport(item.ndbno))
-        .then((response) => {
-          return response.json()
-        }).then((json) => {
+        .then(response => response.json())
+        .then((json) => {
           this.foodData = json.report.food
         })
     },
@@ -72,23 +71,23 @@ export default {
     getFoods: debounce((text, that) => {
       // TODO: run analytics to determine how many searches done before an option is selected
 
-      if(text == '' || text === undefined) {
+      function checkStatus(response) {
+        if (response.status >= 200 && response.status < 300) {
+          return response
+        }
+
+        const error = new Error(response.statusText)
+        error.response = response
+        throw error
+      }
+
+      function parseJSON(response) {
+        return response.json()
+      }
+
+      if (text === '' || text === undefined) {
         that.searchResults = ''
       } else {
-        function checkStatus(response) {
-          if (response.status >= 200 && response.status < 300) {
-            return response
-          } else {
-            var error = new Error(response.statusText)
-            error.response = response
-            throw error
-          }
-        }
-
-        function parseJSON(response) {
-          return response.json()
-        }
-
         fetch(search(text))
           .then(checkStatus)
           .then(parseJSON)
@@ -100,13 +99,13 @@ export default {
             } else {
               that.searchResults = null
             }
-          }).catch(function(error) {
+          })
+          .catch((error) => {
             that.searchResults = null
             console.error('request failed', error)
           })
       }
-        
-    }, 250)
+    }, 250),
   },
 }
 </script>

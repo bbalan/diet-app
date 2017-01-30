@@ -39,7 +39,7 @@ export default {
     },
   },
   watch: {
-    foodData(val) {
+    foodData() {
       this.visible = true
     },
   },

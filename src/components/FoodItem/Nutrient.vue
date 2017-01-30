@@ -15,7 +15,7 @@
 <script>
 
 export default {
-  props: [ 'nutrient', 'quantity' ],
+  props: ['nutrient', 'quantity'],
 }
 </script>
 

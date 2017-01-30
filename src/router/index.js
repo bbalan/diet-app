@@ -12,9 +12,9 @@ import SampleData from '../components/SampleData'
 
 // Routes
 const routes = [
-  { path: '/', component: Splash, },
-  { path: '/signup', component: SignupForm, },
-  { path: '/sampleData', component: SampleData, },
+  { path: '/', component: Splash },
+  { path: '/signup', component: SignupForm },
+  { path: '/sampleData', component: SampleData },
 ]
 
 // Router
