@@ -2,14 +2,15 @@
   <div id="FoodSearch">
     <form @submit.prevent>
       <label for="searchText">Search USDA foods:</label>
-      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
+      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus"
+      @blur="onSearchBlur">
 
       <food-item 
         :foodData="foodData">
       </food-item>
 
+      <!--v-if="isSearchBarFocused && searchResults !== null"-->
       <search-result-list 
-        v-if="isSearchBarFocused"
         :searchText="searchText"
         :list="searchResults" 
         @eventSelectItem="onSelectItem">
@@ -43,10 +44,14 @@ export default {
   watch: {
     // User typed something into the search field.
     searchText(text) {
-      this.getFoods(text, this)
+      const sanitizedText = this.sanitizeSearch(text)
+      this.getFoods(sanitizedText, this)
     },
   },
   methods: {
+    sanitizeSearch(text) {
+      return encodeURIComponent(text)
+    },
     onSearchFocus() {
       this.isSearchBarFocused = true
     },

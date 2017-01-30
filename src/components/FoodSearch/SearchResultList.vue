@@ -34,7 +34,7 @@ export default {
       if(data === null) return
 
       this.orderedList = data.slice().sort((a, b) => {
-        const text = this.searchText.toLowerCase()
+        const text = this.searchText.toLowerCase().split(' ')[0]
         const aName = a.name.toLowerCase()
         const bName = b.name.toLowerCase()
         const aPos = aName.indexOf(text)
