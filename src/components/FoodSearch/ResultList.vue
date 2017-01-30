@@ -1,5 +1,5 @@
 <template>
-  <div class="searchResultList" v-if="list !== null">
+  <div class="resultList" v-if="list !== null">
 
     <div v-if="list.length > 0">
       <h2>{{list.length}} results</h2>

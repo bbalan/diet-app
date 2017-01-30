@@ -5,12 +5,12 @@
       <label for="searchText">Search USDA foods:</label>
       <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
 
-      <search-result-list 
+      <result-list 
         v-if="isSearchBarFocused"
         :searchText="searchText"
         :list="searchResults" 
         @eventSelectItem="onSelectItem">
-      </search-result-list>
+      </result-list>
 
       <food-item 
         v-if="!isSearchBarFocused"
@@ -26,12 +26,12 @@
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
 import { USDAfoodReport as foodReport, USDAsearch as search } from '../../api'
-import SearchResultList from './SearchResultList'
+import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
 export default {
   components: {
-    SearchResultList,
+    ResultList,
     FoodItem,
   },
   data() {
