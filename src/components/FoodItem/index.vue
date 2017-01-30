@@ -20,7 +20,9 @@
       :decimals="1">
     </nutrient>
 
-    <button>EAT</button>
+    <p class="dataSource">Source: USDA</p>
+
+    <button>Eat</button>
 
   </div>
 </template>
@@ -50,3 +52,9 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="stylus">
+button
+  font-size 20px  
+  width 200px
+</style>
