@@ -1,20 +1,21 @@
 <template>
   <div id="FoodSearch">
+    <h1>Food search</h1>
     <form @submit.prevent>
       <label for="searchText">Search USDA foods:</label>
-      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus"
-      @blur="onSearchBlur">
+      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
 
-      <food-item 
-        :foodData="foodData">
-      </food-item>
-
-      <!--v-if="isSearchBarFocused && searchResults !== null"-->
       <search-result-list 
+        v-if="isSearchBarFocused"
         :searchText="searchText"
         :list="searchResults" 
         @eventSelectItem="onSelectItem">
       </search-result-list>
+
+      <food-item 
+        v-if="!isSearchBarFocused"
+        :foodData="foodData">
+      </food-item>
       
     </form>
   </div>
@@ -64,6 +65,7 @@ export default {
         .then(response => response.json())
         .then((json) => {
           this.foodData = json.report.food
+          this.isSearchBarFocused = false
         })
     },
     // Hit the search API for a list of foods that match the search field
@@ -97,11 +99,11 @@ export default {
             if (list !== undefined) {
               that.searchResults = list.item
             } else {
-              that.searchResults = null
+              that.searchResults = []
             }
           })
           .catch((error) => {
-            that.searchResults = null
+            that.searchResults = []
             console.error('request failed', error)
           })
       }

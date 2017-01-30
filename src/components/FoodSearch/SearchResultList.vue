@@ -1,13 +1,19 @@
 <template>
   <div class="searchResultList" v-if="list !== null">
-    <h2>{{list.length}} results</h2>
 
-    <search-result 
-      v-for="item in orderedList" 
-      :name="item.name" 
-      :ndbno="item.ndbno"
-      @click.native="selectItem(item)">
-    </search-result>
+    <div v-if="list.length > 0">
+      <h2>{{list.length}} results</h2>
+      
+      <search-result 
+        v-for="item in orderedList" 
+        :name="item.name" 
+        :ndbno="item.ndbno"
+        @click.native="selectItem(item)">
+      </search-result>
+    </div>
+    <div v-else>
+      No results :(
+    </div>
   </div>
 </template>
 

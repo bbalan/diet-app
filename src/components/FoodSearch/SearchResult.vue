@@ -11,6 +11,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="stylus">
+.searchResult
+  cursor pointer
 
+  &:hover
+    background #eee
+
+  &:active
+    background #efe
 </style>

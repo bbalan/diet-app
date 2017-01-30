@@ -1,9 +1,11 @@
 <template>
-  <div class="foodItem" v-if="visible && foodData !== null">
-    <h2>{{ foodData.name }}</h2>
-    <button @click="onClose">Cancel</button>
+  <div class="foodItem" v-if="foodData !== null">
+    <h2>
+      {{ foodData.name }}
+      <button @click="onClose">Cancel</button>
+    </h2>
 
-    <!--<pre>{{ foodData }}</pre>-->
+    <!--<pre>{{ foodData.nutrients }}</pre>-->
 
     <form>
       <label for="quantity">Quantity:</label>
@@ -12,10 +14,14 @@
     </form>
 
     <nutrient 
-      v-for="nutrient in foodData.nutrients"
-      :nutrient="nutrient"
-      :quantity="quantity">
+      v-for="nutrientID in visibleNutrients"
+      v-if="findNutrient(nutrientID)"
+      :nutrient="findNutrient(nutrientID)"
+      :parentMass="quantity"
+      :decimals="1">
     </nutrient>
+
+    <button>EAT</button>
 
   </div>
 </template>
@@ -30,17 +36,17 @@ export default {
     return {
       // TODO: offer more units of quantity (oz, cups, etc)
       quantity: 100,
-      visible: false,
+      visibleNutrients: ['208', '203', '204', '205', '291', '269'], // '606', '605' == saturated, trans fat
     }
   },
   methods: {
-    onClose() {
-      this.visible = false
-    },
-  },
-  watch: {
-    foodData() {
-      this.visible = true
+    // Get nutrient by USDA nutrient ID
+    findNutrient(id) {
+      function nutrientFilter(item) {
+        return item.nutrient_id === id
+      }
+
+      return this.foodData.nutrients.filter(nutrientFilter)[0]
     },
   },
 }
