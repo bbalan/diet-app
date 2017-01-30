@@ -2,7 +2,6 @@
   <div class="foodItem" v-if="foodData !== null">
     <h2>
       {{ foodData.name }}
-      <button @click="onClose">Cancel</button>
     </h2>
 
     <!--<pre>{{ foodData.nutrients }}</pre>-->
