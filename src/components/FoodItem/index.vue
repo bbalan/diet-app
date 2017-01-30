@@ -1,21 +1,17 @@
 <template>
-  <div id="">
-    
+  <div class="foodItem">
+    <h1>Food Item</h1>
+    <pre>
+      {{ data }}
+    </pre>
   </div>
 </template>
 
 <script>
-import store from '../../store'
-
 export default {
   props: [
-
+    'data'
   ],
-  data() {
-    return {
-      
-    };
-  },
   components: {
     
   },
