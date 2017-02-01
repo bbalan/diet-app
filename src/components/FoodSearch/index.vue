@@ -29,7 +29,7 @@ import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
 import { checkStatus, parseJSON } from '../../api'
 import { usdaFoodReport, usdaSearch } from '../../api/USDA'
-import { /* otherFoodReport,*/ otherSearch } from '../../api/other'
+import { otherFoodReport, otherSearch } from '../../api/other'
 import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
@@ -65,12 +65,31 @@ export default {
     },
     // User clicked a search result item.
     onSelectItem(item) {
-      fetch(usdaFoodReport(item.ndbno))
-        .then(response => response.json())
-        .then((json) => {
-          this.foodData = json.report.food
-          this.isSearchBarFocused = false
-        })
+      let foodReportAPI
+      let reportHandler
+
+      function usdaReportHandler(json) {
+        this.foodData = json.report.food
+      }
+
+      function otherReportHandler(json) {
+        console.error('Unsupported API - otherReportHandler()', json)
+      }
+
+      if (item.source === 'USDA') {
+        foodReportAPI = usdaFoodReport(item.ndbno)
+        reportHandler = usdaReportHandler.bind(this)
+      } else {
+        foodReportAPI = otherFoodReport(item.id)
+        reportHandler = otherReportHandler.bind(this)
+      }
+
+      fetch(foodReportAPI)
+      .then(parseJSON)
+      .then((json) => {
+        reportHandler(json)
+        this.isSearchBarFocused = false
+      })
     },
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
@@ -84,7 +103,7 @@ export default {
       let resultsTemp = []
 
       // Append USDA search results to the total search results
-      function usdaHandler(json) {
+      function usdaSearchHandler(json) {
         if (json.list !== undefined && json.list.item !== undefined) {
           const results = json.list.item
           results.forEach((result) => { result.source = 'USDA' })
@@ -93,50 +112,52 @@ export default {
       }
 
       // Append search results from generic API to total search results
-      function otherHandler(json) {
-        // TODO: implement another API
-        console.log(json)
-        // const results = json.whatever
-        // results.forEach((result) => { result.source = 'otherAPI' })
-        // resultsTemp = resultsTemp.concat(results)
+      function otherSearchHandler(json) {
+        console.error('Unsupported API - otherSearchHandler()', json)
       }
 
       // Do a search with a specific supported API
       function search(opts) {
         let searchAPI
-        let dataHandler
+        let searchHandler
 
         if (opts.source === 'USDA') {
           searchAPI = usdaSearch(opts.searchText, opts.library)
-          dataHandler = usdaHandler
+          searchHandler = usdaSearchHandler
         } else {
           searchAPI = otherSearch(opts.searchText)
-          dataHandler = otherHandler
+          searchHandler = otherSearchHandler
         }
 
         return fetch(searchAPI)
           .then(checkStatus)
           .then(parseJSON)
-          .then(dataHandler)
+          .then(searchHandler)
           .catch((error) => { console.error('Search failed', error) })
       }
 
-      const promises = []
+      const searches = []
 
-      promises.push(search({
+      searches.push(search({
         searchText,
         source: 'USDA',
         library: 'Standard Reference',
       }))
-      // promises.push(search(search({
+
+      // searches.push(search({
       //   searchText,
       //   source: 'USDA',
       //   library: 'Branded Food Products',
       // }))
-      // promises.push(search(text, 'other'))
 
+      // searches.push(search({
+      //   searchText,
+      //   source: 'otherAPI',
+      // }))
+
+      // Execute all searches
       Promise
-        .all(promises)
+        .all(searches)
         .then(() => {
           that.searchResults = resultsTemp
         })
