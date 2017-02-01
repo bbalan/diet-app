@@ -1,10 +1,15 @@
 <template>
-  <div class="resultList" @eventSelectItem="onSelectItem">
+  <div class="resultList">
 
     <div v-if="list !== null && list.length > 0">
       <h2>{{list.length}} results</h2>
       
-      <search-result v-for="item in orderedList" :searchData="item"> 
+      <search-result 
+        v-for="item in orderedList" 
+        :searchResultData="item"
+        :enabled="!isResultSelected"
+        @eventResultSelect="onResultSelect"
+        @eventResultClose="onResultClose"> 
       </search-result>
     </div>
 
@@ -25,9 +30,20 @@ export default {
   search text, but in this case we need it for sorting */
   props: ['list', 'searchText'],
   components: { SearchResult },
+  data() {
+    return {
+      isResultSelected: false,
+    }
+  },
   methods: {
-    onSelectItem() {
+    onResultSelect() {
       // TODO: hide other search results
+      console.log('onResultSelect')
+      this.isResultSelected = true
+    },
+    onResultClose() {
+      console.log('onResultClose')
+      this.isResultSelected = false
     },
   },
   computed: {
@@ -40,7 +56,12 @@ export default {
       const startsWithText = []
       const doesntStartWithText = []
 
+      let resultID = 0
+
       this.list.forEach((item) => {
+        item.id = resultID
+        resultID += 1
+
         if (item.name.toLowerCase().indexOf(text) === 0) {
           startsWithText.push(item)
         } else {

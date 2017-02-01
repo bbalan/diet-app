@@ -1,12 +1,19 @@
 <template>
-  <div class="searchResult" @click="onSelectItem()">
+  <div class="searchResult" @click="onResultSelect()">
 
-    <!--<pre>{{ searchData }}</pre>-->
+    <button 
+      v-if="foodReport != null" 
+      @click.stop="onResultClose" 
+      class="searchResult__close">
+      X
+    </button>
 
-    <span class="searchResult__add">+</span>
-    <span class="searchResult__name">{{ searchData.name }}</span>
+    <span class="searchResult__name">{{ searchResultData.name }}</span>
 
-    <food-item :foodReport="foodReport"></food-item>
+    <food-item 
+      v-if="foodReport != null" 
+      :foodReport="foodReport">
+    </food-item>
   </div>
 </template>
 
@@ -18,7 +25,7 @@ import { otherFoodReport } from '../../api/other'
 import FoodItem from '../FoodItem'
 
 export default {
-  props: ['searchData'],
+  props: ['searchResultData', 'enabled'],
   data() {
     return {
       foodReport: null,
@@ -26,9 +33,15 @@ export default {
   },
   components: { FoodItem },
   methods: {
+    onResultClose() {
+      this.foodReport = null
+      this.$emit('eventResultClose')
+    },
     // User clicked a search result item.
-    onSelectItem() {
-      const item = this.searchData
+    onResultSelect() {
+      if (!this.enabled) return
+
+      const item = this.searchResultData
 
       let foodReportAPI
       let reportHandler
@@ -59,7 +72,7 @@ export default {
           break
         default:
           console.error(`Unsupported source: "${item.source}`)
-          return false
+          return
       }
 
       fetch(foodReportAPI)
@@ -67,11 +80,12 @@ export default {
       .then(parseJSON)
       .then((json) => {
         reportHandler(json)
-        this.isSearchBarFocused = false
       })
       .catch((e) => { console.error('Food report failed', e) })
 
-      return null
+      this.$emit('eventResultSelect', this.searchResultData.id)
+
+      return
     },
   },
 }
