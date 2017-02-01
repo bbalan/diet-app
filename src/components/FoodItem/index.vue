@@ -1,10 +1,10 @@
 <template>
-  <div class="foodItem" v-if="foodData !== null">
-    <h2>
-      {{ foodData.name }}
-    </h2>
+  <div class="foodItem" v-if="foodReport !== null">
+    <!--<h2>
+      {{ foodReport.name }}
+    </h2>-->
 
-    <!--<pre>{{ foodData }}</pre>-->
+    <!--<pre>{{ foodReport }}</pre>-->
 
     <form>
       <label for="quantity">Quantity:</label>
@@ -20,7 +20,7 @@
       :decimals="1">
     </nutrient>
 
-    <p class="dataSource">Source: {{ foodData.source }}</p>
+    <p class="dataSource">Source: {{ foodReport.source }}</p>
 
     <button @click="onEat">Eat</button>
 
@@ -31,7 +31,7 @@
 import Nutrient from './Nutrient'
 
 export default {
-  props: ['foodData'],
+  props: ['foodReport'],
   components: { Nutrient },
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     visibleNutrients() {
-      switch (this.foodData.source) {
+      switch (this.foodReport.source) {
         case 'USDA':
           return [
             '208',
@@ -59,17 +59,17 @@ export default {
   },
   methods: {
     onEat() {
-      console.log('Ate', this.foodData.name)
+      console.log('Ate', this.foodReport.name)
     },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {
       let nutrientFilter
 
-      if (this.foodData.source === 'USDA') {
+      if (this.foodReport.source === 'USDA') {
         nutrientFilter = item => (item.nutrient_id === id)
       }
 
-      return this.foodData.nutrients.filter(nutrientFilter)[0]
+      return this.foodReport.nutrients.filter(nutrientFilter)[0]
     },
   },
 }

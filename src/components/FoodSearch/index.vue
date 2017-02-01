@@ -1,49 +1,38 @@
 <template>
   <div id="FoodSearch">
+
     <h1>Food search</h1>
+
     <form @submit.prevent>
       <label for="searchText">Search foods:</label>
-      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
-
-      <!--<pre>{{ searchResults }}</pre>-->
+      <input type="text" name="searchText" v-model="searchText">
 
       <result-list 
-        v-if="isSearchBarFocused"
         :searchText="searchText"
-        :list="searchResults" 
-        @eventSelectItem="onSelectItem">
+        :list="searchResults">
       </result-list>
-
-      <food-item 
-        v-if="!isSearchBarFocused"
-        :foodData="foodData">
-      </food-item>
       
     </form>
   </div>
 </template>
 
 <script>
-// https://github.com/github/fetch
-import 'whatwg-fetch'
+import 'whatwg-fetch' // https://github.com/github/fetch
 import debounce from 'lodash.debounce'
+
+import { USDA_API, OTHER_API } from '../../api'
 import { checkStatus, parseJSON } from '../../api/util'
-import { usdaFoodReport, usdaSearch } from '../../api/USDA'
-import { otherFoodReport, otherSearch } from '../../api/other'
+import { usdaSearch } from '../../api/USDA'
+import { otherSearch } from '../../api/other'
+
 import ResultList from './ResultList'
-import FoodItem from '../FoodItem'
 
 export default {
-  components: {
-    ResultList,
-    FoodItem,
-  },
+  components: { ResultList },
   data() {
     return {
       searchText: '',
-      isSearchBarFocused: false,
       searchResults: [],
-      foodData: null,
     }
   },
   watch: {
@@ -54,49 +43,9 @@ export default {
     },
   },
   methods: {
+    // Strip chars that break API call
     sanitizeSearch(text) {
       return encodeURIComponent(text)
-    },
-    onSearchFocus() {
-      this.isSearchBarFocused = true
-    },
-    onSearchBlur() {
-      this.isSearchBarFocused = false
-    },
-    // User clicked a search result item.
-    onSelectItem(item) {
-      let foodReportAPI
-      let reportHandler
-
-      // Append source to the selected item
-      function usdaReportHandler(json) {
-        try {
-          const foodData = json.report.food
-          foodData.source = item.source
-          this.foodData = foodData
-        } catch (e) {
-          console.error('Food report failed - ', e)
-        }
-      }
-
-      function otherReportHandler(json) {
-        console.error('Unsupported API "other" - reportHandler()', json)
-      }
-
-      if (item.source === 'USDA') {
-        foodReportAPI = usdaFoodReport(item.ndbno)
-        reportHandler = usdaReportHandler.bind(this)
-      } else {
-        foodReportAPI = otherFoodReport(item.id)
-        reportHandler = otherReportHandler.bind(this)
-      }
-
-      fetch(foodReportAPI)
-      .then(parseJSON)
-      .then((json) => {
-        reportHandler(json)
-        this.isSearchBarFocused = false
-      })
     },
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
@@ -113,14 +62,14 @@ export default {
       function usdaSearchHandler(json) {
         if (json.list !== undefined && json.list.item !== undefined) {
           const results = json.list.item
-          results.forEach((result) => { result.source = 'USDA' })
+          results.forEach((result) => { result.source = USDA_API })
           resultsTemp = resultsTemp.concat(results)
         }
       }
 
       // Append search results from generic API to total search results
       function otherSearchHandler(json) {
-        console.error('Unsupported API "other" - searchHandler()', json)
+        console.warn('Not implemented - searchHandler()', json)
       }
 
       // Do a search with a specific supported API
@@ -128,39 +77,49 @@ export default {
         let searchAPI
         let searchHandler
 
-        if (opts.source === 'USDA') {
-          searchAPI = usdaSearch(opts.searchText, opts.library)
-          searchHandler = usdaSearchHandler
-        } else {
-          searchAPI = otherSearch(opts.searchText)
-          searchHandler = otherSearchHandler
+        switch (opts.source) {
+          case USDA_API:
+            searchAPI = usdaSearch(opts.searchText, opts.library)
+            searchHandler = usdaSearchHandler
+            break
+          case OTHER_API:
+            searchAPI = otherSearch(opts.searchText)
+            searchHandler = otherSearchHandler
+            break
+          default:
+            console.error(`Unsupported source: "${opts.source}`)
+            return false
         }
 
         return fetch(searchAPI)
           .then(checkStatus)
           .then(parseJSON)
           .then(searchHandler)
-          .catch((error) => { console.error('Search failed', error) })
+          .catch((e) => { console.error('Search failed', e) })
       }
 
       const searches = []
 
       searches.push(search({
         searchText,
-        source: 'USDA',
+        source: USDA_API,
         library: 'Standard Reference',
       }))
 
-      // searches.push(search({
-      //   searchText,
-      //   source: 'USDA',
-      //   library: 'Branded Food Products',
-      // }))
+      /*
+      Examples of future search API calls:
 
-      // searches.push(search({
-      //   searchText,
-      //   source: 'otherAPI',
-      // }))
+      searches.push(search({
+        searchText,
+        source: USDA_API,
+        library: 'Branded Food Products',
+      }))
+
+      searches.push(search({
+        searchText,
+        source: 'otherAPI',
+      }))
+      */
 
       // Execute all searches
       Promise
