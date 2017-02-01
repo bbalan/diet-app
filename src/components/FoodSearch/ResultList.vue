@@ -1,19 +1,21 @@
 <template>
-  <div class="resultList" @eventSelectItem="onSelectItem">
+  <div class="resultList">
 
     <div v-if="list !== null && list.length > 0">
       <h2>{{list.length}} results</h2>
       
-      <search-result v-for="item in orderedList" :searchData="item"> 
+      <search-result 
+        v-for="item in orderedList" 
+        :name="item.name" 
+        :ndbno="item.ndbno"
+        @click.native="selectItem(item)">
       </search-result>
     </div>
-
     <div v-else>
       <div v-if="searchText != ''">
         No results :(
       </div>
     </div>
-
   </div>
 </template>
 
@@ -26,8 +28,8 @@ export default {
   props: ['list', 'searchText'],
   components: { SearchResult },
   methods: {
-    onSelectItem() {
-      // TODO: hide other search results
+    selectItem(foodData) {
+      this.$emit('eventSelectItem', foodData)
     },
   },
   computed: {
