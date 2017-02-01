@@ -1,7 +1,7 @@
 <template>
-  <div class="resultList" v-if="list !== null">
+  <div class="resultList">
 
-    <div v-if="list.length > 0">
+    <div v-if="list !== null && list.length > 0">
       <h2>{{list.length}} results</h2>
       
       <search-result 
@@ -11,8 +11,10 @@
         @click.native="selectItem(item)">
       </search-result>
     </div>
-    <div v-else v-if="searchText != ''">
-      No results :(
+    <div v-else>
+      <div v-if="searchText != ''">
+        No results :(
+      </div>
     </div>
   </div>
 </template>
@@ -21,6 +23,8 @@
 import SearchResult from './SearchResult'
 
 export default {
+  /* Normally, a list of search results shouldn't know about the
+  search text, but in this case we need it for sorting */
   props: ['list', 'searchText'],
   components: { SearchResult },
   methods: {
