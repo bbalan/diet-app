@@ -37,17 +37,25 @@ export default {
     return {
       // TODO: offer more units of quantity (oz, cups, etc)
       quantity: 100,
-      visibleNutrients: [
-        '208',
-        '204',
-        '205',
-        '291',
-        '203',
-        '269',
-        '307',
-      ],
-      // '606', '605' == saturated, trans fat
     }
+  },
+  computed: {
+    visibleNutrients() {
+      switch (this.foodData.source) {
+        case 'USDA':
+          return [
+            '208',
+            '204',
+            '205',
+            '291',
+            '203',
+            '269',
+            '307',
+            // '606', '605' == saturated, trans fat
+          ]
+        default: return []
+      }
+    },
   },
   methods: {
     onEat() {
@@ -55,8 +63,10 @@ export default {
     },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {
-      function nutrientFilter(item) {
-        return item.nutrient_id === id
+      let nutrientFilter
+
+      if (this.foodData.source === 'USDA') {
+        nutrientFilter = item => (item.nutrient_id === id)
       }
 
       return this.foodData.nutrients.filter(nutrientFilter)[0]
