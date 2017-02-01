@@ -29,7 +29,7 @@ import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
 import { checkStatus, parseJSON } from '../../api'
 import { usdaFoodReport, usdaSearch } from '../../api/USDA'
-import { /* otherFoodReport, */ otherSearch } from '../../api/other'
+import { /* otherFoodReport,*/ otherSearch } from '../../api/other'
 import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
@@ -43,7 +43,6 @@ export default {
       searchText: '',
       isSearchBarFocused: false,
       searchResults: [],
-      searchResultsTemp: [],
       foodData: null,
     }
   },
@@ -77,19 +76,29 @@ export default {
     // we pass context as "that" because debounce() breaks "this" keyword
     getFoods: debounce((searchText, that) => {
       // TODO: run analytics to determine how many searches done before an option is selected
+      if (searchText === '' || searchText === undefined) {
+        that.searchResults = []
+        return
+      }
+
+      let resultsTemp = []
 
       // Append USDA search results to the total search results
       function usdaHandler(json) {
-        const list = json.list
-
-        if (list !== undefined && list.item !== undefined) {
-          that.searchResultsTemp = that.searchResultsTemp.concat(list.item)
+        if (json.list !== undefined && json.list.item !== undefined) {
+          const results = json.list.item
+          results.forEach((result) => { result.source = 'USDA' })
+          resultsTemp = resultsTemp.concat(results)
         }
       }
 
+      // Append search results from generic API to total search results
       function otherHandler(json) {
         // TODO: implement another API
         console.log(json)
+        // const results = json.whatever
+        // results.forEach((result) => { result.source = 'otherAPI' })
+        // resultsTemp = resultsTemp.concat(results)
       }
 
       // Do a search with a specific supported API
@@ -112,30 +121,25 @@ export default {
           .catch((error) => { console.error('Search failed', error) })
       }
 
-      if (searchText === '' || searchText === undefined) {
-        that.searchResults = ''
-      } else {
-        const promises = []
+      const promises = []
 
-        promises.push(search({
-          searchText,
-          source: 'USDA',
-          library: 'Standard Reference',
-        }))
-        // promises.push(search(search({
-        //   searchText,
-        //   source: 'USDA',
-        //   library: 'Branded Food Products',
-        // }))
-        // promises.push(search(text, 'other'))
+      promises.push(search({
+        searchText,
+        source: 'USDA',
+        library: 'Standard Reference',
+      }))
+      // promises.push(search(search({
+      //   searchText,
+      //   source: 'USDA',
+      //   library: 'Branded Food Products',
+      // }))
+      // promises.push(search(text, 'other'))
 
-        Promise
-          .all(promises)
-          .then(() => {
-            that.searchResults = that.searchResultsTemp
-            that.searchResultsTemp = []
-          })
-      }
+      Promise
+        .all(promises)
+        .then(() => {
+          that.searchResults = resultsTemp
+        })
     }, 250),
   },
 }
