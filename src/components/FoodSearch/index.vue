@@ -2,8 +2,10 @@
   <div id="FoodSearch">
     <h1>Food search</h1>
     <form @submit.prevent>
-      <label for="searchText">Search USDA foods:</label>
+      <label for="searchText">Search foods:</label>
       <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
+
+      <!--<pre>{{ searchResults }}</pre>-->
 
       <result-list 
         v-if="isSearchBarFocused"
@@ -25,7 +27,7 @@
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
-import { USDAfoodReport as foodReport, USDAsearch as search } from '../../api'
+import { usdaFoodReport, usdaSearch } from '../../api'
 import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
@@ -38,7 +40,8 @@ export default {
     return {
       searchText: '',
       isSearchBarFocused: false,
-      searchResults: null,
+      searchResults: [],
+      searchResultsTemp: [],
       foodData: null,
     }
   },
@@ -61,7 +64,7 @@ export default {
     },
     // User clicked a search result item.
     onSelectItem(item) {
-      fetch(foodReport(item.ndbno))
+      fetch(usdaFoodReport(item.ndbno))
         .then(response => response.json())
         .then((json) => {
           this.foodData = json.report.food
@@ -87,24 +90,35 @@ export default {
         return response.json()
       }
 
+      function search(searchText, source) {
+        return fetch(usdaSearch(searchText, source))
+        .then(checkStatus)
+        .then(parseJSON)
+        .then((json) => {
+          const list = json.list
+
+          if (list !== undefined && list.item !== undefined) {
+            that.searchResultsTemp = that.searchResultsTemp.concat(list.item)
+          }
+        })
+        .catch((error) => {
+          console.error('request failed', error)
+        })
+      }
+
       if (text === '' || text === undefined) {
         that.searchResults = ''
       } else {
-        fetch(search(text))
-          .then(checkStatus)
-          .then(parseJSON)
-          .then((json) => {
-            const list = json.list
+        const promises = []
 
-            if (list !== undefined) {
-              that.searchResults = list.item
-            } else {
-              that.searchResults = []
-            }
-          })
-          .catch((error) => {
-            that.searchResults = []
-            console.error('request failed', error)
+        promises.push(search(text, 'Standard Reference'))
+        // promises.push(search(text, 'Branded Food Products'))
+
+        Promise
+          .all(promises)
+          .then(() => {
+            that.searchResults = that.searchResultsTemp
+            that.searchResultsTemp = []
           })
       }
     }, 250),

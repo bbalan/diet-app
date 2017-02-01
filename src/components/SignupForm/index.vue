@@ -36,7 +36,8 @@ import ActivityLevel from './ActivityLevel'
 export default {
   beforeCreate() {
     if (store.state.userInfo.signupComplete) {
-      router.replace('sampleData')
+      // TODO: replace this with daily food log
+      router.replace('foodSearch')
     }
   },
   components: {

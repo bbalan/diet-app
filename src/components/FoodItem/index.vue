@@ -4,7 +4,7 @@
       {{ foodData.name }}
     </h2>
 
-    <!--<pre>{{ foodData.nutrients }}</pre>-->
+    <!--<pre>{{ foodData }}</pre>-->
 
     <form>
       <label for="quantity">Quantity:</label>
@@ -37,7 +37,16 @@ export default {
     return {
       // TODO: offer more units of quantity (oz, cups, etc)
       quantity: 100,
-      visibleNutrients: ['208', '203', '204', '205', '291', '269'], // '606', '605' == saturated, trans fat
+      visibleNutrients: [
+        '208',
+        '204',
+        '205',
+        '291',
+        '203',
+        '269',
+        '307',
+      ],
+      // '606', '605' == saturated, trans fat
     }
   },
   methods: {

@@ -51,6 +51,7 @@ export default {
       state.mass = mass
       setLocalStorage(MODULE_KEY, state)
     },
+    // Converts between metric and imperial
     setWeight(state, weight) {
       let w
       let mass

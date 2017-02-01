@@ -11,7 +11,7 @@
         @click.native="selectItem(item)">
       </search-result>
     </div>
-    <div v-else>
+    <div v-else v-if="searchText != ''">
       No results :(
     </div>
   </div>
