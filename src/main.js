@@ -4,21 +4,21 @@ The Vue build version to load with the `import` command
 with an alias.
 */
 
-import Vue from 'vue';
-import App from './components/App';
-import router from './router';
+import Vue from 'vue'
+import App from './components/App'
+import router from './router'
 
 // Firebase stuff
 /* eslint-disable no-unused-vars */
-// import Firebase from 'firebase';
-// import VueFire from 'vuefire';
-// import firebaseDB from './util/Firebase';
+// import Firebase from 'firebase'
+// import VueFire from 'vuefire'
+// import firebaseDB from './util/Firebase'
 
-// Vue.use(VueFire);
+// Vue.use(VueFire)
 
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
   ...App,
-});
+})

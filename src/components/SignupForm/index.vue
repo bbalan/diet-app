@@ -52,7 +52,7 @@ export default {
   methods: {
     /** Send user info form data to Firebase. */
     onSubmit() {
-      store.commit('userInfo/signupComplete');
+      store.commit('userInfo/signupComplete')
       router.push('sampleData')
       // db.ref('data')
       //   .push(this.Store.userInfo)

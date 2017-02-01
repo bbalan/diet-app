@@ -13,9 +13,9 @@ export default {
     'id',
   ],
   data() {
-    return {};
+    return {}
   },
-};
+}
 </script>
 
 <style scoped>

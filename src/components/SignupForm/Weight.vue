@@ -28,7 +28,7 @@ export default {
     weight: {
       get() {
         const mass = store.state.userInfo.mass
-        let weight;
+        let weight
 
         if (store.state.appSettings.unitWeight === 'metric') {
           weight = Math.round(mass * 10) / 10

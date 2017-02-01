@@ -22,7 +22,7 @@
 
     <p class="dataSource">Source: USDA</p>
 
-    <button>Eat</button>
+    <button @click="onEat">Eat</button>
 
   </div>
 </template>
@@ -50,6 +50,9 @@ export default {
     }
   },
   methods: {
+    onEat() {
+      console.log('Ate', this.foodData.name)
+    },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {
       function nutrientFilter(item) {

@@ -50,12 +50,12 @@ V
 
 foods {
   food_id: {
-    type: string (ingredient/recipe)
+    isRecipe: bool
     source: string (user/usda/etc)
     ...values from usda api
-    ingredients: {
-
-    }
+    ingredients: [
+      ingredient_id
+    ]
   }
 }
 

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+// TODO: signup for a USDA API key on app launch
 export default {}
 </script>
 
