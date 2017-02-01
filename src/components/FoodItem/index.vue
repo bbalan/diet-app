@@ -1,5 +1,5 @@
 <template>
-  <div class="foodItem">
+  <div class="foodItem" v-if="foodReport !== null">
     <!--<h2>
       {{ foodReport.name }}
     </h2>-->
@@ -31,12 +31,7 @@
 import Nutrient from './Nutrient'
 
 export default {
-  props: {
-    foodReport: {
-      type: Object,
-      required: true,
-    },
-  },
+  props: ['foodReport'],
   components: { Nutrient },
   data() {
     return {
