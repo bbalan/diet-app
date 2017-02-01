@@ -20,7 +20,7 @@
       :decimals="1">
     </nutrient>
 
-    <p class="dataSource">Source: USDA</p>
+    <p class="dataSource">Source: {{ foodData.source }}</p>
 
     <button @click="onEat">Eat</button>
 

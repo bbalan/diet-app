@@ -27,7 +27,7 @@
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
-import { checkStatus, parseJSON } from '../../api'
+import { checkStatus, parseJSON } from '../../api/util'
 import { usdaFoodReport, usdaSearch } from '../../api/USDA'
 import { otherFoodReport, otherSearch } from '../../api/other'
 import ResultList from './ResultList'
@@ -68,12 +68,19 @@ export default {
       let foodReportAPI
       let reportHandler
 
+      // Append source to the selected item
       function usdaReportHandler(json) {
-        this.foodData = json.report.food
+        try {
+          const foodData = json.report.food
+          foodData.source = item.source
+          this.foodData = foodData
+        } catch (e) {
+          console.error('Food report failed - ', e)
+        }
       }
 
       function otherReportHandler(json) {
-        console.error('Unsupported API - otherReportHandler()', json)
+        console.error('Unsupported API "other" - reportHandler()', json)
       }
 
       if (item.source === 'USDA') {
@@ -113,7 +120,7 @@ export default {
 
       // Append search results from generic API to total search results
       function otherSearchHandler(json) {
-        console.error('Unsupported API - otherSearchHandler()', json)
+        console.error('Unsupported API "other" - searchHandler()', json)
       }
 
       // Do a search with a specific supported API
