@@ -23,13 +23,13 @@ import * as USDA from '../../api/USDA'
 import * as OTHER from '../../api/other'
 import { checkStatus, parseJSON } from '../../api/util'
 import ResultList from './ResultList'
-import FoodItem from '../FoodItem'
+import Ingredient from '../Ingredient'
 
 export default {
   name: 'FoodSearch',
   components: {
     ResultList,
-    FoodItem,
+    Ingredient,
   },
   data() {
     return {
