@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import userInfo from './userInfo'
 import appSettings from './appSettings'
-import ingredients from './ingredients'
+import ingredientHistory from './ingredientHistory'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   modules: {
     userInfo,
     appSettings,
-    ingredients,
+    ingredientHistory,
   },
 })
 

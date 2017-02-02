@@ -11,6 +11,7 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="stylus">
+a
+  display block
 </style>

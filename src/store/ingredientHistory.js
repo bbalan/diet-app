@@ -1,6 +1,6 @@
 import { setLocalStorage } from './util'
 
-const MODULE_KEY = 'ingredients'
+const MODULE_KEY = 'ingredientHistory'
 
 function findIngredient(id) {
   return function find(el) {
@@ -10,14 +10,14 @@ function findIngredient(id) {
 
 // Personal info about the user
 const stateDefault = {
-  history: [],
+  ingredients: [],
 }
 
 const stateLocalStorage = JSON.parse(
   localStorage.getItem(MODULE_KEY)
 )
 
-const ingredients = {
+const ingredientHistory = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
@@ -25,10 +25,10 @@ const ingredients = {
       const finder = findIngredient(id)
 
       // Ingredient is not already in the list
-      if (!state.history.find(finder)) {
-        state.history.push({ id, source, dataFood })
+      if (!state.ingredients.find(finder)) {
+        state.ingredients.push({ id, source, dataFood })
       } else {
-        console.warn('Already added', state.history.find(finder))
+        console.warn(`Ingredient ${id} already in state`)
       }
 
       setLocalStorage(MODULE_KEY, state)
@@ -36,4 +36,4 @@ const ingredients = {
   },
 }
 
-export default ingredients
+export default ingredientHistory

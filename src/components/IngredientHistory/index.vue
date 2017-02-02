@@ -1,5 +1,7 @@
 <template>
   <div>
+    <h1>Ingredient history</h1>
+
     <ingredient-link
       v-for="ingredient in history"
       :id="ingredient.id"
@@ -21,7 +23,12 @@ export default {
   computed: {
     history: {
       get() {
-        return store.state.ingredients.history
+        const h = store.state.ingredientHistory.ingredients
+        const newH = []
+
+        h.forEach(item => newH.unshift(item))
+
+        return newH
       },
     },
   },

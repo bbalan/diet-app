@@ -108,11 +108,11 @@ export default {
         library: 'Standard Reference',
       }))
 
-      searches.push(search({
-        searchText,
-        source: API.USDA,
-        library: 'Branded Food Products',
-      }))
+      // searches.push(search({
+      //   searchText,
+      //   source: API.USDA,
+      //   library: 'Branded Food Products',
+      // }))
 
       // searches.push(search({
       //   searchText,

@@ -1,8 +1,6 @@
 <template>
   <div id="app">
-    <router-link to="/signup">Sign Up</router-link>
-    <router-link to="/foodSearch">Food Search</router-link>
-    <router-link to="/ingredients">Ingredient History</router-link>
+    <main-nav></main-nav>
     <router-view></router-view>
   </div>
 </template>
@@ -10,6 +8,7 @@
 <script>
 // import router from '../router'
 import store from '../store'
+import MainNav from './MainNav'
 
 // TODO: signup for a USDA API key on app launch
 export default {
@@ -19,6 +18,7 @@ export default {
       // router.replace('/signup')
     }
   },
+  components: { MainNav },
 }
 </script>
 

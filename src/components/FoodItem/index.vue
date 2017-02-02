@@ -102,7 +102,7 @@ export default {
         dataFood: this.dataFood,
       }
 
-      store.commit('ingredients/addIngredient', data)
+      store.commit('ingredientHistory/addIngredient', data)
     },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {
