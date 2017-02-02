@@ -53,7 +53,7 @@ export default {
     /** Send user info form data to Firebase. */
     onSubmit() {
       store.commit('userInfo/signupComplete')
-      router.push('sampleData')
+      router.push('foodLog')
       // db.ref('data')
       //   .push(this.Store.userInfo)
     },
