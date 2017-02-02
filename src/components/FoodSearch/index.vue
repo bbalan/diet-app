@@ -7,10 +7,7 @@
 
       <!--<pre>{{ searchResults }}</pre>-->
 
-      <result-list 
-        :searchText="searchText"
-        :list="searchResults" 
-        @eventResultSelect="onResultSelect">
+      <result-list :searchText="searchText" :list="searchResults">
       </result-list>
       
     </form>
@@ -21,9 +18,10 @@
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
+import { USDA, OTHER } from '../../api'
 import { checkStatus, parseJSON } from '../../api/util'
-import { usdaFoodReport, usdaSearch } from '../../api/USDA'
-import { otherFoodReport, otherSearch } from '../../api/other'
+import { usdaSearch } from '../../api/USDA'
+import { otherSearch } from '../../api/other'
 import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
@@ -52,38 +50,6 @@ export default {
     },
   },
   methods: {
-    // User clicked a search result item.
-    onResultSelect(item) {
-      let foodReportAPI
-      let reportHandler
-
-      // Append source to the selected item
-      function usdaReportHandler(json) {
-        try {
-          const foodData = json.report.food
-          foodData.source = item.source
-        } catch (e) {
-          console.error('Food report failed - ', e)
-        }
-      }
-
-      function otherReportHandler(json) {
-        console.error('Not implemented - reportHandler()', json)
-      }
-
-      if (item.source === 'USDA') {
-        foodReportAPI = usdaFoodReport(item.ndbno)
-        reportHandler = usdaReportHandler.bind(this)
-      } else {
-        foodReportAPI = otherFoodReport(item.id)
-        reportHandler = otherReportHandler.bind(this)
-      }
-
-      fetch(foodReportAPI)
-      .then(parseJSON)
-      .then(reportHandler)
-      .catch((error) => { console.error('Food report failed', error) })
-    },
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
     getFoods: debounce((searchText, that) => {
@@ -114,12 +80,17 @@ export default {
         let searchAPI
         let searchHandler
 
-        if (opts.source === 'USDA') {
-          searchAPI = usdaSearch(opts.searchText, opts.library)
-          searchHandler = usdaSearchHandler
-        } else {
-          searchAPI = otherSearch(opts.searchText)
-          searchHandler = otherSearchHandler
+        switch (opts.source) {
+          case USDA:
+            searchAPI = usdaSearch(opts.searchText, opts.library)
+            searchHandler = usdaSearchHandler
+            break
+          case OTHER:
+            searchAPI = otherSearch(opts.searchText)
+            searchHandler = otherSearchHandler
+            break
+          default:
+            return false
         }
 
         return fetch(searchAPI)
