@@ -2,6 +2,7 @@
   <div id="app">
     <router-link to="/signup">Sign Up</router-link>
     <router-link to="/foodSearch">Food Search</router-link>
+    <router-link to="/ingredients">Ingredient History</router-link>
     <router-view></router-view>
   </div>
 </template>

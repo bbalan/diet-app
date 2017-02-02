@@ -1,6 +1,6 @@
 <template>
-  <div class="foodItem" v-if="foodData !== null">
-    <h2>{{ foodData.name }}</h2>
+  <div class="foodItem" v-if="dataFood !== null">
+    <h2>{{ dataFood.name }}</h2>
 
     <form>
       <label for="quantity">Quantity:</label>
@@ -40,7 +40,7 @@ function getData() {
   // Append source to the selected item
   function usdaReportHandler(json) {
     try {
-      this.foodData = json.report.food
+      this.dataFood = json.report.food
     } catch (e) {
       console.error('Food report failed - ', e)
     }
@@ -80,7 +80,7 @@ export default {
     return {
       // TODO: offer more units of quantity (oz, cups, etc)
       quantity: 100,
-      foodData: null,
+      dataFood: null,
     }
   },
   beforeMount: getData,
@@ -96,8 +96,13 @@ export default {
   },
   methods: {
     onEat() {
-      console.log('Ate', this.foodData.name)
-      store.commit('ingredients/addIngredient', this.foodData)
+      const data = {
+        id: this.id,
+        source: this.source,
+        dataFood: this.dataFood,
+      }
+
+      store.commit('ingredients/addIngredient', data)
     },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {
@@ -112,7 +117,7 @@ export default {
           return []
       }
 
-      return this.foodData.nutrients.filter(nutrientFilter)[0]
+      return this.dataFood.nutrients.filter(nutrientFilter)[0]
     },
   },
 }

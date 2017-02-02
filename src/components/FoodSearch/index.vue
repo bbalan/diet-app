@@ -35,7 +35,7 @@ export default {
     return {
       searchText: '',
       searchResults: [],
-      foodData: null,
+      dataFood: null,
     }
   },
   computed: {
