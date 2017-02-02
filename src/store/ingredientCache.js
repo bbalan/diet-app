@@ -1,6 +1,6 @@
 import { setLocalStorage } from './util'
 
-const MODULE_KEY = 'ingredientHistory'
+const MODULE_KEY = 'ingredientCache'
 
 function findIngredient(id) {
   return function find(el) {
@@ -17,7 +17,7 @@ const stateLocalStorage = JSON.parse(
   localStorage.getItem(MODULE_KEY)
 )
 
-const ingredientHistory = {
+const ingredientCache = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
@@ -36,4 +36,4 @@ const ingredientHistory = {
   },
 }
 
-export default ingredientHistory
+export default ingredientCache

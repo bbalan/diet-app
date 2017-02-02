@@ -1,5 +1,5 @@
 <template>
-  <div class="foodItem" v-if="dataFood !== null">
+  <div class="ingredient" v-if="dataFood !== null">
     <h2>{{ dataFood.name }}</h2>
 
     <form>
@@ -73,7 +73,7 @@ function getData() {
 }
 
 export default {
-  name: 'FoodItem',
+  name: 'ingredient',
   props: ['id', 'source'],
   components: { Nutrient },
   data() {
@@ -102,7 +102,7 @@ export default {
         dataFood: this.dataFood,
       }
 
-      store.commit('ingredientHistory/addIngredient', data)
+      store.commit('ingredientCache/addIngredient', data)
     },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {

@@ -1,15 +1,15 @@
 <template>
   <div>
-    <h1>Ingredient history</h1>
+    <h1>Ingredient Cache</h1>
 
     <ingredient-link
-      v-for="ingredient in history"
+      v-for="ingredient in cahce"
       :id="ingredient.id"
       :source="ingredient.source">
       {{ ingredient.dataFood.name }}
     </ingredient-link>
     
-    <!--<pre>{{ history }}</pre>-->
+    <!--<pre>{{ cahce }}</pre>-->
   </div>
 </template>
 
@@ -21,14 +21,9 @@ export default {
   name: 'Ingredients',
   components: { IngredientLink },
   computed: {
-    history: {
+    cahce: {
       get() {
-        const h = store.state.ingredientHistory.ingredients
-        const newH = []
-
-        h.forEach(item => newH.unshift(item))
-
-        return newH
+        return store.state.ingredientCache.ingredients
       },
     },
   },

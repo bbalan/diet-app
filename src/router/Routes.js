@@ -3,5 +3,6 @@ export default {
   signup: '/signup',
   foodSearch: '/foodSearch',
   ingredient: '/ingredient/:source/:id',
-  ingredientHistory: '/ingredientHistory',
+  ingredientCache: '/ingredientCache',
+  dailyLog: '/dailyLog',
 }
