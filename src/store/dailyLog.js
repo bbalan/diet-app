@@ -1,7 +1,7 @@
 import store from '.'
 import { setLocalStorage } from './utils'
 
-const MODULE_KEY = 'log'
+const MODULE_KEY = 'dailyLog'
 
 // Personal info about the user
 const stateDefault = {
