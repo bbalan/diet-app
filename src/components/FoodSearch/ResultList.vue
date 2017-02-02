@@ -5,17 +5,17 @@
       <h2>{{list.length}} results</h2>
       
       <search-result 
-        v-for="item in orderedList" 
-        :name="item.name" 
-        :ndbno="item.ndbno"
-        @click.native="selectItem(item)">
+        v-for="searchResult in orderedList" 
+        :resultData="searchResult">
       </search-result>
     </div>
+
     <div v-else>
       <div v-if="searchText != ''">
         No results :(
       </div>
     </div>
+
   </div>
 </template>
 
@@ -28,8 +28,8 @@ export default {
   props: ['list', 'searchText'],
   components: { SearchResult },
   methods: {
-    selectItem(foodData) {
-      this.$emit('eventSelectItem', foodData)
+    onResultSelect(resultData) {
+      this.$emit('eventResultSelect', resultData)
     },
   },
   computed: {

@@ -1,10 +1,12 @@
 <template>
-  <div class="foodItem" v-if="foodData !== null">
-    <h2>
+  <div class="foodItem">
+    {{ id }} {{ source }}
+
+    <!--<h2>
       {{ foodData.name }}
     </h2>
 
-    <!--<pre>{{ foodData }}</pre>-->
+    <pre>{{ foodData }}</pre>
 
     <form>
       <label for="quantity">Quantity:</label>
@@ -22,7 +24,7 @@
 
     <p class="dataSource">Source: {{ foodData.source }}</p>
 
-    <button @click="onEat">Eat</button>
+    <button @click="onEat">Eat</button>-->
 
   </div>
 </template>
@@ -31,7 +33,8 @@
 import Nutrient from './Nutrient'
 
 export default {
-  props: ['foodData'],
+  name: 'FoodItem',
+  props: ['id', 'source'],
   components: { Nutrient },
   data() {
     return {
@@ -41,7 +44,7 @@ export default {
   },
   computed: {
     visibleNutrients() {
-      switch (this.foodData.source) {
+      switch (this.source) {
         case 'USDA':
           return [
             '208',

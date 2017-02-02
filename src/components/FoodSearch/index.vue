@@ -3,21 +3,15 @@
     <h1>Food search</h1>
     <form @submit.prevent>
       <label for="searchText">Search foods:</label>
-      <input type="text" name="searchText" v-model="searchText" @focus="onSearchFocus">
+      <input type="text" name="searchText" v-model="searchText">
 
       <!--<pre>{{ searchResults }}</pre>-->
 
       <result-list 
-        v-if="isSearchBarFocused"
         :searchText="searchText"
         :list="searchResults" 
-        @eventSelectItem="onSelectItem">
+        @eventResultSelect="onResultSelect">
       </result-list>
-
-      <food-item 
-        v-if="!isSearchBarFocused"
-        :foodData="foodData">
-      </food-item>
       
     </form>
   </div>
@@ -34,6 +28,7 @@ import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
 export default {
+  name: 'FoodSearch',
   components: {
     ResultList,
     FoodItem,
@@ -41,30 +36,24 @@ export default {
   data() {
     return {
       searchText: '',
-      isSearchBarFocused: false,
       searchResults: [],
       foodData: null,
     }
   },
+  computed: {
+    sanitizedSearch() {
+      return encodeURIComponent(this.searchText)
+    },
+  },
   watch: {
     // User typed something into the search field.
-    searchText(text) {
-      const sanitizedText = this.sanitizeSearch(text)
-      this.getFoods(sanitizedText, this)
+    searchText() {
+      this.getFoods(this.sanitizedSearch, this)
     },
   },
   methods: {
-    sanitizeSearch(text) {
-      return encodeURIComponent(text)
-    },
-    onSearchFocus() {
-      this.isSearchBarFocused = true
-    },
-    onSearchBlur() {
-      this.isSearchBarFocused = false
-    },
     // User clicked a search result item.
-    onSelectItem(item) {
+    onResultSelect(item) {
       let foodReportAPI
       let reportHandler
 
@@ -73,14 +62,13 @@ export default {
         try {
           const foodData = json.report.food
           foodData.source = item.source
-          this.foodData = foodData
         } catch (e) {
           console.error('Food report failed - ', e)
         }
       }
 
       function otherReportHandler(json) {
-        console.error('Unsupported API "other" - reportHandler()', json)
+        console.error('Not implemented - reportHandler()', json)
       }
 
       if (item.source === 'USDA') {
@@ -93,10 +81,8 @@ export default {
 
       fetch(foodReportAPI)
       .then(parseJSON)
-      .then((json) => {
-        reportHandler(json)
-        this.isSearchBarFocused = false
-      })
+      .then(reportHandler)
+      .catch((error) => { console.error('Food report failed', error) })
     },
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
@@ -120,7 +106,7 @@ export default {
 
       // Append search results from generic API to total search results
       function otherSearchHandler(json) {
-        console.error('Unsupported API "other" - searchHandler()', json)
+        console.error('Not implemented - searchHandler()', json)
       }
 
       // Do a search with a specific supported API

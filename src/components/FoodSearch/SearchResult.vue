@@ -1,13 +1,33 @@
 <template>
-  <div class="searchResult" data-ndbno="ndbno">
-    <span class="searchResult__add">+</span>
-    <span class="searchResult__name">{{ name }}</span>
+  <div class="searchResult">
+
+    <!--<pre>{{ resultData }}</pre>-->
+
+    <router-link 
+      :to="'/ingredient/' + resultData.source + '/' + id">
+      {{ resultData.name }}
+    </router-link>
+
   </div>
 </template>
 
 <script>
+import { USDA, OTHER } from '../../api'
+
 export default {
-  props: ['name', 'ndbno'],
+  props: ['resultData'],
+  computed: {
+    id() {
+      switch (this.resultData.source) {
+        case USDA:
+          return this.resultData.ndbno
+        case OTHER:
+          return this.resultData.someID
+        default:
+          return false
+      }
+    },
+  },
 }
 </script>
 

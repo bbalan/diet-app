@@ -6,12 +6,14 @@ import store from '../store'
 import Splash from '../components/Splash'
 import SignupForm from '../components/SignupForm'
 import FoodSearch from '../components/FoodSearch'
+import FoodItem from '../components/FoodItem'
 
 // Routes
 const routes = [
   { path: '/', component: Splash },
   { path: '/signup', component: SignupForm },
   { path: '/foodSearch', component: FoodSearch },
+  { path: '/ingredient/:source/:id', component: FoodItem, props: true },
 ]
 
 // Router
