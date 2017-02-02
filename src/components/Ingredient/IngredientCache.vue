@@ -1,9 +1,10 @@
 <template>
   <div>
     <h1>Ingredient Cache</h1>
+    <button @click="clearCache">Clear cache</button>
 
     <ingredient-link
-      v-for="ingredient in cahce"
+      v-for="ingredient in cache"
       :id="ingredient.id"
       :source="ingredient.source">
       {{ ingredient.dataFood.name }}
@@ -21,10 +22,16 @@ export default {
   name: 'Ingredients',
   components: { IngredientLink },
   computed: {
-    cahce: {
+    cache: {
       get() {
         return store.state.ingredientCache.ingredients
       },
+    },
+  },
+  methods: {
+    clearCache() {
+      localStorage.clear()
+      window.location.reload()
     },
   },
 }

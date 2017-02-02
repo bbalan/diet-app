@@ -32,4 +32,7 @@ export default {
 .clearfix {
   clear: both;
 }
+h2 {
+  font-size: 20px;
+}
 </style>
