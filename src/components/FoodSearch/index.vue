@@ -18,10 +18,10 @@
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
-import { USDA, OTHER } from '../../api'
+import * as API from '../../api'
+import * as USDA from '../../api/USDA'
+import * as OTHER from '../../api/other'
 import { checkStatus, parseJSON } from '../../api/util'
-import { usdaSearch } from '../../api/USDA'
-import { otherSearch } from '../../api/other'
 import ResultList from './ResultList'
 import FoodItem from '../FoodItem'
 
@@ -65,7 +65,7 @@ export default {
       function usdaSearchHandler(json) {
         if (json.list !== undefined && json.list.item !== undefined) {
           const results = json.list.item
-          results.forEach((result) => { result.source = 'USDA' })
+          results.forEach((result) => { result.source = API.USDA })
           resultsTemp = resultsTemp.concat(results)
         }
       }
@@ -81,12 +81,12 @@ export default {
         let searchHandler
 
         switch (opts.source) {
-          case USDA:
-            searchAPI = usdaSearch(opts.searchText, opts.library)
+          case API.USDA:
+            searchAPI = USDA.search(opts.searchText, opts.library)
             searchHandler = usdaSearchHandler
             break
-          case OTHER:
-            searchAPI = otherSearch(opts.searchText)
+          case API.OTHER:
+            searchAPI = OTHER.search(opts.searchText)
             searchHandler = otherSearchHandler
             break
           default:
@@ -104,19 +104,19 @@ export default {
 
       searches.push(search({
         searchText,
-        source: 'USDA',
+        source: API.USDA,
         library: 'Standard Reference',
+      }))
+
+      searches.push(search({
+        searchText,
+        source: API.USDA,
+        library: 'Branded Food Products',
       }))
 
       // searches.push(search({
       //   searchText,
-      //   source: 'USDA',
-      //   library: 'Branded Food Products',
-      // }))
-
-      // searches.push(search({
-      //   searchText,
-      //   source: 'otherAPI',
+      //   source: API.OTHER,
       // }))
 
       // Execute all searches

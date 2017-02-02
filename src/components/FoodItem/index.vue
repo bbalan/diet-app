@@ -24,12 +24,53 @@
 </template>
 
 <script>
-import { USDA, OTHER } from '../../api'
+import store from '../../store'
+import * as API from '../../api'
+import * as USDA from '../../api/USDA'
+import * as OTHER from '../../api/other'
 import { checkStatus, parseJSON } from '../../api/util'
-import { usdaFoodReport } from '../../api/USDA'
-import { otherFoodReport } from '../../api/other'
 
 import Nutrient from './Nutrient'
+
+// Hit the source API for ingredient data
+function getData() {
+  let foodReportAPI
+  let reportHandler
+
+  // Append source to the selected item
+  function usdaReportHandler(json) {
+    try {
+      this.foodData = json.report.food
+    } catch (e) {
+      console.error('Food report failed - ', e)
+    }
+  }
+
+  function otherReportHandler(json) {
+    console.error('Not implemented - reportHandler()', json)
+  }
+
+  switch (this.source) {
+    case API.USDA:
+      foodReportAPI = USDA.foodReport(this.id)
+      reportHandler = usdaReportHandler.bind(this)
+      break
+    case API.OTHER:
+      foodReportAPI = OTHER.foodReport(this.id)
+      reportHandler = otherReportHandler.bind(this)
+      break
+    default:
+      return
+  }
+
+  fetch(foodReportAPI)
+  .then(checkStatus)
+  .then(parseJSON)
+  .then(reportHandler)
+  .catch((error) => { console.error('Food report failed', error) })
+
+  return
+}
 
 export default {
   name: 'FoodItem',
@@ -42,51 +83,13 @@ export default {
       foodData: null,
     }
   },
-  // Hit the source API for ingredient data
-  beforeMount() {
-    let foodReportAPI
-    let reportHandler
-
-    // Append source to the selected item
-    function usdaReportHandler(json) {
-      try {
-        this.foodData = json.report.food
-      } catch (e) {
-        console.error('Food report failed - ', e)
-      }
-    }
-
-    function otherReportHandler(json) {
-      console.error('Not implemented - reportHandler()', json)
-    }
-
-    switch (this.source) {
-      case USDA:
-        foodReportAPI = usdaFoodReport(this.id)
-        reportHandler = usdaReportHandler.bind(this)
-        break
-      case OTHER:
-        foodReportAPI = otherFoodReport(this.id)
-        reportHandler = otherReportHandler.bind(this)
-        break
-      default:
-        return
-    }
-
-    fetch(foodReportAPI)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(reportHandler)
-    .catch((error) => { console.error('Food report failed', error) })
-
-    return
-  },
+  beforeMount: getData,
   computed: {
+    // Which (USDA) nutrients to show. All others are ignored
     visibleNutrients() {
       switch (this.source) {
-        case 'USDA':
-          return ['208', '204', '205', '291', '203', '269', '307']
-          // '606', '605' == saturated, trans fat
+        case API.USDA:
+          return ['208', '204', '606', '605', '205', '291', '203', '269', '307']
         default: return []
       }
     },
@@ -94,16 +97,17 @@ export default {
   methods: {
     onEat() {
       console.log('Ate', this.foodData.name)
+      store.commit('ingredients/addIngredient', this.foodData)
     },
     // Get nutrient by USDA nutrient ID
     findNutrient(id) {
       let nutrientFilter
 
       switch (this.source) {
-        case USDA:
+        case API.USDA:
           nutrientFilter = item => (item.nutrient_id === id)
           break
-        case OTHER:
+        case API.OTHER:
         default:
           return []
       }

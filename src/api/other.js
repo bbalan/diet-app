@@ -1,8 +1,8 @@
 // TODO: implement another API
-export function otherSearch(searchText) {
+export function search(searchText) {
   return `otherSearch/${searchText}`
 }
 
-export function otherFoodReport(foodID) {
+export function foodReport(foodID) {
   return `otherFoodReport/${foodID}`
 }

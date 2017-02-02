@@ -1,11 +1,16 @@
-import store from '.'
-import { setLocalStorage } from './utils'
+import { setLocalStorage } from './util'
 
-const MODULE_KEY = 'log'
+const MODULE_KEY = 'ingredients'
+
+function findIngredient(id) {
+  return function find(el) {
+    return id === el.id
+  }
+}
 
 // Personal info about the user
 const stateDefault = {
-  days: [],
+  ingredients: [],
 }
 
 const stateLocalStorage = JSON.parse(
@@ -17,9 +22,14 @@ const ingredients = {
   state: stateLocalStorage || stateDefault,
   mutations: {
     addIngredient(state, ingredient) {
-      state.ingredients.push(ingredient)
+      const finder = findIngredient(ingredient.id)
+
+      if (!state.ingredients.find(finder)) {
+        state.ingredients.push(ingredient)
+      }
+
       setLocalStorage(MODULE_KEY, state)
-    }
+    },
   },
 }
 
