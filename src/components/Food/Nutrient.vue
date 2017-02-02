@@ -32,7 +32,7 @@ export default {
       const val = this.nutrient.value * (this.parentMass / 100)
       return Math.floor(val * this.decimals) / this.decimals
     },
-    // Rename ingredients from more verbose versions from USDA API
+    // Rename nutrients from more verbose versions from USDA API
     name() {
       switch (this.nutrient.nutrient_id) {
         case '208': return 'Calories'

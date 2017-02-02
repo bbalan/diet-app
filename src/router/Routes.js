@@ -2,7 +2,7 @@ export default {
   root: '/',
   signup: '/signup',
   foodSearch: '/foodSearch',
-  ingredient: '/ingredient/:source/:id',
-  ingredientCache: '/ingredientCache',
+  food: '/food/:source/:id',
+  foodCache: '/foodCache',
   dailyLog: '/dailyLog',
 }

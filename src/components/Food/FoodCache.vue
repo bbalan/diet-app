@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1>Ingredient Cache</h1>
+    <h1>Food Cache</h1>
     <button @click="clearCache">Clear cache</button>
 
-    <ingredient-link
-      v-for="ingredient in cache"
-      :id="ingredient.id"
-      :source="ingredient.source">
-      {{ ingredient.dataFood.name }}
-    </ingredient-link>
+    <food-link
+      v-for="food in cache"
+      :id="food.id"
+      :source="food.source">
+      {{ food.dataFood.name }}
+    </food-link>
     
     <!--<pre>{{ cahce }}</pre>-->
   </div>
@@ -16,15 +16,15 @@
 
 <script>
 import store from '../../store'
-import IngredientLink from './IngredientLink'
+import FoodLink from './FoodLink'
 
 export default {
-  name: 'Ingredients',
-  components: { IngredientLink },
+  name: 'FoodCache',
+  components: { FoodLink },
   computed: {
     cache: {
       get() {
-        return store.state.ingredientCache.ingredients
+        return store.state.foodCache.food
       },
     },
   },

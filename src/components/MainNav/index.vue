@@ -4,7 +4,7 @@
     <router-link :to="routes.root">Home</router-link>
     <router-link :to="routes.signup" v-if="!signupComplete">Sign Up</router-link>
     <router-link :to="routes.foodSearch">Food Search</router-link>
-    <router-link :to="routes.ingredientCache">Ingredient Cache</router-link>
+    <router-link :to="routes.foodCache">Food Cache</router-link>
     <router-link :to="routes.dailyLog">Daily Log</router-link>
   </nav>
 </template>

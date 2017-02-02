@@ -1,12 +1,12 @@
 <template>
-  <router-link :to="`/ingredient/${source}/${id}`">
+  <router-link :to="`/food/${source}/${id}`">
     <slot></slot>
   </router-link>
 </template>
 
 <script>
 export default {
-  name: 'IngredientLink',
+  name: 'FoodLink',
   props: ['id', 'source'],
 }
 </script>

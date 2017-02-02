@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import userInfo from './userInfo'
 import appSettings from './appSettings'
-import ingredientCache from './ingredientCache'
+import foodCache from './foodCache'
 
 Vue.use(Vuex)
 
@@ -12,7 +12,7 @@ const store = new Vuex.Store({
   modules: {
     userInfo,
     appSettings,
-    ingredientCache,
+    foodCache,
   },
 })
 

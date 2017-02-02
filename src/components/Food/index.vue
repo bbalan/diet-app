@@ -1,5 +1,5 @@
 <template>
-  <div class="ingredient" v-if="dataFood !== null">
+  <div class="food" v-if="dataFood !== null">
     <h2>{{ dataFood.name }}</h2>
 
     <form>
@@ -32,7 +32,7 @@ import { checkStatus, parseJSON } from '../../api/util'
 import Nutrient from './Nutrient'
 
 export default {
-  name: 'ingredient',
+  name: 'Food',
   props: ['id', 'source'],
   components: { Nutrient },
   data() {
@@ -43,9 +43,9 @@ export default {
     }
   },
   beforeMount() {
-    const ingredients = store.state.ingredientCache.ingredients
-    const finder = this.findIngredientInCache(this.id, this.source)
-    const existing = ingredients.find(finder)
+    const food = store.state.foodCache.food
+    const finder = this.findFoodInCache(this.id, this.source)
+    const existing = food.find(finder)
 
     if (existing !== undefined) {
       this.dataFood = existing.dataFood
@@ -62,7 +62,7 @@ export default {
         dataFood: this.dataFood,
       }
 
-      store.commit('ingredientCache/addIngredient', data)
+      store.commit('foodCache/addFood', data)
     },
 
     // Get nutrient by USDA nutrient ID
@@ -81,14 +81,14 @@ export default {
       return this.dataFood.nutrients.filter(nutrientFilter)[0]
     },
 
-    // Array.find() function to identify ingredient in cache
-    findIngredientInCache(id, source) {
+    // Array.find() function to identify food in cache
+    findFoodInCache(id, source) {
       return function finder(item) {
         return item.id === id && item.source === source
       }
     },
 
-    // Hit the source API for ingredient data
+    // Hit the source API for food data
     getDataFromAPI() {
       let foodReportAPI
       let reportHandler

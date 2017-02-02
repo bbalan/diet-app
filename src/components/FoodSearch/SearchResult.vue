@@ -4,7 +4,7 @@
     <!--<pre>{{ resultData }}</pre>-->
 
     <router-link 
-      :to="'/ingredient/' + resultData.source + '/' + id">
+      :to="'/food/' + resultData.source + '/' + id">
       {{ resultData.name }}
     </router-link>
 
