@@ -1,15 +1,19 @@
 <template>
   <ul>
-    <li v-for="entry in entryList">
-      <pre>{{ entry }}</pre>
-    </li>
+    <entry 
+      v-for="entry in entryList" 
+      :foodUUID="entry.foodUUID"
+      :quantity="entry.quantity">
+    </entry>
   </ul>
 </template>
 
 <script>
 import store from '../../store'
+import Entry from './Entry'
 
 export default {
+  components: { Entry },
   computed: {
     entryList: {
       get() {
