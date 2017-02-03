@@ -17,7 +17,6 @@
     "framework7": "^1.5.2",
     "framework7-vue": "^0.7.7",
     "lodash.debounce": "^4.0.8",
-    "object.entries": "^1.0.4",
     "swiper": "^3.4.1",
     "uuid": "^3.0.1",
     "vue": "^2.1.0",
