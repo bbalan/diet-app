@@ -4,10 +4,12 @@
     <div v-if="list !== null && list.length > 0">
       <h2>{{list.length}} results</h2>
       
-      <search-result 
-        v-for="searchResult in orderedList" 
-        :resultData="searchResult">
-      </search-result>
+      <ul>
+        <search-result 
+          v-for="searchResult in orderedList" 
+          :resultData="searchResult">
+        </search-result>
+      </ul>
     </div>
 
     <div v-else>

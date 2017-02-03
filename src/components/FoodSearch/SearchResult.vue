@@ -1,14 +1,11 @@
 <template>
-  <div class="searchResult">
-
-    <!--<pre>{{ resultData }}</pre>-->
-
+  <li class="searchResult">
     <router-link 
-      :to="'/food/' + resultData.source + '/' + id">
+      class="searchResult__link"
+      :to="`/food/${resultData.source}/${id}`">
       {{ resultData.name }}
     </router-link>
-
-  </div>
+  </li>
 </template>
 
 <script>
@@ -33,11 +30,8 @@ export default {
 
 <style scoped lang="stylus">
 .searchResult
-  cursor pointer
-
   &:hover
     background #eee
-
   &:active
     background #efe
 </style>
