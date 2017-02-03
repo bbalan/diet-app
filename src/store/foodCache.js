@@ -2,12 +2,6 @@ import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'foodCache'
 
-function findFood(id) {
-  return function find(el) {
-    return id === el.id
-  }
-}
-
 // Personal info about the user
 const stateDefault = {
   food: {},
@@ -21,16 +15,8 @@ const foodCache = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    addFood(state, { id, dataFood }) {
-      const finder = findFood(id)
-
-      // Food is not already in the list
-      if (!state.food.find(finder)) {
-        state.food[id] = dataFood
-      } else {
-        console.warn(`Food ${id} already in state`)
-      }
-
+    addFood(state, { foodUUID, id, source, dataFood }) {
+      state.food[foodUUID] = { id, source, dataFood }
       setLocalStorage(MODULE_KEY, state)
     },
   },

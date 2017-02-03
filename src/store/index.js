@@ -19,10 +19,9 @@ const store = new Vuex.Store({
   },
   mutations: {
     eatFood(state, data) {
+      data.foodUUID = uuid.v4()
+      data.eat = true
       store.commit('foodCache/addFood', data)
-
-      const entryID = uuid.v4()
-      store.commit('log/addEntry', { entryID, data })
     },
   },
 })

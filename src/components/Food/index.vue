@@ -1,5 +1,5 @@
 <template>
-  <div class="food" v-if="dataFood !== null">
+  <div class="food" v-if="dataFood">
     <h2>{{ dataFood.name }}</h2>
 
     <form>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+// TODO: split API get functions into a FoodSummary component
 import uuid from 'uuid'
 import store from '../../store'
 import * as API from '../../api'
@@ -51,13 +52,32 @@ export default {
   methods: {
     // User pressed the Eat button
     onEat() {
-      const data = {
-        id: uuid.v4(),
-        quantity: this.quantity,
-        dataFood: this.dataFood,
+      let foodUUID
+      const entryUUID = uuid.v4()
+      const existing = Object
+        .entries(store.state.foodCache.food)
+        .find(food =>
+          food[1].id === this.id && food[1].source === this.source
+        )
+
+      if (!existing) {
+        foodUUID = uuid.v4()
+        store.commit('foodCache/addFood', {
+          foodUUID,
+          id: this.id,
+          source: this.source,
+          quantity: this.quantity,
+          dataFood: this.dataFood,
+        })
+      } else {
+        foodUUID = existing[0]
       }
 
-      store.commit('eatFood', data)
+      store.commit('log/addEntry', {
+        entryUUID,
+        foodUUID,
+        quantity: this.quantity,
+      })
     },
 
     // Get nutrient by USDA nutrient ID
@@ -82,11 +102,11 @@ export default {
       const existing = Object
         .entries(foodCache)
         .find(food =>
-          food.id === this.id && food.source === this.source
+          food[1].id === this.id && food[1].source === this.source
         )
 
       if (existing) {
-        this.dataFood = existing.dataFood
+        this.dataFood = existing[1].dataFood
       } else {
         this.getDataFromAPI()
       }

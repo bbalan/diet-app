@@ -51,7 +51,7 @@ export default {
 
 <style scoped lang="stylus">
 .nutrientList__item
-  width 150px
+  width 200px
   clear both
   background white
 

@@ -2,6 +2,8 @@
   <div>
     <h1>Food Cache</h1>
 
+    <!--<pre>{{ cache }}</pre>-->
+    
     <food-link
       v-for="food in cache"
       :id="food.id"
@@ -9,7 +11,6 @@
       {{ food.dataFood.name }}
     </food-link>
     
-    <!--<pre>{{ cahce }}</pre>-->
   </div>
 </template>
 
