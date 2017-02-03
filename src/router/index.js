@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
-import Routes from './Routes'
+import routes from './routes'
 import store from '../store'
 
 import Splash from '../components/Splash'
@@ -10,26 +10,22 @@ import Search from '../components/Search'
 import Food from '../components/Food'
 import Log from '../components/Log'
 
-import Cache from '../components/Food/Cache'
+import Cache from '../components/Food/FoodCache'
 import EntryList from '../components/Log/EntryList'
 
-// Routes
-const routes = [
-  { path: Routes.Root, component: Splash },
-  { path: Routes.Signup, component: SignupForm },
-  { path: Routes.Search, component: Search },
-  { path: Routes.Food, component: Food, props: true },
-  { path: Routes.Entry, component: Food, props: true },
-  { path: Routes.Log, component: Log },
-
-  { path: Routes.Cache, component: Cache },
-  { path: Routes.EntryList, component: EntryList },
-]
-
-// Router
 const router = new VueRouter({
-  routes,
   mode: 'history',
+  routes: [
+    { path: routes.Root, component: Splash },
+    { path: routes.Signup, component: SignupForm },
+    { path: routes.Search, component: Search },
+    { path: routes.Food, component: Food, props: true },
+    { path: routes.Entry, component: Food, props: true },
+    { path: routes.Log, component: Log },
+
+    { path: routes.Cache, component: Cache },
+    { path: routes.EntryList, component: EntryList },
+  ],
 })
 
 Vue.use(VueRouter);

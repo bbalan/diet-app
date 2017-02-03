@@ -15,13 +15,15 @@
 
 <script>
 import store from '../../store'
-import Routes from '../../router/Routes'
+import routes from '../../router/routes'
 
 export default {
+  data() {
+    return {
+      routes,
+    }
+  },
   computed: {
-    routes() {
-      return Routes
-    },
     signupComplete() {
       return store.state.userInfo.signupComplete
     },

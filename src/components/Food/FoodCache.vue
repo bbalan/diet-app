@@ -2,23 +2,23 @@
   <div>
     <h1>Food Cache</h1>
 
-    <search-result
+    <food-link
       v-for="food in cache"
       :id="food.id"
       :source="food.source"
       :name="food.dataFood.name">
-    </search-result>
+    </food-link>
     
   </div>
 </template>
 
 <script>
 import store from '../../store'
-import SearchResult from '../Search/SearchResult'
+import FoodLink from './FoodLink'
 
 export default {
   name: 'FoodCache',
-  components: { SearchResult },
+  components: { FoodLink },
   computed: {
     cache: {
       get() {

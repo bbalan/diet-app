@@ -8,11 +8,11 @@
       <input type="number" name="mass" v-model.number="mass">
       <span class="mass__unit">grams</span>
 
-      <food-breakdown 
+      <food-display 
         :dataFood="dataFood" 
         :source="source || entrySource"
         :mass="normalizedMass">
-      </food-breakdown>
+      </food-display>
 
       <button v-if="!entryUUID" type="submit">Eat</button>
       <button v-else type="submit">Save</button>
@@ -29,12 +29,12 @@ import * as USDA from '../../api/USDA'
 import * as OTHER from '../../api/other'
 import { checkStatus, parseJSON } from '../../api/util'
 
-import FoodBreakdown from './FoodBreakdown'
+import FoodDisplay from './FoodDisplay'
 
 export default {
   name: 'Food',
   props: ['id', 'source', 'entryUUID'],
-  components: { FoodBreakdown },
+  components: { FoodDisplay },
   data() {
     return {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)

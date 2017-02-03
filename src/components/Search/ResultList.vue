@@ -5,12 +5,12 @@
       <h2>{{list.length}} results</h2>
       
       <ul>
-        <search-result 
+        <food-link
           v-for="result in orderedList" 
           :id="result.id"
           :source="result.source"
           :name="result.name">
-        </search-result>
+        </food-link>
       </ul>
     </div>
 
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import SearchResult from './SearchResult'
+import FoodLink from '../Food/FoodLink'
 
 export default {
   /* Normally, a list of search results shouldn't know about the
   search text, but in this case we need it for sorting */
   props: ['list', 'searchText'],
-  components: { SearchResult },
+  components: { FoodLink },
   methods: {
     onResultSelect(resultData) {
       this.$emit('eventResultSelect', resultData)
