@@ -1,19 +1,21 @@
 <template>
   <ul>
-    <entry 
-      v-for="entry in entryList" 
+    <entry-link
+      v-for="(entry, uuid) in entryList" 
       :foodUUID="entry.foodUUID"
+      :entryUUID="uuid"
       :mass="entry.mass">
-    </entry>
+    </entry-link>
   </ul>
 </template>
 
 <script>
 import store from '../../store'
-import Entry from './Entry'
+import EntryLink from './EntryLink'
 
 export default {
-  components: { Entry },
+  name: 'EntryList',
+  components: { EntryLink },
   computed: {
     entryList: {
       get() {

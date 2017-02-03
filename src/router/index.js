@@ -19,6 +19,7 @@ const routes = [
   { path: Routes.Signup, component: SignupForm },
   { path: Routes.Search, component: Search },
   { path: Routes.Food, component: Food, props: true },
+  { path: Routes.Entry, component: Food, props: true },
   { path: Routes.Log, component: Log },
 
   { path: Routes.Cache, component: Cache },

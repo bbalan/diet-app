@@ -1,37 +1,12 @@
 <template>
-  <li class="searchResult">
-    <router-link 
-      class="searchResult__link"
-      :to="`/food/${resultData.source}/${id}`">
-      {{ resultData.name }}
-    </router-link>
-  </li>
+  <router-link class="foodLink" :to="`/food/${source}/${id}`">{{ name }}</router-link>
 </template>
 
 <script>
-import { USDA, OTHER } from '../../api'
-
-export default {
-  props: ['resultData'],
-  computed: {
-    id() {
-      switch (this.resultData.source) {
-        case USDA:
-          return this.resultData.ndbno
-        case OTHER:
-          return this.resultData.someID
-        default:
-          return false
-      }
-    },
-  },
-}
+export default { props: ['name', 'id', 'source'] }
 </script>
 
 <style scoped lang="stylus">
-.searchResult
-  &:hover
-    background #eee
-  &:active
-    background #efe
+.foodLink
+  display block
 </style>

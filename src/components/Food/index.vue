@@ -1,18 +1,21 @@
 <template>
   <div class="food" v-if="dataFood">
 
-    <form @submit.prevent="onEat">
-      <label for="mass">mass:</label>
+    <!--<pre>{{ dataFood }}</pre>-->
+
+    <form @submit.prevent="onSubmit">
+      <label for="mass">Weight:</label>
       <input type="number" name="mass" v-model.number="mass">
       <span class="mass__unit">grams</span>
 
       <food-breakdown 
         :dataFood="dataFood" 
-        :source="source"
+        :source="source || entrySource"
         :mass="normalizedMass">
       </food-breakdown>
 
-      <button type="submit">Eat</button>
+      <button v-if="!entryUUID" type="submit">Eat</button>
+      <button v-else type="submit">Save</button>
     </form>
     
   </div>
@@ -30,16 +33,21 @@ import FoodBreakdown from './FoodBreakdown'
 
 export default {
   name: 'Food',
-  props: ['id', 'source'],
+  props: ['id', 'source', 'entryUUID'],
   components: { FoodBreakdown },
   data() {
     return {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
       dataFood: null,
+      entrySource: null,
     }
   },
   created() {
-    this.getData()
+    if (this.entryUUID) {
+      this.getDataFromEntry()
+    } else {
+      this.getDataFromCache()
+    }
   },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
@@ -52,7 +60,24 @@ export default {
   },
   methods: {
     // User pressed the Eat button
-    onEat() {
+    onSubmit() {
+      if (this.entry) {
+        this.saveEntry()
+      } else {
+        this.addEntry()
+      }
+    },
+
+    saveEntry() {
+      // TODO: make this a thing
+      store.commit('log/saveEntry', {
+        entryUUID: this.entry,
+        mass: this.mass,
+      })
+    },
+
+    // Commit new log entry
+    addEntry() {
       let foodUUID
       const entryUUID = uuid.v4()
       const existing = Object
@@ -61,6 +86,7 @@ export default {
           food[1].id === this.id && food[1].source === this.source
         )
 
+      // Cache this food so we don't have to hit the API next time
       if (!existing) {
         foodUUID = uuid.v4()
         store.commit('foodCache/addFood', {
@@ -74,6 +100,7 @@ export default {
         foodUUID = existing[0]
       }
 
+      // Add a food entry with the cached food uuid
       store.commit('log/addEntry', {
         entryUUID,
         foodUUID,
@@ -81,8 +108,18 @@ export default {
       })
     },
 
-    // Determine if food is already in cache. If not, hit the API
-    getData() {
+    // We are looking at a saved food entry
+    getDataFromEntry() {
+      const entry = store.state.log.entries[this.entryUUID]
+      const food = store.state.foodCache.food[entry.foodUUID]
+
+      this.mass = entry.mass
+      this.dataFood = food.dataFood
+      this.entrySource = food.source
+    },
+
+    // Try to get dataFood from cache, then try the API
+    getDataFromCache() {
       const foodCache = store.state.foodCache.food
       const existing = Object
         .entries(foodCache)

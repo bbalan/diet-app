@@ -6,8 +6,10 @@
       
       <ul>
         <search-result 
-          v-for="searchResult in orderedList" 
-          :resultData="searchResult">
+          v-for="result in orderedList" 
+          :id="result.id"
+          :source="result.source"
+          :name="result.name">
         </search-result>
       </ul>
     </div>

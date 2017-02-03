@@ -1,16 +1,18 @@
 <template>
   <div id="FoodSearch">
+    
     <h1>Food search</h1>
+
     <form @submit.prevent>
       <label for="searchText">Search foods:</label>
       <input type="text" name="searchText" v-model="searchText">
 
-      <!--<pre>{{ searchResults }}</pre>-->
-
-      <result-list :searchText="searchText" :list="searchResults">
+      <result-list 
+        :searchText="searchText" 
+        :list="searchResults">
       </result-list>
-      
     </form>
+    
   </div>
 </template>
 
@@ -46,14 +48,15 @@ export default {
   watch: {
     // User typed something into the search field.
     searchText() {
-      this.getFoods(this.sanitizedSearch, this)
+      this.searchAllAPIs(this.sanitizedSearch, this)
     },
   },
   methods: {
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
-    getFoods: debounce((searchText, that) => {
+    searchAllAPIs: debounce((searchText, that) => {
       // TODO: run analytics to determine how many searches done before an option is selected
+
       if (searchText === '' || searchText === undefined) {
         that.searchResults = []
         return
@@ -64,8 +67,11 @@ export default {
       // Append USDA search results to the total search results
       function usdaSearchHandler(json) {
         if (json.list !== undefined && json.list.item !== undefined) {
-          const results = json.list.item
-          results.forEach((result) => { result.source = API.USDA })
+          const results = json.list.item.map(result => ({
+            name: result.name,
+            id: result.ndbno,
+            source: API.USDA,
+          }))
           resultsTemp = resultsTemp.concat(results)
         }
       }
@@ -76,7 +82,7 @@ export default {
       }
 
       // Do a search with a specific supported API
-      function search(opts) {
+      function searchWithAPI(opts) {
         let searchAPI
         let searchHandler
 
@@ -102,7 +108,7 @@ export default {
 
       const searches = []
 
-      searches.push(search({
+      searches.push(searchWithAPI({
         searchText,
         source: API.USDA,
         library: 'Standard Reference',

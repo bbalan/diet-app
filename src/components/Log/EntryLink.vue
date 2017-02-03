@@ -1,6 +1,8 @@
 <template>
   <li>
-    <span class="name">{{dataFood.name}}</span> 
+    <router-link :to="`entry/${entryUUID}`"class="name">
+      {{dataFood.name}}
+    </router-link> 
     <span class="mass">{{mass}} g</span>
     <span class="calories">{{calories}}</span>
 
@@ -13,7 +15,7 @@ import store from '../../store'
 import { USDA, OTHER } from '../../api'
 
 export default {
-  props: ['foodUUID', 'mass'],
+  props: ['foodUUID', 'entryUUID', 'mass'],
   computed: {
     foodFromCache() {
       return store.state.foodCache.food[this.foodUUID]
@@ -36,7 +38,7 @@ export default {
           break
       }
 
-      const energyVal = energy.value * (this.mass / 100)
+      const energyVal = Math.floor(energy.value * (this.mass / 100))
       return `${energyVal} ${energy.unit}`
     },
   },

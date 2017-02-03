@@ -39,6 +39,7 @@ a {
   color: #42b983;
   text-decoration: none;
 }
+a:hover,
 a:visited {
   color: black;
 }
