@@ -16,6 +16,14 @@ const foodCache = {
   state: stateLocalStorage || stateDefault,
   mutations: {
     addFood(state, { foodUUID, id, source, dataFood }) {
+      // Strip unnecessary stuff to make stringification faster
+      dataFood.ds = undefined
+      dataFood.ru = undefined
+      dataFood.nutrients.forEach((nutrient) => {
+        nutrient.measures = undefined
+        nutrient.group = undefined
+      })
+
       state.food[foodUUID] = { id, source, dataFood }
       setLocalStorage(MODULE_KEY, state)
     },

@@ -2,9 +2,9 @@
   <div class="food" v-if="dataFood">
     <h2>{{ dataFood.name }}</h2>
 
-    <form>
+    <form @submit.prevent>
       <label for="quantity">Quantity:</label>
-      <input type="number" name="quantity" v-model="quantity">
+      <input type="number" name="quantity" v-model.number="quantity">
       <span class="quantity__unit">grams</span>
     </form>
 
@@ -12,7 +12,7 @@
       v-for="nutrientID in visibleNutrients"
       v-if="findNutrient(nutrientID)"
       :nutrient="findNutrient(nutrientID)"
-      :parentMass="quantity"
+      :parentMass="parentMass"
       :decimals="1">
     </nutrient>
 
@@ -161,6 +161,10 @@ export default {
           return ['208', '204', '606', '605', '205', '291', '203', '269', '307']
         default: return []
       }
+    },
+    parentMass() {
+      if (typeof this.quantity !== 'number') return 0
+      return this.quantity
     },
   },
 }

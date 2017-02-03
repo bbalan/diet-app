@@ -35,4 +35,11 @@ export default {
 h2 {
   font-size: 20px;
 }
+a {
+  color: #42b983;
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+}
 </style>

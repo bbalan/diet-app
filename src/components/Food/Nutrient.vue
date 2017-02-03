@@ -1,7 +1,5 @@
 <template>
-  <div class="nutrientList__item" v-if="nutrient !== null">
-
-    <!--<pre>{{ nutrient }}</pre>-->
+  <div class="nutrientList__item" v-if="nutrient">
 
     <div class="nutrientList__item__name">
       {{ name }}
@@ -18,7 +16,7 @@
 
 export default {
   props: {
-    nutrient: null,
+    nutrient: Object,
     decimals: {
       type: Number,
       default: 10,

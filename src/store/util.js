@@ -12,5 +12,5 @@ export function roundTo(num, divisor) {
 
 // Shorthand for settings a key/value pair in localStorage
 export function setLocalStorage(key, val) {
-  localStorage.setItem(key, JSON.stringify(val))
+  localStorage.setItem(key, JSON.stringify(val, null, ''))
 }
