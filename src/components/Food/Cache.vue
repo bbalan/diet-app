@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Food Cache</h1>
-    <button @click="clearCache">Clear cache</button>
 
     <food-link
       v-for="food in cache"
@@ -26,12 +25,6 @@ export default {
       get() {
         return store.state.foodCache.food
       },
-    },
-  },
-  methods: {
-    clearCache() {
-      localStorage.clear()
-      window.location.reload()
     },
   },
 }

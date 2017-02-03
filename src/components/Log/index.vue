@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Daily Log</h1>
+    <h1>Log</h1>
     sdfdsf
   </div>
 </template>

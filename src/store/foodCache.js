@@ -10,7 +10,7 @@ function findFood(id) {
 
 // Personal info about the user
 const stateDefault = {
-  food: [],
+  food: {},
 }
 
 const stateLocalStorage = JSON.parse(
@@ -21,12 +21,12 @@ const foodCache = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    addFood(state, { id, source, dataFood }) {
+    addFood(state, { id, dataFood }) {
       const finder = findFood(id)
 
       // Food is not already in the list
       if (!state.food.find(finder)) {
-        state.food.push({ id, source, dataFood })
+        state.food[id] = dataFood
       } else {
         console.warn(`Food ${id} already in state`)
       }

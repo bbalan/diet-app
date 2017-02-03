@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import uuid from 'uuid'
 import store from '../../store'
 import * as API from '../../api'
 import * as USDA from '../../api/USDA'
@@ -37,32 +38,26 @@ export default {
   components: { Nutrient },
   data() {
     return {
-      // TODO: offer more units of quantity (oz, cups, etc)
-      quantity: 100,
+      quantity: 100, // TODO: offer more units (oz, cups, ml, ...)
       dataFood: null,
     }
   },
-  beforeMount() {
-    const food = store.state.foodCache.food
-    const finder = this.findFoodInCache(this.id, this.source)
-    const existing = food.find(finder)
-
-    if (existing !== undefined) {
-      this.dataFood = existing.dataFood
-    } else {
-      this.getDataFromAPI()
-    }
+  created() {
+    this.getData()
+  },
+  watch: {
+    $route: 'getData', // if route changes, re-hydrate component
   },
   methods: {
     // User pressed the Eat button
     onEat() {
       const data = {
-        id: this.id,
-        source: this.source,
+        id: uuid.v4(),
+        quantity: this.quantity,
         dataFood: this.dataFood,
       }
 
-      store.commit('foodCache/addFood', data)
+      store.commit('eatFood', data)
     },
 
     // Get nutrient by USDA nutrient ID
@@ -81,19 +76,27 @@ export default {
       return this.dataFood.nutrients.filter(nutrientFilter)[0]
     },
 
-    // Array.find() function to identify food in cache
-    findFoodInCache(id, source) {
-      return function finder(item) {
-        return item.id === id && item.source === source
+    // Determine if food is already in cache. If not, hit the API
+    getData() {
+      const foodCache = store.state.foodCache.food
+      const existing = Object
+        .entries(foodCache)
+        .find(food =>
+          food.id === this.id && food.source === this.source
+        )
+
+      if (existing) {
+        this.dataFood = existing.dataFood
+      } else {
+        this.getDataFromAPI()
       }
     },
 
     // Hit the source API for food data
     getDataFromAPI() {
-      let foodReportAPI
-      let reportHandler
+      let foodReportAPI // composed URL of food API
+      let reportHandler // do API-specific things with returned data
 
-      // Append source to the selected item
       function usdaReportHandler(json) {
         try {
           this.dataFood = json.report.food
@@ -106,6 +109,7 @@ export default {
         console.error('Not implemented - reportHandler()', json)
       }
 
+      // Figure out which API URLs and handlers to use
       switch (this.source) {
         case API.USDA:
           foodReportAPI = USDA.foodReport(this.id)
@@ -116,14 +120,15 @@ export default {
           reportHandler = otherReportHandler.bind(this)
           break
         default:
-          return
+          return // invalid source
       }
 
+      // do the search
       fetch(foodReportAPI)
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(reportHandler)
-      .catch((error) => { console.error('Food report failed', error) })
+        .then(checkStatus)
+        .then(parseJSON)
+        .then(reportHandler)
+        .catch((error) => { console.error('Food report failed', error) })
 
       return
     },

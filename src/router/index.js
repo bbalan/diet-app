@@ -6,19 +6,23 @@ import store from '../store'
 
 import Splash from '../components/Splash'
 import SignupForm from '../components/SignupForm'
-import FoodSearch from '../components/FoodSearch'
+import Search from '../components/Search'
 import Food from '../components/Food'
-import FoodCache from '../components/Food/FoodCache'
-import FoodLog from '../components/FoodLog'
+import Log from '../components/Log'
+
+import Cache from '../components/Food/Cache'
+import EntryList from '../components/Log/EntryList'
 
 // Routes
 const routes = [
   { path: Routes.Root, component: Splash },
   { path: Routes.Signup, component: SignupForm },
-  { path: Routes.FoodSearch, component: FoodSearch },
+  { path: Routes.Search, component: Search },
   { path: Routes.Food, component: Food, props: true },
-  { path: Routes.FoodCache, component: FoodCache },
-  { path: Routes.FoodLog, component: FoodLog },
+  { path: Routes.Log, component: Log },
+
+  { path: Routes.Cache, component: Cache },
+  { path: Routes.EntryList, component: EntryList },
 ]
 
 // Router

@@ -1,8 +1,10 @@
 export default {
   Root: '/',
   Signup: '/signup',
-  FoodSearch: '/foodSearch',
+  Search: '/search',
   Food: '/food/:source/:id',
-  FoodCache: '/foodCache',
-  FoodLog: '/foodLog',
+  Log: '/log',
+
+  Cache: '/cache',
+  EntryList: '/entryList',
 }
