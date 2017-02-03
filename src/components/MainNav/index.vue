@@ -1,11 +1,11 @@
 <template>
   <nav>
     <h1>Diet app</h1>
-    <router-link :to="routes.root">Home</router-link>
-    <router-link :to="routes.signup" v-if="!signupComplete">Sign Up</router-link>
-    <router-link :to="routes.foodSearch">Food Search</router-link>
-    <router-link :to="routes.foodCache">Food Cache</router-link>
-    <router-link :to="routes.dailyLog">Daily Log</router-link>
+    <router-link :to="routes.Root">Home</router-link>
+    <router-link :to="routes.Signup" v-if="!signupComplete">Sign Up</router-link>
+    <router-link :to="routes.FoodSearch">Search</router-link>
+    <router-link :to="routes.FoodCache">Cache</router-link>
+    <router-link :to="routes.FoodLog">Log</router-link>
   </nav>
 </template>
 

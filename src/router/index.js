@@ -1,24 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import { sync } from 'vuex-router-sync'
 import Routes from './Routes'
-// import { sync } from 'vuex-router-sync'
-// import store from '../store'
+import store from '../store'
 
 import Splash from '../components/Splash'
 import SignupForm from '../components/SignupForm'
 import FoodSearch from '../components/FoodSearch'
 import Food from '../components/Food'
 import FoodCache from '../components/Food/FoodCache'
-import DailyLog from '../components/DailyLog'
+import FoodLog from '../components/FoodLog'
 
 // Routes
 const routes = [
-  { path: Routes.root, component: Splash },
-  { path: Routes.signup, component: SignupForm },
-  { path: Routes.foodSearch, component: FoodSearch },
-  { path: Routes.food, component: Food, props: true },
-  { path: Routes.foodCache, component: FoodCache },
-  { path: Routes.dailyLog, component: DailyLog },
+  { path: Routes.Root, component: Splash },
+  { path: Routes.Signup, component: SignupForm },
+  { path: Routes.FoodSearch, component: FoodSearch },
+  { path: Routes.Food, component: Food, props: true },
+  { path: Routes.FoodCache, component: FoodCache },
+  { path: Routes.FoodLog, component: FoodLog },
 ]
 
 // Router
@@ -29,6 +29,6 @@ const router = new VueRouter({
 
 Vue.use(VueRouter);
 
-// sync(store, router)
+sync(store, router)
 
 export default router
