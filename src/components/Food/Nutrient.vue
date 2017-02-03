@@ -21,13 +21,13 @@ export default {
       type: Number,
       default: 10,
     },
-    parentMass: {
+    mass: {
       type: Number,
     },
   },
   computed: {
     value() {
-      const val = this.nutrient.value * (this.parentMass / 100)
+      const val = this.nutrient.value * (this.mass / 100)
       return Math.floor(val * this.decimals) / this.decimals
     },
     // Rename nutrients from more verbose versions from USDA API
@@ -70,6 +70,6 @@ export default {
     float right
     text-align right
 
-label[for="parentMass"]
+label[for="mass"]
   font-weight bold
 </style>

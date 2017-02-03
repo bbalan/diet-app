@@ -20,10 +20,10 @@ const log = {
       state.days.push(day)
       setLocalStorage(MODULE_KEY, state)
     },
-    addEntry(state, { entryUUID, foodUUID, quantity }) {
+    addEntry(state, { entryUUID, foodUUID, mass }) {
       state.entries[entryUUID] = {
         foodUUID,
-        quantity,
+        mass,
       }
 
       // TODO: push entry idx to current day

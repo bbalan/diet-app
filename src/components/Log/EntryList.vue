@@ -3,7 +3,7 @@
     <entry 
       v-for="entry in entryList" 
       :foodUUID="entry.foodUUID"
-      :quantity="entry.quantity">
+      :mass="entry.mass">
     </entry>
   </ul>
 </template>

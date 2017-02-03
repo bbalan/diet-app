@@ -1,7 +1,7 @@
 <template>
   <li>
     <span class="name">{{dataFood.name}}</span> 
-    <span class="quantity">{{quantity}} {{dataFood.ru}}</span>
+    <span class="mass">{{mass}} g</span>
     <span class="calories">{{calories}}</span>
 
     <!--<pre>{{dataFood}}</pre>-->
@@ -13,7 +13,7 @@ import store from '../../store'
 import { USDA, OTHER } from '../../api'
 
 export default {
-  props: ['foodUUID', 'quantity'],
+  props: ['foodUUID', 'mass'],
   computed: {
     foodFromCache() {
       return store.state.foodCache.food[this.foodUUID]
@@ -36,7 +36,7 @@ export default {
           break
       }
 
-      const energyVal = energy.value * (this.quantity / 100)
+      const energyVal = energy.value * (this.mass / 100)
       return `${energyVal} ${energy.unit}`
     },
   },
@@ -44,6 +44,15 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.name
+  display inline-block
+  width 70%
+.mass
+.calories
+  display inline-block
+  width 70px
 .calories
   font-weight bold
+span
+  margin 0 10px
 </style>

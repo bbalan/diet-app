@@ -1,45 +1,40 @@
 <template>
   <div class="food" v-if="dataFood">
-    <h2>{{ dataFood.name }}</h2>
 
-    <form @submit.prevent>
-      <label for="quantity">Quantity:</label>
-      <input type="number" name="quantity" v-model.number="quantity">
-      <span class="quantity__unit">grams</span>
+    <form @submit.prevent="onEat">
+      <label for="mass">mass:</label>
+      <input type="number" name="mass" v-model.number="mass">
+      <span class="mass__unit">grams</span>
+
+      <food-breakdown 
+        :dataFood="dataFood" 
+        :source="source"
+        :mass="normalizedMass">
+      </food-breakdown>
+
+      <button type="submit">Eat</button>
     </form>
-
-    <nutrient 
-      v-for="nutrientID in visibleNutrients"
-      v-if="findNutrient(nutrientID)"
-      :nutrient="findNutrient(nutrientID)"
-      :parentMass="parentMass"
-      :decimals="1">
-    </nutrient>
-
-    <p class="dataSource">Source: {{ source }}</p>
-
-    <button @click="onEat">Eat</button>
-
+    
   </div>
 </template>
 
 <script>
-// TODO: split API get functions into a FoodSummary component
 import uuid from 'uuid'
 import store from '../../store'
 import * as API from '../../api'
 import * as USDA from '../../api/USDA'
 import * as OTHER from '../../api/other'
 import { checkStatus, parseJSON } from '../../api/util'
-import Nutrient from './Nutrient'
+
+import FoodBreakdown from './FoodBreakdown'
 
 export default {
   name: 'Food',
   props: ['id', 'source'],
-  components: { Nutrient },
+  components: { FoodBreakdown },
   data() {
     return {
-      quantity: 100, // TODO: offer more units (oz, cups, ml, ...)
+      mass: 100, // TODO: offer more units (oz, cups, ml, ...)
       dataFood: null,
     }
   },
@@ -48,6 +43,12 @@ export default {
   },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
+  },
+  computed: {
+    normalizedMass() {
+      if (typeof this.mass !== 'number') return 0
+      return this.mass
+    },
   },
   methods: {
     // User pressed the Eat button
@@ -66,7 +67,7 @@ export default {
           foodUUID,
           id: this.id,
           source: this.source,
-          quantity: this.quantity,
+          mass: this.mass,
           dataFood: this.dataFood,
         })
       } else {
@@ -76,24 +77,8 @@ export default {
       store.commit('log/addEntry', {
         entryUUID,
         foodUUID,
-        quantity: this.quantity,
+        mass: this.mass,
       })
-    },
-
-    // Get nutrient by USDA nutrient ID
-    findNutrient(id) {
-      let nutrientFilter
-
-      switch (this.source) {
-        case API.USDA:
-          nutrientFilter = item => (item.nutrient_id === id)
-          break
-        case API.OTHER:
-        default:
-          return []
-      }
-
-      return this.dataFood.nutrients.filter(nutrientFilter)[0]
     },
 
     // Determine if food is already in cache. If not, hit the API
@@ -151,20 +136,6 @@ export default {
         .catch((error) => { console.error('Food report failed', error) })
 
       return
-    },
-  },
-  computed: {
-    // Which (USDA) nutrients to show. All others are ignored
-    visibleNutrients() {
-      switch (this.source) {
-        case API.USDA:
-          return ['208', '204', '606', '605', '205', '291', '203', '269', '307']
-        default: return []
-      }
-    },
-    parentMass() {
-      if (typeof this.quantity !== 'number') return 0
-      return this.quantity
     },
   },
 }
