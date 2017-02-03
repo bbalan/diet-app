@@ -61,17 +61,17 @@ export default {
   methods: {
     // User pressed the Eat button
     onSubmit() {
-      if (this.entry) {
-        this.saveEntry()
+      if (this.entryUUID) {
+        this.editEntry()
       } else {
         this.addEntry()
       }
     },
 
-    saveEntry() {
+    editEntry() {
       // TODO: make this a thing
-      store.commit('log/saveEntry', {
-        entryUUID: this.entry,
+      store.commit('log/editEntry', {
+        entryUUID: this.entryUUID,
         mass: this.mass,
       })
     },

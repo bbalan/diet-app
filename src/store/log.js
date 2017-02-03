@@ -30,6 +30,10 @@ const log = {
 
       setLocalStorage(MODULE_KEY, state)
     },
+    editEntry(state, { entryUUID, mass }) {
+      state.entries[entryUUID].mass = mass
+      setLocalStorage(MODULE_KEY, state)
+    },
   },
 }
 
