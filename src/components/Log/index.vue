@@ -14,6 +14,7 @@ export default {
   name: 'Log',
   components: { Day },
   computed: {
+    // TODO: sort days by date
     days: {
       get() {
         return store.state.log.days

@@ -10,6 +10,7 @@
 <script>
 import store from '../../store'
 import { USDA, OTHER } from '../../api'
+import { roundTo } from '../../util'
 
 export default {
   props: ['entryUUID'],
@@ -41,7 +42,7 @@ export default {
           break
       }
 
-      const energyVal = Math.floor(energy.value * (this.mass / 100))
+      const energyVal = roundTo(energy.value * (this.mass / 100), 1)
       return `${energyVal} ${energy.unit}`
     },
   },

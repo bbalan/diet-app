@@ -1,5 +1,6 @@
 import store from '.'
-import { setLocalStorage, roundTo } from './util'
+import { setLocalStorage } from './util'
+import { roundTo } from '../util'
 
 const MODULE_KEY = 'appSettings'
 
