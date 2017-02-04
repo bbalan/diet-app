@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
-import routes from './routes'
-import store from '../store'
+import routes from 'router/routes'
+import store from 'store'
 
-import Splash from '../components/Splash'
-import SignupForm from '../components/SignupForm'
-import Search from '../components/Search'
-import Food from '../components/Food'
-import Log from '../components/Log'
+import Splash from 'components/Splash'
+import SignupForm from 'components/SignupForm'
+import Search from 'components/Search'
+import Food from 'components/Food'
+import Log from 'components/Log'
 
-import Cache from '../components/Dev/FoodCache'
-import DevEntries from '../components/Dev/DevEntries'
+import Cache from 'components/Dev/FoodCache'
+import DevEntries from 'components/Dev/DevEntries'
 
 const router = new VueRouter({
   mode: 'history',

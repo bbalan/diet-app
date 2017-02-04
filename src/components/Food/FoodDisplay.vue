@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import * as API from '../../api'
+import * as API from 'api'
 import Nutrient from './Nutrient'
 
 export default {

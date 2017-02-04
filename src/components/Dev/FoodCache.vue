@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import store from '../../store'
+import store from 'store'
 import FoodLink from '../Food/FoodLink'
 
 export default {

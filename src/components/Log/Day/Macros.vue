@@ -13,9 +13,9 @@
 </template>
 
 <script>
-import store from '../../store'
-import * as API from '../../api'
-import { roundTo } from '../../util'
+import store from 'store'
+import * as API from 'api'
+import { roundTo } from 'util'
 
 export default {
   name: 'Macros',

@@ -6,8 +6,8 @@
 </template>
 
 <script>
-// import router from '../router'
-import store from '../store'
+// import router from 'router'
+import store from 'store'
 import MainNav from './MainNav'
 
 // TODO: signup for a USDA API key on app launch

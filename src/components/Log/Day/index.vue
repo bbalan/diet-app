@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import store from '../../store'
+import store from 'store'
 import EntryList from './EntryList'
 import Macros from './Macros'
 

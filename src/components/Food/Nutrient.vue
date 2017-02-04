@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { roundTo } from '../../util'
+import { roundTo } from 'util'
 
 export default {
   props: {

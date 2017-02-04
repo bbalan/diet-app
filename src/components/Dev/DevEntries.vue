@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import store from '../../store'
-import EntryLink from '../Log/EntryLink'
+import store from 'store'
+import EntryLink from '../Log/Day/EntryList/EntryLink'
 
 export default {
   name: 'DevEntries',

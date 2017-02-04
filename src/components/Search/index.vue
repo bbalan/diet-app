@@ -20,10 +20,10 @@
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
-import * as API from '../../api'
-import * as USDA from '../../api/USDA'
-import * as OTHER from '../../api/other'
-import { checkStatus, parseJSON } from '../../api/util'
+import * as API from 'api'
+import * as USDA from 'api/USDA'
+import * as OTHER from 'api/other'
+import { checkStatus, parseJSON } from 'api/util'
 import ResultList from './ResultList'
 import Food from '../Food'
 

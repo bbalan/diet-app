@@ -18,19 +18,17 @@
 </template>
 
 <script>
-import './SignupForm.styl'
-
-import store from '../../store'
-import router from '../../router'
-// import db from '../../util/Firebase'
-
-import Birthday from './Birthday'
-import Gender from './Gender'
-import Height from './Height'
-import Weight from './Weight'
-import Goals from './Goals'
-import ActivityLevel from './ActivityLevel'
-// import Credentials from './Credentials'
+import 'components/SignupForm/SignupForm.styl'
+import store from 'store'
+import router from 'router'
+// import db from 'util/Firebase'
+import Birthday from 'components/SignupForm/Birthday'
+import Gender from 'components/SignupForm/Gender'
+import Height from 'components/SignupForm/Height'
+import Weight from 'components/SignupForm/Weight'
+import Goals from 'components/SignupForm/Goals'
+import ActivityLevel from 'components/SignupForm/ActivityLevel'
+// import Credentials from 'components/SignupForm/Credentials'
 
 export default {
   beforeCreate() {

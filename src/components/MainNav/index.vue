@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import store from '../../store'
-import routes from '../../router/routes'
+import store from 'store'
+import routes from 'router/routes'
 
 export default {
   data() {

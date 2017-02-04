@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import store from '../../store'
-import { USDA, OTHER } from '../../api'
-import { roundTo } from '../../util'
+import store from 'store'
+import { USDA, OTHER } from 'api'
+import { roundTo } from 'util'
 
 export default {
   props: ['entryUUID'],

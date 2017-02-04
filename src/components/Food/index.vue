@@ -22,13 +22,13 @@
 </template>
 
 <script>
+import router from 'router'
 import uuid from 'uuid'
-import store from '../../store'
-import router from '../../router'
-import * as API from '../../api'
-import * as USDA from '../../api/USDA'
-import * as OTHER from '../../api/other'
-import { checkStatus, parseJSON } from '../../api/util'
+import store from 'store'
+import * as API from 'api'
+import * as USDA from 'api/USDA'
+import * as OTHER from 'api/other'
+import { checkStatus, parseJSON } from 'api/util'
 
 import FoodDisplay from './FoodDisplay'
 

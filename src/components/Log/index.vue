@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import store from '../../store'
+import store from 'store'
 import Day from './Day'
 
 export default {
