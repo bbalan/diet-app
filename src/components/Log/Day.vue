@@ -29,54 +29,48 @@ export default {
   },
   components: { EntryList },
   created() {
-    const entries = this.dataDay.entries
+    this.calculateMacros()
+  },
+  methods: {
+    calculateMacros() {
+      const entries = this.dataDay.entries
 
-    entries.forEach((entry) => {
-      let nutrients
+      entries.forEach((entry) => {
+        let nutrients
 
-      let calories
-      let nEnergy
+        if (!store.state.log.entries[entry]) return
+        const entryData = store.state.log.entries[entry]
 
-      let fat
-      let nFat
+        if (!entryData || !entryData.foodUUID) return
+        const food = store.state.foodCache.food[entryData.foodUUID]
 
-      let carbs
-      let nCarbs
+        switch (food.source) {
+          case API.USDA:
+            nutrients = food.dataFood.nutrients
 
-      let protein
-      let nProtein
+            this.calories += parseInt(nutrients.find(
+              n => n.nutrient_id === '208'
+            ).value, 10) * (entryData.mass / 100)
 
-      if (!store.state.log.entries[entry]) return
-      const entryData = store.state.log.entries[entry]
+            this.fat += parseInt(nutrients.find(
+              n => n.nutrient_id === '204'
+            ).value, 10) * (entryData.mass / 100)
 
-      if (!entryData || !entryData.foodUUID) return
-      const food = store.state.foodCache.food[entryData.foodUUID]
+            this.carbs += parseInt(nutrients.find(
+              n => n.nutrient_id === '205'
+            ).value, 10) * (entryData.mass / 100)
 
-      switch (food.source) {
-        case API.USDA:
-          nutrients = food.dataFood.nutrients
+            this.protein += parseInt(nutrients.find(
+              n => n.nutrient_id === '203'
+            ).value, 10) * (entryData.mass / 100)
 
-          nEnergy = nutrients.find(n => n.nutrient_id === '208')
-          calories = parseInt(nEnergy.value, 10) * (entryData.mass / 100)
-
-          nFat = nutrients.find(n => n.nutrient_id === '204')
-          fat = parseInt(nFat.value, 10) * (entryData.mass / 100)
-
-          nCarbs = nutrients.find(n => n.nutrient_id === '205')
-          carbs = parseInt(nCarbs.value, 10) * (entryData.mass / 100)
-
-          nProtein = nutrients.find(n => n.nutrient_id === '203')
-          protein = parseInt(nProtein.value, 10) * (entryData.mass / 100)
-          break
-        default: console.error('Unsupported source')
-          return
-      }
-
-      this.calories += calories
-      this.fat += fat
-      this.carbs += carbs
-      this.protein += protein
-    })
+            break
+          default:
+            console.error('Unsupported source')
+            return
+        }
+      })
+    },
   },
   computed: {
     nutrientsSum() {
