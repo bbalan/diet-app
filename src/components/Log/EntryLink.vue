@@ -1,8 +1,7 @@
 <template>
   <li v-if="dataEntry">
-    <router-link :to="`entry/${entryUUID}`"class="name">
-      {{ dataFood.name }}
-    </router-link> 
+    <router-link :to="`entry/${entryUUID}`" class="edit">edit</router-link> 
+    <span class="name">{{ dataFood.name }}</span>
     <span class="mass">{{mass}} g</span>
     <span class="calories">{{calories}}</span>
   </li>
@@ -50,9 +49,12 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.edit
+  width 50px
+  color #42b983
 .name
   display inline-block
-  width 70%
+  width 60%
 .mass
 .calories
   display inline-block
