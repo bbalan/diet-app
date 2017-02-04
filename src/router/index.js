@@ -10,8 +10,8 @@ import Search from '../components/Search'
 import Food from '../components/Food'
 import Log from '../components/Log'
 
-import Cache from '../components/Food/FoodCache'
-import EntryList from '../components/Log/EntryList'
+import Cache from '../components/Dev/FoodCache'
+import DevEntries from '../components/Dev/DevEntries'
 
 const router = new VueRouter({
   mode: 'history',
@@ -24,7 +24,7 @@ const router = new VueRouter({
     { path: routes.Log, component: Log },
 
     { path: routes.Cache, component: Cache },
-    { path: routes.EntryList, component: EntryList },
+    { path: routes.DevEntries, component: DevEntries },
   ],
 })
 

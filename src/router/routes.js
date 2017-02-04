@@ -7,5 +7,5 @@ export default {
   Log: '/log',
 
   Cache: '/cache',
-  EntryList: '/entryList',
+  DevEntries: '/devEntries',
 }

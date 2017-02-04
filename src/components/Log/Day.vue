@@ -1,12 +1,12 @@
 <template>
-  <div class="log__day">
+  <div class="log__day" v-if="filteredEntries.length > 0">
     <h2>{{ dateFormatted }}</h2>
     <span class="nutrient">Calories: {{ calories }}</span>
     Macros: {{ fatPct }} / {{ carbsPct }} / {{ proteinPct }}
     <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
     <!--<span class="nutrient">{{ fat }}g fat</span>-->
     <!--<span class="nutrient">{{ protein }}g protein</span>-->
-    <entry-list :entries="dataDay.entries"></entry-list>
+    <entry-list :entries="filteredEntries"></entry-list>
   </div>
 </template>
 
@@ -106,6 +106,12 @@ export default {
        ${parsed.getDate()}, ${parsed.getFullYear()}`
 
       return formatted
+    },
+    // Filter only keys that match a value in store.state.log.entries
+    filteredEntries() {
+      return this.dataDay.entries.filter(
+        entryUUID => store.state.log.entries[entryUUID]
+      )
     },
   },
 }

@@ -5,7 +5,7 @@
       <router-link :to="routes.Signup" v-if="!signupComplete">Sign Up</router-link><router-link :to="routes.Search">Search</router-link><router-link :to="routes.Log">Log</router-link>
     </nav>
     <nav>Dev: 
-      <router-link :to="routes.Cache">Cache</router-link><router-link :to="routes.EntryList">Entry List</router-link><button @click="localStorageClear">localStorage.clear()</button>
+      <router-link :to="routes.Cache">Cache</router-link><router-link :to="routes.DevEntries">Entry List</router-link><button @click="localStorageClear">localStorage.clear()</button>
     </nav>
     <nav>Foods:
       <router-link to="/food/USDA/09503">Apples</router-link><router-link to="/food/USDA/42131">Milk</router-link><router-link to="/food/USDA/09202">Orange</router-link>
