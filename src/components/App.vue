@@ -6,7 +6,7 @@
 </template>
 
 <script>
-// import router from '../router'
+import router from '../router'
 import store from '../store'
 import MainNav from './MainNav'
 
@@ -14,8 +14,7 @@ import MainNav from './MainNav'
 export default {
   beforeCreate() {
     if (!store.state.userInfo.signupComplete) {
-      // TODO: replace this with daily food log
-      // router.replace('/signup')
+      router.replace('/signup') // TODO: rename this to "welcome"
     }
   },
   components: { MainNav },

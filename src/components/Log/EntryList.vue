@@ -1,12 +1,15 @@
 <template>
-  <ul>
-    <entry-link
-      v-for="(entry, uuid) in entryList" 
-      :foodUUID="entry.foodUUID"
-      :entryUUID="uuid"
-      :mass="entry.mass">
-    </entry-link>
-  </ul>
+  <div>
+    <h1>*DEV* Entry List</h1>
+    <ul>
+      <entry-link
+        v-for="(entry, uuid) in entryList" 
+        :foodUUID="entry.foodUUID"
+        :entryUUID="uuid"
+        :mass="entry.mass">
+      </entry-link>
+    </ul>
+  </div>
 </template>
 
 <script>

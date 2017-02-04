@@ -37,7 +37,7 @@ export default {
   beforeCreate() {
     if (store.state.userInfo.signupComplete) {
       // TODO: replace this with daily food log
-      router.replace('foodSearch')
+      router.replace('/log')
     }
   },
   components: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Food Cache</h1>
+    <h1>*DEV* Food Cache</h1>
 
     <food-link
       v-for="food in cache"

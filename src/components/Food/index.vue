@@ -24,6 +24,7 @@
 <script>
 import uuid from 'uuid'
 import store from '../../store'
+import router from '../../router'
 import * as API from '../../api'
 import * as USDA from '../../api/USDA'
 import * as OTHER from '../../api/other'
@@ -43,11 +44,7 @@ export default {
     }
   },
   created() {
-    if (this.entryUUID) {
-      this.getDataFromEntry()
-    } else {
-      this.getDataFromCache()
-    }
+    this.getData()
   },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
@@ -66,10 +63,11 @@ export default {
       } else {
         this.addEntry()
       }
+
+      router.push('/entryList')
     },
 
     editEntry() {
-      // TODO: make this a thing
       store.commit('log/editEntry', {
         entryUUID: this.entryUUID,
         mass: this.mass,
@@ -106,6 +104,14 @@ export default {
         foodUUID,
         mass: this.mass,
       })
+    },
+
+    getData() {
+      if (this.entryUUID) {
+        this.getDataFromEntry()
+      } else {
+        this.getDataFromCache()
+      }
     },
 
     // We are looking at a saved food entry
