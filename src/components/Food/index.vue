@@ -1,9 +1,7 @@
 <template>
-  <div class="food" v-if="dataFood">
+  <div v-if="dataFood" :class="{ food: true, entry: entryUUID}">
 
-    <!--<pre>{{ dataFood }}</pre>-->
-
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent>
       <label for="mass">Weight:</label>
       <input type="number" name="mass" v-model.number="mass">
       <span class="mass__unit">grams</span>
@@ -14,8 +12,10 @@
         :mass="normalizedMass">
       </food-display>
 
-      <button v-if="!entryUUID" type="submit">Eat</button>
-      <button v-else type="submit">Save</button>
+      <button v-if="!entryUUID" @click="onSubmit">Eat</button>
+
+      <button v-if="entryUUID" @click="onSubmit">Save</button>
+      <button v-if="entryUUID" @click="entryDelete">Delete</button>
     </form>
     
   </div>
@@ -59,23 +59,16 @@ export default {
     // User pressed the Eat button
     onSubmit() {
       if (this.entryUUID) {
-        this.editEntry()
+        this.entryEdit()
       } else {
-        this.addEntry()
+        this.entryAdd()
       }
 
       router.push('/log')
     },
 
-    editEntry() {
-      store.commit('log/editEntry', {
-        entryUUID: this.entryUUID,
-        mass: this.mass,
-      })
-    },
-
     // Commit new log entry
-    addEntry() {
+    entryAdd() {
       let foodUUID
       const entryUUID = uuid.v4()
       const existing = Object
@@ -99,11 +92,25 @@ export default {
       }
 
       // Add a food entry with the cached food uuid
-      store.commit('log/addEntry', {
+      store.commit('log/entryAdd', {
         entryUUID,
         foodUUID,
         mass: this.mass,
       })
+    },
+
+    // Save changes to this entry
+    entryEdit() {
+      store.commit('log/entryEdit', {
+        entryUUID: this.entryUUID,
+        mass: this.mass,
+      })
+    },
+
+    // Remove this entry forever
+    entryDelete() {
+      store.commit('log/entryDelete', { entryUUID: this.entryUUID })
+      router.push('/log')
     },
 
     getData() {
@@ -117,6 +124,12 @@ export default {
     // We are looking at a saved food entry
     getDataFromEntry() {
       const entry = store.state.log.entries[this.entryUUID]
+
+      if (!entry) {
+        router.push('/log')
+        return
+      }
+
       const food = store.state.foodCache.food[entry.foodUUID]
 
       this.mass = entry.mass
@@ -188,4 +201,7 @@ export default {
 button
   font-size 20px  
   width 200px
+.entry
+  button
+    width 100px
 </style>

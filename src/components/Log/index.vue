@@ -1,21 +1,18 @@
 <template>
   <div>
     <h1>Log</h1>
-    <entry-list 
-      v-for="(dataDay, date) in days" 
-      :entries="dataDay.entries" 
-      :date="date">
-    </entry-list>
+    <day v-for="(dataDay, date) in days" :dataDay="dataDay" :date="date">
+    </day>
   </div>
 </template>
 
 <script>
 import store from '../../store'
-import EntryList from './EntryList'
+import Day from './Day'
 
 export default {
   name: 'Log',
-  components: { EntryList },
+  components: { Day },
   computed: {
     days: {
       get() {

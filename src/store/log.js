@@ -21,13 +21,13 @@ const log = {
       state.days.push(day)
       setLocalStorage(MODULE_KEY, state)
     },
-    addEntry(state, { entryUUID, foodUUID, mass }) {
+    entryAdd(state, { entryUUID, foodUUID, mass }) {
       state.entries[entryUUID] = {
         foodUUID,
         mass,
       }
 
-      const today = dateFormat(new Date(), 'dd-mm-yy')
+      const today = dateFormat(new Date(), 'mm-dd-yy')
 
       if (!Object.hasOwnProperty.call(state.days, today)) {
         state.days[today] = {
@@ -41,8 +41,12 @@ const log = {
 
       setLocalStorage(MODULE_KEY, state)
     },
-    editEntry(state, { entryUUID, mass }) {
+    entryEdit(state, { entryUUID, mass }) {
       state.entries[entryUUID].mass = mass
+      setLocalStorage(MODULE_KEY, state)
+    },
+    entryDelete(state, { entryUUID }) {
+      state.entries[entryUUID] = undefined
       setLocalStorage(MODULE_KEY, state)
     },
   },

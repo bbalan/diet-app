@@ -1,5 +1,5 @@
 <template>
-  <li>
+  <li v-if="dataEntry">
     <router-link :to="`entry/${entryUUID}`"class="name">
       {{ dataFood.name }}
     </router-link> 
@@ -56,7 +56,8 @@ export default {
 .mass
 .calories
   display inline-block
-  width 70px
+  width 100px
+  text-align right
 .calories
   font-weight bold
 span
