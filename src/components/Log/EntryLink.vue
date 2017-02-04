@@ -1,12 +1,10 @@
 <template>
   <li>
     <router-link :to="`entry/${entryUUID}`"class="name">
-      {{dataFood.name}}
+      {{ dataFood.name }}
     </router-link> 
     <span class="mass">{{mass}} g</span>
     <span class="calories">{{calories}}</span>
-
-    <!--<pre>{{dataFood}}</pre>-->
   </li>
 </template>
 
@@ -15,13 +13,19 @@ import store from '../../store'
 import { USDA, OTHER } from '../../api'
 
 export default {
-  props: ['foodUUID', 'entryUUID', 'mass'],
+  props: ['entryUUID'],
   computed: {
+    dataEntry() {
+      return store.state.log.entries[this.entryUUID]
+    },
     foodFromCache() {
-      return store.state.foodCache.food[this.foodUUID]
+      return store.state.foodCache.food[this.dataEntry.foodUUID]
     },
     dataFood() {
       return this.foodFromCache.dataFood
+    },
+    mass() {
+      return this.dataEntry.mass
     },
     calories() {
       let energy = 0

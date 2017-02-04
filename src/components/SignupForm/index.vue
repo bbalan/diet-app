@@ -1,10 +1,9 @@
-<!-- This component handles the initial user signup. -->
-
 <template>
   <div id="SignupForm">
+
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
+
     <form @submit.prevent="onSubmit">
-      <!--<test-component></test-component>-->
       <birthday></birthday>
       <gender></gender>
       <height></height>

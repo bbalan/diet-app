@@ -1,3 +1,4 @@
+import dateFormat from 'dateformat'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'log'
@@ -26,7 +27,17 @@ const log = {
         mass,
       }
 
-      // TODO: push entry idx to current day
+      const today = dateFormat(new Date(), 'dd-mm-yy')
+
+      if (!Object.hasOwnProperty.call(state.days, today)) {
+        state.days[today] = {
+          weight: null,
+          tdee: null,
+          entries: [],
+        }
+      }
+
+      state.days[today].entries.push(entryUUID)
 
       setLocalStorage(MODULE_KEY, state)
     },

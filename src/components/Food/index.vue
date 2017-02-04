@@ -64,7 +64,7 @@ export default {
         this.addEntry()
       }
 
-      router.push('/entryList')
+      router.push('/log')
     },
 
     editEntry() {

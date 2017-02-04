@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "dateformat": "^2.0.0",
     "firebase": "^3.6.6",
     "framework7": "^1.5.2",
     "framework7-vue": "^0.7.7",
