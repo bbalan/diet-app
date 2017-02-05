@@ -1,7 +1,9 @@
 <template>
   <div v-if="dataFood" :class="{ food: true, entry: entryUUID}">
 
-    <form @submit.prevent>
+    <span v-if="loading" class="loading">Loading...</span>
+
+    <form v-else @submit.prevent>
       <label for="mass">Weight:</label>
       <input type="number" name="mass" v-model.number="mass">
       <span class="mass__unit">grams</span>
@@ -40,6 +42,7 @@ export default {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
       dataFood: null,
       entrySource: null,
+      loading: false,
     }
   },
   created() {
@@ -150,6 +153,7 @@ export default {
       if (existing) {
         this.dataFood = existing[1].dataFood
       } else {
+        this.loading = true
         this.getDataFromAPI()
       }
     },
@@ -190,6 +194,7 @@ export default {
         .then(checkStatus)
         .then(parseJSON)
         .then(reportHandler)
+        .then(() => { this.loading = false })
         .catch((error) => { console.error('Food report failed', error) })
 
       return

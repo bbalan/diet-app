@@ -1,6 +1,7 @@
 <template>
   <slide>
-    <h1>How much do you weigh?</h1>
+
+    <!--<h1>How much do you weigh?</h1>-->
 
     <input 
       type="number" 
@@ -13,6 +14,7 @@
     </select>
 
     <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 
@@ -27,7 +29,7 @@ export default {
   computed: {
     weight: {
       get() {
-        const mass = store.state.userInfo.mass
+        const mass = store.state.userInfo.metrics.mass
         let weight
 
         if (store.state.appSettings.unitWeight === 'metric') {

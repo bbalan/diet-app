@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h2>Days</h2><pre>{{ days }}</pre>
-    <h2>Entries</h2><pre>{{ entries }}</pre>
-    <h2>Cache</h2><pre>{{ foodCache }}</pre>
     <button @click="localStorageClear">localStorage.clear()</button>
+    <h2>userInfo</h2><pre>{{ userInfo }}</pre>
+    <h2>days</h2><pre>{{ days }}</pre>
+    <h2>entries</h2><pre>{{ entries }}</pre>
+    <h2>foodCache</h2><pre>{{ foodCache }}</pre>
   </div>
 </template>
 
@@ -11,15 +12,10 @@
 export default {
   name: 'LocalStorage',
   computed: {
-    days() {
-      return JSON.parse(localStorage.getItem('days'))
-    },
-    entries() {
-      return JSON.parse(localStorage.getItem('entries'))
-    },
-    foodCache() {
-      return JSON.parse(localStorage.getItem('foodCache'))
-    },
+    userInfo() { return JSON.parse(localStorage.getItem('userInfo')) },
+    days() { return JSON.parse(localStorage.getItem('days')) },
+    entries() { return JSON.parse(localStorage.getItem('entries')) },
+    foodCache() { return JSON.parse(localStorage.getItem('foodCache')) },
   },
   methods: {
     localStorageClear() {
@@ -38,4 +34,5 @@ button
   color white
   border-color maroon
   border-radius 10px
+  outline none
 </style>

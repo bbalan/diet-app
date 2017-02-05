@@ -1,11 +1,11 @@
 import store from 'store'
-import dateFormat from 'dateformat'
-import { setLocalStorage } from './util'
+import { setLocalStorage } from 'store/util'
 
 const MODULE_KEY = 'days'
 
 // Personal info about the user
 const stateDefault = {
+  today: '',
   data: {},
 }
 
@@ -17,10 +17,19 @@ const log = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
+    setToday(state, today) {
+      state.today = today
+
+      if (!Object.hasOwnProperty.call(state.data, today)) {
+        store.commit('days/add', today)
+      }
+
+      setLocalStorage(MODULE_KEY, state)
+    },
     add(state, day) {
       state.data[day] = {
-        weight: null,
-        tdee: null,
+        mass: store.state.userInfo.metrics.mass,
+        tdee: store.state.userInfo.tdee,
         entries: [],
       }
 
@@ -28,14 +37,11 @@ const log = {
     },
     // TODO: add day argument to add entry to any day
     entryAdd(state, { entryUUID }) {
-      const today = dateFormat(new Date(), 'mm-dd-yy')
-
-      if (!Object.hasOwnProperty.call(state.data, today)) {
-        store.commit('days/add', today)
-      }
-
-      state.data[today].entries.push(entryUUID)
-
+      state.data[state.today].entries.push(entryUUID)
+      setLocalStorage(MODULE_KEY, state)
+    },
+    setTDEE(state, tdee) {
+      state.data[state.today].tdee = tdee
       setLocalStorage(MODULE_KEY, state)
     },
   },

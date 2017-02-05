@@ -1,13 +1,13 @@
 <template>
   <slide class="slide--height">
-    <h1>How tall are you?</h1>
 
-    {{height}} cm
+    <!--<h1>How tall are you?</h1>-->
 
     <select 
       v-if="unitHeight == 'metric'"
       id="height" 
-      v-model="height">
+      v-model="height"
+      required>
 
       <option 
         v-for="height in heightsMetric" 
@@ -52,7 +52,7 @@ export default {
   computed: {
     height: {
       get() {
-        return store.state.userInfo.height
+        return store.state.userInfo.metrics.height
       },
       set(height) {
         store.commit('userInfo/setHeight', height)

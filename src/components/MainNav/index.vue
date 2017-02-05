@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     signupComplete() {
-      return store.state.userInfo.signupComplete
+      return store.state.appSettings.signupComplete
     },
   },
 }

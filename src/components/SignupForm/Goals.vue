@@ -1,35 +1,37 @@
 <template>
   <slide>
-    <h1>What are your goals?</h1>
 
-    <p>
-      <input 
-        type="radio" 
-        id="burn-fat" 
-        value="burn-fat" 
-        v-model="goal">
-      <label for="burn-fat">Burn fat</label>
-    </p>
+    <!--<h1>What are your goals?</h1>-->
 
-    <p>
-      <input 
-        type="radio" 
-        id="build-muscle" 
-        value="build-muscle" 
-        v-model="goal">
-      <label for="build-muscle">Build muscle</label>
-    </p>
+    <input 
+      type="radio" 
+      name="goal"
+      id="burn-fat" 
+      value="burn-fat" 
+      v-model="goal"
+      required>
+    <label for="burn-fat">Burn fat</label>
 
-    <p>
-      <input 
-        type="radio" 
-        id="maintain-weight" 
-        value="maintain-weight" 
-        v-model="goal">
-      <label for="maintain-weight">Maintain weight</label>
-    </p>
+    <input 
+      type="radio" 
+      name="goal"
+      id="build-muscle" 
+      value="build-muscle" 
+      v-model="goal"
+      required>
+    <label for="build-muscle">Build muscle</label>
+
+    <input 
+      type="radio" 
+      name="goal"
+      id="maintain-weight" 
+      value="maintain-weight" 
+      v-model="goal"
+      required>
+    <label for="maintain-weight">Maintain weight</label>
 
     <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 
@@ -44,10 +46,10 @@ export default {
   computed: {
     goal: {
       get() {
-        return store.state.userInfo.goal
+        return store.state.appSettings.goal
       },
       set(goal) {
-        store.commit('userInfo/setGoal', goal)
+        store.commit('appSettings/setGoal', goal)
       },
     },
   },

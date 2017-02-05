@@ -26,7 +26,7 @@ export default {
   computed: {
     birthday: {
       get() {
-        return store.state.userInfo.birthday
+        return store.state.userinfo.personal.personal.birthday
       },
       set(birthday) {
         store.commit('userInfo/setBirthday', birthday)

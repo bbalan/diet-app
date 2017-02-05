@@ -1,7 +1,7 @@
 <template>
   <div class="day__macros">
     <span class="calories">
-      {{ caloriesRounded }} kcal
+      Eaten: {{ caloriesRounded }} kcal
     </span>
     <span class="percentages">
       {{ fatPct }} / {{ carbsPct }} / {{ proteinPct }}

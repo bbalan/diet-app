@@ -3,6 +3,10 @@
 
     <h2>{{ dateFormatted }}</h2>
 
+    <span class="tdee">
+      TDEE: {{ tdee }} kcal
+    </span>
+
     <macros 
       v-if="filteredEntries.length" 
       :entries="filteredEntries">
@@ -54,6 +58,9 @@ export default {
       return this.dataDay.entries.filter(
         entryUUID => store.state.entries.data[entryUUID]
       )
+    },
+    tdee() {
+      return store.state.userInfo.metrics.tdee
     },
   },
 }
