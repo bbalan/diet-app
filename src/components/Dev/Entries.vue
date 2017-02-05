@@ -13,7 +13,7 @@ import EntryLink from '../Log/Day/EntryList/EntryLink'
 
 export default {
   name: 'Entries',
-  data: () => ({ entries: store.state.log.entries }),
+  data: () => ({ entries: store.state.entries.data }),
   components: { EntryLink },
 }
 </script>

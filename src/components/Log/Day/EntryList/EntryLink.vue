@@ -17,7 +17,7 @@ export default {
   props: ['entryUUID'],
   computed: {
     dataEntry() {
-      return store.state.log.entries[this.entryUUID]
+      return store.state.entries.data[this.entryUUID]
     },
     foodFromCache() {
       // TODO: handle exercise entries

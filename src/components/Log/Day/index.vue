@@ -1,8 +1,20 @@
 <template>
-  <div class="log__day" v-if="filteredEntries.length > 0">
+  <div class="log__day">
+
     <h2>{{ dateFormatted }}</h2>
-    <macros :entries="filteredEntries"></macros>
-    <entry-list :entries="filteredEntries"></entry-list>
+
+    <macros 
+      v-if="filteredEntries.length" 
+      :entries="filteredEntries">
+    </macros>
+
+    <entry-list 
+      v-if="filteredEntries.length" 
+      :entries="filteredEntries">
+    </entry-list>
+
+    <div v-if="filteredEntries.length === 0">No entries today!</div>
+
   </div>
 </template>
 
@@ -37,10 +49,10 @@ export default {
 
       return formatted
     },
-    // Filter only keys that match a value in store.state.log.entries
+    // Filter only keys that match a value in store.state.entries.data
     filteredEntries() {
       return this.dataDay.entries.filter(
-        entryUUID => store.state.log.entries[entryUUID]
+        entryUUID => store.state.entries.data[entryUUID]
       )
     },
   },

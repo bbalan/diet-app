@@ -56,7 +56,7 @@ export default {
       entries.forEach((entry) => {
         let nutrients
 
-        const entryData = store.state.log.entries[entry]
+        const entryData = store.state.entries.data[entry]
 
         if (!entryData) return
         if (!entryData.item) return

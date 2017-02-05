@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import userInfo from './userInfo'
-import appSettings from './appSettings'
-import foodCache from './foodCache'
-import log from './log'
+import userInfo from 'store/userInfo'
+import appSettings from 'store/appSettings'
+import foodCache from 'store/foodCache'
+import entries from 'store/entries'
+import days from 'store/days'
 
 Vue.use(Vuex)
 
@@ -14,7 +15,8 @@ const store = new Vuex.Store({
     userInfo,
     appSettings,
     foodCache,
-    log,
+    entries,
+    days,
   },
 })
 

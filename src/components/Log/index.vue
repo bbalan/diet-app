@@ -17,7 +17,7 @@ export default {
     // TODO: sort days by date
     days: {
       get() {
-        return store.state.log.days
+        return store.state.days.data
       },
     },
   },

@@ -91,7 +91,7 @@ export default {
       }
 
       // Add a food entry with the cached food uuid
-      store.commit('log/entryAdd', {
+      store.commit('entries/add', {
         item: foodUUID,
         type: 'food',
         mass: this.mass,
@@ -100,7 +100,7 @@ export default {
 
     // Save changes to this entry
     entryEdit() {
-      store.commit('log/entryEdit', {
+      store.commit('entries/edit', {
         entryUUID: this.entryUUID,
         mass: this.mass,
       })
@@ -108,7 +108,7 @@ export default {
 
     // Remove this entry forever
     entryDelete() {
-      store.commit('log/entryDelete', { entryUUID: this.entryUUID })
+      store.commit('entries/delete', { entryUUID: this.entryUUID })
       router.push('/log')
     },
 
@@ -123,7 +123,7 @@ export default {
     // We are looking at a saved food entry
     getDataFromEntry() {
       // TODO: handle exercise entries
-      const entry = store.state.log.entries[this.entryUUID]
+      const entry = store.state.entries.data[this.entryUUID]
 
       if (!entry) {
         console.warn('Entry does not exist')

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <pre>{{ days }}</pre>
     <pre>{{ log }}</pre>
     <pre>{{ foodCache }}</pre>
     <button @click="localStorageClear">localStorage.clear()</button>
@@ -10,13 +11,14 @@
 export default {
   name: 'LocalStorage',
   computed: {
+    days() {
+      return JSON.parse(localStorage.getItem('days'))
+    },
     log() {
-      const log = localStorage.getItem('log')
-      return JSON.parse(log)
+      return JSON.parse(localStorage.getItem('log'))
     },
     foodCache() {
-      const cache = localStorage.getItem('foodCache')
-      return JSON.parse(cache)
+      return JSON.parse(localStorage.getItem('foodCache'))
     },
   },
   methods: {
