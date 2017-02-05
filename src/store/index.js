@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import uuid from 'uuid'
 
 import userInfo from './userInfo'
 import appSettings from './appSettings'
@@ -16,13 +15,6 @@ const store = new Vuex.Store({
     appSettings,
     foodCache,
     log,
-  },
-  mutations: {
-    eatFood(state, data) {
-      data.foodUUID = uuid.v4()
-      data.eat = true
-      store.commit('foodCache/addFood', data)
-    },
   },
 })
 

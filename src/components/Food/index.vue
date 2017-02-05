@@ -6,11 +6,11 @@
       <input type="number" name="mass" v-model.number="mass">
       <span class="mass__unit">grams</span>
 
-      <food-display 
+      <nutrition-facts
         :dataFood="dataFood" 
         :source="source || entrySource"
         :mass="normalizedMass">
-      </food-display>
+      </nutrition-facts>
 
       <button v-if="!entryUUID" @click="onSubmit">Eat</button>
 
@@ -29,13 +29,12 @@ import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
-
-import FoodDisplay from './FoodDisplay'
+import NutritionFacts from 'components/Food/NutritionFacts'
 
 export default {
   name: 'Food',
   props: ['id', 'source', 'entryUUID'],
-  components: { FoodDisplay },
+  components: { NutritionFacts },
   data() {
     return {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
@@ -70,7 +69,6 @@ export default {
     // Commit new log entry
     entryAdd() {
       let foodUUID
-      const entryUUID = uuid.v4()
       const existing = Object
         .entries(store.state.foodCache.food)
         .find(food =>
@@ -81,20 +79,21 @@ export default {
       if (!existing) {
         foodUUID = uuid.v4()
         store.commit('foodCache/addFood', {
-          foodUUID,
+          uuid: foodUUID,
           id: this.id,
           source: this.source,
           mass: this.mass,
           dataFood: this.dataFood,
         })
       } else {
+        // Already cached
         foodUUID = existing[0]
       }
 
       // Add a food entry with the cached food uuid
       store.commit('log/entryAdd', {
-        entryUUID,
-        foodUUID,
+        item: foodUUID,
+        type: 'food',
         mass: this.mass,
       })
     },
@@ -123,14 +122,16 @@ export default {
 
     // We are looking at a saved food entry
     getDataFromEntry() {
+      // TODO: handle exercise entries
       const entry = store.state.log.entries[this.entryUUID]
 
       if (!entry) {
+        console.warn('Entry does not exist')
         router.push('/log')
         return
       }
 
-      const food = store.state.foodCache.food[entry.foodUUID]
+      const food = store.state.foodCache.food[entry.item]
 
       this.mass = entry.mass
       this.dataFood = food.dataFood

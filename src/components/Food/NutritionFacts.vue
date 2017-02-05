@@ -1,5 +1,5 @@
 <template>
-  <div class="foodDisplay">
+  <div class="NutritionFacts">
 
     <h2>{{ dataFood.name }}</h2>
 

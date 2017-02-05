@@ -56,11 +56,12 @@ export default {
       entries.forEach((entry) => {
         let nutrients
 
-        if (!store.state.log.entries[entry]) return
         const entryData = store.state.log.entries[entry]
 
-        if (!entryData || !entryData.foodUUID) return
-        const food = store.state.foodCache.food[entryData.foodUUID]
+        if (!entryData) return
+        if (!entryData.item) return
+
+        const food = store.state.foodCache.food[entryData.item]
 
         switch (food.source) {
           case API.USDA:

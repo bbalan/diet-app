@@ -8,4 +8,5 @@ export default {
 
   Cache: '/cache',
   DevEntries: '/devEntries',
+  LocalStorage: '/localStorage',
 }

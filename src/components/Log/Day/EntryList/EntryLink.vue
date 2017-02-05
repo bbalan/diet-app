@@ -1,6 +1,7 @@
 <template>
   <li v-if="dataEntry">
-    <router-link :to="`entry/${entryUUID}`" class="edit">edit</router-link> 
+    <router-link :to="`entry/${entryUUID}`" class="edit">edit</router-link>
+
     <span class="name">{{ dataFood.name }}</span>
     <span class="mass">{{mass}} g</span>
     <span class="calories">{{calories}}</span>
@@ -19,15 +20,19 @@ export default {
       return store.state.log.entries[this.entryUUID]
     },
     foodFromCache() {
-      return store.state.foodCache.food[this.dataEntry.foodUUID]
+      // TODO: handle exercise entries
+      return store.state.foodCache.food[this.dataEntry.item]
     },
     dataFood() {
+      // TODO: handle exercise entries
       return this.foodFromCache.dataFood
     },
     mass() {
+      // TODO: handle exercise entries
       return this.dataEntry.mass
     },
     calories() {
+      // TODO: handle exercise entries
       let energy = 0
 
       switch (this.foodFromCache.source) {

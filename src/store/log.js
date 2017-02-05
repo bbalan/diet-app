@@ -1,4 +1,5 @@
 import dateFormat from 'dateformat'
+import uuid from 'uuid'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'log'
@@ -21,14 +22,18 @@ const log = {
       state.days.push(day)
       setLocalStorage(MODULE_KEY, state)
     },
-    entryAdd(state, { entryUUID, foodUUID, mass }) {
+    entryAdd(state, { item, type, mass }) {
+      const entryUUID = uuid.v4()
+
       state.entries[entryUUID] = {
-        foodUUID,
+        item,
+        type,
         mass,
       }
 
       const today = dateFormat(new Date(), 'mm-dd-yy')
 
+      // TODO: split this off into its own Days module
       if (!Object.hasOwnProperty.call(state.days, today)) {
         state.days[today] = {
           weight: null,

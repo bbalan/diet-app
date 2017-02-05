@@ -15,7 +15,7 @@ const foodCache = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    addFood(state, { foodUUID, id, source, dataFood }) {
+    addFood(state, { uuid, id, source, dataFood }) {
       // Strip unnecessary stuff to make stringification faster
       dataFood.ds = undefined
       dataFood.ru = undefined
@@ -24,7 +24,7 @@ const foodCache = {
         nutrient.group = undefined
       })
 
-      state.food[foodUUID] = { id, source, dataFood }
+      state.food[uuid] = { id, source, dataFood }
       setLocalStorage(MODULE_KEY, state)
     },
   },

@@ -1,7 +1,10 @@
 <template>
   <div>
     <ul>
-      <entry-link v-for="entryUUID in entries" :entryUUID="entryUUID"></entry-link>
+      <entry-link 
+        v-for="entryUUID in entries" 
+        :entryUUID="entryUUID">
+      </entry-link>
     </ul>
   </div>
 </template>
