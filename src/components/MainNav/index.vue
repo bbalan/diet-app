@@ -10,7 +10,7 @@
     </nav>
     <nav>Dev: 
       <router-link :to="routes.Cache">Cache</router-link>
-      <router-link :to="routes.DevEntries">Entry List</router-link>
+      <router-link :to="routes.Entries">Entry List</router-link>
       <router-link :to="routes.LocalStorage">LocalStorage</router-link>
     </nav>
     <nav>Foods:

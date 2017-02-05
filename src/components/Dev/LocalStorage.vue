@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'DevLocalStorage',
+  name: 'LocalStorage',
   computed: {
     log() {
       const log = localStorage.getItem('log')

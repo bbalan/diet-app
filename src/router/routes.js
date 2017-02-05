@@ -7,6 +7,6 @@ export default {
   Log: '/log',
 
   Cache: '/cache',
-  DevEntries: '/devEntries',
+  Entries: '/Entries',
   LocalStorage: '/localStorage',
 }

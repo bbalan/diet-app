@@ -11,8 +11,8 @@ import Food from 'components/Food'
 import Log from 'components/Log'
 
 import Cache from 'components/Dev/FoodCache'
-import DevEntries from 'components/Dev/DevEntries'
-import DevLocalStorage from 'components/Dev/DevLocalStorage'
+import Entries from 'components/Dev/Entries'
+import LocalStorage from 'components/Dev/LocalStorage'
 
 const router = new VueRouter({
   mode: 'history',
@@ -25,8 +25,8 @@ const router = new VueRouter({
     { path: routes.Log, component: Log },
 
     { path: routes.Cache, component: Cache },
-    { path: routes.DevEntries, component: DevEntries },
-    { path: routes.LocalStorage, component: DevLocalStorage },
+    { path: routes.Entries, component: Entries },
+    { path: routes.LocalStorage, component: LocalStorage },
   ],
 })
 
