@@ -19,15 +19,8 @@ const entries = {
   mutations: {
     add(state, { item, type, mass }) {
       const entryUUID = uuid.v4()
-
-      state.data[entryUUID] = {
-        item,
-        type,
-        mass,
-      }
-
+      state.data[entryUUID] = { item, type, mass }
       store.commit('days/entryAdd', { entryUUID })
-
       setLocalStorage(MODULE_KEY, state)
     },
     edit(state, { entryUUID, mass }) {

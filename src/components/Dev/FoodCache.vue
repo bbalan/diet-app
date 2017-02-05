@@ -14,7 +14,7 @@
 
 <script>
 import store from 'store'
-import FoodLink from '../Food/FoodLink'
+import FoodLink from '../Search/FoodLink'
 
 export default {
   name: 'FoodCache',
