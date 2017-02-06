@@ -8,6 +8,8 @@ export default {
   EntryFood: '/food/new/:foodSource/:foodID',
   Entry: '/entry/:entryUUID',
 
+  ExerciseFind: '/exercise',
+
   Cache: '/cache',
   Entries: '/Entries',
   LocalStorage: '/localStorage',

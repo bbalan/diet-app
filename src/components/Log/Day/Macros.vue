@@ -3,7 +3,7 @@
 
     <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>-->
     <!--<p class="calories">Eaten: {{ caloriesRounded }} kcal</p>-->
-    <p>Remaining: {{ caloriesRemaining }} kcal</p>
+    <p>Remaining: {{ caloriesRemaining | toKcal }}</p>
     <!--<p>Eaten: {{ caloriesEatenPct }}%</p>-->
     <p class="percentages">
       Macros: {{ fatPct }} F / {{ carbsPct }} C / {{ proteinPct }} P
@@ -19,11 +19,13 @@
 import store from 'store'
 import * as API from 'api'
 import { roundTo } from 'util'
+import { toKcal } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 
 export default {
   name: 'Macros',
   props: ['entries', 'tdee'],
+  filters: { toKcal },
   data() {
     return {
       usdaNutrients: ['208', '204', '205', '203'],

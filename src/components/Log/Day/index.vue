@@ -3,6 +3,8 @@
 
     <h2>{{ dateFormatted }}</h2>
 
+    {{ mass | toMassUnit }}
+
     <macros 
       ref="macros"
       :entries="filteredEntries"
@@ -14,6 +16,13 @@
       class="logFood" 
       @click.native="setCurrentDay">
       + Add food
+    </router-link>
+
+    <router-link 
+      :to="routes.ExerciseFind" 
+      class="logFood" 
+      @click.native="setCurrentDay">
+      + Add exercise
     </router-link>
 
     <entry-list 
@@ -28,6 +37,7 @@
 
 <script>
 import store from 'store'
+import { toMassUnit } from 'util/filters'
 /* eslint-disable no-unused-vars */
 import routes from 'router/routes'
 import EntryList from 'components/Log/Day/EntryList'
@@ -36,6 +46,7 @@ import Macros from 'components/Log/Day/Macros'
 export default {
   props: ['dataDay', 'date'],
   components: { EntryList, Macros },
+  filters: { toMassUnit },
   data() {
     return { routes }
   },
@@ -82,7 +93,12 @@ export default {
     },
     // Get the user's latest TDEE
     tdee() {
-      return store.state.days.data[this.date].tdee
+      if (this.dataDay) return this.dataDay.tdee
+      return 0
+    },
+    mass() {
+      if (this.dataDay) return this.dataDay.mass
+      return 0
     },
   },
 }

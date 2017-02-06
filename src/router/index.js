@@ -8,12 +8,15 @@ import Splash from 'components/Splash'
 import Settings from 'components/Settings'
 import Log from 'components/Log'
 
+import Entry from 'components/Entry'
+
 import FoodFind from 'components/FoodFind'
 import FoodSearch from 'components/FoodFind/Search'
 import FoodFavorites from 'components/FoodFind/Favorites'
 import FoodCustom from 'components/FoodFind/Custom'
 import FoodRecipes from 'components/FoodFind/Recipes'
-import Entry from 'components/Entry'
+
+import ExerciseFind from 'components/ExerciseFind'
 
 import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
@@ -50,7 +53,10 @@ const router = new VueRouter({
         },
       ],
     },
-
+    {
+      path: routes.ExerciseFind,
+      component: ExerciseFind,
+    },
     { path: routes.Cache, component: Cache },
     { path: routes.Entries, component: Entries },
     { path: routes.LocalStorage, component: LocalStorage },

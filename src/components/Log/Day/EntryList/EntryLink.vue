@@ -10,7 +10,7 @@
 
       <input name="mass" class="mass" v-model="mass" type="number">
       <label for="mass">g</label>
-      <span class="calories">{{calories}}</span>
+      <span class="calories">{{calories | toKcal}}</span>
     </div>
 
     <div class="entry__undo-delete" v-if="deleteTimeout">
@@ -25,9 +25,11 @@
 import { truncate, roundTo } from 'util'
 import store from 'store'
 import { USDA, OTHER } from 'api'
+import { toKcal } from 'util/filters'
 
 export default {
   props: ['entryUUID'],
+  filters: { toKcal },
   data() {
     return {
       deleteTimeout: null,
@@ -77,8 +79,7 @@ export default {
           break
       }
 
-      const energyVal = Math.floor(roundTo(energy.value * (this.mass / 100), 1))
-      return `${energyVal} ${energy.unit}`
+      return Math.floor(roundTo(energy.value * (this.mass / 100), 1))
     },
   },
   methods: {
