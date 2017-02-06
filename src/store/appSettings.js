@@ -9,7 +9,8 @@ const MODULE_KEY = 'appSettings'
 const stateDefault = {
   unitWeight: 'imperial',
   unitHeight: 'imperial',
-  numMeals: null,
+  numMeals: 3, // TODO: expose this to user
+  mealStops: [],
   goal: null,
   goalSpeed: null,
   activityLevel: 1.21,

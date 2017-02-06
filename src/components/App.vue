@@ -19,10 +19,11 @@ export default {
     }
   },
   beforeCreate() {
+    // Update store.state.days.today every 10s
     this.todayInterval = setInterval(() => {
       const today = dateFormat(new Date(), 'mm-dd-yy')
       store.commit('days/setToday', today)
-    }, 60000)
+    }, 10000)
 
     if (!store.state.appSettings.signupComplete) {
       // router.replace('/signup') // TODO: rename this to "welcome"

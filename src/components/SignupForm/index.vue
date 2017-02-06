@@ -14,6 +14,7 @@
       <goals></goals>
       <activity-level></activity-level>
       <!--<credentials></credentials>-->
+      <num-meals></num-meals>
 
       <button type="submit">Submit</button>
     </form>
@@ -32,6 +33,7 @@ import Weight from 'components/SignupForm/Weight'
 import BodyFat from 'components/SignupForm/BodyFat'
 import Goals from 'components/SignupForm/Goals'
 import ActivityLevel from 'components/SignupForm/ActivityLevel'
+import NumMeals from 'components/SignupForm/NumMeals'
 // import Credentials from 'components/SignupForm/Credentials'
 
 export default {
@@ -42,9 +44,11 @@ export default {
     }
   },
   computed: {
-    tdee: () => store.state.userInfo.tdee,
+    tdee: () => store.state.userInfo.metrics.tdee,
   },
-  components: { Gender, Height, Weight, BodyFat, Goals, ActivityLevel },
+  components: {
+    Gender, Height, Weight, BodyFat, Goals, ActivityLevel, NumMeals,
+  },
   methods: {
     onSubmit() {
       store.commit('appSettings/signupComplete')

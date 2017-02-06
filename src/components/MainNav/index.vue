@@ -4,7 +4,7 @@
       <h1>
         <router-link :to="routes.Root">Diet app</router-link>
       </h1>
-      <router-link :to="routes.Signup" v-if="!signupComplete">Sign Up</router-link>
+      <router-link :to="routes.Signup" v-if="true || !signupComplete">Settings</router-link>
       <router-link :to="routes.Search">Search</router-link>
       <router-link :to="routes.Log">Log</router-link>
     </nav>
@@ -27,14 +27,10 @@ import routes from 'router/routes'
 
 export default {
   data() {
-    return {
-      routes,
-    }
+    return { routes }
   },
   computed: {
-    signupComplete() {
-      return store.state.appSettings.signupComplete
-    },
+    signupComplete: () => store.state.appSettings.signupComplete,
   },
 }
 </script>

@@ -57,6 +57,7 @@ export default {
     },
     setMass(state, mass) {
       state.metrics.mass = mass
+      store.commit('days/setMass', mass)
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },

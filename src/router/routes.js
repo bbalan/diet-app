@@ -6,6 +6,8 @@ export default {
   Entry: '/entry/:entryUUID',
   Log: '/log',
 
+  NewFood: '/new/food',
+
   Cache: '/cache',
   Entries: '/Entries',
   LocalStorage: '/localStorage',

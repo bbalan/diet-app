@@ -1,11 +1,14 @@
 <template>
   <div class="day__macros">
-    <span class="calories">
-      Eaten: {{ caloriesRounded }} kcal
-    </span>
-    <span class="percentages">
-      {{ fatPct }} / {{ carbsPct }} / {{ proteinPct }}
-    </span>
+
+    <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>
+    <p class="calories">Eaten: {{ caloriesRounded }} kcal</p>
+    <p>Remaining: {{ caloriesRemaining }} kcal</p>
+    <p>Eaten: {{ caloriesEatenPct }}%</p>-->
+    <p class="percentages">
+      Macros: {{ fatPct }} / {{ carbsPct }} / {{ proteinPct }}
+    </p>
+    <progress-bar :eaten="caloriesRounded" :tdee="tdee"></progress-bar>
     <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
     <!--<span class="nutrient">{{ fat }}g fat</span>-->
     <!--<span class="nutrient">{{ protein }}g protein</span>-->
@@ -16,15 +19,17 @@
 import store from 'store'
 import * as API from 'api'
 import { roundTo } from 'util'
+import ProgressBar from 'components/Log/Day/ProgressBar'
 
 export default {
   name: 'Macros',
-  props: ['entries'],
+  props: ['entries', 'tdee'],
   data() {
     return {
       usdaNutrients: ['208', '204', '205', '203'],
     }
   },
+  components: { ProgressBar },
   computed: {
     foodDetails() {
       const entryDetails = this.entries.map(

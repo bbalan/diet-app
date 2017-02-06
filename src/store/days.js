@@ -6,6 +6,7 @@ const MODULE_KEY = 'days'
 // Personal info about the user
 const stateDefault = {
   today: '',
+  currentDay: '',
   data: {},
 }
 
@@ -23,6 +24,8 @@ const log = {
       if (!Object.hasOwnProperty.call(state.data, today)) {
         store.commit('days/add', today)
       }
+
+      if (state.currentDay === '') state.currentDay = today
 
       setLocalStorage(MODULE_KEY, state)
     },
@@ -42,6 +45,10 @@ const log = {
     },
     setTDEE(state, tdee) {
       state.data[state.today].tdee = tdee
+      setLocalStorage(MODULE_KEY, state)
+    },
+    setMass(state, mass) {
+      state.data[state.today].mass = mass
       setLocalStorage(MODULE_KEY, state)
     },
   },
