@@ -5,7 +5,7 @@ import routes from 'router/routes'
 import store from 'store'
 
 import Splash from 'components/Splash'
-import SignupForm from 'components/SignupForm'
+import Settings from 'components/Settings'
 import Search from 'components/Search'
 import Food from 'components/Food'
 import Log from 'components/Log'
@@ -18,7 +18,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: routes.Root, component: Splash },
-    { path: routes.Signup, component: SignupForm },
+    { path: routes.Settings, component: Settings },
     { path: routes.Search, component: Search },
     { path: routes.Food, component: Food, props: true },
     { path: routes.Entry, component: Food, props: true },

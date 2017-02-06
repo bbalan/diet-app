@@ -9,7 +9,6 @@
 // import router from 'router'
 import store from 'store'
 import MainNav from 'components/MainNav'
-import dateFormat from 'dateformat'
 
 // TODO: signup for a USDA API key on app launch
 export default {
@@ -19,11 +18,10 @@ export default {
     }
   },
   beforeCreate() {
-    // Update store.state.days.today every 10s
+    // Update store.state.days.today every 1 min
     this.todayInterval = setInterval(() => {
-      const today = dateFormat(new Date(), 'mm-dd-yy')
-      store.commit('days/setToday', today)
-    }, 10000)
+      store.commit('days/setToday')
+    }, 60000)
 
     if (!store.state.appSettings.signupComplete) {
       // router.replace('/signup') // TODO: rename this to "welcome"

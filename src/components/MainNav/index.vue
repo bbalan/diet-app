@@ -4,7 +4,7 @@
       <h1>
         <router-link :to="routes.Root">Diet app</router-link>
       </h1>
-      <router-link :to="routes.Signup" v-if="true || !signupComplete">Settings</router-link>
+      <router-link :to="routes.Settings" v-if="true || !signupComplete">Settings</router-link>
       <router-link :to="routes.Search">Search</router-link>
       <router-link :to="routes.Log">Log</router-link>
     </nav>

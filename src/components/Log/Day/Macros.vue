@@ -75,6 +75,9 @@ export default {
       return Math.floor(this.calories)
     },
     caloriesRemaining() {
+      if (!this.tdee) {
+        return 0
+      }
       return Math.floor(roundTo(this.tdee - this.calories, 1))
     },
   },

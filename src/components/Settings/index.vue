@@ -1,5 +1,5 @@
 <template>
-  <div id="SignupForm">
+  <div id="Settings">
 
     <h1>Welcome</h1>
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
@@ -22,22 +22,22 @@
 </template>
 
 <script>
-import 'components/SignupForm/SignupForm.styl'
 import store from 'store'
 import router from 'router'
 // import db from 'util/Firebase'
-// import Birthday from 'components/SignupForm/Birthday'
-import Gender from 'components/SignupForm/Gender'
-import Height from 'components/SignupForm/Height'
-import Weight from 'components/SignupForm/Weight'
-import BodyFat from 'components/SignupForm/BodyFat'
-import Goals from 'components/SignupForm/Goals'
-import ActivityLevel from 'components/SignupForm/ActivityLevel'
-import NumMeals from 'components/SignupForm/NumMeals'
-// import Credentials from 'components/SignupForm/Credentials'
+
+// import Birthday from 'components/Settings/Birthday'
+import Gender from 'components/Settings/Gender'
+import Height from 'components/Settings/Height'
+import Weight from 'components/Settings/Weight'
+import BodyFat from 'components/Settings/BodyFat'
+import Goals from 'components/Settings/Goals'
+import ActivityLevel from 'components/Settings/ActivityLevel'
+import NumMeals from 'components/Settings/NumMeals'
+// import Credentials from 'components/Settings/Credentials'
 
 export default {
-  name: 'SignupForm',
+  name: 'Settings',
   beforeCreate() {
     if (store.state.appSettings.signupComplete) {
       // router.replace('/log')
@@ -67,3 +67,10 @@ export default {
   //   },
 }
 </script>
+
+<style scoped lang="stylus">
+.btn
+  &--next
+    display block
+    float right
+</style>

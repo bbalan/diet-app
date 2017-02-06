@@ -1,6 +1,6 @@
 export default {
   Root: '/',
-  Signup: '/signup',
+  Settings: '/settings',
   Search: '/search',
   Food: '/food/:source/:id',
   Entry: '/entry/:entryUUID',

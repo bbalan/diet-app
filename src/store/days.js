@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import store from 'store'
+import dateFormat from 'dateformat'
 import { setLocalStorage } from 'store/util'
 
 const MODULE_KEY = 'days'
@@ -23,6 +24,10 @@ const log = {
       state.currentDay = currentDay
     },
     setToday(state, today) {
+      if (!today) {
+        today = dateFormat(new Date(), 'mm-dd-yy')
+      }
+
       state.today = today
 
       if (!Object.hasOwnProperty.call(state.data, today)) {
@@ -30,8 +35,6 @@ const log = {
       }
 
       if (state.currentDay === '') state.currentDay = today
-
-      setLocalStorage(MODULE_KEY, state)
     },
     add(state, day) {
       Vue.set(state.data, day, {
@@ -44,14 +47,17 @@ const log = {
     },
     // TODO: add day argument to add entry to any day
     entryAdd(state, { entryUUID }) {
+      store.commit('days/setToday')
       state.data[state.today].entries.push(entryUUID)
       setLocalStorage(MODULE_KEY, state)
     },
     setTDEE(state, tdee) {
+      store.commit('days/setToday')
       state.data[state.today].tdee = tdee
       setLocalStorage(MODULE_KEY, state)
     },
     setMass(state, mass) {
+      store.commit('days/setToday')
       state.data[state.today].mass = mass
       setLocalStorage(MODULE_KEY, state)
     },
