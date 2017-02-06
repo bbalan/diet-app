@@ -109,6 +109,8 @@ export default {
         library: 'Standard Reference',
       }))
 
+      // How to implement other APIs
+
       // searches.push(search({
       //   searchText,
       //   source: API.USDA,

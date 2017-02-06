@@ -7,7 +7,7 @@
         You can do anything here. The only limit is yourself.
       </p>
 
-      <router-link to="/signup" class="splash__signup">
+      <router-link :to="routes.Settings" class="splash__signup">
         Get Started
       </router-link>
     </slide>
@@ -17,12 +17,13 @@
 </template>
 
 <script>
+import routes from 'router/routes'
 import Slide from '../Slide'
 
 export default {
   name: 'Splash',
   data() {
-    return {}
+    return { routes }
   },
   components: {
     slide: Slide,

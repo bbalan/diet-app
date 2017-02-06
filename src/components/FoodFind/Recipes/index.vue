@@ -3,6 +3,7 @@
 </template>
 
 <script>
+// TODO: implement this
 export default {
   name: 'Recipes',
 }

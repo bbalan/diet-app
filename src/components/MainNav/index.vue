@@ -5,7 +5,7 @@
         <router-link :to="routes.Root">Diet app</router-link>
       </h1>
       <router-link :to="routes.Settings" v-if="true || !signupComplete">Settings</router-link>
-      <router-link :to="routes.FoodSearch">Search</router-link>
+      <router-link :to="routes.FoodFind">Add food</router-link>
       <router-link :to="routes.Log">Log</router-link>
     </nav>
     <nav>Dev: 
