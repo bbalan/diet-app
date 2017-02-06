@@ -1,17 +1,20 @@
 <template>
-  <div class="log__day">
+  <div class="log__day" v-if="true || filteredEntries.length || isToday">
 
-    <div>
-      <h2>{{ dateFormatted }}</h2>
-      <router-link :to="routes.NewFood" class="logFood">+</router-link>
-    </div>
+    <h2>{{ dateFormatted }}</h2>
 
     <macros 
-      v-if="filteredEntries.length" 
       ref="macros"
       :entries="filteredEntries"
       :tdee="tdee">
     </macros>
+
+    <router-link 
+      :to="routes.NewFood" 
+      class="logFood" 
+      @click.native="setCurrentDay">
+      + Add food
+    </router-link>
 
     <entry-list 
       v-if="filteredEntries.length" 
@@ -36,7 +39,19 @@ export default {
   data() {
     return { routes }
   },
+  methods: {
+    /* Set the "current Day", or the Day we navigated away from,
+    so the New Entry component can add the entry to the correct day. */
+    setCurrentDay() {
+      store.commit('days/setCurrentDay', this.date)
+    },
+  },
   computed: {
+    // This Day is displaying today's data.
+    isToday() {
+      return this.date === store.state.days.today
+    },
+    // Format this Day's full date as: February X, 20XX
     dateFormatted() {
       const months = [
         'January',
@@ -65,6 +80,7 @@ export default {
         entryUUID => store.state.entries.data[entryUUID]
       )
     },
+    // Get the user's latest TDEE
     tdee() {
       return store.state.days.data[this.date].tdee
     },
@@ -75,8 +91,7 @@ export default {
 <style scoped lang="stylus">
 .nutrient
   margin-right 20px
-h2
-  display inline
+  
 .logFood
   font-size 20px
   font-weight bold

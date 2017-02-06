@@ -77,7 +77,7 @@ export default {
           break
       }
 
-      const energyVal = roundTo(energy.value * (this.mass / 100), 1)
+      const energyVal = Math.floor(roundTo(energy.value * (this.mass / 100), 1))
       return `${energyVal} ${energy.unit}`
     },
   },

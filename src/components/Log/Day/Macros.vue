@@ -1,12 +1,12 @@
 <template>
-  <div class="day__macros">
+  <div class="macros">
 
-    <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>
-    <p class="calories">Eaten: {{ caloriesRounded }} kcal</p>
+    <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>-->
+    <!--<p class="calories">Eaten: {{ caloriesRounded }} kcal</p>-->
     <p>Remaining: {{ caloriesRemaining }} kcal</p>
-    <p>Eaten: {{ caloriesEatenPct }}%</p>-->
+    <!--<p>Eaten: {{ caloriesEatenPct }}%</p>-->
     <p class="percentages">
-      Macros: {{ fatPct }} / {{ carbsPct }} / {{ proteinPct }}
+      Macros: {{ fatPct }} F / {{ carbsPct }} C / {{ proteinPct }} P
     </p>
     <progress-bar :eaten="caloriesRounded" :tdee="tdee"></progress-bar>
     <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
@@ -52,28 +52,34 @@ export default {
 
       return foodDetails
     },
-    calories() { return this.usdaComputeNutrient('208') },
-    carbs() { return this.usdaComputeNutrient('205') },
-    fat() { return this.usdaComputeNutrient('204') },
-    protein() { return this.usdaComputeNutrient('203') },
+    calories() { return this.computeNutrient('208') },
+    carbs() { return this.computeNutrient('205') },
+    fat() { return this.computeNutrient('204') },
+    protein() { return this.computeNutrient('203') },
     sumMacros() {
       return this.fat + this.carbs + this.protein
     },
     fatPct() {
+      if (this.sumMacros === 0) return 0
       return Math.floor(roundTo((this.fat / this.sumMacros) * 100, 1))
     },
     carbsPct() {
+      if (this.sumMacros === 0) return 0
       return Math.floor(roundTo((this.carbs / this.sumMacros) * 100, 1))
     },
     proteinPct() {
+      if (this.sumMacros === 0) return 0
       return Math.floor(roundTo((this.protein / this.sumMacros) * 100, 1))
     },
     caloriesRounded() {
       return Math.floor(this.calories)
     },
+    caloriesRemaining() {
+      return Math.floor(roundTo(this.tdee - this.calories, 1))
+    },
   },
   methods: {
-    usdaComputeNutrient(nutrientID) {
+    computeNutrient(nutrientID) {
       let total = 0
       let energy
       let value
@@ -82,7 +88,7 @@ export default {
         switch (item.source) {
           case API.USDA:
             energy = item.dataFood.nutrients.find(nutrient => nutrient.nutrient_id === nutrientID)
-            if (energy) {
+            if (energy && energy.value) {
               value = parseInt(energy.value, 10) * item.mass / 100
               total += value
             }
@@ -101,3 +107,8 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="stylus">
+.macros
+  margin-bottom 20px
+</style>

@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import store from 'store'
 import { setLocalStorage } from 'store/util'
 
@@ -18,6 +19,9 @@ const log = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
+    setCurrentDay(state, currentDay) {
+      state.currentDay = currentDay
+    },
     setToday(state, today) {
       state.today = today
 
@@ -30,11 +34,11 @@ const log = {
       setLocalStorage(MODULE_KEY, state)
     },
     add(state, day) {
-      state.data[day] = {
+      Vue.set(state.data, day, {
         mass: store.state.userInfo.metrics.mass,
         tdee: store.state.userInfo.tdee,
         entries: [],
-      }
+      })
 
       setLocalStorage(MODULE_KEY, state)
     },

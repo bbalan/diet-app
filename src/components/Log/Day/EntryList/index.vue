@@ -2,7 +2,7 @@
   <div>
     <ul>
       <entry-link 
-        v-for="entryUUID in entries" 
+        v-for="entryUUID in entriesReversed" 
         :entryUUID="entryUUID">
       </entry-link>
     </ul>
@@ -16,6 +16,15 @@ export default {
   name: 'EntryList',
   props: ['entries'],
   components: { EntryLink },
+  computed: {
+    entriesReversed() {
+      const reversed = []
+      this.entries.forEach((entry) => {
+        reversed.unshift(entry)
+      })
+      return reversed
+    },
+  },
 }
 </script>
 
