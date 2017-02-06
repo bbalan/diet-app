@@ -18,24 +18,26 @@ const entries = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    add(state, { item, type, mass }) {
+    add(state, { item, type, data }) {
       const entryUUID = uuid.v4()
-      Vue.set(state.data, entryUUID, { item, type, mass, enabled: true })
+      Vue.set(state.data, entryUUID, { item, type, data, enabled: true })
       store.commit('days/entryAdd', { entryUUID })
       setLocalStorage(MODULE_KEY, state)
     },
-    edit(state, { entryUUID, mass }) {
-      state.data[entryUUID].mass = mass
+    edit(state, { entryUUID, data }) {
+      state.data[entryUUID].data = data
       setLocalStorage(MODULE_KEY, state)
     },
     delete(state, { entryUUID }) {
       state.data[entryUUID] = undefined
       setLocalStorage(MODULE_KEY, state)
     },
+    // TODO: make this affect tdee in Day & Macros components
     disable(state, { entryUUID }) {
       state.data[entryUUID].enabled = false
       setLocalStorage(MODULE_KEY, state)
     },
+    // TODO: make this affect tdee in Day & Macros components
     enable(state, { entryUUID }) {
       state.data[entryUUID].enabled = false
       setLocalStorage(MODULE_KEY, state)

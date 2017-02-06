@@ -54,12 +54,12 @@ export default {
     mass: {
       // TODO: handle exercise entries
       get() {
-        return this.dataEntry.mass
+        return this.dataEntry.data.mass
       },
-      set(val) {
+      set(mass) {
         store.commit('entries/edit', {
           entryUUID: this.entryUUID,
-          mass: val,
+          data: { mass },
         })
       },
     },

@@ -46,7 +46,7 @@ export default {
 
       for (let i = 0; i < entryDetails.length; i += 1) {
         foodDetails.push({
-          mass: entryDetails[i].mass,
+          mass: entryDetails[i].data.mass,
           dataFood: foods[i].dataFood,
           source: foods[i].source,
         })

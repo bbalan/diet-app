@@ -87,7 +87,7 @@ export default {
           uuid: foodUUID,
           id: this.id,
           source: this.source,
-          mass: this.mass,
+          mass: this.mass, // TODO: remove? not sure if used anywhere
           dataFood: this.dataFood,
         })
       } else {
@@ -99,7 +99,7 @@ export default {
       store.commit('entries/add', {
         item: foodUUID,
         type: 'food',
-        mass: this.mass,
+        data: { mass: this.mass },
       })
     },
 
@@ -107,7 +107,7 @@ export default {
     entryEdit() {
       store.commit('entries/edit', {
         entryUUID: this.entryUUID,
-        mass: this.mass,
+        data: { mass: this.mass },
       })
     },
 
@@ -138,7 +138,7 @@ export default {
 
       const food = store.state.foodCache.food[entry.item]
 
-      this.mass = entry.mass
+      this.mass = entry.data.mass
       this.dataFood = food.dataFood
       this.entrySource = food.source
     },
