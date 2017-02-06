@@ -6,9 +6,14 @@ import store from 'store'
 
 import Splash from 'components/Splash'
 import Settings from 'components/Settings'
-import Search from 'components/EntryFood/Search'
-import Food from 'components/Food'
 import Log from 'components/Log'
+
+import FoodFind from 'components/FoodFind'
+import FoodSearch from 'components/FoodFind/Search'
+import FoodFavorites from 'components/FoodFind/Favorites'
+import FoodCustom from 'components/FoodFind/Custom'
+import FoodRecipes from 'components/FoodFind/Recipes'
+import Entry from 'components/Entry'
 
 import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
@@ -19,10 +24,32 @@ const router = new VueRouter({
   routes: [
     { path: routes.Root, component: Splash },
     { path: routes.Settings, component: Settings },
-    { path: routes.Search, component: Search },
-    { path: routes.Food, component: Food, props: true },
-    { path: routes.Entry, component: Food, props: true },
     { path: routes.Log, component: Log, canReuse: false },
+    { path: routes.Entry, component: Entry, props: true },
+    { path: routes.EntryFood, component: Entry, props: true },
+    {
+      path: routes.FoodFind,
+      redirect: routes.FoodSearch,
+      component: FoodFind,
+      children: [
+        {
+          path: 'search',
+          component: FoodSearch,
+        },
+        {
+          path: 'favorites',
+          component: FoodFavorites,
+        },
+        {
+          path: 'custom',
+          component: FoodCustom,
+        },
+        {
+          path: 'recipes',
+          component: FoodRecipes,
+        },
+      ],
+    },
 
     { path: routes.Cache, component: Cache },
     { path: routes.Entries, component: Entries },

@@ -10,7 +10,7 @@
     </macros>
 
     <router-link 
-      :to="routes.EntryFood" 
+      :to="routes.FoodFind" 
       class="logFood" 
       @click.native="setCurrentDay">
       + Add food

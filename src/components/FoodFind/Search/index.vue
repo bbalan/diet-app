@@ -1,11 +1,10 @@
 <template>
   <div id="FoodSearch">
     
-    <h1>Food search</h1>
-
     <form @submit.prevent>
-      <label for="searchText">Search foods:</label>
+      <label for="searchText">Search:</label>
       <input type="text" name="searchText" v-model="searchText">
+      <button class="clear" @click="onClear" v-if="searchText">X</button>
 
       <result-list 
         :searchText="searchText" 
@@ -128,6 +127,9 @@ export default {
           that.searchResults = resultsTemp
         })
     }, 250),
+    onClear() {
+      this.searchText = ''
+    },
   },
 }
 </script>

@@ -5,7 +5,7 @@
         <router-link :to="routes.Root">Diet app</router-link>
       </h1>
       <router-link :to="routes.Settings" v-if="true || !signupComplete">Settings</router-link>
-      <router-link :to="routes.Search">Search</router-link>
+      <router-link :to="routes.FoodSearch">Search</router-link>
       <router-link :to="routes.Log">Log</router-link>
     </nav>
     <nav>Dev: 
@@ -14,9 +14,9 @@
       <router-link :to="routes.LocalStorage">LocalStorage</router-link>
     </nav>
     <nav>Foods:
-      <router-link to="/food/USDA/09503">Apples</router-link>
-      <router-link to="/food/USDA/42131">Milk</router-link>
-      <router-link to="/food/USDA/09202">Orange</router-link>
+      <router-link to="/food/new/USDA/09503">Apples</router-link>
+      <router-link to="/food/new/USDA/42131">Milk</router-link>
+      <router-link to="/food/new/USDA/05064">Chicken</router-link>
     </nav>
   </div>
 </template>

@@ -12,14 +12,9 @@ import MainNav from 'components/MainNav'
 
 // TODO: signup for a USDA API key on app launch
 export default {
-  data() {
-    return {
-      todayInterval: null,
-    }
-  },
   beforeCreate() {
     // Update store.state.days.today every 1 min
-    this.todayInterval = setInterval(() => {
+    setInterval(() => {
       store.commit('days/setToday')
     }, 60000)
 

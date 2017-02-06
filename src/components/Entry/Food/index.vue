@@ -33,7 +33,7 @@ import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
-import NutritionFacts from 'components/Food/NutritionFacts'
+import NutritionFacts from './NutritionFacts'
 
 export default {
   name: 'Food',

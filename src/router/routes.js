@@ -1,12 +1,12 @@
 export default {
   Root: '/',
   Settings: '/settings',
-  Search: '/search',
-  Food: '/food/:source/:id',
-  Entry: '/entry/:entryUUID',
   Log: '/log',
 
-  EntryFood: '/log/food/:searchType',
+  FoodFind: '/food',
+  FoodSearch: '/food/search',
+  EntryFood: '/food/new/:foodSource/:foodID',
+  Entry: '/entry/:entryUUID',
 
   Cache: '/cache',
   Entries: '/Entries',

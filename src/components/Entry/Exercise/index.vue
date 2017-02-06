@@ -9,7 +9,7 @@
 import store from 'store'
 
 export default {
-  name: 'NewEntry',
+  name: 'Exercise',
   computed: {
     today() {
       return store.state.days.today
