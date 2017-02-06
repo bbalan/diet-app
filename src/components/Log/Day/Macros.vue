@@ -82,6 +82,7 @@ export default {
           case API.OTHER:
             // TODO: implement other API
             total = 0
+            break
           default:
             break
         }
