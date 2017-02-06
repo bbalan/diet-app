@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import FoodLink from 'components/Search/FoodLink'
+import FoodLink from './FoodLink'
 
 export default {
   /* Normally, a list of search results shouldn't know about the

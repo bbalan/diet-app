@@ -6,7 +6,7 @@ import store from 'store'
 
 import Splash from 'components/Splash'
 import Settings from 'components/Settings'
-import Search from 'components/Search'
+import Search from 'components/EntryFood/Search'
 import Food from 'components/Food'
 import Log from 'components/Log'
 

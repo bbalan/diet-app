@@ -6,7 +6,7 @@ export default {
   Entry: '/entry/:entryUUID',
   Log: '/log',
 
-  NewFood: '/new/food',
+  EntryFood: '/log/food/:searchType',
 
   Cache: '/cache',
   Entries: '/Entries',

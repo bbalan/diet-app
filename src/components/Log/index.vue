@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Log</h1>
+    <!--<h1>Log</h1>-->
     <day v-for="(dataDay, date) in days" :dataDay="dataDay" :date="date">
     </day>
   </div>

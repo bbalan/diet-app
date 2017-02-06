@@ -25,14 +25,10 @@ import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
 import ResultList from './ResultList'
-import Food from '../Food'
 
 export default {
   name: 'FoodSearch',
-  components: {
-    ResultList,
-    Food,
-  },
+  components: { ResultList },
   data() {
     return {
       searchText: '',
