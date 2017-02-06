@@ -48,17 +48,17 @@ export default {
     protein() {
       return this.usdaComputeNutrient('203')
     },
-    nutrientsSum() {
+    sumMacros() {
       return this.fat + this.carbs + this.protein
     },
     fatPct() {
-      return Math.floor(roundTo((this.fat / this.nutrientsSum) * 100, 1))
+      return Math.floor(roundTo((this.fat / this.sumMacros) * 100, 1))
     },
     carbsPct() {
-      return Math.floor(roundTo((this.carbs / this.nutrientsSum) * 100, 1))
+      return Math.floor(roundTo((this.carbs / this.sumMacros) * 100, 1))
     },
     proteinPct() {
-      return Math.floor(roundTo((this.protein / this.nutrientsSum) * 100, 1))
+      return Math.floor(roundTo((this.protein / this.sumMacros) * 100, 1))
     },
     caloriesRounded() {
       return Math.floor(this.calories)
@@ -79,6 +79,9 @@ export default {
               total += value
             }
             break
+          case API.OTHER:
+            // TODO: implement other API
+            total = 0
           default:
             break
         }
