@@ -31,11 +31,6 @@ export default {
   search text, but in this case we need it for sorting */
   props: ['list', 'searchText'],
   components: { FoodLink },
-  methods: {
-    onResultSelect(resultData) {
-      this.$emit('eventResultSelect', resultData)
-    },
-  },
   computed: {
     /* Sort list alphabetically, except items with searchText at
     the beginning of their names float to the top */

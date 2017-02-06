@@ -1,0 +1,19 @@
+<template>
+  <div>
+    <h1>Exercise</h1>
+    {{ today }}
+  </div>
+</template>
+
+<script>
+import store from 'store'
+
+export default {
+  name: 'NewEntry',
+  computed: {
+    today() {
+      return store.state.days.today
+    },
+  },
+}
+</script>

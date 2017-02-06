@@ -1,21 +1,25 @@
 <template>
   <li v-if="dataEntry">
-    <router-link :to="`entry/${entryUUID}`" class="edit">edit</router-link>
+    <!--<router-link :to="`entry/${entryUUID}`" class="edit">edit</router-link>-->
 
-    <span class="name">{{ dataFood.name }}</span>
-    <span class="mass">{{mass}} g</span>
+    <span class="name" v-html="name"></span>
+    <input name="mass" class="mass" v-model="mass" type="number">
+    <label for="mass">g</label>
     <span class="calories">{{calories}}</span>
   </li>
 </template>
 
 <script>
+import { truncate, roundTo } from 'util'
 import store from 'store'
 import { USDA, OTHER } from 'api'
-import { roundTo } from 'util'
 
 export default {
   props: ['entryUUID'],
   computed: {
+    name() {
+      return truncate(this.dataFood.name, 50)
+    },
     dataEntry() {
       return store.state.entries.data[this.entryUUID]
     },
@@ -27,9 +31,17 @@ export default {
       // TODO: handle exercise entries
       return this.foodFromCache.dataFood
     },
-    mass() {
+    mass: {
       // TODO: handle exercise entries
-      return this.dataEntry.mass
+      get() {
+        return this.dataEntry.mass
+      },
+      set(val) {
+        store.commit('entries/edit', {
+          entryUUID: this.entryUUID,
+          mass: val,
+        })
+      },
     },
     calories() {
       // TODO: handle exercise entries

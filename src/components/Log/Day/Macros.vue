@@ -22,73 +22,69 @@ export default {
   props: ['entries'],
   data() {
     return {
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0,
       usdaNutrients: ['208', '204', '205', '203'],
     }
   },
-  created() {
-    this.calculateMacros()
-  },
   computed: {
+    entryDetails() {
+      return this.entries.map(entry => store.state.entries.data[entry])
+    },
+    foodDetails() {
+      return this.entryDetails.map((entry) => {
+        const foodItem = store.state.foodCache.food[entry.item]
+        foodItem.mass = entry.mass
+        return foodItem
+      })
+    },
+    calories() {
+      return this.usdaComputeNutrient('208')
+    },
+    carbs() {
+      return this.usdaComputeNutrient('205')
+    },
+    fat() {
+      return this.usdaComputeNutrient('204')
+    },
+    protein() {
+      return this.usdaComputeNutrient('203')
+    },
     nutrientsSum() {
       return this.fat + this.carbs + this.protein
     },
     fatPct() {
-      return roundTo((this.fat / this.nutrientsSum) * 100, 1)
+      return Math.floor(roundTo((this.fat / this.nutrientsSum) * 100, 1))
     },
     carbsPct() {
-      return roundTo((this.carbs / this.nutrientsSum) * 100, 1)
+      return Math.floor(roundTo((this.carbs / this.nutrientsSum) * 100, 1))
     },
     proteinPct() {
-      return roundTo((this.protein / this.nutrientsSum) * 100, 1)
+      return Math.floor(roundTo((this.protein / this.nutrientsSum) * 100, 1))
     },
     caloriesRounded() {
-      return roundTo(this.calories, 1)
+      return Math.floor(this.calories)
     },
   },
   methods: {
-    calculateMacros() {
-      const entries = this.entries
+    usdaComputeNutrient(nutrientID) {
+      let total = 0
+      let energy
+      let value
 
-      entries.forEach((entry) => {
-        let nutrients
-
-        const entryData = store.state.entries.data[entry]
-
-        if (!entryData) return
-        if (!entryData.item) return
-
-        const food = store.state.foodCache.food[entryData.item]
-
-        switch (food.source) {
+      this.foodDetails.forEach((item) => {
+        switch (item.source) {
           case API.USDA:
-            nutrients = food.dataFood.nutrients
-
-            this.calories += parseInt(nutrients.find(
-              n => n.nutrient_id === '208'
-            ).value, 10) * (entryData.mass / 100)
-
-            this.fat += parseInt(nutrients.find(
-              n => n.nutrient_id === '204'
-            ).value, 10) * (entryData.mass / 100)
-
-            this.carbs += parseInt(nutrients.find(
-              n => n.nutrient_id === '205'
-            ).value, 10) * (entryData.mass / 100)
-
-            this.protein += parseInt(nutrients.find(
-              n => n.nutrient_id === '203'
-            ).value, 10) * (entryData.mass / 100)
-
+            energy = item.dataFood.nutrients.find(nutrient => nutrient.nutrient_id === nutrientID)
+            if (energy) {
+              value = parseInt(energy.value, 10) * item.mass / 100
+              total += value
+            }
             break
           default:
-            console.error('Unsupported source')
-            return
+            break
         }
       })
+
+      return total
     },
   },
 }

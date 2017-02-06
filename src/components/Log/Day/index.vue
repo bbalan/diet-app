@@ -9,12 +9,14 @@
 
     <macros 
       v-if="filteredEntries.length" 
+      ref="macros"
       :entries="filteredEntries">
     </macros>
 
     <entry-list 
       v-if="filteredEntries.length" 
-      :entries="filteredEntries">
+      :entries="filteredEntries"
+      @entryMassUpdate="onEntryMassUpdate($event)">
     </entry-list>
 
     <div v-if="filteredEntries.length === 0">No entries today!</div>
@@ -61,6 +63,12 @@ export default {
     },
     tdee() {
       return store.state.userInfo.metrics.tdee
+    },
+  },
+  methods: {
+    onEntryMassUpdate() {
+      // this.$refs.macros.forceUpdateEntries(this.filteredEntries)
+      // this.$refs.macros.computeMacros()
     },
   },
 }

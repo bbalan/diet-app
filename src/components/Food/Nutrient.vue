@@ -13,14 +13,12 @@
 </template>
 
 <script>
-import { roundTo } from 'util'
-
 export default {
   props: {
     nutrient: Object,
     decimals: {
       type: Number,
-      default: 10,
+      default: 1,
     },
     mass: {
       type: Number,
@@ -29,7 +27,7 @@ export default {
   computed: {
     value() {
       const val = this.nutrient.value * (this.mass / 100)
-      return roundTo(val, 1) // TODO: add support for custom decimals
+      return Math.floor(val)
     },
     // Rename nutrients from more verbose versions from USDA API
     name() {
