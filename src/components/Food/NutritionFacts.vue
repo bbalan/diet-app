@@ -1,7 +1,7 @@
 <template>
   <div class="NutritionFacts">
 
-    <h2>{{ dataFood.name }}</h2>
+    <!--<h2>{{ dataFood.name }}</h2>-->
 
     <nutrient 
       v-for="nutrientID in visibleNutrients"

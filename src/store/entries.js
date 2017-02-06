@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import store from 'store'
 import uuid from 'uuid'
 import { setLocalStorage } from './util'
@@ -19,7 +20,7 @@ const entries = {
   mutations: {
     add(state, { item, type, mass }) {
       const entryUUID = uuid.v4()
-      state.data[entryUUID] = { item, type, mass }
+      Vue.set(state.data, entryUUID, { item, type, mass, enabled: true })
       store.commit('days/entryAdd', { entryUUID })
       setLocalStorage(MODULE_KEY, state)
     },
@@ -29,6 +30,14 @@ const entries = {
     },
     delete(state, { entryUUID }) {
       state.data[entryUUID] = undefined
+      setLocalStorage(MODULE_KEY, state)
+    },
+    disable(state, { entryUUID }) {
+      state.data[entryUUID].enabled = false
+      setLocalStorage(MODULE_KEY, state)
+    },
+    enable(state, { entryUUID }) {
+      state.data[entryUUID].enabled = false
       setLocalStorage(MODULE_KEY, state)
     },
   },

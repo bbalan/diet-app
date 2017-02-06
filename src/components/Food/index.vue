@@ -4,6 +4,8 @@
     <span v-if="loading" class="loading">Loading...</span>
 
     <form v-else @submit.prevent>
+      <h2>{{ dataFood.name }}</h2>
+
       <label for="mass">Weight:</label>
       <input type="number" name="mass" v-model.number="mass">
       <span class="mass__unit">grams</span>

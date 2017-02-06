@@ -1,11 +1,23 @@
 <template>
-  <li v-if="dataEntry">
-    <!--<router-link :to="`entry/${entryUUID}`" class="edit">edit</router-link>-->
+  <li v-if="dataEntry" :class="{ entryLink: true, deleted: deleteTimeout }">
 
-    <span class="name" v-html="name"></span>
-    <input name="mass" class="mass" v-model="mass" type="number">
-    <label for="mass">g</label>
-    <span class="calories">{{calories}}</span>
+    <div class="entry__info" v-if="!deleteTimeout">
+      <button @click="deleteEntry">X</button>
+
+      <router-link :to="`entry/${entryUUID}`" class="edit">
+        <span class="name" v-html="name"></span>
+      </router-link>
+
+      <input name="mass" class="mass" v-model="mass" type="number">
+      <label for="mass">g</label>
+      <span class="calories">{{calories}}</span>
+    </div>
+
+    <div class="entry__undo-delete" v-if="deleteTimeout">
+      Deleted
+      <button @click="undoDelete">Undo</button>
+    </div>
+
   </li>
 </template>
 
@@ -16,6 +28,12 @@ import { USDA, OTHER } from 'api'
 
 export default {
   props: ['entryUUID'],
+  data() {
+    return {
+      deleteTimeout: null,
+      deleteTime: 2000,
+    }
+  },
   computed: {
     name() {
       return truncate(this.dataFood.name, 50)
@@ -63,10 +81,33 @@ export default {
       return `${energyVal} ${energy.unit}`
     },
   },
+  methods: {
+    // Remove this entry forever
+    deleteEntry() {
+      store.commit('entries/disable', { entryUUID: this.entryUUID })
+
+      this.deleteTimeout = setTimeout(() => {
+        store.commit('entries/delete', { entryUUID: this.entryUUID })
+        this.deleteTimeout = null
+      }, this.deleteTime)
+    },
+    undoDelete() {
+      store.commit('entries/enable', { entryUUID: this.entryUUID })
+      clearTimeout(this.deleteTimeout)
+      this.deleteTimeout = null
+    },
+  },
 }
 </script>
 
 <style scoped lang="stylus">
+.entryLink
+  position relative
+
+  &.deleted
+    .entry__info
+      display none
+  
 .edit
   width 50px
   color #42b983

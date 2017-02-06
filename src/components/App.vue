@@ -13,9 +13,17 @@ import dateFormat from 'dateformat'
 
 // TODO: signup for a USDA API key on app launch
 export default {
+  data() {
+    return {
+      todayInterval: null,
+    }
+  },
   beforeCreate() {
-    const today = dateFormat(new Date(), 'mm-dd-yy')
-    store.commit('days/setToday', today)
+    this.todayInterval = setInterval(() => {
+      const today = dateFormat(new Date(), 'mm-dd-yy')
+      store.commit('days/setToday', today)
+    }, 60000)
+
     if (!store.state.appSettings.signupComplete) {
       // router.replace('/signup') // TODO: rename this to "welcome"
     }

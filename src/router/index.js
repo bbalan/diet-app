@@ -22,7 +22,7 @@ const router = new VueRouter({
     { path: routes.Search, component: Search },
     { path: routes.Food, component: Food, props: true },
     { path: routes.Entry, component: Food, props: true },
-    { path: routes.Log, component: Log },
+    { path: routes.Log, component: Log, canReuse: false },
 
     { path: routes.Cache, component: Cache },
     { path: routes.Entries, component: Entries },

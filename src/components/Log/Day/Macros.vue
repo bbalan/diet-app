@@ -79,7 +79,6 @@ export default {
             energy = item.dataFood.nutrients.find(nutrient => nutrient.nutrient_id === nutrientID)
             if (energy) {
               value = parseInt(energy.value, 10) * item.mass / 100
-              console.log(value)
               total += value
             }
             break
