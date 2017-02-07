@@ -109,7 +109,7 @@ export default {
             break
           case OTHER:
           default:
-            console.error('API not implemented')
+            // Not implemented
             break
         }
 

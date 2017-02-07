@@ -131,7 +131,6 @@ export default {
       const entry = store.state.entries.data[this.entryUUID]
 
       if (!entry) {
-        console.warn('Entry does not exist')
         router.push('/log')
         return
       }
@@ -169,12 +168,13 @@ export default {
         try {
           this.dataFood = json.report.food
         } catch (e) {
-          console.error('Food report failed - ', e)
+          return e
         }
+        return true
       }
 
-      function otherReportHandler(json) {
-        console.error('Not implemented - reportHandler()', json)
+      function otherReportHandler(/* json */) {
+        // Not implemented
       }
 
       // Figure out which API URLs and handlers to use
@@ -197,7 +197,7 @@ export default {
         .then(parseJSON)
         .then(reportHandler)
         .then(() => { this.loading = false })
-        .catch((error) => { console.error('Food report failed', error) })
+        .catch(error => error)
 
       return
     },

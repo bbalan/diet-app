@@ -72,8 +72,8 @@ export default {
       }
 
       // Append search results from generic API to total search results
-      function otherSearchHandler(json) {
-        console.error('Not implemented - searchHandler()', json)
+      function otherSearchHandler(/* json */) {
+        // Not implemented
       }
 
       // Do a search with a specific supported API
@@ -98,7 +98,7 @@ export default {
           .then(checkStatus)
           .then(parseJSON)
           .then(searchHandler)
-          .catch((error) => { console.error('Search failed', error) })
+          .catch(error => error)
       }
 
       const searches = []

@@ -54,7 +54,7 @@ export default {
         this.name = exercise.name
         this.calories = exercise.calories
       } catch (e) {
-        console.error('Error while retrieving exercise data', e)
+        return
       }
       return
     },

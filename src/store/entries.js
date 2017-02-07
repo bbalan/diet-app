@@ -25,10 +25,7 @@ const entries = {
       setLocalStorage(MODULE_KEY, state)
     },
     edit(state, { entryUUID, data }) {
-      if (!state.data[entryUUID]) {
-        console.error(`Entry ${entryUUID} not found`)
-        return
-      }
+      if (!state.data[entryUUID]) return
       state.data[entryUUID].data = data
       setLocalStorage(MODULE_KEY, state)
     },
