@@ -10,12 +10,12 @@
         <span class="name" v-html="name"></span>
       </router-link>
 
-      <span class="calories">{{calories | toKcal}}</span>
-
-      <div class="foodInfo" v-if="isFood">
-        <input name="mass" class="mass" v-model="mass" type="number">
+      <div class="mass" v-if="isFood">
+        <input name="mass" v-model="mass" type="number">
         <label for="mass">g</label>
       </div>
+
+      <span class="calories">{{calories | toKcal}}</span>
 
     </div>
 
@@ -145,6 +145,8 @@ export default {
 
 <style scoped lang="stylus">
 .entryLink
+  width 100%
+  height 25px
   position relative
 
   .foodInfo
@@ -157,22 +159,34 @@ export default {
 .edit
   width 50px
   color #42b983
+
 .name
   display inline-block
   width 60%
 
 .mass
-  text-align :right
-  font-size 16px
-  width 70%
+  width 10%
+  position absolute
+  right 10%
+  top 0
 
-.foodInfo
+  input
+    font-size 16px
+    text-align right
+    width 70%
+    display inline-block
+
+  label
+    width 30%
+
 .calories
-  float right
   display inline-block
-  width 150px
+  width 10%
   text-align right
   font-weight bold
+  position absolute
+  right 0
+  top 0
 span
   margin 0 10px
 </style>
