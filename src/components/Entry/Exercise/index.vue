@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 v-if="isNew">New Exercise</h2>
-    <h2 v-if="!isNew">Edit Exercise</h2>
+    <h2 v-if="!isNew">Edit Workout Entry</h2>
 
     <form @submit.prevent="onSubmit">
       <p>
@@ -60,13 +60,13 @@ export default {
     },
     onSubmit() {
       // This is a new entry
-      if (!this.exerciseUUID) {
+      if (!this.entryUUID) {
         const exerciseUUID = uuid.v4()
 
         // Add exercise to the exercise cache
         store.commit('exerciseCache/add', {
           uuid: exerciseUUID,
-          exerciseData: {
+          data: {
             name: this.name,
             calories: this.calories,
           },
@@ -84,7 +84,7 @@ export default {
       } else {
         // This is an existing entry, edit it
         store.commit('entries/edit', {
-          uuid: this.exerciseUUID,
+          entryUUID: this.entryUUID,
           data: {
             name: this.name,
             calories: this.calories,

@@ -3,10 +3,10 @@
 
     <div class="entry__info" v-if="!deleteTimeout">
       <button @click="deleteEntry">X</button>
-      <router-link :to="`/entry/${uuid}`">
-        <span class="exercise__name">{{ name | capitalize }}</span>
-      </router-link>
+      <span class="exercise__name">{{ name | capitalize }}</span>
       <span class="exercise__calories">{{ calories | toKcal }}</span>
+
+      <router-link class="exercise_edit" :to="`/exercise/${uuid}`">Edit</router-link>
     </div>
 
     <div class="entry__undo-delete" v-if="deleteTimeout">
@@ -53,3 +53,9 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="stylus">
+.exercise__calories
+  font-weight bold
+  float right
+</style>

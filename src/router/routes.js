@@ -9,6 +9,7 @@ export default {
   Entry: '/entry/:entryUUID',
 
   ExerciseFind: '/exercise',
+  ExerciseCached: '/exercise/:exerciseUUID',
 
   Cache: '/cache',
   Entries: '/Entries',

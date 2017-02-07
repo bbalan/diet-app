@@ -17,6 +17,7 @@ import FoodCustom from 'components/FoodFind/Custom'
 import FoodRecipes from 'components/FoodFind/Recipes'
 
 import ExerciseFind from 'components/ExerciseFind'
+import ExerciseCached from 'components/ExerciseFind/ExerciseCached'
 
 import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
@@ -30,6 +31,7 @@ const router = new VueRouter({
     { path: routes.Log, component: Log, canReuse: false },
     { path: routes.Entry, component: Entry, props: true },
     { path: routes.EntryFood, component: Entry, props: true },
+    { path: routes.ExerciseCached, component: ExerciseCached, props: true },
     {
       path: routes.FoodFind,
       redirect: routes.FoodSearch,

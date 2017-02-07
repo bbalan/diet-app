@@ -14,12 +14,12 @@ const exerciseCache = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    add(state, { uuid, exerciseData }) {
-      Vue.set(state, uuid, exerciseData)
+    add(state, { uuid, data }) {
+      Vue.set(state, uuid, data)
       setLocalStorage(MODULE_KEY, state)
     },
-    edit(state, { uuid, exerciseData }) {
-      state[uuid] = exerciseData
+    edit(state, { uuid, data }) {
+      state[uuid] = data
       setLocalStorage(MODULE_KEY, state)
     },
     delete(state, { uuid }) {
