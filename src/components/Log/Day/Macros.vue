@@ -1,14 +1,16 @@
 <template>
   <div class="macros">
 
+    <pre>{{ entryDetails }}</pre>
+    <pre>{{ foodDetails }}</pre>
     <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>-->
     <!--<p class="calories">Eaten: {{ caloriesRounded }} kcal</p>-->
-    <p>Remaining: {{ caloriesRemaining | toKcal }}</p>
+    <!--<p>Remaining: {{ caloriesRemaining | toKcal }}</p>-->
     <!--<p>Eaten: {{ caloriesEatenPct }}%</p>-->
     <p class="percentages">
-      Macros: {{ fatPct }} F / {{ carbsPct }} C / {{ proteinPct }} P
+      <!--Macros: {{ fatPct }} F / {{ carbsPct }} C / {{ proteinPct }} P-->
     </p>
-    <progress-bar :eaten="caloriesRounded" :tdee="tdee"></progress-bar>
+    <!--<progress-bar :eaten="caloriesRounded" :tdee="tdee"></progress-bar>-->
     <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
     <!--<span class="nutrient">{{ fat }}g fat</span>-->
     <!--<span class="nutrient">{{ protein }}g protein</span>-->
@@ -33,26 +35,30 @@ export default {
   },
   components: { ProgressBar },
   computed: {
+    entryDetails() {
+      return this.entries.map(entry => store.state.entries.data[entry])
+    },
     foodDetails() {
-      const entryDetails = this.entries.map(
-        entry => store.state.entries.data[entry]
-      )
-
-      const foods = entryDetails.map(
-        entry => store.state.foodCache.food[entry.item]
-      )
-
       const foodDetails = []
 
-      for (let i = 0; i < entryDetails.length; i += 1) {
-        foodDetails.push({
-          mass: entryDetails[i].data.mass,
-          dataFood: foods[i].dataFood,
-          source: foods[i].source,
+      this.entryDetails
+        .filter(entry => entry.type === 'food')
+        .forEach((entry) => {
+          const food = store.state.foodCache.food[entry.item]
+
+          foodDetails.push({
+            mass: entry.data.mass,
+            dataFood: food.dataFood,
+            source: food.source,
+          })
         })
-      }
 
       return foodDetails
+    },
+    exerciseDetails() {
+      return this.entryDetails
+        .filter(entry => entry.type === 'exercise')
+        .map(entry => store.state.exerciseCache[entry.item])
     },
     calories() { return this.computeNutrient('208') },
     carbs() { return this.computeNutrient('205') },

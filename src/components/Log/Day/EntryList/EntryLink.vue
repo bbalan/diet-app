@@ -8,9 +8,11 @@
         <span class="name" v-html="name"></span>
       </router-link>
 
-      <input name="mass" class="mass" v-model="mass" type="number">
-      <label for="mass">g</label>
-      <span class="calories">{{calories | toKcal}}</span>
+      <div class="foodInfo" v-if="isFood">
+        <input name="mass" class="mass" v-model="mass" type="number">
+        <label for="mass">g</label>
+        <span class="calories">{{calories | toKcal}}</span>
+      </div>
     </div>
 
     <div class="entry__undo-delete" v-if="deleteTimeout">
@@ -37,19 +39,37 @@ export default {
     }
   },
   computed: {
-    name() {
-      return truncate(this.dataFood.name, 50)
-    },
     dataEntry() {
       return store.state.entries.data[this.entryUUID]
     },
+    isFood() {
+      return this.dataEntry.type === 'food'
+    },
+    isExercise() {
+      return this.dataEntry.type === 'exercise'
+    },
     foodFromCache() {
-      // TODO: handle exercise entries
-      return store.state.foodCache.food[this.dataEntry.item]
+      if (this.isFood) {
+        return store.state.foodCache.food[this.dataEntry.item]
+      }
+      return null
     },
     dataFood() {
-      // TODO: handle exercise entries
-      return this.foodFromCache.dataFood
+      if (this.foodFromCache) {
+        return this.foodFromCache.dataFood
+      }
+      return null
+    },
+    name() {
+      if (this.isFood && this.dataFood) {
+        return truncate(this.dataFood.name, 50)
+      }
+
+      if (this.isExercise && this.dataEntry.data) {
+        return truncate(this.dataEntry.data.name, 50)
+      }
+
+      return null
     },
     mass: {
       // TODO: handle exercise entries
@@ -64,7 +84,8 @@ export default {
       },
     },
     calories() {
-      // TODO: handle exercise entries
+      if (!this.foodFromCache) return 0
+
       let energy = 0
 
       switch (this.foodFromCache.source) {
@@ -104,6 +125,9 @@ export default {
 <style scoped lang="stylus">
 .entryLink
   position relative
+
+  .foodInfo
+    display inline
 
   &.deleted
     .entry__info

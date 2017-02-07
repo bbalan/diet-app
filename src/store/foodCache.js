@@ -4,7 +4,7 @@ const MODULE_KEY = 'foodCache'
 
 // Personal info about the user
 const stateDefault = {
-  food: {},
+  food: {}, // TODO: remove this and just add stuff to the root
 }
 
 const stateLocalStorage = JSON.parse(

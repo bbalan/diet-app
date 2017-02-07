@@ -3,7 +3,7 @@ import store from 'store'
 import dateFormat from 'dateformat'
 import { setLocalStorage } from 'store/util'
 
-const MODULE_KEY = 'days'
+const MODULE_KEY = 'days' // TODO: rename this to 'calendar'
 
 // Personal info about the user
 const stateDefault = {

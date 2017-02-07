@@ -5,6 +5,7 @@
     <h2>days</h2><pre>{{ days }}</pre>
     <h2>entries</h2><pre>{{ entries }}</pre>
     <h2>foodCache</h2><pre>{{ foodCache }}</pre>
+    <h2>exerciseCache</h2><pre>{{ exerciseCache }}</pre>
   </div>
 </template>
 
@@ -16,6 +17,7 @@ export default {
     days() { return JSON.parse(localStorage.getItem('days')) },
     entries() { return JSON.parse(localStorage.getItem('entries')) },
     foodCache() { return JSON.parse(localStorage.getItem('foodCache')) },
+    exerciseCache() { return JSON.parse(localStorage.getItem('exerciseCache')) },
   },
   methods: {
     localStorageClear() {

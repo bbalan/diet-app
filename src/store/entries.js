@@ -7,7 +7,7 @@ const MODULE_KEY = 'entries'
 
 // Personal info about the user
 const stateDefault = {
-  data: {},
+  data: {}, // TODO: remove this and just add stuff to the root
 }
 
 const stateLocalStorage = JSON.parse(
