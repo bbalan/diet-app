@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>Previous exercises</h2>
-    <!--<pre>{{exerciseCache}}</pre>-->
+    <pre>{{ exerciseCache }}</pre>
     <exercise-link
       v-for="(exercise, uuid) in exerciseCache" 
       :exerciseData="exercise"

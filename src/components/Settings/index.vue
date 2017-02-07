@@ -5,6 +5,7 @@
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
 
     <p>TDEE {{ tdee }}</p>
+    <button @click="onPrepopulate">Prepopulate</button>
 
     <form @submit.prevent="onSubmit">
       <gender></gender>
@@ -57,6 +58,10 @@ export default {
       // Send form data to Firebase
       // db.ref('data')
       //   .push(store.state.userInfo)
+    },
+    onPrepopulate() {
+      store.commit('userInfo/prepopulate')
+      this.onSubmit()
     },
   },
   // firebase: {

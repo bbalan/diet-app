@@ -11,6 +11,8 @@ export function roundTo(num, divisor) {
 }
 
 export function truncate(str, n, useWordBoundary = true) {
+  if (!str || !n) return 'error'
+
   const isTooLong = str.length > n
   let newStr = isTooLong ? str.substr(0, n - 1) : str
 

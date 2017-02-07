@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>New Exercise</h2>
+    <h2 v-if="isNew">New Exercise</h2>
+    <h2 v-if="!isNew">Edit Exercise</h2>
 
     <form @submit.prevent="onSubmit">
       <p>
@@ -10,10 +11,11 @@
 
       <p>
         <label for="exerciseCalories">Calories burned:</label>
-        <input name="exerciseCalories" type="text" v-model="calories">
+        <input name="exerciseCalories" type="text" v-model.number="calories">
       </p>
 
-      <button type="submit">Log exercise</button>
+      <button v-if="isNew" type="submit">Log exercise</button>
+      <button v-if="!isNew" type="submit">Save</button>
     </form>
     
   </div>
@@ -22,46 +24,75 @@
 <script>
 import store from 'store'
 import uuid from 'uuid'
-// import router from 'router'
-// import routes from 'router/routes'
+import router from 'router'
+import routes from 'router/routes'
 
 export default {
   name: 'Exercise',
+  props: ['entryUUID'],
   data() {
     return {
       name: null,
       calories: null,
+      isNew: null,
     }
   },
-  computed: {
-    today() {
-      return store.state.days.today
-    },
+  created() {
+    this.getData()
   },
   methods: {
+    getData() {
+      try {
+        const entry = store.state.entries.data[this.entryUUID]
+
+        if (!entry) {
+          this.isNew = true
+          return
+        }
+
+        const exercise = entry.data
+        this.name = exercise.name
+        this.calories = exercise.calories
+      } catch (e) {
+        console.error('Error while retrieving exercise data', e)
+      }
+      return
+    },
     onSubmit() {
-      const exerciseUUID = uuid.v4()
+      // This is a new entry
+      if (!this.exerciseUUID) {
+        const exerciseUUID = uuid.v4()
 
-      // Add exercise to the exercise cache
-      store.commit('exerciseCache/add', {
-        uuid: exerciseUUID,
-        exerciseData: {
-          name: this.name,
-          calories: this.calories,
-        },
-      })
+        // Add exercise to the exercise cache
+        store.commit('exerciseCache/add', {
+          uuid: exerciseUUID,
+          exerciseData: {
+            name: this.name,
+            calories: this.calories,
+          },
+        })
 
-      // Add an exercise entry with the cached exercise uuid
-      store.commit('entries/add', {
-        item: exerciseUUID,
-        type: 'exercise',
-        data: {
-          name: this.name,
-          calories: this.calories,
-        },
-      })
+        // Add an exercise entry with the cached exercise uuid
+        store.commit('entries/add', {
+          item: exerciseUUID,
+          type: 'exercise',
+          data: {
+            name: this.name,
+            calories: this.calories,
+          },
+        })
+      } else {
+        // This is an existing entry, edit it
+        store.commit('entries/edit', {
+          uuid: this.exerciseUUID,
+          data: {
+            name: this.name,
+            calories: this.calories,
+          },
+        })
+      }
 
-      // router.push(routes.Log)
+      router.push(routes.Log)
     },
   },
 }

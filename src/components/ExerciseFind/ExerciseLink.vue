@@ -21,7 +21,7 @@ import store from 'store'
 import { toKcal, capitalize } from 'util/filters'
 
 export default {
-  name: 'ExerciseList',
+  name: 'ExerciseLink',
   props: ['exerciseData', 'uuid'],
   filters: { toKcal, capitalize },
   data() {

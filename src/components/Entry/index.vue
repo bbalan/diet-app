@@ -7,8 +7,13 @@
       :entryUUID="entryUUID"
       ></food>
     <exercise
-      v-if="isExercise">
+      v-if="isExercise"
+      :entryUUID="entryUUID">
     </exercise>
+    <div v-if="!dataEntry && !isFood">
+      Entry not found
+      <pre>{{entries}}</pre>
+    </div>
   </div>
 </template>
 
@@ -27,8 +32,11 @@ export default {
   },
   components: { Food, Exercise },
   computed: {
+    entries() {
+      return store.state.entries.data
+    },
     dataEntry() {
-      return store.state.entries.data[this.entryUUID]
+      return this.entries[this.entryUUID]
     },
     entryType() {
       return this.dataEntry ? this.dataEntry.type : false

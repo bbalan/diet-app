@@ -4,15 +4,19 @@
     <div class="entry__info" v-if="!deleteTimeout">
       <button @click="deleteEntry">X</button>
 
-      <router-link :to="`entry/${entryUUID}`" class="edit">
+      <router-link
+        :to="`entry/${entryUUID}`"
+        class="edit">
         <span class="name" v-html="name"></span>
       </router-link>
+
+      <span class="calories">{{calories | toKcal}}</span>
 
       <div class="foodInfo" v-if="isFood">
         <input name="mass" class="mass" v-model="mass" type="number">
         <label for="mass">g</label>
-        <span class="calories">{{calories | toKcal}}</span>
       </div>
+
     </div>
 
     <div class="entry__undo-delete" v-if="deleteTimeout">
@@ -43,14 +47,22 @@ export default {
       return store.state.entries.data[this.entryUUID]
     },
     isFood() {
-      return this.dataEntry.type === 'food'
+      if (this.dataEntry) return this.dataEntry.type === 'food'
+      return false
     },
     isExercise() {
-      return this.dataEntry.type === 'exercise'
+      if (this.dataEntry) return this.dataEntry.type === 'exercise'
+      return false
     },
     foodFromCache() {
       if (this.isFood) {
         return store.state.foodCache.food[this.dataEntry.item]
+      }
+      return null
+    },
+    dataExercise() {
+      if (this.isExercise) {
+        return this.dataEntry.data
       }
       return null
     },
@@ -65,7 +77,7 @@ export default {
         return truncate(this.dataFood.name, 50)
       }
 
-      if (this.isExercise && this.dataEntry.data) {
+      if (this.isExercise && this.dataExercise) {
         return truncate(this.dataEntry.data.name, 50)
       }
 
@@ -84,23 +96,32 @@ export default {
       },
     },
     calories() {
-      if (!this.foodFromCache) return 0
+      if (this.isFood) {
+        if (!this.foodFromCache) return 0
 
-      let energy = 0
+        let energy = 0
 
-      switch (this.foodFromCache.source) {
-        case USDA:
-          energy = this.dataFood.nutrients.find(
-            nutrient => nutrient.nutrient_id === '208'
-          )
-          break
-        case OTHER:
-        default:
-          console.error('API not implemented')
-          break
+        switch (this.foodFromCache.source) {
+          case USDA:
+            energy = this.dataFood.nutrients.find(
+              nutrient => nutrient.nutrient_id === '208'
+            )
+            break
+          case OTHER:
+          default:
+            console.error('API not implemented')
+            break
+        }
+
+        return Math.floor(roundTo(energy.value * (this.mass / 100), 1))
       }
 
-      return Math.floor(roundTo(energy.value * (this.mass / 100), 1))
+      if (this.isExercise) {
+        if (!this.dataExercise) return null
+        return this.dataExercise.calories
+      }
+
+      return null
     },
   },
   methods: {
@@ -139,12 +160,18 @@ export default {
 .name
   display inline-block
   width 60%
+
 .mass
+  text-align :right
+  font-size 16px
+  width 70%
+
+.foodInfo
 .calories
+  float right
   display inline-block
-  width 100px
+  width 150px
   text-align right
-.calories
   font-weight bold
 span
   margin 0 10px

@@ -1,8 +1,8 @@
 <template>
   <div class="macros">
 
-    <pre>{{ entryDetails }}</pre>
-    <pre>{{ foodDetails }}</pre>
+    <!--<pre>{{ entryDetails }}</pre>-->
+    <!--<pre>{{ foodDetails }}</pre>-->
     <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>-->
     <!--<p class="calories">Eaten: {{ caloriesRounded }} kcal</p>-->
     <!--<p>Remaining: {{ caloriesRemaining | toKcal }}</p>-->
@@ -58,7 +58,7 @@ export default {
     exerciseDetails() {
       return this.entryDetails
         .filter(entry => entry.type === 'exercise')
-        .map(entry => store.state.exerciseCache[entry.item])
+        // .map(entry => store.state.exerciseCache[entry.item])
     },
     calories() { return this.computeNutrient('208') },
     carbs() { return this.computeNutrient('205') },

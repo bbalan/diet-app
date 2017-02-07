@@ -13,6 +13,7 @@ const stateDefault = {
     birthday: null,
     birthdayTimestamp: null,
   },
+  // TODO: replace default values with HTML5 form placeholder
   metrics: {
     age: null,
     gender: null,
@@ -32,6 +33,18 @@ export default {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
+    // TODO: fix this
+    prepopulate(state) {
+      state.metrics.gender = 'male'
+      state.metrics.height = 177
+      state.metrics.weight = 152.2
+      state.metrics.bodyFatPct = 20
+      state.metrics.mass = 69
+      store.commit('appSettings/setGoal', 'burn-fat')
+      store.commit('appSettings/setActivityLevel', 1.2)
+      store.commit('appSettings/setNumMeals', 6)
+      store.commit('userInfo/calcTDEE')
+    },
     /** Translates the user's birthday into a timestamp, and calculates their age. */
     // setBirthday(state, birthday) {
     //   const today = new Date().getTime()
