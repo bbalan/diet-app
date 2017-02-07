@@ -26,28 +26,31 @@ export default {
     }
   },
   computed: {
-    entryDetails() {
-      return this.entries.map(entry => store.state.entries.data[entry])
-    },
     foodDetails() {
-      return this.entryDetails.map((entry) => {
-        const foodItem = store.state.foodCache.food[entry.item]
-        foodItem.mass = entry.mass
-        return foodItem
-      })
+      const entryDetails = this.entries.map(
+        entry => store.state.entries.data[entry]
+      )
+
+      const foods = entryDetails.map(
+        entry => store.state.foodCache.food[entry.item]
+      )
+
+      const foodDetails = []
+
+      for (let i = 0; i < entryDetails.length; i += 1) {
+        foodDetails.push({
+          mass: entryDetails[i].mass,
+          dataFood: foods[i].dataFood,
+          source: foods[i].source,
+        })
+      }
+
+      return foodDetails
     },
-    calories() {
-      return this.usdaComputeNutrient('208')
-    },
-    carbs() {
-      return this.usdaComputeNutrient('205')
-    },
-    fat() {
-      return this.usdaComputeNutrient('204')
-    },
-    protein() {
-      return this.usdaComputeNutrient('203')
-    },
+    calories() { return this.usdaComputeNutrient('208') },
+    carbs() { return this.usdaComputeNutrient('205') },
+    fat() { return this.usdaComputeNutrient('204') },
+    protein() { return this.usdaComputeNutrient('203') },
     sumMacros() {
       return this.fat + this.carbs + this.protein
     },
@@ -76,6 +79,7 @@ export default {
             energy = item.dataFood.nutrients.find(nutrient => nutrient.nutrient_id === nutrientID)
             if (energy) {
               value = parseInt(energy.value, 10) * item.mass / 100
+              console.log(value)
               total += value
             }
             break
