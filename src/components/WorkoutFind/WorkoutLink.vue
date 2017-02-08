@@ -1,11 +1,11 @@
 <template>
-  <div v-if="exerciseData" class="exerciseLink">
+  <div v-if="workoutData" class="workoutLink">
 
     <div class="entry__info">
-      <router-link class="exercise_edit" :to="`/exercise/${uuid}`">Edit</router-link>
+      <router-link class="workout_edit" :to="`/workout/${uuid}`">Edit</router-link>
 
-      <span class="exercise__name">{{ name | capitalize }}</span>
-      <span class="exercise__calories">
+      <span class="workout__name">{{ name | capitalize }}</span>
+      <span class="workout__calories">
         {{ calories | toKcal }} 
         <button @click="logEntry">Log</button>
       </span>
@@ -20,8 +20,8 @@ import router from 'router'
 import { toKcal, capitalize } from 'util/filters'
 
 export default {
-  name: 'ExerciseLink',
-  props: ['exerciseData', 'uuid'],
+  name: 'WorkoutLink',
+  props: ['workoutData', 'uuid'],
   filters: { toKcal, capitalize },
   data() {
     return {
@@ -30,16 +30,16 @@ export default {
     }
   },
   created() {
-    if (this.exerciseData) {
-      this.name = this.exerciseData.name
-      this.calories = this.exerciseData.calories
+    if (this.workoutData) {
+      this.name = this.workoutData.name
+      this.calories = this.workoutData.calories
     }
   },
   methods: {
     logEntry() {
       store.commit('entries/add', {
         item: null,
-        type: 'exercise',
+        type: 'workout',
         data: {
           name: this.name,
           calories: this.calories,
@@ -52,11 +52,11 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.exercise__calories
+.workout__calories
   font-weight bold
   float right
 
-.exercise__name 
+.workout__name 
   display inline-block
   width 200px
 </style>

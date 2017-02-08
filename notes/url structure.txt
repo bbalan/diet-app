@@ -1,0 +1,25 @@
+Foods wrapper
+  Search
+    New Entry
+      Amount
+      Food data from API or cache
+  Favorites
+  Custom
+  Recipes
+
+/food
+/food/search
+/food/new/:source/:id
+/food/new/USDA/09456
+/food/new/recipe/1c512c53-70aa-4350-8a0c-f8b186005b12
+/food/new/custom/da026968-6a45-47e6-9f9c-c735fed15035
+/food/favorites
+/food/custom
+/food/recipes
+
+/recipe/da026968-6a45-47e6-9f9c-c735fed15035
+/custom/da026968-6a45-47e6-9f9c-c735fed15035
+
+/exercise/new
+
+/entry/:uuid

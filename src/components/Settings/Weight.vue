@@ -23,9 +23,7 @@ import store from 'store'
 import Slide from '../Slide'
 
 export default {
-  components: {
-    Slide,
-  },
+  components: { Slide },
   computed: {
     weight: {
       get() {

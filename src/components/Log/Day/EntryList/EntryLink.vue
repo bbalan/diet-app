@@ -50,8 +50,8 @@ export default {
       if (this.dataEntry) return this.dataEntry.type === 'food'
       return false
     },
-    isExercise() {
-      if (this.dataEntry) return this.dataEntry.type === 'exercise'
+    isWorkout() {
+      if (this.dataEntry) return this.dataEntry.type === 'workout'
       return false
     },
     foodFromCache() {
@@ -60,8 +60,8 @@ export default {
       }
       return null
     },
-    dataExercise() {
-      if (this.isExercise) {
+    dataWorkout() {
+      if (this.isWorkout) {
         return this.dataEntry.data
       }
       return null
@@ -77,14 +77,14 @@ export default {
         return truncate(this.dataFood.name, 50)
       }
 
-      if (this.isExercise && this.dataExercise) {
+      if (this.isWorkout && this.dataWorkout) {
         return truncate(this.dataEntry.data.name, 50)
       }
 
       return null
     },
     mass: {
-      // TODO: handle exercise entries
+      // TODO: handle workout entries
       get() {
         if (this.isFood && this.dataEntry) {
           return this.dataEntry.data.mass
@@ -119,9 +119,9 @@ export default {
         return Math.floor(roundTo(energy.value * (this.mass / 100), 1))
       }
 
-      if (this.isExercise) {
-        if (!this.dataExercise) return null
-        return this.dataExercise.calories
+      if (this.isWorkout) {
+        if (!this.dataWorkout) return null
+        return this.dataWorkout.calories
       }
 
       return null

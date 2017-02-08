@@ -55,10 +55,10 @@ export default {
 
       return foodDetails
     },
-    exerciseDetails() {
+    workoutDetails() {
       return this.entryDetails
-        .filter(entry => entry.type === 'exercise')
-        // .map(entry => store.state.exerciseCache[entry.item])
+        .filter(entry => entry.type === 'workout')
+        // .map(entry => store.state.workoutCache[entry.item])
     },
     calories() { return this.computeNutrient('208') },
     carbs() { return this.computeNutrient('205') },

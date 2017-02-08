@@ -127,7 +127,7 @@ export default {
 
     // We are looking at a saved food entry
     getDataFromEntry() {
-      // TODO: handle exercise entries
+      // TODO: handle workout entries
       const entry = store.state.entries.data[this.entryUUID]
 
       if (!entry) {

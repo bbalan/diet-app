@@ -8,8 +8,8 @@ export default {
   EntryFood: '/food/new/:foodSource/:foodID',
   Entry: '/entry/:entryUUID',
 
-  ExerciseFind: '/exercise',
-  ExerciseCached: '/exercise/:exerciseUUID',
+  WorkoutFind: '/workout',
+  WorkoutCached: '/workout/:workoutUUID',
 
   WeighIn: '/weighin',
 

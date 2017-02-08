@@ -6,10 +6,10 @@
       :source="foodSource"
       :entryUUID="entryUUID"
       ></food>
-    <exercise
-      v-if="isExercise"
+    <workout
+      v-if="isWorkout"
       :entryUUID="entryUUID">
-    </exercise>
+    </workout>
     <div v-if="!dataEntry && !isFood">
       Entry not found
       <pre>{{entries}}</pre>
@@ -20,7 +20,7 @@
 <script>
 import store from 'store'
 import Food from 'components/Entry/Food'
-import Exercise from 'components/Entry/Exercise'
+import Workout from 'components/Entry/Workout'
 
 export default {
   name: 'Entry',
@@ -30,7 +30,7 @@ export default {
       mass: 100,
     }
   },
-  components: { Food, Exercise },
+  components: { Food, Workout },
   computed: {
     entries() {
       return store.state.entries.data
@@ -44,8 +44,8 @@ export default {
     isFood() {
       return this.entryType === 'food' || (this.foodID && this.foodSource)
     },
-    isExercise() {
-      return this.entryType === 'exercise'
+    isWorkout() {
+      return this.entryType === 'workout'
     },
   },
 }

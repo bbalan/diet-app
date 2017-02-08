@@ -9,6 +9,7 @@ import Settings from 'components/Settings'
 import Log from 'components/Log'
 
 import Entry from 'components/Entry'
+import WeighIn from 'components/Entry/WeighIn'
 
 import FoodFind from 'components/FoodFind'
 import FoodSearch from 'components/FoodFind/Search'
@@ -16,8 +17,9 @@ import FoodFavorites from 'components/FoodFind/Favorites'
 import FoodCustom from 'components/FoodFind/Custom'
 import FoodRecipes from 'components/FoodFind/Recipes'
 
-import ExerciseFind from 'components/ExerciseFind'
-import ExerciseCached from 'components/ExerciseFind/ExerciseCached'
+import WorkoutFind from 'components/WorkoutFind'
+import WorkoutCached from 'components/WorkoutFind/WorkoutCached'
+
 
 import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
@@ -31,7 +33,8 @@ const router = new VueRouter({
     { path: routes.Log, component: Log, canReuse: false },
     { path: routes.Entry, component: Entry, props: true },
     { path: routes.EntryFood, component: Entry, props: true },
-    { path: routes.ExerciseCached, component: ExerciseCached, props: true },
+    { path: routes.WeighIn, component: WeighIn },
+    { path: routes.WorkoutCached, component: WorkoutCached, props: true },
     {
       path: routes.FoodFind,
       redirect: routes.FoodSearch,
@@ -56,9 +59,10 @@ const router = new VueRouter({
       ],
     },
     {
-      path: routes.ExerciseFind,
-      component: ExerciseFind,
+      path: routes.WorkoutFind,
+      component: WorkoutFind,
     },
+
     { path: routes.Cache, component: Cache },
     { path: routes.Entries, component: Entries },
     { path: routes.LocalStorage, component: LocalStorage },

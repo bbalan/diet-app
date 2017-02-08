@@ -19,10 +19,10 @@
     </router-link>
 
     <router-link 
-      :to="routes.ExerciseFind" 
-      class="addLog logExercise" 
+      :to="routes.WorkoutFind" 
+      class="addLog logWorkout" 
       @click.native="setCurrentDay">
-      + Add exercise
+      + Add workout
     </router-link>
 
     <router-link 
