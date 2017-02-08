@@ -1,8 +1,8 @@
 <template>
   <div>
-    <h2>Edit Exercise</h2>
-    
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent v-if="exerciseData">
+      <h2>Edit Exercise</h2>
+
       <p>
         <label for="exerciseName">Name:</label>
         <input name="exerciseName" type="text" v-model="name">
@@ -10,16 +10,20 @@
 
       <p>
         <label for="exerciseCalories">Calories burned:</label>
-        <input name="exerciseCalories" type="text" v-model.number="calories">
+        <input name="exerciseCalories" type="number" v-model.number="calories">
       </p>
 
-      <button type="submit">Save</button>
+      <button @click="onSubmit">Save</button>
+      <button @click="onDelete">Delete</button>
     </form>
+
+    <h2 v-else>Exercise not found</h2>
   </div>
 </template>
 
 <script>
 import store from 'store'
+import router from 'router'
 
 export default {
   name: 'ExerciseCached',
@@ -28,6 +32,7 @@ export default {
     return {
       name: null,
       calories: null,
+      exerciseData: null,
     }
   },
   created() {
@@ -36,8 +41,14 @@ export default {
   methods: {
     getData() {
       const exerciseData = store.state.exerciseCache[this.exerciseUUID]
-      this.name = exerciseData.name
-      this.calories = exerciseData.calories
+      this.exerciseData = exerciseData
+
+      if (exerciseData) {
+        this.name = exerciseData.name
+        this.calories = exerciseData.calories
+      } else {
+        router.go(-1)
+      }
     },
     onSubmit() {
       store.commit('exerciseCache/edit', {
@@ -47,6 +58,10 @@ export default {
           calories: this.calories,
         },
       })
+    },
+    onDelete() {
+      store.commit('exerciseCache/delete', { uuid: this.exerciseUUID })
+      router.go(-1)
     },
   },
 }

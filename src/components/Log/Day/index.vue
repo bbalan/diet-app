@@ -13,16 +13,23 @@
 
     <router-link 
       :to="routes.FoodFind" 
-      class="logFood" 
+      class="addLog logFood" 
       @click.native="setCurrentDay">
       + Add food
     </router-link>
 
     <router-link 
       :to="routes.ExerciseFind" 
-      class="logFood" 
+      class="addLog logExercise" 
       @click.native="setCurrentDay">
       + Add exercise
+    </router-link>
+
+    <router-link 
+      :to="routes.WeighIn" 
+      class="addLog logWeight" 
+      @click.native="setCurrentDay">
+      + Weigh In
     </router-link>
 
     <entry-list 
@@ -108,8 +115,9 @@ export default {
 .nutrient
   margin-right 20px
   
-.logFood
+.addLog
   font-size 20px
   font-weight bold
   color #42b983
+  margin-right 20px
 </style>

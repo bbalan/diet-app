@@ -86,7 +86,10 @@ export default {
     mass: {
       // TODO: handle exercise entries
       get() {
-        return this.dataEntry.data.mass
+        if (this.isFood && this.dataEntry) {
+          return this.dataEntry.data.mass
+        }
+        return null
       },
       set(mass) {
         store.commit('entries/edit', {

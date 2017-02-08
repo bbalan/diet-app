@@ -11,6 +11,8 @@ export default {
   ExerciseFind: '/exercise',
   ExerciseCached: '/exercise/:exerciseUUID',
 
+  WeighIn: '/weighin',
+
   Cache: '/cache',
   Entries: '/Entries',
   LocalStorage: '/localStorage',

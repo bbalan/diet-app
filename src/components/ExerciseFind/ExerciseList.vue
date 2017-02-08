@@ -1,7 +1,6 @@
 <template>
   <div>
     <h2>Previous exercises</h2>
-    <!--<pre>{{ exerciseCache }}</pre>-->
     <exercise-link
       v-for="exercise in reversed" 
       :exerciseData="exercise.data"

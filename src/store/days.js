@@ -46,10 +46,27 @@ const log = {
       setLocalStorage(MODULE_KEY, state)
     },
     // TODO: add day argument to add entry to any day
-    entryAdd(state, { entryUUID }) {
-      store.commit('days/setToday')
-      state.data[state.today].entries.push(entryUUID)
+    entryAdd(state, { entryUUID, date }) {
+      state.data[date].entries.push(entryUUID)
       setLocalStorage(MODULE_KEY, state)
+    },
+    entryDelete(state, { uuid, date }) {
+      let dateToDelete = date
+      if (!dateToDelete) dateToDelete = state.today
+
+      let idx = 0
+      const day = state.data[date]
+
+      if (day && day.entries) {
+        const foundEntry = day.entries.find(
+          (entry, index) => {
+            idx = index
+            return entry === uuid
+          }
+        )
+
+        if (foundEntry) day.entries.splice(idx, 1)
+      }
     },
     setTDEE(state, tdee) {
       store.commit('days/setToday')

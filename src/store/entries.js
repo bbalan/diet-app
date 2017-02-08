@@ -20,8 +20,15 @@ const entries = {
   mutations: {
     add(state, { item, type, data }) {
       const entryUUID = uuid.v4()
-      Vue.set(state.data, entryUUID, { item, type, data, enabled: true })
-      store.commit('days/entryAdd', { entryUUID })
+      const date = store.state.days.currentDay
+      Vue.set(state.data, entryUUID, {
+        item,
+        type,
+        data,
+        enabled: true,
+        date,
+      })
+      store.commit('days/entryAdd', { entryUUID, date })
       setLocalStorage(MODULE_KEY, state)
     },
     edit(state, { entryUUID, data }) {
@@ -30,8 +37,16 @@ const entries = {
       setLocalStorage(MODULE_KEY, state)
     },
     delete(state, { entryUUID }) {
-      state.data[entryUUID] = undefined
-      setLocalStorage(MODULE_KEY, state)
+      if (state.data[entryUUID]) {
+        const date = state.data[entryUUID].date
+        state.data[entryUUID] = undefined
+
+        store.commit('days/entryDelete', {
+          uuid: entryUUID,
+          date,
+        })
+        setLocalStorage(MODULE_KEY, state)
+      }
     },
     // TODO: make this affect tdee in Day & Macros components
     disable(state, { entryUUID }) {

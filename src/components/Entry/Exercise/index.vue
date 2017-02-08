@@ -11,7 +11,7 @@
 
       <p>
         <label for="exerciseCalories">Calories burned:</label>
-        <input name="exerciseCalories" type="text" v-model.number="calories">
+        <input name="exerciseCalories" type="number" v-model.number="calories">
       </p>
 
       <button v-if="isNew" type="submit">Log exercise</button>
