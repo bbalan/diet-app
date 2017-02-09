@@ -73,7 +73,7 @@ export default {
 
     setMass(state, mass) {
       state.metrics.mass = mass
-      store.commit('days/setMass', mass)
+      store.commit('calendar/setMass', mass)
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
@@ -139,7 +139,7 @@ export default {
       const tdee = basalMetabolicRate * store.state.appSettings.activityLevel
 
       state.metrics.tdee = tdee
-      store.commit('days/setTDEE', tdee)
+      store.commit('calendar/setTDEE', tdee)
       setLocalStorage(MODULE_KEY, state)
     },
   },

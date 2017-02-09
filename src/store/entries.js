@@ -18,7 +18,7 @@ const entries = {
   mutations: {
     add(state, { item, type, data }) {
       const uuid = UUID.v4()
-      const date = store.state.days.currentDay
+      const date = store.state.calendar.currentDay
       Vue.set(state, uuid, {
         item,
         type,
@@ -27,7 +27,7 @@ const entries = {
         checked: false,
         date,
       })
-      store.commit('days/entryAdd', { uuid, date })
+      store.commit('calendar/entryAdd', { uuid, date })
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -42,7 +42,7 @@ const entries = {
         const date = state[uuid].date
         state[uuid] = undefined
 
-        store.commit('days/entryDelete', { uuid, date })
+        store.commit('calendar/entryDelete', { uuid, date })
         setLocalStorage(MODULE_KEY, state)
       }
     },

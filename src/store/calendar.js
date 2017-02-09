@@ -3,7 +3,7 @@ import store from 'store'
 import dateFormat from 'dateformat'
 import { setLocalStorage } from 'store/util'
 
-const MODULE_KEY = 'days' // TODO: rename this to 'calendar'
+const MODULE_KEY = 'calendar' // TODO: rename this to 'calendar'
 
 // Personal info about the user
 const stateDefault = {
@@ -31,7 +31,7 @@ const log = {
       state.today = today
 
       if (!Object.hasOwnProperty.call(state.data, today)) {
-        store.commit('days/add', today)
+        store.commit('calendar/add', today)
       }
 
       if (state.currentDay === '') state.currentDay = today
@@ -69,12 +69,12 @@ const log = {
       }
     },
     setTDEE(state, tdee) {
-      store.commit('days/setToday')
+      store.commit('calendar/setToday')
       state.data[state.today].tdee = tdee
       setLocalStorage(MODULE_KEY, state)
     },
     setMass(state, mass) {
-      store.commit('days/setToday')
+      store.commit('calendar/setToday')
       state.data[state.today].mass = mass
       setLocalStorage(MODULE_KEY, state)
     },

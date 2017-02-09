@@ -29,7 +29,7 @@ import routes from 'router/routes'
 
 export default {
   name: 'Workout',
-  props: ['entryUUID'],
+  props: ['uuid'],
   data() {
     return {
       name: null,
@@ -43,7 +43,7 @@ export default {
   methods: {
     getData() {
       try {
-        const entry = store.state.entries[this.entryUUID]
+        const entry = store.state.entries[this.uuid]
 
         if (!entry) {
           this.isNew = true
@@ -60,7 +60,7 @@ export default {
     },
     onSubmit() {
       // This is a new entry
-      if (!this.entryUUID) {
+      if (!this.uuid) {
         const workoutUUID = uuid.v4()
 
         // Add workout to the workout cache
@@ -84,7 +84,7 @@ export default {
       } else {
         // This is an existing entry, edit it
         store.commit('entries/edit', {
-          uuid: this.entryUUID,
+          uuid: this.uuid,
           data: {
             name: this.name,
             calories: this.calories,

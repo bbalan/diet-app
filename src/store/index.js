@@ -6,7 +6,7 @@ import appSettings from 'store/appSettings'
 import foodCache from 'store/foodCache'
 import workoutCache from 'store/workoutCache'
 import entries from 'store/entries'
-import days from 'store/days'
+import calendar from 'store/calendar'
 
 Vue.use(Vuex)
 
@@ -19,7 +19,7 @@ const store = new Vuex.Store({
     foodCache,
     workoutCache,
     entries,
-    days,
+    calendar,
   },
 })
 

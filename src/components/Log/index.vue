@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--<h1>Log</h1>-->
-    <day v-for="(dataDay, date) in days" :dataDay="dataDay" :date="date">
+    <day v-for="(dataDay, date) in calendar" :dataDay="dataDay" :date="date">
     </day>
   </div>
 </template>
@@ -14,10 +14,10 @@ export default {
   name: 'Log',
   components: { Day },
   computed: {
-    // TODO: sort days by date
-    days: {
+    // TODO: sort calendar by date
+    calendar: {
       get() {
-        return store.state.days.data
+        return store.state.calendar.data
       },
     },
   },

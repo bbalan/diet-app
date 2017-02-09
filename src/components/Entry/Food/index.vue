@@ -1,5 +1,5 @@
 <template>
-  <div v-if="dataFood" :class="{ food: true, entry: entryUUID}">
+  <div v-if="dataFood" :class="{ food: true, entry: uuid}">
 
     <span v-if="loading" class="loading">Loading...</span>
 
@@ -16,10 +16,10 @@
         :mass="normalizedMass">
       </nutrition-facts>
 
-      <button v-if="!entryUUID" @click="onSubmit">Eat</button>
+      <button v-if="!uuid" @click="onSubmit">Eat</button>
 
-      <button v-if="entryUUID" @click="onSubmit">Save</button>
-      <button v-if="entryUUID" @click="entryDelete">Delete</button>
+      <button v-if="uuid" @click="onSubmit">Save</button>
+      <button v-if="uuid" @click="entryDelete">Delete</button>
     </form>
     
   </div>
@@ -37,7 +37,7 @@ import NutritionFacts from './NutritionFacts'
 
 export default {
   name: 'Food',
-  props: ['id', 'source', 'entryUUID'],
+  props: ['id', 'source', 'uuid'],
   components: { NutritionFacts },
   data() {
     return {
@@ -62,7 +62,7 @@ export default {
   methods: {
     // User pressed the Eat button
     onSubmit() {
-      if (this.entryUUID) {
+      if (this.uuid) {
         this.entryEdit()
       } else {
         this.entryAdd()
@@ -87,7 +87,7 @@ export default {
           uuid: foodUUID,
           id: this.id,
           source: this.source,
-          mass: this.mass, // TODO: remove? not sure if used anywhere
+          // mass: this.mass, // TODO: remove? not sure if used anywhere
           dataFood: this.dataFood,
         })
       } else {
@@ -106,19 +106,19 @@ export default {
     // Save changes to this entry
     entryEdit() {
       store.commit('entries/edit', {
-        uuid: this.entryUUID,
+        uuid: this.uuid,
         data: { mass: this.mass },
       })
     },
 
     // Remove this entry forever
     entryDelete() {
-      store.commit('entries/delete', { uuid: this.entryUUID })
+      store.commit('entries/delete', { uuid: this.uuid })
       router.push('/log')
     },
 
     getData() {
-      if (this.entryUUID) {
+      if (this.uuid) {
         this.getDataFromEntry()
       } else {
         this.getDataFromCache()
@@ -127,8 +127,7 @@ export default {
 
     // We are looking at a saved food entry
     getDataFromEntry() {
-      // TODO: handle workout entries
-      const entry = store.state.entries[this.entryUUID]
+      const entry = store.state.entries[this.uuid]
 
       if (!entry) {
         router.push('/log')

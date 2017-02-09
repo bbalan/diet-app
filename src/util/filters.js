@@ -9,8 +9,8 @@ export function roundTo(val, decimals = 0) {
 
 // Convert mass in kg to kg or lbs depending on user setting
 export function toMassUnit(mass) {
-  const metric = mass
-  const imperial = mass * 2.20462
+  const metric = Math.floor(mass * 10) / 10
+  const imperial = Math.floor(mass * 2.20462 * 10) / 10
 
   switch (store.state.appSettings.unitWeight) {
     case 'metric': return `${metric} kg`

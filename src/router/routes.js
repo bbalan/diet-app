@@ -6,10 +6,10 @@ export default {
   FoodFind: '/food',
   FoodSearch: '/food/search',
   EntryFood: '/food/new/:foodSource/:foodID',
-  Entry: '/entry/:entryUUID',
+  Entry: '/entry/:uuid',
 
   WorkoutFind: '/workout',
-  WorkoutCached: '/workout/:workoutUUID',
+  WorkoutCached: '/workout/:uuid',
 
   WeighIn: '/weighin',
 

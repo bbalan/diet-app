@@ -6,20 +6,20 @@
 </template>
 
 <script>
-// import router from 'router'
+import router from 'router'
+import routes from 'router/routes'
 import store from 'store'
 import MainNav from 'components/MainNav'
 
-// TODO: signup for a USDA API key on app launch
 export default {
   beforeCreate() {
-    // Update store.state.days.today every 1 min
+    // Update store.state.calendar.today every 1 min
     setInterval(() => {
-      store.commit('days/setToday')
+      store.commit('calendar/setToday')
     }, 60000)
 
     if (!store.state.appSettings.signupComplete) {
-      // router.replace('/signup') // TODO: rename this to "welcome"
+      router.replace(routes.Settings)
     }
   },
   components: { MainNav },

@@ -4,11 +4,11 @@
       v-if="isFood"
       :id="foodID"
       :source="foodSource"
-      :entryUUID="entryUUID"
+      :uuid="uuid"
       ></food>
     <workout
       v-if="isWorkout"
-      :entryUUID="entryUUID">
+      :uuid="uuid">
     </workout>
     <div v-if="!dataEntry && !isFood">
       Entry not found
@@ -24,7 +24,7 @@ import Workout from 'components/Entry/Workout'
 
 export default {
   name: 'Entry',
-  props: ['entryUUID', 'foodID', 'foodSource'],
+  props: ['uuid', 'foodID', 'foodSource'],
   data() {
     return {
       mass: 100,
@@ -36,7 +36,7 @@ export default {
       return store.state.entries
     },
     dataEntry() {
-      return this.entries[this.entryUUID]
+      return this.entries[this.uuid]
     },
     entryType() {
       return this.dataEntry ? this.dataEntry.type : false

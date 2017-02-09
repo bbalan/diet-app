@@ -44,7 +44,7 @@
 
 <script>
 import store from 'store'
-import { toMassUnit } from 'util/filters'
+import { toMassUnit, roundTo } from 'util/filters'
 /* eslint-disable no-unused-vars */
 import routes from 'router/routes'
 import EntryList from 'components/Log/Day/EntryList'
@@ -53,7 +53,7 @@ import Macros from 'components/Log/Day/Macros'
 export default {
   props: ['dataDay', 'date'],
   components: { EntryList, Macros },
-  filters: { toMassUnit },
+  filters: { toMassUnit, roundTo },
   data() {
     return { routes }
   },
@@ -61,13 +61,13 @@ export default {
     /* Set the "current Day", or the Day we navigated away from,
     so the New Entry component can add the entry to the correct day. */
     setCurrentDay() {
-      store.commit('days/setCurrentDay', this.date)
+      store.commit('calendar/setCurrentDay', this.date)
     },
   },
   computed: {
     // This Day is displaying today's data.
     isToday() {
-      return this.date === store.state.days.today
+      return this.date === store.state.calendar.today
     },
     // Format this Day's full date as: February X, 20XX
     dateFormatted() {
