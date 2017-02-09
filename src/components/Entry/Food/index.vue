@@ -75,7 +75,7 @@ export default {
     entryAdd() {
       let foodUUID
       const existing = Object
-        .entries(store.state.foodCache.food)
+        .entries(store.state.foodCache)
         .find(food =>
           food[1].id === this.id && food[1].source === this.source
         )
@@ -134,7 +134,7 @@ export default {
         return
       }
 
-      const food = store.state.foodCache.food[entry.item]
+      const food = store.state.foodCache[entry.item]
 
       this.mass = entry.data.mass
       this.dataFood = food.dataFood
@@ -143,7 +143,7 @@ export default {
 
     // Try to get dataFood from cache, then try the API
     getDataFromCache() {
-      const foodCache = store.state.foodCache.food
+      const foodCache = store.state.foodCache
       const existing = Object
         .entries(foodCache)
         .find(food =>

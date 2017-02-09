@@ -50,7 +50,7 @@ export default {
       this.entryDetails
         .filter(entry => entry.type === 'food')
         .forEach((entry) => {
-          const food = store.state.foodCache.food[entry.item]
+          const food = store.state.foodCache[entry.item]
 
           foodDetails.push({
             mass: entry.data.mass,

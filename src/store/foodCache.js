@@ -1,11 +1,10 @@
+import Vue from 'vue'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'foodCache'
 
 // Personal info about the user
-const stateDefault = {
-  food: {}, // TODO: remove this and just add stuff to the root
-}
+const stateDefault = {}
 
 const stateLocalStorage = JSON.parse(
   localStorage.getItem(MODULE_KEY)
@@ -24,7 +23,7 @@ const foodCache = {
         nutrient.group = undefined
       })
 
-      state.food[uuid] = { id, source, dataFood }
+      Vue.set(state, uuid, { id, source, dataFood })
       setLocalStorage(MODULE_KEY, state)
     },
   },

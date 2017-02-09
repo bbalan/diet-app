@@ -56,7 +56,7 @@ export default {
     },
     foodFromCache() {
       if (this.isFood) {
-        return store.state.foodCache.food[this.dataEntry.item]
+        return store.state.foodCache[this.dataEntry.item]
       }
       return null
     },

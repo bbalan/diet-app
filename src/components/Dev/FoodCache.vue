@@ -22,7 +22,7 @@ export default {
   computed: {
     cache: {
       get() {
-        return store.state.foodCache.food
+        return store.state.foodCache
       },
     },
   },
