@@ -1,26 +1,18 @@
 <template>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer
-            mdl-layout--fixed-header">
+  <div 
+    id="app" 
+    class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
     <mdl-header></mdl-header>
-    <div class="mdl-layout__drawer">
-      <span class="mdl-layout-title">Title</span>
-      <nav class="mdl-navigation">
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-        <a class="mdl-navigation__link" href="">Link</a>
-      </nav>
-    </div>
+    <mdl-drawer></mdl-drawer>
+
     <main class="mdl-layout__content">
       <div class="page-content">
         <router-view></router-view>
       </div>
     </main>
+
   </div>
-  <!--<div id="app">
-    <main-nav></main-nav>
-    <router-view></router-view>
-  </div>-->
 </template>
 
 <script>
@@ -29,6 +21,7 @@ import paths from 'router/paths'
 import store from 'store'
 import MainNav from 'components/MainNav'
 import mdlHeader from 'components/UI/header'
+import mdlDrawer from 'components/UI/drawer'
 
 export default {
   beforeCreate() {
@@ -41,7 +34,7 @@ export default {
       router.replace(paths.Settings)
     }
   },
-  components: { MainNav, mdlHeader },
+  components: { MainNav, mdlHeader, mdlDrawer },
 }
 </script>
 
