@@ -60,7 +60,6 @@ export default {
   },
   methods: {
     closeDrawer() {
-      console.log('closeDrawer', this.$el)
       document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer()
     },
   },
