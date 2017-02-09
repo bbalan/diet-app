@@ -106,14 +106,14 @@ export default {
     // Save changes to this entry
     entryEdit() {
       store.commit('entries/edit', {
-        entryUUID: this.entryUUID,
+        uuid: this.entryUUID,
         data: { mass: this.mass },
       })
     },
 
     // Remove this entry forever
     entryDelete() {
-      store.commit('entries/delete', { entryUUID: this.entryUUID })
+      store.commit('entries/delete', { uuid: this.entryUUID })
       router.push('/log')
     },
 
@@ -128,7 +128,7 @@ export default {
     // We are looking at a saved food entry
     getDataFromEntry() {
       // TODO: handle workout entries
-      const entry = store.state.entries.data[this.entryUUID]
+      const entry = store.state.entries[this.entryUUID]
 
       if (!entry) {
         router.push('/log')

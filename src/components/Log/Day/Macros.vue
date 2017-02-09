@@ -42,7 +42,7 @@ export default {
   components: { ProgressBar },
   computed: {
     entryDetails() {
-      return this.entries.map(entry => store.state.entries.data[entry])
+      return this.entries.map(entry => store.state.entries[entry])
     },
     foodDetails() {
       const foodDetails = []

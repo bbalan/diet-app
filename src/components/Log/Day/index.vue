@@ -92,10 +92,10 @@ export default {
 
       return formatted
     },
-    // Filter only keys that match a value in store.state.entries.data
+    // Filter only keys that match a value in store.state.entries
     filteredEntries() {
       return this.dataDay.entries.filter(
-        entryUUID => store.state.entries.data[entryUUID]
+        entryUUID => store.state.entries[entryUUID]
       )
     },
     // Get the user's latest TDEE

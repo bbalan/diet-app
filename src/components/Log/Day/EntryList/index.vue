@@ -2,8 +2,8 @@
   <div>
     <ul>
       <entry-link 
-        v-for="entryUUID in entriesReversed" 
-        :entryUUID="entryUUID">
+        v-for="uuid in entriesReversed" 
+        :uuid="uuid">
       </entry-link>
     </ul>
   </div>

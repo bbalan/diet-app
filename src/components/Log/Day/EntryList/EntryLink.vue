@@ -5,7 +5,7 @@
       <button @click="deleteEntry">X</button>
 
       <router-link
-        :to="`entry/${entryUUID}`"
+        :to="`entry/${uuid}`"
         class="edit">
         <span class="name" v-html="name"></span>
       </router-link>
@@ -34,7 +34,7 @@ import { USDA, OTHER } from 'api'
 import { toKcal, roundTo } from 'util/filters'
 
 export default {
-  props: ['entryUUID'],
+  props: ['uuid'],
   filters: { toKcal, roundTo },
   data() {
     return {
@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     dataEntry() {
-      return store.state.entries.data[this.entryUUID]
+      return store.state.entries[this.uuid]
     },
     isFood() {
       if (this.dataEntry) return this.dataEntry.type === 'food'
@@ -92,9 +92,9 @@ export default {
         return null
       },
       set(mass) {
-        store.commit('entries/edit', {
-          entryUUID: this.entryUUID,
-          data: { mass },
+        store.commit('entries/setMass', {
+          uuid: this.uuid,
+          mass,
         })
       },
     },
@@ -129,16 +129,17 @@ export default {
   },
   methods: {
     // Remove this entry forever
+    // TODO: make this do something
     deleteEntry() {
-      store.commit('entries/disable', { entryUUID: this.entryUUID })
+      store.commit('entries/disable', { uuid: this.uuid })
 
       this.deleteTimeout = setTimeout(() => {
-        store.commit('entries/delete', { entryUUID: this.entryUUID })
+        store.commit('entries/delete', { uuid: this.uuid })
         this.deleteTimeout = null
       }, this.deleteTime)
     },
     undoDelete() {
-      store.commit('entries/enable', { entryUUID: this.entryUUID })
+      store.commit('entries/enable', { uuid: this.uuid })
       clearTimeout(this.deleteTimeout)
       this.deleteTimeout = null
     },

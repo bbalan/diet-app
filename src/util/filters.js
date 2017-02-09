@@ -1,7 +1,7 @@
 import store from 'store'
 
 export function roundTo(val, decimals = 0) {
-  if (!val || decimals < 0) return null
+  if (val === undefined || val === null || decimals < 0) return null
 
   const d = 10 * decimals || 1
   return Math.floor(val * d) / d

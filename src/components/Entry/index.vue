@@ -33,7 +33,7 @@ export default {
   components: { Food, Workout },
   computed: {
     entries() {
-      return store.state.entries.data
+      return store.state.entries
     },
     dataEntry() {
       return this.entries[this.entryUUID]

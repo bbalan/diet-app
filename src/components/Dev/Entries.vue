@@ -2,7 +2,10 @@
   <div>
     <h1>*DEV* Entries</h1>
     <ul>
-      <entry-link  v-for="(entry, entryUUID) in entries" :entryUUID="entryUUID"></entry-link>
+      <entry-link  
+        v-for="(entry, uuid) in entries" 
+        :uuid="uuid">
+      </entry-link>
     </ul>
   </div>
 </template>
@@ -13,7 +16,7 @@ import EntryLink from '../Log/Day/EntryList/EntryLink'
 
 export default {
   name: 'Entries',
-  data: () => ({ entries: store.state.entries.data }),
+  data: () => ({ entries: store.state.entries }),
   components: { EntryLink },
 }
 </script>

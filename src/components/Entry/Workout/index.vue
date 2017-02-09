@@ -43,7 +43,7 @@ export default {
   methods: {
     getData() {
       try {
-        const entry = store.state.entries.data[this.entryUUID]
+        const entry = store.state.entries[this.entryUUID]
 
         if (!entry) {
           this.isNew = true
@@ -84,7 +84,7 @@ export default {
       } else {
         // This is an existing entry, edit it
         store.commit('entries/edit', {
-          entryUUID: this.entryUUID,
+          uuid: this.entryUUID,
           data: {
             name: this.name,
             calories: this.calories,
