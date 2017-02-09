@@ -1,4 +1,9 @@
-import firebase from 'firebase'
+import Vue from 'vue'
+import Firebase from 'firebase'
+import VueFire from 'vuefire'
+import firebaseDB from './util/Firebase'
+
+Vue.use(VueFire)
 
 const config = {
   apiKey: 'AIzaSyDczUA_Qm5wt1sPd4-Q-wjFC95h3OkmhRM',

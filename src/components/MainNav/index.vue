@@ -1,14 +1,12 @@
 <template>
   <div class="mainNav">
-    <nav>
-      <h1>
-        <router-link :to="paths.Root">Diet app</router-link>
-      </h1>
+    <div>
+      <router-link :to="paths.Root">Home</router-link>
       <router-link :to="paths.Settings" v-if="true || !signupComplete">Settings</router-link>
       <router-link :to="paths.FoodFind">Add food</router-link>
       <router-link :to="paths.WorkoutFind">Add workout</router-link>
       <router-link :to="paths.Log">Log</router-link>
-    </nav>
+    </div>
     <nav>Dev: 
       <router-link :to="paths.Cache">Cache</router-link>
       <router-link :to="paths.Entries">Entry List</router-link>
@@ -32,7 +30,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-h1
+/*h1
   display inline-block
   margin 0 0 0 -10px
   a
@@ -44,5 +42,5 @@ nav
     padding 10px
     color #42b983
     &:hover
-      color black
+      color black*/
 </style>
