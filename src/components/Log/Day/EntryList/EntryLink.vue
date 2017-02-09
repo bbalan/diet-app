@@ -15,7 +15,7 @@
         <label for="mass">g</label>
       </div>
 
-      <span class="calories">{{calories | toKcal}}</span>
+      <span class="calories">{{calories | roundTo | roundTo | toKcal}}</span>
 
     </div>
 
@@ -28,14 +28,14 @@
 </template>
 
 <script>
-import { truncate, roundTo } from 'util'
+import { truncate } from 'util'
 import store from 'store'
 import { USDA, OTHER } from 'api'
-import { toKcal } from 'util/filters'
+import { toKcal, roundTo } from 'util/filters'
 
 export default {
   props: ['entryUUID'],
-  filters: { toKcal },
+  filters: { toKcal, roundTo },
   data() {
     return {
       deleteTimeout: null,
@@ -116,7 +116,7 @@ export default {
             break
         }
 
-        return Math.floor(roundTo(energy.value * (this.mass / 100), 1))
+        return energy.value * (this.mass / 100)
       }
 
       if (this.isWorkout) {

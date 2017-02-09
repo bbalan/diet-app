@@ -46,39 +46,44 @@ export default {
       store.commit('userInfo/calcTDEE')
     },
     /** Translates the user's birthday into a timestamp, and calculates their age. */
-    // setBirthday(state, birthday) {
-    //   const today = new Date().getTime()
-    //   const birthdayTimestamp = new Date(birthday).getTime()
-    //   const secondsInAYear = 365 * 24 * 60 * 60
-    //   const age = Math.round(((today - birthdayTimestamp) / secondsInAYear / 1000) * 10) / 10
+    setBirthday(state, birthday) {
+      const today = new Date().getTime()
+      const birthdayTimestamp = new Date(birthday).getTime()
+      const secondsInAYear = 365 * 24 * 60 * 60
+      const age = Math.round(((today - birthdayTimestamp) / secondsInAYear / 1000) * 10) / 10
 
-    //   state.personal.birthday = birthday
-    //   state.personal.personal.birthdayTimestamp = birthdayTimestamp
-    //   state.metrics.age = age
+      state.personal.birthday = birthday
+      state.personal.personal.birthdayTimestamp = birthdayTimestamp
+      state.metrics.age = age
 
-    //   setLocalStorage(MODULE_KEY, state)
-    // },
+      setLocalStorage(MODULE_KEY, state)
+    },
+
     setGender(state, gender) {
       state.metrics.gender = gender
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     setHeight(state, height) {
       state.metrics.height = height
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     setMass(state, mass) {
       state.metrics.mass = mass
       store.commit('days/setMass', mass)
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     setBodyFatPct(state, bodyFatPct) {
       state.metrics.bodyFatPct = bodyFatPct
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     // Converts between metric and imperial
     setWeight(state, weight) {
       let w
@@ -106,6 +111,8 @@ export default {
 
       setLocalStorage(MODULE_KEY, state)
     },
+
+    // Calculate the TDEE using various formulas
     calcTDEE(state) {
       const bodyFatPct = state.metrics.bodyFatPct
       const mass = state.metrics.mass
@@ -129,7 +136,7 @@ export default {
       const basalMetabolicRate = 370 + (21.6 * leanBodyMass)
 
       // Multiply by activity level to get TDEE
-      const tdee = Math.floor(basalMetabolicRate * store.state.appSettings.activityLevel)
+      const tdee = basalMetabolicRate * store.state.appSettings.activityLevel
 
       state.metrics.tdee = tdee
       store.commit('days/setTDEE', tdee)

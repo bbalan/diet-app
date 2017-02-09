@@ -6,7 +6,7 @@
 
       <span class="workout__name">{{ name | capitalize }}</span>
       <span class="workout__calories">
-        {{ calories | toKcal }} 
+        {{ calories | roundTo | toKcal }} 
         <button @click="logEntry">Log</button>
       </span>
 
@@ -17,12 +17,12 @@
 <script>
 import store from 'store'
 import router from 'router'
-import { toKcal, capitalize } from 'util/filters'
+import { toKcal, capitalize, roundTo } from 'util/filters'
 
 export default {
   name: 'WorkoutLink',
   props: ['workoutData', 'uuid'],
-  filters: { toKcal, capitalize },
+  filters: { toKcal, capitalize, roundTo },
   data() {
     return {
       name: null,

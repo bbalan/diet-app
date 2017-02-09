@@ -24,17 +24,17 @@
 import store from 'store'
 
 export default {
-  props: ['eaten', 'tdee'],
+  props: ['current', 'total'],
   data() {
     return { calorieTolerance: 25 }
   },
   computed: {
     numMeals: () => store.state.appSettings.numMeals,
     caloriesRemaining() {
-      return this.tdee - this.eaten
+      return this.total - this.current
     },
     caloriesEatenPct() {
-      return (this.eaten / this.tdee) * 100
+      return (this.current / this.total) * 100
     },
     progressClasses() {
       const remain = this.caloriesRemaining * -1

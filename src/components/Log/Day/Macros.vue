@@ -3,14 +3,21 @@
 
     <!--<pre>{{ entryDetails }}</pre>-->
     <!--<pre>{{ foodDetails }}</pre>-->
-    <!--<p class="tdee">TDEE: {{ tdee }} kcal</p>-->
-    <!--<p class="calories">Eaten: {{ caloriesRounded }} kcal</p>-->
-    <!--<p>Remaining: {{ caloriesRemaining | toKcal }}</p>-->
-    <!--<p>Eaten: {{ caloriesEatenPct }}%</p>-->
+    <!--<pre>{{ workoutDetails }}</pre>-->
+
+    <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
+    <!--<p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>-->
+    <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
+    <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
     <p class="percentages">
-      <!--Macros: {{ fatPct }} F / {{ carbsPct }} C / {{ proteinPct }} P-->
+      Macros: {{ fatPct | roundTo }} F / {{ carbsPct | roundTo }} C / {{ proteinPct | roundTo }} P
     </p>
-    <!--<progress-bar :eaten="caloriesRounded" :tdee="tdee"></progress-bar>-->
+
+    <progress-bar 
+      :current="calories" 
+      :total="caloriesToEat">
+    </progress-bar>
+
     <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
     <!--<span class="nutrient">{{ fat }}g fat</span>-->
     <!--<span class="nutrient">{{ protein }}g protein</span>-->
@@ -20,14 +27,13 @@
 <script>
 import store from 'store'
 import * as API from 'api'
-import { roundTo } from 'util'
-import { toKcal } from 'util/filters'
+import { toKcal, roundTo } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 
 export default {
   name: 'Macros',
   props: ['entries', 'tdee'],
-  filters: { toKcal },
+  filters: { toKcal, roundTo },
   data() {
     return {
       usdaNutrients: ['208', '204', '205', '203'],
@@ -58,7 +64,11 @@ export default {
     workoutDetails() {
       return this.entryDetails
         .filter(entry => entry.type === 'workout')
-        // .map(entry => store.state.workoutCache[entry.item])
+        // .reduce((a, b) => a.data.calories + b.data.calories)
+    },
+    workoutCalories() {
+      return this.workoutDetails
+        .reduce((a, b) => a + parseInt(b.data.calories, 10), 0)
     },
     calories() { return this.computeNutrient('208') },
     carbs() { return this.computeNutrient('205') },
@@ -69,24 +79,27 @@ export default {
     },
     fatPct() {
       if (this.sumMacros === 0) return 0
-      return Math.floor(roundTo((this.fat / this.sumMacros) * 100, 1))
+      return (this.fat / this.sumMacros) * 100
     },
     carbsPct() {
       if (this.sumMacros === 0) return 0
-      return Math.floor(roundTo((this.carbs / this.sumMacros) * 100, 1))
+      return (this.carbs / this.sumMacros) * 100
     },
     proteinPct() {
       if (this.sumMacros === 0) return 0
-      return Math.floor(roundTo((this.protein / this.sumMacros) * 100, 1))
+      return (this.protein / this.sumMacros) * 100
     },
-    caloriesRounded() {
-      return Math.floor(this.calories)
+    caloriesToEat() {
+      return this.tdee + this.workoutCalories
+    },
+    caloriesTotal() {
+      return this.calories - this.workoutCalories
     },
     caloriesRemaining() {
       if (!this.tdee) {
         return 0
       }
-      return Math.floor(roundTo(this.tdee - this.calories, 1))
+      return this.tdee - this.caloriesTotal
     },
   },
   methods: {

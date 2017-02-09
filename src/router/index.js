@@ -4,7 +4,7 @@ import { sync } from 'vuex-router-sync'
 import routes from 'router/routes'
 import store from 'store'
 
-import Splash from 'components/Splash'
+// import Splash from 'components/Splash'
 import Settings from 'components/Settings'
 import Log from 'components/Log'
 
@@ -28,7 +28,8 @@ import LocalStorage from 'components/Dev/LocalStorage'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: routes.Root, component: Splash },
+    // { path: routes.Root, component: Splash },
+    { path: routes.Root, component: Log },
     { path: routes.Settings, component: Settings },
     { path: routes.Log, component: Log, canReuse: false },
     { path: routes.Entry, component: Entry, props: true },
