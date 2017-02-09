@@ -1,5 +1,5 @@
 <template>
-  <div class="mdl-layout__drawer">
+  <div class="mdl-layout__drawer" @click="closeDrawer">
     <span class="mdl-layout-title">Diet App</span>
     <nav class="mdl-navigation">
       <router-link 
@@ -57,6 +57,12 @@ export default {
   },
   computed: {
     signupComplete: () => store.state.appSettings.signupComplete,
+  },
+  methods: {
+    closeDrawer() {
+      console.log('closeDrawer', this.$el)
+      document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer()
+    },
   },
 }
 </script>

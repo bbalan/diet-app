@@ -20,8 +20,8 @@ import router from 'router'
 import paths from 'router/paths'
 import store from 'store'
 import MainNav from 'components/MainNav'
-import mdlHeader from 'components/UI/header'
-import mdlDrawer from 'components/UI/drawer'
+import mdlHeader from 'components/UI/Header'
+import mdlDrawer from 'components/UI/Drawer'
 
 export default {
   beforeCreate() {
