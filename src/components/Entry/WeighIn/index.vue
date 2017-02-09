@@ -12,7 +12,7 @@
 <script>
 import store from 'store'
 import router from 'router'
-import routes from 'router/routes'
+import paths from 'router/paths'
 import Weight from 'components/Settings/Weight'
 
 export default {
@@ -35,7 +35,7 @@ export default {
   methods: {
     onSubmit() {
       store.commit('userInfo/setWeight', this.weight)
-      router.push(routes.Log)
+      router.push(paths.Log)
     },
   },
 }

@@ -15,9 +15,8 @@
   "dependencies": {
     "dateformat": "^2.0.0",
     "firebase": "^3.6.6",
-    "framework7": "^1.5.2",
-    "framework7-vue": "^0.7.8",
     "lodash.debounce": "^4.0.8",
+    "materialize": "^1.0.0",
     "swiper": "^3.4.1",
     "uuid": "^3.0.1",
     "vue": "^2.1.10",

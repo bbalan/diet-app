@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <f7-test></f7-test>
     <main-nav></main-nav>
     <router-view></router-view>
   </div>
@@ -8,10 +7,9 @@
 
 <script>
 import router from 'router'
-import routes from 'router/routes'
+import paths from 'router/paths'
 import store from 'store'
 import MainNav from 'components/MainNav'
-import F7Test from 'components/F7Test'
 
 export default {
   beforeCreate() {
@@ -21,16 +19,16 @@ export default {
     }, 60000)
 
     if (!store.state.appSettings.signupComplete) {
-      router.replace(routes.Settings)
+      router.replace(paths.Settings)
     }
   },
-  components: { MainNav, F7Test },
+  components: { MainNav },
 }
 </script>
 
 <style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
@@ -49,4 +47,5 @@ a:hover,
 a:visited {
   color: black;
 }
+
 </style>

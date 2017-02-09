@@ -12,21 +12,21 @@
     </macros>
 
     <router-link 
-      :to="routes.FoodFind" 
+      :to="paths.FoodFind" 
       class="addLog logFood" 
       @click.native="setCurrentDay">
       + Add food
     </router-link>
 
     <router-link 
-      :to="routes.WorkoutFind" 
+      :to="paths.WorkoutFind" 
       class="addLog logWorkout" 
       @click.native="setCurrentDay">
       + Add workout
     </router-link>
 
     <router-link 
-      :to="routes.WeighIn" 
+      :to="paths.WeighIn" 
       class="addLog logWeight" 
       @click.native="setCurrentDay">
       + Weigh In
@@ -46,7 +46,7 @@
 import store from 'store'
 import { toMassUnit, roundTo } from 'util/filters'
 /* eslint-disable no-unused-vars */
-import routes from 'router/routes'
+import paths from 'router/paths'
 import EntryList from 'components/Log/Day/EntryList'
 import Macros from 'components/Log/Day/Macros'
 
@@ -55,7 +55,7 @@ export default {
   components: { EntryList, Macros },
   filters: { toMassUnit, roundTo },
   data() {
-    return { routes }
+    return { paths }
   },
   methods: {
     /* Set the "current Day", or the Day we navigated away from,

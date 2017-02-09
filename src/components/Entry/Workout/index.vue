@@ -25,7 +25,7 @@
 import store from 'store'
 import uuid from 'uuid'
 import router from 'router'
-import routes from 'router/routes'
+import paths from 'router/paths'
 
 export default {
   name: 'Workout',
@@ -92,7 +92,7 @@ export default {
         })
       }
 
-      router.push(routes.Log)
+      router.push(paths.Log)
     },
   },
 }

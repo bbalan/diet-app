@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
-import routes from 'router/routes'
+import paths from 'router/paths'
 import store from 'store'
 
 // import Splash from 'components/Splash'
@@ -28,17 +28,17 @@ import LocalStorage from 'components/Dev/LocalStorage'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    // { path: routes.Root, component: Splash },
-    { path: routes.Root, component: Log },
-    { path: routes.Settings, component: Settings },
-    { path: routes.Log, component: Log, canReuse: false },
-    { path: routes.Entry, component: Entry, props: true },
-    { path: routes.EntryFood, component: Entry, props: true },
-    { path: routes.WeighIn, component: WeighIn },
-    { path: routes.WorkoutCached, component: WorkoutCached, props: true },
+    // { path: paths.Root, component: Splash },
+    { path: paths.Root, component: Log },
+    { path: paths.Settings, component: Settings },
+    { path: paths.Log, component: Log, canReuse: false },
+    { path: paths.Entry, component: Entry, props: true },
+    { path: paths.EntryFood, component: Entry, props: true },
+    { path: paths.WeighIn, component: WeighIn },
+    { path: paths.WorkoutCached, component: WorkoutCached, props: true },
     {
-      path: routes.FoodFind,
-      redirect: routes.FoodSearch,
+      path: paths.FoodFind,
+      redirect: paths.FoodSearch,
       component: FoodFind,
       children: [
         {
@@ -60,13 +60,13 @@ const router = new VueRouter({
       ],
     },
     {
-      path: routes.WorkoutFind,
+      path: paths.WorkoutFind,
       component: WorkoutFind,
     },
 
-    { path: routes.Cache, component: Cache },
-    { path: routes.Entries, component: Entries },
-    { path: routes.LocalStorage, component: LocalStorage },
+    { path: paths.Cache, component: Cache },
+    { path: paths.Entries, component: Entries },
+    { path: paths.LocalStorage, component: LocalStorage },
   ],
 })
 
