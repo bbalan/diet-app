@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <f7-test></f7-test>
     <main-nav></main-nav>
     <router-view></router-view>
   </div>
@@ -10,6 +11,7 @@ import router from 'router'
 import routes from 'router/routes'
 import store from 'store'
 import MainNav from 'components/MainNav'
+import F7Test from 'components/F7Test'
 
 export default {
   beforeCreate() {
@@ -22,7 +24,7 @@ export default {
       router.replace(routes.Settings)
     }
   },
-  components: { MainNav },
+  components: { MainNav, F7Test },
 }
 </script>
 
