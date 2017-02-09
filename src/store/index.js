@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import userInfo from 'store/userInfo'
 import appSettings from 'store/appSettings'
 import foodCache from 'store/foodCache'
-import workoutCache from 'store/workoutCache'
+import workoutPresets from 'store/workoutPresets'
 import entries from 'store/entries'
 import calendar from 'store/calendar'
 
@@ -17,7 +17,7 @@ const store = new Vuex.Store({
     userInfo,
     appSettings,
     foodCache,
-    workoutCache,
+    workoutPresets,
     entries,
     calendar,
   },

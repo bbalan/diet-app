@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     getData() {
-      const workoutData = store.state.workoutCache[this.workoutUUID]
+      const workoutData = store.state.workoutPresets[this.workoutUUID]
       this.workoutData = workoutData
 
       if (workoutData) {
@@ -51,7 +51,7 @@ export default {
       }
     },
     onSubmit() {
-      store.commit('workoutCache/edit', {
+      store.commit('workoutPresets/edit', {
         uuid: this.workoutUUID,
         data: {
           name: this.name,
@@ -61,7 +61,7 @@ export default {
       router.go(-1)
     },
     onDelete() {
-      store.commit('workoutCache/delete', { uuid: this.workoutUUID })
+      store.commit('workoutPresets/delete', { uuid: this.workoutUUID })
       router.go(-1)
     },
   },

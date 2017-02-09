@@ -18,19 +18,19 @@ export default {
   name: 'WorkoutList',
   components: { WorkoutLink },
   computed: {
-    workoutCache: () => store.state.workoutCache,
+    workoutPresets: () => store.state.workoutPresets,
     numInCache() {
-      if (!this.workoutCache) return 0
-      return Object.keys(this.workoutCache).length
+      if (!this.workoutPresets) return 0
+      return Object.keys(this.workoutPresets).length
     },
     reversed() {
       const reversed = []
       /* eslint-disable no-restricted-syntax */
-      for (const uuid in this.workoutCache) {
-        if (Object.prototype.hasOwnProperty.call(this.workoutCache, uuid)) {
+      for (const uuid in this.workoutPresets) {
+        if (Object.prototype.hasOwnProperty.call(this.workoutPresets, uuid)) {
           reversed.unshift({
             uuid,
-            data: this.workoutCache[uuid],
+            data: this.workoutPresets[uuid],
           })
         }
       }

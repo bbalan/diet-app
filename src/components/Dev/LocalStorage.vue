@@ -5,7 +5,7 @@
     <h2>calendar</h2><pre>{{ calendar }}</pre>
     <h2>entries</h2><pre>{{ entries }}</pre>
     <h2>foodCache</h2><pre>{{ foodCache }}</pre>
-    <h2>workoutCache</h2><pre>{{ workoutCache }}</pre>
+    <h2>workoutPresets</h2><pre>{{ workoutPresets }}</pre>
   </div>
 </template>
 
@@ -17,7 +17,7 @@ export default {
     calendar() { return JSON.parse(localStorage.getItem('calendar')) },
     entries() { return JSON.parse(localStorage.getItem('entries')) },
     foodCache() { return JSON.parse(localStorage.getItem('foodCache')) },
-    workoutCache() { return JSON.parse(localStorage.getItem('workoutCache')) },
+    workoutPresets() { return JSON.parse(localStorage.getItem('workoutPresets')) },
   },
   methods: {
     localStorageClear() {

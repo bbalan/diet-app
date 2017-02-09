@@ -100,11 +100,11 @@ export default {
     },
     // Get the user's latest TDEE
     tdee() {
-      if (this.dataDay) return this.dataDay.tdee
+      if (this.dataDay) return this.dataDay.userInfo.tdee
       return 0
     },
     mass() {
-      if (this.dataDay) return this.dataDay.mass
+      if (this.dataDay) return this.dataDay.userInfo.mass
       return 0
     },
   },

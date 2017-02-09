@@ -84,7 +84,6 @@ export default {
       return null
     },
     mass: {
-      // TODO: handle workout entries
       get() {
         if (this.isFood && this.dataEntry) {
           return this.dataEntry.data.mass
