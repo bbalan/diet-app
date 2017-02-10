@@ -3,10 +3,11 @@
 
     <!--<h1>How much do you weigh?</h1>-->
 
-    <input 
-      type="number" 
-      step=".1"
-      v-model="weight">
+    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="number" step="0.1" id="weight" v-model.number="weight">
+      <label class="mdl-textfield__label" for="weight">Your current weight</label>
+      <span class="mdl-textfield__error">Please enter a number</span>
+    </div>
 
     <select id="unitWeight" v-model="unitWeight">
       <option value="metric">kg</option>

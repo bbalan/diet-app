@@ -1,11 +1,13 @@
 <template>
-  <div id="Settings">
+  <div id="settings-page">
 
     <h1>Welcome</h1>
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
 
     <p>TDEE {{ tdee }}</p>
-    <button @click="onPrepopulate">Prepopulate</button>
+    <button @click="onPrepopulate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
+      Prepopulate
+    </button>
 
     <form @submit.prevent="onSubmit">
       <gender></gender>
@@ -27,15 +29,15 @@ import store from 'store'
 import router from 'router'
 // import db from 'util/Firebase'
 
-// import Birthday from 'components/Settings/Birthday'
-import Gender from 'components/Settings/Gender'
-import Height from 'components/Settings/Height'
-import Weight from 'components/Settings/Weight'
-import BodyFat from 'components/Settings/BodyFat'
-import Goals from 'components/Settings/Goals'
-import ActivityLevel from 'components/Settings/ActivityLevel'
-import NumMeals from 'components/Settings/NumMeals'
-// import Credentials from 'components/Settings/Credentials'
+// import Birthday from 'components/Welcome/Birthday'
+import Gender from 'components/Welcome/Gender'
+import Height from 'components/Welcome/Height'
+import Weight from 'components/Welcome/Weight'
+import BodyFat from 'components/Welcome/BodyFat'
+import Goals from 'components/Welcome/Goals'
+import ActivityLevel from 'components/Welcome/ActivityLevel'
+import NumMeals from 'components/Welcome/NumMeals'
+// import Credentials from 'components/Welcome/Credentials'
 
 export default {
   name: 'Settings',
@@ -74,6 +76,8 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+#settings-page
+  text-align center
 .btn
   &--next
     display block

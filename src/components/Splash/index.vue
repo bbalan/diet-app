@@ -7,7 +7,7 @@
         You can do anything here. The only limit is yourself.
       </p>
 
-      <router-link :to="paths.Settings" class="splash__signup">
+      <router-link :to="paths.Welcome" class="splash__signup">
         Get Started
       </router-link>
     </slide>

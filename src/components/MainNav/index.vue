@@ -2,7 +2,7 @@
   <div class="mainNav">
     <div>
       <router-link :to="paths.Root">Home</router-link>
-      <router-link :to="paths.Settings" v-if="true || !signupComplete">Settings</router-link>
+      <router-link :to="paths.Welcome" v-if="true || !signupComplete">Settings</router-link>
       <router-link :to="paths.FoodFind">Add food</router-link>
       <router-link :to="paths.WorkoutFind">Add workout</router-link>
       <router-link :to="paths.Log">Log</router-link>

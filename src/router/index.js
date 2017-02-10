@@ -5,7 +5,7 @@ import paths from 'router/paths'
 import store from 'store'
 
 // import Splash from 'components/Splash'
-import Settings from 'components/Settings'
+import Welcome from 'components/Welcome'
 import Log from 'components/Log'
 
 import Entry from 'components/Entry'
@@ -30,7 +30,7 @@ const router = new VueRouter({
   routes: [
     // { path: paths.Root, component: Splash },
     { path: paths.Root, component: Log },
-    { path: paths.Settings, component: Settings },
+    { path: paths.Welcome, component: Welcome },
     { path: paths.Log, component: Log, canReuse: false },
     { path: paths.Entry, component: Entry, props: true },
     { path: paths.EntryFood, component: Entry, props: true },

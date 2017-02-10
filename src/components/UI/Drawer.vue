@@ -13,7 +13,7 @@
       </router-link>
       <router-link 
         class="mdl-navigation__link" 
-        :to="paths.Settings" v-if="true || !signupComplete">
+        :to="paths.Welcome" v-if="true || !signupComplete">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
           <i class="material-icons">settings</i>
         </label>

@@ -31,7 +31,7 @@ export default {
     }, 60000)
 
     if (!store.state.appSettings.signupComplete) {
-      router.replace(paths.Settings)
+      router.replace(paths.Welcome)
     }
   },
   components: { MainNav, mdlHeader, mdlDrawer },
@@ -45,6 +45,7 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+
 .clearfix {
   clear: both;
 }

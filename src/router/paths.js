@@ -1,6 +1,6 @@
 export default {
   Root: '/',
-  Settings: '/settings',
+  Welcome: '/welcome',
   Log: '/log',
 
   FoodFind: '/food',
