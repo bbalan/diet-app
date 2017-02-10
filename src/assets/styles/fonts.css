@@ -1,8 +1,10 @@
+/* TODO: fix broken paths on Cordova */
+
 @font-face {
   font-family: 'Material Icons';
   font-style: normal;
   font-weight: 400;
-  src: local('Material Icons'), local('MaterialIcons-Regular'), url('Material-Icons.woff2') format('woff2');
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url('../fonts/MaterialIcons-Regular.ttf') format('truetype');
 }
 
 .material-icons {
@@ -51,7 +53,7 @@
 
 @font-face {
 	font-family: 'Roboto';
-	src: url('Roboto-Bold.ttf') format('truetype');
+	src: url('../fonts/Roboto-Bold.ttf') format('truetype');
 	font-weight: bold;
 	font-style: normal;
 }
@@ -65,7 +67,7 @@
 
 @font-face {
 	font-family: 'Roboto';
-	src: url('Roboto-Italic.ttf') format('truetype');
+	src: url('../fonts/Roboto-Italic.ttf') format('truetype');
 	font-weight: normal;
 	font-style: italic;
 }
@@ -79,7 +81,7 @@
 
 @font-face {
 	font-family: 'Roboto';
-	src: url('Roboto-Regular.ttf') format('truetype');
+	src: url('../fonts/Roboto-Regular.ttf') format('truetype');
 	font-weight: normal;
 	font-style: normal;
 }
