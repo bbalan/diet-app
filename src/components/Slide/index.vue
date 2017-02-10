@@ -40,14 +40,16 @@ export default {
 
 <style scoped lang="stylus">
 .slide
-  width 100%
-  height 100%
   position relative
+  /*width 100%
+  height 100%*/
   /*position absolute
   top 0
   left 0
   background white
   z-index 9000*/
+  user-select none
+  cursor default
 
   /*&__content
     margin-bottom 20px*/

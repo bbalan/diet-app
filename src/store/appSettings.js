@@ -8,7 +8,7 @@ const MODULE_KEY = 'appSettings'
 // Personal info about the user
 const stateDefault = {
   unitWeight: 'lbs',
-  unitHeight: 'imperial',
+  unitHeight: 'ft',
   numMeals: 3, // TODO: expose this to user
   mealStops: [],
   goal: null,
@@ -33,7 +33,7 @@ export default {
       state.unitHeight = unitHeight
 
       // Round metric height unit to nearest imperial unit
-      if (unitHeight === 'imperial') {
+      if (unitHeight === 'ft') {
         const height = store.state.userInfo.metrics.height
         const roundedHeight = Math.floor(roundTo(height, 2.54))
 

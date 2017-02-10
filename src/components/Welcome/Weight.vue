@@ -1,10 +1,10 @@
 <template>
   <slide>
 
-    <!--<h1>How much do you weigh?</h1>-->
+    <h4>How much do you weigh?</h4>
 
     <div class="weight--textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="weight" v-model="weight">
+      <input class="mdl-textfield__input" type="number" step=".1" id="weight" v-model.number="weight">
       <label class="mdl-textfield__label" for="weight">Weight</label>
       <span class="mdl-textfield__error">Please enter a number</span>
     </div>

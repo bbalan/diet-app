@@ -97,7 +97,7 @@ export default {
 
         const unitWeight = store.state.appSettings.unitWeight
 
-        if (unitWeight === 'metric') {
+        if (unitWeight === 'cm') {
           mass = weight
         } else {
           mass = weight / 2.20462

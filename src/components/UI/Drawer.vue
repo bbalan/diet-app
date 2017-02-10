@@ -3,41 +3,32 @@
     <!--<span class="mdl-layout-title">Diet App</span>-->
     <nav class="mdl-navigation">
       <router-link 
-        id="drawer-link-home"
-        class="mdl-navigation__link" 
-        :to="paths.Root">
+        class="mdl-navigation__link link--bold" 
+        :to="paths.Log">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
-          <i class="material-icons">home</i>
+          <i class="material-icons">assignment</i>
         </label>
-        Home
+        Log
       </router-link>
       <router-link 
-        class="mdl-navigation__link" 
+        class="mdl-navigation__link link--bold" 
         :to="paths.FoodFind">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
-          <i class="material-icons">restaurant_menu</i>
+          <i class="material-icons">restaurant</i>
         </label>
         Add food
       </router-link>
       <router-link 
-        class="mdl-navigation__link" 
+        class="mdl-navigation__link link--bold" 
         :to="paths.WorkoutFind">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
-          <i class="material-icons">directions_bike</i>
+          <i class="material-icons">fitness_center</i>
         </label>
         Add workout
       </router-link>
-      <router-link 
-        class="mdl-navigation__link" 
-        :to="paths.Log">
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
-          <i class="material-icons">description</i>
-        </label>
-        Log
-      </router-link>
       <hr>
       <router-link 
-        class="mdl-navigation__link" 
+        class="mdl-navigation__link link--bold" 
         :to="paths.Welcome" v-if="true || !signupComplete">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
           <i class="material-icons">settings</i>
@@ -48,16 +39,25 @@
       <router-link 
         class="mdl-navigation__link" 
         :to="paths.Cache">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
+          <i class="material-icons"></i>
+        </label>
         Cache
       </router-link>
       <router-link 
         class="mdl-navigation__link" 
         :to="paths.Entries">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
+          <i class="material-icons"></i>
+        </label>
         Entry List
       </router-link>
       <router-link 
         class="mdl-navigation__link" 
         :to="paths.LocalStorage">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
+          <i class="material-icons"></i>
+        </label>
         LocalStorage
       </router-link>
     </nav>
@@ -90,6 +90,8 @@ export default {
   .mdl-navigation
 
     .mdl-navigation__link
-      font-weight bold
       color black
+
+      &.link--bold
+        font-weight bold
 </style>

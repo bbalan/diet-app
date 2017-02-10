@@ -3,10 +3,13 @@
 
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
 
-    <!--<p>TDEE {{ tdee }}</p>-->
+    <p>TDEE {{ tdee }}</p>
 
     <form @submit.prevent="onSubmit">
       <slide>
+        <h1>Welcome.</h1>
+        <p>For you, the infinite is possible.</p>
+        <p>Come, gaze into your future!</p>
         <button @click="onPrepopulate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
           Prepopulate
         </button>
