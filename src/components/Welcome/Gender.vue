@@ -28,7 +28,7 @@
       </label>
     </div>
 
-    <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 
@@ -60,4 +60,5 @@ export default {
 .gender__radio-buttons
   display inline-block
   text-align left
+  margin-bottom 20px
 </style>

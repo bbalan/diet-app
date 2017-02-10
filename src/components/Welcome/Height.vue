@@ -1,7 +1,7 @@
 <template>
   <slide class="slide--height">
 
-    <!--<h1>How tall are you?</h1>-->
+    <h4>How tall are you?</h4>
 
     <select 
       v-if="unitHeight == 'metric'"
@@ -35,7 +35,7 @@
       <option value="imperial">ft</option>
     </select>
 
-    <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 

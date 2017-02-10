@@ -36,7 +36,7 @@
       required>
     <label for="activityLevel">Intense</label>
 
-    <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 

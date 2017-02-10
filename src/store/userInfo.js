@@ -84,12 +84,12 @@ export default {
       setLocalStorage(MODULE_KEY, state)
     },
 
-    // Converts between metric and imperial
+    // Converts between metric and lbs
     setWeight(state, weight) {
-      let w
+      let w = parseFloat(weight)
       let mass
 
-      if (typeof weight !== 'number') {
+      if (typeof w !== 'number') {
         w = null
         mass = null
       } else {

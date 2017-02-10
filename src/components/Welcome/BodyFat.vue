@@ -25,7 +25,7 @@
       required>
     <label for="no">No</label>
 
-    <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 

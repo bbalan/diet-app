@@ -1,5 +1,5 @@
 <template>
-  <header class="mdl-layout__header">
+  <header class="mdl-layout__header mdl-layout__header--waterfall">
     <div class="mdl-layout__header-row">
       <span class="mdl-layout-title">Diet App</span>
       <div class="mdl-layout-spacer"></div>
@@ -16,5 +16,15 @@
 </template>
 
 <script>
-export default {}
+import store from 'store'
+import paths from 'router/paths'
+
+export default {
+  data() {
+    return { paths }
+  },
+  computed: {
+    signupComplete: () => store.state.appSettings.signupComplete,
+  },
+}
 </script>

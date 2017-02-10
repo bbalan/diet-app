@@ -3,18 +3,23 @@
 
     <!--<h1>How much do you weigh?</h1>-->
 
-    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-      <input class="mdl-textfield__input" type="number" step="0.1" id="weight" v-model.number="weight">
-      <label class="mdl-textfield__label" for="weight">Your current weight</label>
+    <div class="weight--textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <input class="mdl-textfield__input" type="text" pattern="-?[0-9]*(\.[0-9]+)?" id="weight" v-model="weight">
+      <label class="mdl-textfield__label" for="weight">Weight</label>
       <span class="mdl-textfield__error">Please enter a number</span>
     </div>
 
-    <select id="unitWeight" v-model="unitWeight">
-      <option value="metric">kg</option>
-      <option value="imperial">lbs</option>
-    </select>
-
-    <button class="btn--next">Next</button>
+    <div class="unit--textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
+      <input class="mdl-textfield__input" type="text" id="sample2" v-model="unitWeight" readonly tabIndex="-1">
+      <label for="sample2">
+        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+      </label>
+      <!--<label for="sample2" class="mdl-textfield__label">Unit</label>-->
+      <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+        <li class="mdl-menu__item" @click="setUnitWeight('lbs')">lbs</li>
+        <li class="mdl-menu__item" @click="setUnitWeight('kg')">kg</li>
+      </ul>
+    </div>
     
   </slide>
 </template>
@@ -29,9 +34,12 @@ export default {
     weight: {
       get() {
         const mass = store.state.userInfo.metrics.mass
+
+        if (mass === null || mass === undefined) return mass
+
         let weight
 
-        if (store.state.appSettings.unitWeight === 'metric') {
+        if (store.state.appSettings.unitWeight === 'kg') {
           weight = Math.round(mass * 10) / 10
         } else {
           weight = Math.round(mass * 2.20462 * 10) / 10
@@ -52,5 +60,16 @@ export default {
       },
     },
   },
+  methods: {
+    setUnitWeight(val) {
+      this.unitWeight = val
+    },
+  },
 }
 </script>
+
+<style scoped lang="stylus">
+.weight--textfield
+.unit--textfield
+  width 70px
+</style>

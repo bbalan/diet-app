@@ -7,7 +7,7 @@ const MODULE_KEY = 'appSettings'
 
 // Personal info about the user
 const stateDefault = {
-  unitWeight: 'imperial',
+  unitWeight: 'lbs',
   unitHeight: 'imperial',
   numMeals: 3, // TODO: expose this to user
   mealStops: [],

@@ -13,14 +13,6 @@
       </router-link>
       <router-link 
         class="mdl-navigation__link" 
-        :to="paths.Welcome" v-if="true || !signupComplete">
-        <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
-          <i class="material-icons">settings</i>
-        </label>
-        Settings
-      </router-link>
-      <router-link 
-        class="mdl-navigation__link" 
         :to="paths.FoodFind">
         <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
           <i class="material-icons">restaurant_menu</i>
@@ -42,6 +34,15 @@
           <i class="material-icons">description</i>
         </label>
         Log
+      </router-link>
+      <hr>
+      <router-link 
+        class="mdl-navigation__link" 
+        :to="paths.Welcome" v-if="true || !signupComplete">
+        <label class="mdl-button mdl-js-button mdl-button--icon" for="drawer-link-home">
+          <i class="material-icons">settings</i>
+        </label>
+        Settings
       </router-link>
       <hr>
       <router-link 

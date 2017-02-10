@@ -1,15 +1,16 @@
 <template>
-  <div id="settings-page">
+  <div id="welcome">
 
-    <h1>Welcome</h1>
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
 
-    <p>TDEE {{ tdee }}</p>
-    <button @click="onPrepopulate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">
-      Prepopulate
-    </button>
+    <!--<p>TDEE {{ tdee }}</p>-->
 
     <form @submit.prevent="onSubmit">
+      <slide>
+        <button @click="onPrepopulate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+          Prepopulate
+        </button>
+      </slide>
       <gender></gender>
       <height></height>
       <weight></weight>
@@ -19,7 +20,6 @@
       <!--<credentials></credentials>-->
       <num-meals></num-meals>
 
-      <button type="submit">Submit</button>
     </form>
   </div>
 </template>
@@ -29,7 +29,7 @@ import store from 'store'
 import router from 'router'
 // import db from 'util/Firebase'
 
-// import Birthday from 'components/Welcome/Birthday'
+import Slide from 'components/Slide'
 import Gender from 'components/Welcome/Gender'
 import Height from 'components/Welcome/Height'
 import Weight from 'components/Welcome/Weight'
@@ -37,6 +37,7 @@ import BodyFat from 'components/Welcome/BodyFat'
 import Goals from 'components/Welcome/Goals'
 import ActivityLevel from 'components/Welcome/ActivityLevel'
 import NumMeals from 'components/Welcome/NumMeals'
+// import Birthday from 'components/Welcome/Birthday'
 // import Credentials from 'components/Welcome/Credentials'
 
 export default {
@@ -50,7 +51,7 @@ export default {
     tdee: () => store.state.userInfo.metrics.tdee,
   },
   components: {
-    Gender, Height, Weight, BodyFat, Goals, ActivityLevel, NumMeals,
+    Slide, Gender, Height, Weight, BodyFat, Goals, ActivityLevel, NumMeals,
   },
   methods: {
     onSubmit() {
@@ -76,10 +77,22 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-#settings-page
-  text-align center
+#welcome
+  &, & form
+    text-align center
+    width 100%
+    height 100%
+    position absolute
+    top 0
+    left 0
 .btn
   &--next
     display block
     float right
+</style>
+
+<style lang="stylus">
+.button-next
+  display block
+  margin 0 auto
 </style>

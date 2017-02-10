@@ -1,12 +1,12 @@
 <template>
-  <slide>
+  <slide :last="true">
 
     <!--<h1>How many meals would you like to eat per day?</h1>-->
 
     <label for="numMeals">Number of meals:</label>
     <input name="numMeals" type="number" min="1" max="10" v-model="numMeals">
 
-    <button class="btn--next">Next</button>
+    
   </slide>
 </template>
 

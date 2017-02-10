@@ -37,7 +37,7 @@
       <span class="mdl-radio__label">Maintain weight</span>
     </label>
 
-    <button class="btn--next">Next</button>
+    
     
   </slide>
 </template>

@@ -26,8 +26,8 @@ export default {
   computed: {
     unitWeight() {
       switch (store.state.appSettings.unitWeight) {
-        case 'metric': return 'kg'
-        case 'imperial': return 'lbs'
+        case 'kg': return 'kg'
+        case 'lbs': return 'lbs'
         default: return ''
       }
     },
