@@ -24,6 +24,7 @@ import WorkoutCached from 'components/WorkoutFind/WorkoutCached'
 import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
 import LocalStorage from 'components/Dev/LocalStorage'
+import Swiper from 'components/Swiper'
 
 const router = new VueRouter({
   mode: 'history',
@@ -67,6 +68,7 @@ const router = new VueRouter({
     { path: paths.Cache, component: Cache },
     { path: paths.Entries, component: Entries },
     { path: paths.LocalStorage, component: LocalStorage },
+    { path: paths.SwiperTest, component: Swiper },
   ],
 })
 

@@ -1,8 +1,6 @@
 <template>
-  <div 
-    id="app" 
-    class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-
+  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+    
     <mdl-header></mdl-header>
     <mdl-drawer></mdl-drawer>
 
@@ -11,7 +9,6 @@
         <router-view></router-view>
       </div>
     </main>
-
   </div>
 </template>
 
@@ -23,6 +20,7 @@ import mdlHeader from 'components/UI/Header'
 import mdlDrawer from 'components/UI/Drawer'
 
 export default {
+  components: { mdlHeader, mdlDrawer },
   beforeCreate() {
     // Update store.state.calendar.today every 1 min
     setInterval(() => {
@@ -33,7 +31,6 @@ export default {
       router.replace(paths.Welcome)
     }
   },
-  components: { mdlHeader, mdlDrawer },
 }
 </script>
 

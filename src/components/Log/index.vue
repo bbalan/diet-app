@@ -8,7 +8,7 @@
 
 <script>
 import store from 'store'
-import Day from './Day'
+import Day from 'components/Log/Day'
 
 export default {
   name: 'Log',

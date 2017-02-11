@@ -5,14 +5,16 @@
 </template>
 
 <script>
+import 'swiper'
+
 export default {
   data() {
     return {
-      //...
+      // ...
     }
   },
   components: {
-    //...
+    // ...
   },
 }
 </script>
