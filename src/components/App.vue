@@ -1,14 +1,6 @@
 <template>
-  <div id="app" class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-    
-    <mdl-header></mdl-header>
-    <mdl-drawer></mdl-drawer>
-
-    <main class="mdl-layout__content">
-      <div class="page-content">
-        <router-view></router-view>
-      </div>
-    </main>
+  <div id="app">
+    <router-view></router-view>
   </div>
 </template>
 
@@ -34,27 +26,27 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Roboto', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+<style scoped lang="stylus">
+#app
+  width 100%
+  height 100%
+  position relative
+  font-family: 'Roboto', Helvetica, Arial, sans-serif
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
 
-.clearfix {
-  clear: both;
-}
-h2 {
-  font-size: 20px;
-}
-a {
-  color: #42b983;
-  text-decoration: none;
-}
-@media only screen and (max-width: 600px) {
-  .container {
-    width: 100% !important;
-  }
-}
+.clearfix
+  clear: both
+
+h2
+  font-size: 20px
+
+a
+  color: #42b983
+  text-decoration: none
+
+@media only screen and (max-width: 600px)
+  .container
+    width: 100% !important
+
 </style>

@@ -19,7 +19,6 @@
       <activity-level></activity-level>
       <!--<credentials></credentials>-->
       <num-meals></num-meals>
-
     </form>
   </div>
 </template>

@@ -22,12 +22,12 @@
           <i class="material-icons">navigate_next</i>
         </button>
 
-        <button 
+        <!--<button 
           v-else
           type="submit" 
           class="button-next mdl-button mdl-js-button mdl-js-ripple-effect">
           Submit
-          <i class="material-icons">navigate_next</i>
+          <i class="material-icons">navigate_next</i>-->
         </button>
       </div>
     </div>
