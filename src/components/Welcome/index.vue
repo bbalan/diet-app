@@ -5,15 +5,12 @@
 
     <p>TDEE {{ tdee }}</p>
 
+    <button @click="onPrepopulate" class="button--prepopulate mdl-button mdl-js-button mdl-js-ripple-effect">
+      Prepopulate
+    </button>
+
     <form @submit.prevent="onSubmit">
-      <slide>
-        <h1>Welcome.</h1>
-        <p>For you, the infinite is possible.</p>
-        <p>Come, gaze into your future!</p>
-        <button @click="onPrepopulate" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-          Prepopulate
-        </button>
-      </slide>
+      <intro></intro>
       <gender></gender>
       <height></height>
       <weight></weight>
@@ -32,7 +29,7 @@ import store from 'store'
 import router from 'router'
 // import db from 'util/Firebase'
 
-import Slide from 'components/Slide'
+import Intro from 'components/Welcome/Intro'
 import Gender from 'components/Welcome/Gender'
 import Height from 'components/Welcome/Height'
 import Weight from 'components/Welcome/Weight'
@@ -54,7 +51,7 @@ export default {
     tdee: () => store.state.userInfo.metrics.tdee,
   },
   components: {
-    Slide, Gender, Height, Weight, BodyFat, Goals, ActivityLevel, NumMeals,
+    Intro, Gender, Height, Weight, BodyFat, Goals, ActivityLevel, NumMeals,
   },
   methods: {
     onSubmit() {
@@ -88,14 +85,10 @@ export default {
     position absolute
     top 0
     left 0
-.btn
-  &--next
-    display block
-    float right
-</style>
 
-<style lang="stylus">
-.button-next
-  display block
-  margin 0 auto
+.button--prepopulate
+  position absolute
+  z-index 90001
+  bottom 8px
+  left 58px
 </style>

@@ -1,9 +1,9 @@
 <template>
   <slide class="settings--gender">
     <h4>What is your gender?</h4>
-    <!--<p>Your gender is needed to accurately calculate your basal metabolic rate (BMR).</p>-->
+    <p>This is required to calculate your basal metabolic rate.</p>
 
-    <div class="gender__radio-buttons">
+    <div class="slide__inputs">
       <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gender-male">
         <input 
           type="radio" 
@@ -57,8 +57,8 @@ export default {
 <style scoped lang="stylus">
 .mdl-radio
   display block
-.gender__radio-buttons
+.gender__inputs
   display inline-block
   text-align left
-  margin-bottom 20px
+  margin 20px
 </style>

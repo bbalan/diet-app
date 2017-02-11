@@ -77,7 +77,9 @@ export default {
   },
   methods: {
     closeDrawer() {
-      document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer()
+      if (document.querySelector('.is-small-screen')) {
+        document.querySelector('.mdl-layout').MaterialLayout.toggleDrawer()
+      }
     },
   },
 }

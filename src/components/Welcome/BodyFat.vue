@@ -1,30 +1,31 @@
 <template>
   <slide>
+    
+    <h4>What is your body fat percentage?</h4>
+    <p>You can measure this with calipers.</p>
 
-    <!--<h1>Do you know your body fat percentage?</h1>-->
-    Body fat?
-    <input 
-      type="radio" 
-      name="knowBodyFat" 
-      id="knowBodyFat-yes" 
-      :value="true" 
-      v-model="knowBodyFat"
-      required>
-    <label for="yes">Yes</label>
+    <div class="slide__inputs">
+      <div 
+        v-if="knowBodyFat" 
+        class="bodyFatPct mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+        
+        <input 
+          v-model="bodyFatPct" 
+          class="mdl-textfield__input" 
+          type="number" 
+          step="1" 
+          id="bodyFatPct">%
+        <!--<label class="mdl-textfield__label" for="bodyFatPct">Body fat</label>-->
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
 
-    <span v-if="knowBodyFat" class="bodyFat">
-      <input type="number" v-model="bodyFatPct"> %
-    </span>
-
-    <input 
-      type="radio" 
-      name="knowBodyFat" 
-      id="knowBodyFat-no" 
-      :value="false" 
-      v-model="knowBodyFat"
-      required>
-    <label for="no">No</label>
-
+      <button 
+        type="button"
+        @click="onDontKnow" 
+        class="bodyFatPct__dont-know mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+        I don't know
+      </button>
+    </div>
     
   </slide>
 </template>
@@ -44,14 +45,30 @@ export default {
         return store.state.userInfo.metrics.bodyFatPct
       },
       set(bodyFatPct) {
-        store.commit('userInfo/setBodyFatPct', this.knowBodyFat ? bodyFatPct : null)
+        store.commit('userInfo/setBodyFatPct', bodyFatPct)
       },
     },
   },
-  watch: {
-    knowBodyFat(knowBodyFat) {
-      store.commit('userInfo/setBodyFatPct', knowBodyFat ? this.bodyFatPct : null)
+  methods: {
+    onDontKnow() {
+      this.bodyFatPct = null
     },
   },
 }
 </script>
+
+<style scoped lang="stylus">
+.bodyFatPct
+  display block
+  width 50px
+  text-align left
+
+  &__dont-know
+    display inline-block
+    margin 20px 0
+    float left
+
+  input
+    width 30px
+    display inline-block
+</style>

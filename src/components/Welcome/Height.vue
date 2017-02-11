@@ -2,59 +2,62 @@
   <slide class="slide--height">
 
     <h4>How tall are you?</h4>
+    <p>Taller people burn more calories.</p>
 
-    <div 
-      v-if="unitHeight === 'cm'"
-      class="height--textfield height__cm mdl-textfield mdl-js-textfield">
-      <input v-model.number="height" class="mdl-textfield__input" type="number" id="height">
-      <label class="mdl-textfield__label" for="height">Height (cm)</label>
-      <span class="mdl-textfield__error">Input is not a number!</span>
-    </div>
+    <div class="slide__inputs">
+      <div 
+        v-if="unitHeight === 'cm'"
+        class="height--textfield height__cm mdl-textfield mdl-js-textfield">
+        <input v-model.number="height" class="mdl-textfield__input" type="number" id="height">
+        <!--<label class="mdl-textfield__label" for="height">Height (cm)</label>-->
+        <span class="mdl-textfield__error">Input is not a number!</span>
+      </div>
 
-    <div 
-      v-if="unitHeight === 'ft'"
-      class="height--textfield mdl-textfield mdl-js-textfield getmdl-select getmdl-select__fix-height">
+      <div 
+        v-if="unitHeight === 'ft'"
+        class="height--textfield mdl-textfield mdl-js-textfield getmdl-select getmdl-select__fix-height">
 
-      <select 
-        class="height-select" 
-        v-model="height">
+        <select 
+          class="height-select" 
+          v-model="height">
 
-        <option 
-          v-for="height in heightsImperial" 
-          :value="height.value">
-          {{ height.label }}
-        </option>
+          <option 
+            v-for="height in heightsImperial" 
+            :value="height.value">
+            {{ height.label }}
+          </option>
 
-      </select>
+        </select>
 
-      <input 
-        class="mdl-textfield__input" 
-        type="text" 
-        id="heightFt" 
-        :value="heightInFt"
-        readonly 
-        tabIndex="-1">
-      <label for="heightFt">
-        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-      </label>
-      
-    </div>
+        <input 
+          class="mdl-textfield__input" 
+          type="text" 
+          id="heightFt" 
+          :value="heightInFt"
+          readonly 
+          tabIndex="-1">
+        <!--<label for="heightFt">
+          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        </label>-->
+        
+      </div>
 
-    <div class="unit--textfield mdl-textfield mdl-js-textfield getmdl-select getmdl-select__fix-height">
-      <input 
-        class="mdl-textfield__input" 
-        type="text" 
-        id="unitHeight" 
-        :value="unitHeight" 
-        readonly 
-        tabIndex="-1">
-      <label for="unitHeight">
-        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-      </label>
-      <ul for="unitHeight" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-        <li class="mdl-menu__item" @click="setUnitHeight('ft')">ft</li>
-        <li class="mdl-menu__item" @click="setUnitHeight('cm')">cm</li>
-      </ul>
+      <div class="unit--textfield mdl-textfield mdl-js-textfield getmdl-select getmdl-select__fix-height">
+        <input 
+          class="mdl-textfield__input" 
+          type="text" 
+          id="unitHeight" 
+          :value="unitHeight" 
+          readonly 
+          tabIndex="-1">
+        <label for="unitHeight">
+          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+        </label>
+        <ul for="unitHeight" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+          <li class="mdl-menu__item" @click="setUnitHeight('ft')">ft</li>
+          <li class="mdl-menu__item" @click="setUnitHeight('cm')">cm</li>
+        </ul>
+      </div>
     </div>
     
   </slide>
@@ -143,8 +146,9 @@ export default {
 
 <style scoped lang="stylus">
 .height--textfield
-.unit--textfield
   width 70px
+.unit--textfield
+  width 50px
 .height-select
   position absolute
   top 20px

@@ -117,8 +117,22 @@ export default {
       const bodyFatPct = state.metrics.bodyFatPct
       const mass = state.metrics.mass
       const height = state.metrics.height
+      const goalSpeed = store.state.appSettings.goalSpeed
 
       let leanBodyMass
+      let deficit
+
+      switch (store.state.appSettings.goal) {
+        case 'burn-fat':
+          deficit = goalSpeed * -1
+          break
+        case 'build-muscle':
+          deficit = goalSpeed
+          break
+        default:
+          deficit = 0
+          break
+      }
 
       // calculate leanBodyMass
       // Body fat percentage
@@ -136,7 +150,7 @@ export default {
       const basalMetabolicRate = 370 + (21.6 * leanBodyMass)
 
       // Multiply by activity level to get TDEE
-      const tdee = basalMetabolicRate * store.state.appSettings.activityLevel
+      const tdee = basalMetabolicRate * store.state.appSettings.activityLevel + deficit
 
       state.metrics.tdee = tdee
       store.commit('calendar/setTDEE', tdee)
