@@ -45,7 +45,7 @@ export default {
   overflow hidden
 
   .mdl-layout__drawer-button
-    background-color rgba(0,0,0,0) !important 
+    background-color rgba(0,0,0,0)
 .mdl-hidden
   opacity 0
   height 0
