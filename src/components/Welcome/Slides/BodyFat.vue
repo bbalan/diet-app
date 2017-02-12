@@ -1,5 +1,5 @@
 <template>
-  <slide title="What is your body fat percentage?" description="You can measure this with calipers.">
+  <slide title="What's your body fat percentage?" description="You can measure this with calipers.">
 
     <div class="slide__inputs">
       <div 

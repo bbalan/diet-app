@@ -2,6 +2,9 @@ export default {
   Root: '/',
   Welcome: '/welcome',
   Log: '/log',
+  Profile: '/profile',
+  Settings: '/settings',
+  BugReport: '/bugreport',
 
   FoodFind: '/food',
   FoodSearch: '/food/search',

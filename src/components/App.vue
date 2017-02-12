@@ -1,17 +1,17 @@
 <template>
   <div id="app">
+    <main-menu></main-menu>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-// import router from 'router'
+import router from 'router'
 import store from 'store'
-import mdlHeader from 'components/UI/Header'
-import mdlDrawer from 'components/UI/Drawer'
+import MainMenu from 'components/UI/MainMenu'
 
 export default {
-  components: { mdlHeader, mdlDrawer },
+  components: { MainMenu },
   beforeCreate() {
     // Update store.state.calendar.today every 1 min
     setInterval(() => {
@@ -19,7 +19,7 @@ export default {
     }, 60000)
 
     if (!store.state.appSettings.signupComplete) {
-      // router.replace('/welcome#intro')
+      router.replace('/welcome#intro')
     }
   },
 }

@@ -5,6 +5,7 @@
     </md-whiteframe>
 
     <div class="slide__content grid__outer">
+      <!-- TODO: replace this with a vue <slot> -->
       <p v-if="description">{{ description }}</p>
 
       <div class="slide__inputs">

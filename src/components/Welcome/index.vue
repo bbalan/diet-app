@@ -73,7 +73,7 @@
               'md-primary': true, 
               'hidden': !isEnd,
             }">
-            Submit
+            All done
             <md-icon>navigate_next</md-icon>
           </md-button>
 
@@ -90,6 +90,8 @@ import router from 'router'
 import Swiper from 'swiper'
 // import db from 'util/Firebase'
 
+// TODO: validate each slide and call mySwiper.lockSwipeToNext()
+// or mySwiper.unlockSwipeToNext() to prevent swiping
 import Intro from 'components/Welcome/Slides/Intro'
 import Gender from 'components/Welcome/Slides/Gender'
 import Height from 'components/Welcome/Slides/Height'
@@ -130,6 +132,9 @@ export default {
       onSlideChangeEnd: swiper => this.updateSwiper(swiper),
     })
   },
+  beforeDestroy() {
+    this.swiper.destroy()
+  },
   computed: {
     tdee: () => store.state.userInfo.metrics.tdee,
   },
@@ -154,7 +159,6 @@ export default {
       this.isEnd = swiper.isEnd
     },
     swiperNext() {
-      console.log('swiperNext')
       this.swiper.slideNext()
     },
   },
@@ -168,6 +172,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+// TODO: tablet styles
 #welcome
   &, & form
     text-align center
