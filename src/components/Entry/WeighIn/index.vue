@@ -12,7 +12,6 @@
 <script>
 import store from 'store'
 import router from 'router'
-import paths from 'router/paths'
 import Weight from 'components/Welcome/Slides/Weight'
 
 export default {
@@ -35,7 +34,7 @@ export default {
   methods: {
     onSubmit() {
       store.commit('userInfo/setWeight', this.weight)
-      router.push(paths.Log)
+      router.push({ name: 'log' })
     },
   },
 }

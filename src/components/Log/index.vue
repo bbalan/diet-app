@@ -8,15 +8,11 @@
 
 <script>
 import store from 'store'
-import paths from 'router/paths'
 import Day from 'components/Log/Day'
 
 export default {
   name: 'Log',
   components: { Day },
-  data() {
-    return { paths }
-  },
   computed: {
     // TODO: sort calendar by date
     calendar: {

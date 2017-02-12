@@ -22,28 +22,27 @@
       :md-swipeable="true"
       :md-swipe-distance="50" 
       class="md-left" 
-      ref="leftSidenav"
-      @click.native="toggleLeftSidenav">
+      ref="leftSidenav">
 
-      <md-list>
+      <md-list @click.native="toggleLeftSidenav">
         <md-subheader>Tracking</md-subheader>
 
         <md-list-item>
-          <router-link :to="paths.Log">
+          <router-link :to="{ name: 'log' }">
             <md-icon>assignment</md-icon>
             <span>Log</span>
           </router-link>
         </md-list-item>
 
         <md-list-item>
-          <router-link :to="paths.FoodFind">
+          <router-link :to="{ name: 'food' }">
             <md-icon>restaurant</md-icon>
             <span>Track food</span>
           </router-link>
         </md-list-item>
 
         <md-list-item>
-          <router-link :to="paths.WorkoutFind">
+          <router-link :to="{ name: 'workout' }">
             <md-icon>fitness_center</md-icon>
             <span>Track workout</span>
           </router-link>
@@ -54,15 +53,15 @@
 
         <md-subheader>Configuration</md-subheader>
         
-        <md-list-item>
-          <router-link :to="paths.Profile">
+        <md-list-item disabled>
+          <router-link :to="{ name: 'profile' }">
             <md-icon>account_circle</md-icon>
             <span>Profile</span>
           </router-link>
         </md-list-item>
 
-        <md-list-item>
-          <router-link :to="paths.Settings">
+        <md-list-item disabled>
+          <router-link :to="{ name: 'settings' }">
             <md-icon>settings</md-icon>
             <span>Settings</span>
           </router-link>
@@ -74,21 +73,21 @@
         <md-subheader>Dev</md-subheader>
 
         <md-list-item>
-          <router-link :to="paths.Welcome">
+          <router-link :to="{ name: 'welcome' }">
             <md-icon>code</md-icon>
             <span>Welcome page</span>
           </router-link>
         </md-list-item>
 
         <md-list-item>
-          <router-link :to="paths.Cache">
+          <router-link :to="{ name: 'devCache' }">
             <md-icon>code</md-icon>
             <span>Cache</span>
           </router-link>
         </md-list-item>
 
         <md-list-item>
-          <router-link :to="paths.LocalStorage">
+          <router-link :to="{ name: 'devLocalStorage' }">
             <md-icon>code</md-icon>
             <span>LocalStorage</span>
           </router-link>
@@ -101,22 +100,18 @@
 
 <script>
 import store from 'store'
-import paths from 'router/paths'
 
 export default {
-  data() {
-    return { paths }
-  },
   computed: {
     signupComplete: () => store.state.appSettings.signupComplete,
     pageTitle() {
       return 'Title'
     },
     isLog() {
-      return this.$route.path === paths.Log
+      return this.$route.name === 'log'
     },
     isWelcome() {
-      return this.$route.path === paths.Welcome
+      return this.$route.name === 'welcome'
     },
   },
   methods: {
