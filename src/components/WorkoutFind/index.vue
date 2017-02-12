@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Workout find</h1>
     <entry-workout></entry-workout>
     <workout-list></workout-list>
   </div>

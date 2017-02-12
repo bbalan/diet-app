@@ -79,27 +79,31 @@ const router = new VueRouter({
       path: '/food',
       redirect: '/food/search',
       component: FoodFind,
-      meta: { title: 'Food' },
+      meta: { title: 'Track Food' },
       children: [
         {
           name: 'foodSearch',
           path: 'search',
           component: FoodSearch,
+          meta: { title: 'Track Food' },
         },
         {
           name: 'foodFavorites',
           path: 'favorites',
           component: FoodFavorites,
+          meta: { title: 'Track Food' },
         },
         {
           name: 'foodCustom',
           path: 'custom',
           component: FoodCustom,
+          meta: { title: 'Track Food' },
         },
         {
           name: 'foodRecipes',
           path: 'recipes',
           component: FoodRecipes,
+          meta: { title: 'Track Food' },
         },
       ],
     },
@@ -107,6 +111,7 @@ const router = new VueRouter({
       name: 'workout',
       path: '/workout',
       component: WorkoutFind,
+      meta: { title: 'Workouts' },
     },
     {
       name: 'workoutPreset',

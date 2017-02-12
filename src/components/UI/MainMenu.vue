@@ -105,7 +105,7 @@ export default {
   computed: {
     signupComplete: () => store.state.appSettings.signupComplete,
     pageTitle() {
-      return 'Title'
+      return this.$route.meta.title
     },
     isLog() {
       return this.$route.name === 'log'
