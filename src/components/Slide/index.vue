@@ -1,35 +1,9 @@
 <template>
-  <div class="slide">
+  <div class="slide swiper-slide" data-hash="slide1">
     <div class="slide__content grid__outer">
       <slot>
         Slide content goes here.
       </slot>
-    </div>
-
-    <div class="slide__bottom-bar">
-      <div class="grid__outer">
-        <button
-          type="button"
-          class="button-before mdl-button mdl-js-button mdl-js-ripple-effect">
-          <i class="material-icons">navigate_before</i>
-        </button>
-
-        <button 
-          v-if="!last" 
-          type="button"
-          class="button-next mdl-button mdl-js-button mdl-js-ripple-effect">
-          {{ nextText }}
-          <i class="material-icons">navigate_next</i>
-        </button>
-
-        <!--<button 
-          v-else
-          type="submit" 
-          class="button-next mdl-button mdl-js-button mdl-js-ripple-effect">
-          Submit
-          <i class="material-icons">navigate_next</i>-->
-        </button>
-      </div>
     </div>
   </div>
 </template>
@@ -37,19 +11,7 @@
 <script>
 export default {
   name: 'Slide',
-  props: {
-    last: {
-      type: Boolean,
-      default: false,
-    },
-    nextText: {
-      type: String,
-      default: 'Next',
-    },
-  },
-  data() {
-    return {}
-  },
+  props: ['data-hash'],
 }
 </script>
 

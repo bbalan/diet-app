@@ -16,6 +16,4 @@ export default {
   Cache: '/cache',
   Entries: '/Entries',
   LocalStorage: '/localStorage',
-
-  SwiperTest: '/swipertest',
 }
