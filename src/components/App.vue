@@ -8,10 +8,10 @@
 <script>
 import router from 'router'
 import store from 'store'
-import MainMenu from 'components/UI/MainMenu'
+import MainNav from 'components/UI/MainNav'
 
 export default {
-  components: { MainMenu },
+  components: { MainNav },
   beforeCreate() {
     // Update store.state.calendar.today every 1 min
     setInterval(() => {
