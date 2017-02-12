@@ -3,22 +3,27 @@
     <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-toolbar">
       <div class="md-toolbar-container">
         <md-button 
+          v-if="isSidebarEnabled"
           class="md-icon-button"
           @click.native="toggleLeftSidenav">
           <md-icon>menu</md-icon>
         </md-button>
 
+        <md-button 
+          v-else
+          class="md-icon-button"
+          @click.native="goBack">
+          <md-icon>arrow_back</md-icon>
+        </md-button>
+
         <h2 class="md-title" style="flex: 1">
           {{ pageTitle }}
         </h2>
-
-        <md-button class="md-icon-button">
-          <md-icon>favorite</md-icon>
-        </md-button>
       </div>
     </md-whiteframe>
 
     <md-sidenav 
+      v-if="isSidebarEnabled"
       :md-swipeable="true"
       :md-swipe-distance="50" 
       class="md-left" 
@@ -100,6 +105,7 @@
 
 <script>
 import store from 'store'
+import router from 'router'
 
 export default {
   computed: {
@@ -113,10 +119,17 @@ export default {
     isWelcome() {
       return this.$route.name === 'welcome'
     },
+    isSidebarEnabled() {
+      return this.$route.meta.sidebar
+    },
   },
   methods: {
     toggleLeftSidenav() {
-      this.$refs.leftSidenav.toggle()
+      const sidenav = this.$refs.leftSidenav
+      if (sidenav) sidenav.toggle()
+    },
+    goBack() {
+      router.go(-1)
     },
   },
 }

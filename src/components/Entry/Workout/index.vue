@@ -1,7 +1,6 @@
 <template>
   <div>
-    <h2 v-if="isNew">New Workout</h2>
-    <h2 v-if="!isNew">Edit Workout Entry</h2>
+    <h2>Workout</h2>
 
     <form @submit.prevent="onSubmit">
       <p>

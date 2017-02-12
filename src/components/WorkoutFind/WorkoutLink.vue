@@ -2,7 +2,7 @@
   <div v-if="workoutData" class="workoutLink">
 
     <div class="entry__info">
-      <router-link class="workout_edit" :to="`/workout/${uuid}`">Edit</router-link>
+      <router-link class="workout_edit" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">Edit</router-link>
 
       <span class="workout__name">{{ name | capitalize }}</span>
       <span class="workout__calories">

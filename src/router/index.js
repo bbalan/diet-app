@@ -25,6 +25,7 @@ import LocalStorage from 'components/Dev/LocalStorage'
 const router = new VueRouter({
   mode: 'history',
   routes: [
+    // ========== REDIRECTS
     {
       // TODO: change this
       name: 'settings',
@@ -48,18 +49,23 @@ const router = new VueRouter({
       path: '/',
       redirect: { name: 'log' },
     },
+
+    // =========== MAIN PAGES
     {
       name: 'log',
       path: '/log',
       component: Log,
-      meta: { title: 'Log' },
+      meta: {
+        title: 'Log',
+        sidebar: true,
+      },
     },
     {
       name: 'entry',
       path: '/entry/:uuid',
       component: Entry,
       props: true,
-      meta: { title: 'Entry' }, // TODO: replace with relevant entry type
+      meta: { title: 'Edit Log Entry' }, // TODO: replace with relevant entry type
     },
     {
       name: 'newFood',
@@ -79,31 +85,46 @@ const router = new VueRouter({
       path: '/food',
       redirect: '/food/search',
       component: FoodFind,
-      meta: { title: 'Track Food' },
+      meta: {
+        title: 'Track Food',
+        sidebar: true,
+      },
       children: [
         {
           name: 'foodSearch',
           path: 'search',
           component: FoodSearch,
-          meta: { title: 'Track Food' },
+          meta: {
+            title: 'Track Food',
+            sidebar: true,
+          },
         },
         {
           name: 'foodFavorites',
           path: 'favorites',
           component: FoodFavorites,
-          meta: { title: 'Track Food' },
+          meta: {
+            title: 'Track Food',
+            sidebar: true,
+          },
         },
         {
           name: 'foodCustom',
           path: 'custom',
           component: FoodCustom,
-          meta: { title: 'Track Food' },
+          meta: {
+            title: 'Track Food',
+            sidebar: true,
+          },
         },
         {
           name: 'foodRecipes',
           path: 'recipes',
           component: FoodRecipes,
-          meta: { title: 'Track Food' },
+          meta: {
+            title: 'Track Food',
+            sidebar: true,
+          },
         },
       ],
     },
@@ -111,14 +132,17 @@ const router = new VueRouter({
       name: 'workout',
       path: '/workout',
       component: WorkoutFind,
-      meta: { title: 'Workouts' },
+      meta: {
+        title: 'Workouts',
+        sidebar: true,
+      },
     },
     {
       name: 'workoutPreset',
       path: '/workout/:uuid',
       component: WorkoutPreset,
       props: true,
-      meta: { title: 'Workout' },
+      meta: { title: 'Edit workout' },
     },
 
     { name: 'devCache', path: '/cache', component: Cache },

@@ -1,8 +1,6 @@
 <template>
   <div>
     <form @submit.prevent v-if="workoutData">
-      <h2>Edit Workout</h2>
-
       <p>
         <label for="workoutName">Name:</label>
         <input name="workoutName" type="text" v-model="name">
@@ -27,7 +25,7 @@ import router from 'router'
 
 export default {
   name: 'WorkoutCached',
-  props: ['workoutUUID'],
+  props: ['uuid'],
   data() {
     return {
       name: null,
@@ -40,19 +38,19 @@ export default {
   },
   methods: {
     getData() {
-      const workoutData = store.state.workoutPresets[this.workoutUUID]
+      const workoutData = store.state.workoutPresets[this.uuid]
       this.workoutData = workoutData
 
       if (workoutData) {
         this.name = workoutData.name
         this.calories = workoutData.calories
       } else {
-        router.go(-1)
+        // router.go(-1)
       }
     },
     onSubmit() {
       store.commit('workoutPresets/edit', {
-        uuid: this.workoutUUID,
+        uuid: this.uuid,
         data: {
           name: this.name,
           calories: this.calories,
@@ -61,7 +59,7 @@ export default {
       router.go(-1)
     },
     onDelete() {
-      store.commit('workoutPresets/delete', { uuid: this.workoutUUID })
+      store.commit('workoutPresets/delete', { uuid: this.uuid })
       router.go(-1)
     },
   },
