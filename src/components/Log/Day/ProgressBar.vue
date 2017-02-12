@@ -6,12 +6,12 @@
     <div class="progressBar">
       <div 
         class="progressBar__indicator" 
-        :style="{ width: caloriesEatenPct + '%' }"
+        :style="{ width: `${caloriesEatenPct}%` }"
         :class="progressClasses">
       </div>
       <div class="progressBar__mealStops">
         <div
-          v-for="meal in (numMeals - 1)" 
+          v-for="meal in (numMeals - 1 || 0)" 
           :style="{ left: progressWidth(meal) + '%' }"
           class="progressBar__mealStops__stop">
         </div>

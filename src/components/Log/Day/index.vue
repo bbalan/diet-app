@@ -1,7 +1,7 @@
 <template>
   <div class="log__day" v-if="true || filteredEntries.length || isToday">
 
-    <h4>{{ dateFormatted }}</h4>
+    <h1>{{ dateFormatted }}</h1>
 
     {{ mass | toMassUnit }}
 

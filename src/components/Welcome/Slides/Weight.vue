@@ -1,8 +1,5 @@
 <template>
-  <slide>
-
-    <h4>How much do you weigh?</h4>
-    <p>Your weight also affects the number of calories you burn.</p>
+  <slide title="How much do you weigh?" description="Your weight affects the number of calories you burn. Use a bathroom scale to measure your weight.">
 
     <div class="slide__inputs">
       <div class="weight--textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
@@ -29,7 +26,7 @@
 
 <script>
 import store from 'store'
-import Slide from '../Slide'
+import Slide from 'components/Welcome/Slide'
 
 export default {
   components: { Slide },

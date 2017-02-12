@@ -27,10 +27,9 @@ import LocalStorage from 'components/Dev/LocalStorage'
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    // { path: paths.Root, component: Splash },
-    { path: paths.Root, component: Log },
     { path: paths.Welcome, component: Welcome },
-    { path: paths.Log, component: Log, canReuse: false },
+    { path: paths.Root, component: Log },
+    { path: paths.Log, component: Log },
     { path: paths.Entry, component: Entry, props: true },
     { path: paths.EntryFood, component: Entry, props: true },
     { path: paths.WeighIn, component: WeighIn },

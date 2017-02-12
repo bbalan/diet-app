@@ -55,6 +55,8 @@
               'swiper-next': true, 
               'button-next': true, 
               'icon-right': true,
+              'md-primary': true,
+              'md-raised': true,
               hidden: isEnd || isBeginning,
             }">
             Next
@@ -66,9 +68,9 @@
             :class="{
               'button-submit': true, 
               'button-next': true, 
+              'icon-right': true,
               'md-raised': true, 
               'md-primary': true, 
-              'icon-right': true,
               'hidden': !isEnd,
             }">
             Submit
@@ -88,16 +90,16 @@ import router from 'router'
 import Swiper from 'swiper'
 // import db from 'util/Firebase'
 
-import Intro from 'components/Welcome/Intro'
-import Gender from 'components/Welcome/Gender'
-import Height from 'components/Welcome/Height'
-import Weight from 'components/Welcome/Weight'
-import BodyFat from 'components/Welcome/BodyFat'
-import Goals from 'components/Welcome/Goals'
-import ActivityLevel from 'components/Welcome/ActivityLevel'
-import NumMeals from 'components/Welcome/NumMeals'
-// import Birthday from 'components/Welcome/Birthday'
-// import Credentials from 'components/Welcome/Credentials'
+import Intro from 'components/Welcome/Slides/Intro'
+import Gender from 'components/Welcome/Slides/Gender'
+import Height from 'components/Welcome/Slides/Height'
+import Weight from 'components/Welcome/Slides/Weight'
+import BodyFat from 'components/Welcome/Slides/BodyFat'
+import Goals from 'components/Welcome/Slides/Goals'
+import ActivityLevel from 'components/Welcome/Slides/ActivityLevel'
+import NumMeals from 'components/Welcome/Slides/NumMeals'
+// import Birthday from 'components/Welcome/Slides/Birthday'
+// import Credentials from 'components/Welcome/Slides/Credentials'
 
 export default {
   name: 'Welcome',
@@ -113,6 +115,7 @@ export default {
       // TODO: uncomment this
       // router.replace('/log')
     }
+    router.replace('/welcome#intro')
   },
   mounted() {
     // Docs: http://idangero.us/swiper/api
@@ -188,12 +191,12 @@ export default {
 
 .button-next
   position absolute
-  right 0
+  right 8px
   bottom 0
 
 .button-before
   position absolute
-  left 0
+  left 8px
   bottom 0
 
 .button-submit

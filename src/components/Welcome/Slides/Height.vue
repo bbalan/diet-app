@@ -1,8 +1,5 @@
 <template>
-  <slide class="slide--height">
-
-    <h4>How tall are you?</h4>
-    <p>Taller people burn more calories.</p>
+  <slide title="How tall are you?" description="Taller people burn more calories.">
 
     <div class="slide__inputs">
       <div 
@@ -65,7 +62,7 @@
 
 <script>
 import store from 'store'
-import Slide from '../Slide'
+import Slide from 'components/Welcome/Slide'
 
 export default {
   name: 'Height',

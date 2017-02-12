@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Slide from '../Slide'
+import Slide from 'components/Welcome/Slide'
 
 export default {
   components: {

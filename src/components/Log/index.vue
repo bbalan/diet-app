@@ -1,26 +1,81 @@
 <template>
   <div>
-    <md-toolbar>
-      <md-button 
-        class="md-icon-button"
-        @click.native="toggleLeftSidenav">
-        <md-icon>menu</md-icon>
-      </md-button>
+    <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-toolbar">
+      <div class="md-toolbar-container">
+        <md-button 
+          class="md-icon-button"
+          @click.native="toggleLeftSidenav">
+          <md-icon>menu</md-icon>
+        </md-button>
 
-      <h2 class="md-title" style="flex: 1">Log</h2>
+        <h2 class="md-title" style="flex: 1">Log</h2>
 
-      <md-button class="md-icon-button">
-        <md-icon>favorite</md-icon>
-      </md-button>
-    </md-toolbar>
+        <md-button class="md-icon-button">
+          <md-icon>favorite</md-icon>
+        </md-button>
+      </div>
+    </md-whiteframe>
+
     <md-sidenav :md-swipeable="true" class="md-left" ref="leftSidenav" @open="open('Left')" @close="close('Left')">
-      <md-toolbar class="md-large">
-        <div class="md-toolbar-container">
-          <h3 class="md-title">Sidenav content</h3>
-        </div>
-      </md-toolbar>
+      <md-list>
+        <md-subheader>Navigation</md-subheader>
 
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi cupiditate esse necessitatibus beatae nobis, deserunt ut est fugit, tempora deleniti, eligendi commodi doloribus. Nemo, assumenda possimus, impedit inventore perferendis iusto!</p>
+        <md-list-item>
+          <md-icon>move_to_inbox</md-icon> <span>Inbox</span>
+        </md-list-item>
+
+        <md-list-item>
+          <md-icon>send</md-icon> <span>Outbox</span>
+        </md-list-item>
+
+        <md-list-item>
+          <md-icon>delete</md-icon> <span>Trash</span>
+        </md-list-item>
+
+        <md-list-item>
+          <md-icon>error</md-icon> <span>Spam</span>
+
+          <md-divider class="md-inset"></md-divider>
+        </md-list-item>
+
+        <md-subheader>Contacts</md-subheader>
+
+        <md-list-item>
+          <md-avatar>
+            <img src="assets/avatar-2.jpg" alt="People">
+          </md-avatar>
+
+          <span>Abbey Christansen</span>
+
+          <md-button class="md-icon-button md-list-action">
+            <md-icon class="md-primary">chat_bubble</md-icon>
+          </md-button>
+        </md-list-item>
+
+        <md-list-item>
+          <md-avatar>
+            <img src="assets/avatar-2.jpg" alt="People">
+          </md-avatar>
+
+          <span>Alex Nelson</span>
+
+          <md-button class="md-icon-button md-list-action">
+            <md-icon class="md-primary">chat_bubble</md-icon>
+          </md-button>
+        </md-list-item>
+
+        <md-list-item>
+          <md-avatar>
+            <img src="assets/avatar-2.jpg" alt="People">
+          </md-avatar>
+
+          <span>Mary Johnson</span>
+
+          <md-button class="md-icon-button md-list-action">
+            <md-icon>chat_bubble</md-icon>
+          </md-button>
+        </md-list-item>
+      </md-list>
     </md-sidenav>
 
     <!--<h1>Log</h1>-->
@@ -76,6 +131,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang="stylus">
+/*.main-toolbar
+  position fixed
+  width 100%
+  top 0*/
 </style>

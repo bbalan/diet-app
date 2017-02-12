@@ -13,7 +13,7 @@
 import store from 'store'
 import router from 'router'
 import paths from 'router/paths'
-import Weight from 'components/Welcome/Weight'
+import Weight from 'components/Welcome/Slides/Weight'
 
 export default {
   name: 'WeighIn',

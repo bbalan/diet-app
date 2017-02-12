@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import router from 'router'
-import paths from 'router/paths'
+// import router from 'router'
 import store from 'store'
 import mdlHeader from 'components/UI/Header'
 import mdlDrawer from 'components/UI/Drawer'
@@ -20,7 +19,7 @@ export default {
     }, 60000)
 
     if (!store.state.appSettings.signupComplete) {
-      router.replace(paths.Welcome)
+      // router.replace('/welcome#intro')
     }
   },
 }

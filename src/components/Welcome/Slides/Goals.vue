@@ -1,8 +1,5 @@
 <template>
-  <slide>
-
-    <h4>What are your goals?</h4>
-    <p>This will affect how much you can eat.</p>
+  <slide title="What are your goals?" description="This will affect how much you can eat.">
 
     <div class="slide__inputs">
       <label class="goal-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="burn-fat">
@@ -45,7 +42,7 @@
 
 <script>
 import store from 'store'
-import Slide from '../Slide'
+import Slide from 'components/Welcome/Slide'
 
 export default {
   components: {

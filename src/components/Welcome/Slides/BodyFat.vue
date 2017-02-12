@@ -1,8 +1,5 @@
 <template>
-  <slide>
-    
-    <h4>What is your body fat percentage?</h4>
-    <p>You can measure this with calipers.</p>
+  <slide title="What is your body fat percentage?" description="You can measure this with calipers.">
 
     <div class="slide__inputs">
       <div 
@@ -32,7 +29,7 @@
 
 <script>
 import store from 'store'
-import Slide from 'components/Slide'
+import Slide from 'components/Welcome/Slide'
 
 export default {
   components: { Slide },
