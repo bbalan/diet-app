@@ -1,5 +1,5 @@
 <template>
-  <md-card class="nutrition-facts">
+  <md-card v-if="dataFood" class="nutrition-facts">
     <nutrient 
       v-for="nutrient in nutrientData"
       :nutrient="nutrient"
@@ -28,6 +28,8 @@ export default {
     // Get nutrient data from food data
     nutrientData() {
       const data = []
+
+      if (!this.dataFood) return data
 
       this.visibleNutrients.forEach((id) => {
         let nutrientFilter

@@ -1,16 +1,17 @@
 <template>
-  <div v-if="dataFood" class="food-entry grid__outer">
+  <div class="food-entry grid__outer">
 
-    <span v-if="loading" class="loading">Loading...</span>
+    <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
-    <form @submit.prevent="onSubmit" :class="{ loading: loading }">
-      <div class="md-display-1 entry-name">
-        {{ dataFood.name }}
+    <div v-if="loading" class="food-entry-spinner">
+      <md-spinner md-indeterminate></md-spinner>
+    </div>
+
+    <form v-if="!loading && dataFood" @submit.prevent="onSubmit" :class="{ loading: loading }">
+      <div :class="`${headingClass} entry-name`">
+        {{ name }}
         <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
       </div>
-      
-
-      <!--<hr class="md-divider">-->
 
       <div class="inputs">
         <md-input-container class="inputs__mass">
@@ -69,9 +70,25 @@ export default {
     $route: 'getData', // if route changes, re-hydrate component
   },
   computed: {
+    name() {
+      if (!this.dataFood) return ''
+      return this.dataFood.name
+    },
     normalizedMass() {
       if (typeof this.mass !== 'number') return 0
       return this.mass
+    },
+    headingClass() {
+      if (!this.dataFood) return ''
+
+      const len = this.dataFood.name.length
+
+      if (len <= 20) {
+        return 'md-display-1'
+      } else if (len > 20 && len <= 50) {
+        return 'md-title'
+      }
+      return 'md-subheading'
     },
   },
   methods: {
@@ -181,28 +198,34 @@ export default {
       let foodReportAPI // composed URL of food API
       let reportHandler // do API-specific things with returned data
 
-      function usdaReportHandler(json) {
+      const usdaReportHandler = (json) => {
         try {
           this.dataFood = json.report.food
+          return new Promise((resolve) => {
+            resolve()
+          })
         } catch (e) {
           return e
         }
-        return true
       }
 
-      function otherReportHandler(/* json */) {
+      const otherReportHandler = (/* json */) => {
         // Not implemented
+      }
+
+      const loadComplete = () => {
+        this.loading = false
       }
 
       // Figure out which API URLs and handlers to use
       switch (this.source) {
         case API.USDA:
           foodReportAPI = USDA.foodReport(this.id)
-          reportHandler = usdaReportHandler.bind(this)
+          reportHandler = usdaReportHandler
           break
         case API.OTHER:
           foodReportAPI = OTHER.foodReport(this.id)
-          reportHandler = otherReportHandler.bind(this)
+          reportHandler = otherReportHandler
           break
         default:
           return // invalid source
@@ -213,16 +236,27 @@ export default {
         .then(checkStatus)
         .then(parseJSON)
         .then(reportHandler)
-        .then(() => { this.loading = false })
-        .catch(error => error)
-
-      return
+        .then(loadComplete)
+        .catch(() => {
+          this.loading = false
+          this.dataFood = null
+        })
     },
   },
 }
 </script>
 
 <style scoped lang="stylus">
-form.loading
-  background red
+.food-entry-spinner
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+
+  .md-spinner
+    position absolute
+    top 50%
+    left 50%
+    margin -25px 0 0 -25px
 </style>
