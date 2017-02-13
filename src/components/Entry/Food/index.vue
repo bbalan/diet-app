@@ -1,25 +1,36 @@
 <template>
-  <div v-if="dataFood" :class="{ food: true, entry: uuid}">
+  <div v-if="dataFood" class="food-entry grid__outer">
 
     <span v-if="loading" class="loading">Loading...</span>
 
     <form v-else @submit.prevent>
-      <h2>{{ dataFood.name }}</h2>
+      <div class="md-display-1">{{ dataFood.name }}</div>
+      <p class="md-caption" v-if="source">Source: {{ source }}</p>
 
-      <label for="mass">Weight:</label>
-      <input type="number" name="mass" v-model.number="mass">
-      <span class="mass__unit">grams</span>
+      <!--<hr class="md-divider">-->
+
+      <div class="inputs">
+        <md-input-container class="inputs__mass">
+          <label>Mass</label>
+          <md-input type="number" v-model.number="mass"></md-input>
+          <span class="mass__unit">grams</span>
+        </md-input-container>
+
+        <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+          Eat
+        </md-button>
+        <md-button v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+          Save
+        </md-button>
+      </div>
+
+        <button v-if="uuid" @click="entryDelete">Delete</button>
 
       <nutrition-facts
         :dataFood="dataFood" 
         :source="source || entrySource"
         :mass="normalizedMass">
       </nutrition-facts>
-
-      <button v-if="!uuid" @click="onSubmit">Eat</button>
-
-      <button v-if="uuid" @click="onSubmit">Save</button>
-      <button v-if="uuid" @click="entryDelete">Delete</button>
     </form>
     
   </div>
@@ -205,10 +216,28 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-button
-  font-size 20px  
-  width 200px
-.entry
-  button
-    width 100px
+.food-entry
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  border-top 64px solid #eee
+  background white
+.mass__unit
+  height 0
+  line-height 1em
+  position absolute
+  bottom 24px
+  right 0
+.inputs
+  margin-top 32px
+  position relative
+  &__mass
+    border-right 110px solid transparent
+  &__eat
+    position absolute
+    bottom 0
+    right 0
+    margin-right 0
 </style>

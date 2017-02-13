@@ -5,18 +5,18 @@
       <!--<h2>{{list.length}} results</h2>-->
       <!--<span class="md-headline">{{list.length}} results</span>-->
       
-      <md-list class="link-list">
-        <md-list-item 
-          v-for="result in orderedList">
+      <ul class="link-list">
+        <li 
+          v-for="result in orderedList" class="md-subheading">
           <router-link 
             class="foodLink" 
             :to="`/food/new/${result.source}/${result.id}`">
             {{ result.name }}
           </router-link>
-        </md-list-item>
+        </li>
         
-        <md-list-item class="end-of-results">End of results</md-list-item>
-      </md-list>
+        <li class="end-of-results">That's it!</li>
+      </ul>
     </div>
 
   </div>
@@ -71,12 +71,38 @@ export default {
   overflow-x hidden
   overflow-y scroll
   padding-bottom 48px
+  position relative
+  z-index 1
   a
     padding-left 56px
 
-  .md-list-item
-    .md-list-item-container
+  ul
+    padding 0
+  li
+    list-style-type none
+    background white
+    width 100%
+    margin 0 !important
+    .foodLink
+      display block
+      position relative
       padding-left 56px !important
+      white-space nowrap
+      color black !important
+      text-decoration none !important
+      padding 16px 0
+      &:hover
+        color 
+      &:after
+        pointer-events none
+        display block
+        content ''
+        width 50px
+        height 100%
+        position absolute
+        top 0
+        right 0
+        background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
     &.end-of-results
       padding-left 56px
       padding-top 32px

@@ -17,9 +17,7 @@
           <md-icon>arrow_back</md-icon>
         </md-button>
 
-        <h2 class="md-title" style="flex: 1">
-          {{ pageTitle }}
-        </h2>
+        <h2 class="md-title" style="flex: 1">{{ pageTitle }}</h2>
       </div>
     </md-whiteframe>
 
@@ -27,6 +25,7 @@
       v-if="isSidebarEnabled"
       :md-swipeable="true"
       :md-swipe-distance="50" 
+      :md-swipe-threshold="50"
       class="md-left" 
       ref="leftSidenav">
 
@@ -144,6 +143,9 @@ export default {
   &-container
     padding 0 8px
 
+.md-sidenav
+  &-content
+    box-shadow none !important
 /*.md-tabs
   &-navigation
     .md-tab-indicator

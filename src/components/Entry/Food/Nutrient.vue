@@ -1,15 +1,10 @@
 <template>
-  <div class="nutrientList__item" v-if="nutrient">
 
-    <div class="nutrientList__item__name">
-      {{ name }}
-    </div>
-    <div class="nutrientList__item__val">
-      {{ value }} {{ nutrient.unit }}
-    </div>
-    <div class="clearfix"></div>
+  <md-table-row v-if="nutrient" :class="`nutrient-id-${id}`">
+    <md-table-cell class="nutrient-name">{{ name }}</md-table-cell>
+    <md-table-cell md-numeric>{{ value }} {{ nutrient.unit }}</md-table-cell>
+  </md-table-row>
 
-  </div>
 </template>
 
 <script>
@@ -29,9 +24,12 @@ export default {
       const val = this.nutrient.value * (this.mass / 100)
       return Math.floor(val)
     },
+    id() {
+      return this.nutrient.nutrient_id
+    },
     // Rename nutrients from more verbose versions from USDA API
     name() {
-      switch (this.nutrient.nutrient_id) {
+      switch (this.id) {
         case '208': return 'Calories'
         case '204': return 'Fat'
         case '606': return 'Saturated Fat'
@@ -39,6 +37,7 @@ export default {
         case '205': return 'Carbs'
         case '291': return 'Fiber'
         case '269': return 'Sugar'
+        case '307': return 'Sodium'
         default: return this.nutrient.name
       }
     },
@@ -47,28 +46,19 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.nutrientList__item
-  width 200px
-  clear both
-  background white
-
-  &:hover
-    background #eee
-
-  &__name
-    font-weight bold
-    float left
-    width 60%
-
-  &__name
-  &__val
-    /*display inline*/
-
-  &__val
-    width 40%
-    float right
-    text-align right
-
-label[for="mass"]
+.nutrient-name
   font-weight bold
+
+.nutrient-id-208
+  background #eee
+  .md-table-cell
+    /*color white !important*/
+
+.nutrient-id-606
+.nutrient-id-605
+  font-weight normal
+  padding-left 20px !important
+
+.nutrient-id-307
+  font-weight normal
 </style>

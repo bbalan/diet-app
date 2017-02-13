@@ -1,18 +1,25 @@
 <template>
-  <div class="NutritionFacts">
+  <md-card class="nutrition-facts">
 
-    <!--<h2>{{ dataFood.name }}</h2>-->
+    <md-table>
+      <!--<md-table-header>
+        <md-table-row>
+          <md-table-head>Nutrient</md-table-head>
+          <md-table-head md-numeric>Amount</md-table-head>
+        </md-table-row>
+      </md-table-header>-->
 
-    <nutrient 
-      v-for="nutrientID in visibleNutrients"
-      v-if="getNutrient(nutrientID)"
-      :nutrient="getNutrient(nutrientID)"
-      :mass="mass"
-      :decimals="1">
-    </nutrient>
-
-    <p v-if="source" class="dataSource">Source: {{ source }}</p>
-  </div>
+      <md-table-body>
+        <nutrient 
+          v-for="nutrientID in visibleNutrients"
+          v-if="getNutrient(nutrientID)"
+          :nutrient="getNutrient(nutrientID)"
+          :mass="mass"
+          :decimals="1">
+        </nutrient>
+      </md-table-body>
+    </md-table>
+  </md-card>
 </template>
 
 <script>
@@ -27,7 +34,7 @@ export default {
     visibleNutrients() {
       switch (this.source) {
         case API.USDA:
-          return ['208', '204', '606', '605', '205', '291', '203', '269', '307']
+          return ['208', '204', '606', '605', '205', '291', '203', '269'/* '307' */]
         default: return []
       }
     },
@@ -51,3 +58,16 @@ export default {
   },
 }
 </script>
+
+<style lang="stylus">
+.nutrition-facts
+  padding 0 0 16px 0
+  .md-table-row:first-child
+    padding-bottom 16px !important
+    height 48px
+    border-bottom 1px solid #eee !important
+  .md-table tbody .md-table-row
+    border none
+    .md-table-cell
+      height 36px !important
+</style>

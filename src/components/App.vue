@@ -8,7 +8,7 @@
 <script>
 import router from 'router'
 import store from 'store'
-import MainNav from 'components/UI/MainNav'
+import MainNav from 'components/MainNav'
 
 export default {
   components: { MainNav },
@@ -20,6 +20,8 @@ export default {
 
     if (!store.state.appSettings.signupComplete) {
       router.replace('/welcome#intro')
+    } else {
+      // router.replace('/log')
     }
   },
 }

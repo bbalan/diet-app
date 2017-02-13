@@ -48,7 +48,12 @@ const router = new VueRouter({
     },
     {
       name: 'root',
-      path: '/',
+      path: '',
+      redirect: { name: 'log' },
+    },
+    {
+      name: 'root-android',
+      path: 'android_asset/www/index.html',
       redirect: { name: 'log' },
     },
 

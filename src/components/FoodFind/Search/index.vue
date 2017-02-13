@@ -47,7 +47,9 @@
         </md-list>
       </md-whiteframe>
 
-      <md-spinner v-if="loading && searchText.length" md-indeterminate class="search-loader"></md-spinner>
+      <div class="search-loader-container">
+        <md-spinner v-if="loading && searchText.length" md-indeterminate class="search-loader"></md-spinner>
+      </div>
 
       <result-list 
         :searchText="searchText" 
@@ -58,7 +60,7 @@
         'no-results': true,
         'md-title': true,
         visible: didSearch && !loading && searchText.length && searchResults.length == 0,
-      }">{{ loading }} No results</div>
+      }">No results</div>
 
     </form>
   
@@ -95,6 +97,7 @@ export default {
   watch: {
     // User typed something into the search field.
     searchText() {
+      this.didSearch = false
       this.searchAllAPIs(this.sanitizedSearch, this)
     },
   },
@@ -108,6 +111,7 @@ export default {
       if (searchText === '' || searchText === undefined) {
         that.searchResults = []
         that.loading = false
+        that.didSearch = false
         return
       }
 
@@ -117,7 +121,6 @@ export default {
 
       function loadComplete() {
         that.loading = false
-        that.didSearch = false
       }
 
       // Append USDA search results to the total search results
@@ -222,6 +225,18 @@ export default {
   left 50%
   margin-top -25px
   margin-left -25px
+  max-height 100%
+  max-width 100%
+.search-loader-container
+  pointer-events none
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  box-sizing border-box
+  border-top 70px solid transparent
+  z-index 1
 .no-results
   position absolute
   top 50%
@@ -235,6 +250,7 @@ export default {
   &.visible
     opacity 1
 .search-bar
+  background white
   box-sizing border-box
   min-height 48px
   padding 8px 16px
@@ -242,6 +258,7 @@ export default {
   line-height 0
   /*position absolute !important*/
   width 100%
+  z-index 2 !important
 
   &__result-list
     padding-bottom 0 !important
