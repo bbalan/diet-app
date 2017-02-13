@@ -1,5 +1,6 @@
 <template>
   <header>
+    <!-- TODO: show bar automatically at width > 1160px -->
     <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-toolbar">
       <div class="md-toolbar-container">
         <md-button 
@@ -100,6 +101,7 @@
 
       </md-list>
     </md-sidenav>
+
   </header>
 </template>
 
@@ -135,16 +137,15 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
-.mdl-layout__header
-  transition all 0.2s ease-out
-  overflow hidden
-
-  .mdl-layout__drawer-button
-    background-color rgba(0,0,0,0)
-.mdl-hidden
-  opacity 0
-  height 0
+<style lang="stylus">
+.md-toolbar
   padding 0
-  min-height 0
+
+  &-container
+    padding 0 8px
+
+/*.md-tabs
+  &-navigation
+    .md-tab-indicator
+      background white !important*/
 </style>

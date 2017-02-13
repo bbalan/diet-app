@@ -21,6 +21,7 @@
 </template>
 
 <script>
+// TODO: add workout notes field
 import store from 'store'
 import uuid from 'uuid'
 import router from 'router'

@@ -1,27 +1,48 @@
 <template>
   <div class="entryFood">
+
+    <md-tabs md-fixed @change="nav" class="md-transparent">
+      <md-tab md-label="Search"></md-tab>
+      <md-tab md-label="Favorites"></md-tab>
+      <md-tab md-label="Custom"></md-tab>
+      <md-tab md-label="Recipes"></md-tab>
+    </md-tabs>
     
-    <router-link to="/food/search" class="tab">Search</router-link>
-    <router-link to="/food/favorites" class="tab">Favorites</router-link>
-    <router-link to="/food/custom" class="tab">Custom</router-link>
-    <router-link to="/food/recipes" class="tab">Recipes</router-link>
-    
-    <hr>
+      <!--<nav>Foods:
+        <router-link to="/food/new/USDA/09503">Apples</router-link>
+        <router-link to="/food/new/USDA/42131">Milk</router-link>
+        <router-link to="/food/new/USDA/05064">Chicken</router-link>
+      </nav>-->
 
-    <nav>Foods:
-      <router-link to="/food/new/USDA/09503">Apples</router-link>
-      <router-link to="/food/new/USDA/42131">Milk</router-link>
-      <router-link to="/food/new/USDA/05064">Chicken</router-link>
-    </nav>
-
-    <hr>
-
-    <router-view></router-view>
+      <router-view></router-view>
   </div>
 </template>
 
 <script>
+import router from 'router'
+
 export default {
   name: 'FoodFind',
+  data() {
+    return {
+      foodPathNames: [
+        'foodSearch',
+        'foodFavorites',
+        'foodCustom',
+        'foodRecipes',
+      ],
+    }
+  },
+  methods: {
+    nav(tabIdx) {
+      router.push({ name: this.foodPathNames[tabIdx] })
+    },
+  },
 }
 </script>
+
+<style lang="stylus">
+.entryFood
+  .md-tabs-content
+    display none
+</style>

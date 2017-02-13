@@ -1,23 +1,22 @@
 <template>
   <div class="resultList">
 
-    <div v-if="list !== null && list.length > 0">
-      <h2>{{list.length}} results</h2>
+    <div v-if="list !== null && list.length > 0 && !!searchText">
+      <!--<h2>{{list.length}} results</h2>-->
+      <!--<span class="md-headline">{{list.length}} results</span>-->
       
-      <ul>
-        <food-link
-          v-for="result in orderedList" 
-          :id="result.id"
-          :source="result.source"
-          :name="result.name">
-        </food-link>
-      </ul>
-    </div>
-
-    <div v-else>
-      <div v-if="searchText != ''">
-        No results :(
-      </div>
+      <md-list class="link-list">
+        <md-list-item 
+          v-for="result in orderedList">
+          <router-link 
+            class="foodLink" 
+            :to="`/food/new/${result.source}/${result.id}`">
+            {{ result.name }}
+          </router-link>
+        </md-list-item>
+        
+        <md-list-item class="end-of-results">End of results</md-list-item>
+      </md-list>
     </div>
 
   </div>
@@ -35,7 +34,7 @@ export default {
     /* Sort list alphabetically, except items with searchText at
     the beginning of their names float to the top */
     orderedList() {
-      if (this.list === null) return null
+      if (this.list === null || !this.searchText) return null
 
       const text = this.searchText.toLowerCase().split(' ')[0]
       const startsWithText = []
@@ -64,6 +63,25 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="stylus">
+.resultList
+  padding-top 0
+  width 100%
+  height 100%
+  overflow-x hidden
+  overflow-y scroll
+  padding-bottom 48px
+  a
+    padding-left 56px
 
+  .md-list-item
+    .md-list-item-container
+      padding-left 56px !important
+    &.end-of-results
+      padding-left 56px
+      padding-top 32px
+      color rgba(0,0,0,.5)
+      border-top 1px solid #eee
+      .md-list-item-container
+        padding 0 !important
 </style>

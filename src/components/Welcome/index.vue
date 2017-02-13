@@ -210,6 +210,18 @@ export default {
 button.hidden
   opacity 0
   pointer-events none
+  
+.button-next
+  .md-icon
+    margin-right -8px
+    margin-top -1px
+
+.button-before
+  min-width 0
+  width 40px
+  .md-icon
+    margin-left -8px
+    margin-top -1px
 </style>
 
 <style lang="stylus">

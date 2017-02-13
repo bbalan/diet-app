@@ -22,6 +22,8 @@ import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
 import LocalStorage from 'components/Dev/LocalStorage'
 
+const appName = 'App' // the name of this app (appears in tab title)
+
 const router = new VueRouter({
   mode: 'history',
   routes: [
@@ -149,6 +151,10 @@ const router = new VueRouter({
     { name: 'devEntries', path: '/entries', component: Entries },
     { name: 'devLocalStorage', path: '/localStorage', component: LocalStorage },
   ],
+})
+
+router.afterEach((route) => {
+  document.title = route.meta.title ? `${appName} | ${route.meta.title}` : appName
 })
 
 Vue.use(VueRouter);

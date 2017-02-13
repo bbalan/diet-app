@@ -1,8 +1,9 @@
 <template>
-  <div>
-    <!--<h1>Log</h1>-->
-    <day v-for="(dataDay, date) in calendar" :dataDay="dataDay" :date="date">
-    </day>
+  <div class="log">
+    <div class="grid__outer">
+      <day v-for="(dataDay, date) in calendar" :dataDay="dataDay" :date="date">
+      </day>
+    </div>
   </div>
 </template>
 
@@ -37,8 +38,13 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-/*.main-toolbar
-  position fixed
+.log
+  position absolute
+  top 0
+  left 0
   width 100%
-  top 0*/
+  height 100%
+  box-sizing border-box
+  border-top 64px solid transparent
+  overflow scroll
 </style>
