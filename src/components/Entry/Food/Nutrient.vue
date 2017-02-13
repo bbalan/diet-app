@@ -13,7 +13,12 @@
 <script>
 export default {
   props: {
-    nutrient: Object,
+    nutrient: {
+      Object,
+      default() {
+        return {}
+      },
+    },
     decimals: {
       type: Number,
       default: 1,

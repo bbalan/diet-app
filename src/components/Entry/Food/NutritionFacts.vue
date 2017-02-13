@@ -25,8 +25,11 @@ export default {
         default: return []
       }
     },
+    // Get nutrient data from food data
     nutrientData() {
-      return this.visibleNutrients.map((id) => {
+      const data = []
+
+      this.visibleNutrients.forEach((id) => {
         let nutrientFilter
 
         switch (this.source) {
@@ -35,11 +38,15 @@ export default {
             break
           case API.OTHER:
           default:
-            return []
+            break
         }
 
-        return this.dataFood.nutrients.filter(nutrientFilter)[0]
+        const foundNutrient = this.dataFood.nutrients.filter(nutrientFilter)[0]
+
+        if (foundNutrient) data.push(foundNutrient)
       })
+
+      return data
     },
   },
 }
@@ -49,12 +56,4 @@ export default {
 .nutrition-facts
   padding 0 0 8px 0
   margin-bottom 16px
-  .md-table-row:first-child
-    padding-bottom 16px !important
-    height 48px
-    border-bottom 1px solid #eee !important
-  .md-table tbody .md-table-row
-    border none
-    .md-table-cell
-      height 36px !important
 </style>
