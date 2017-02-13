@@ -18,6 +18,21 @@
         </md-button>
 
         <h2 class="md-title" style="flex: 1">{{ pageTitle }}</h2>
+        
+        <md-menu 
+          v-if="isEntry"
+          md-size="2" 
+          md-direction="bottom left">
+
+          <md-button md-menu-trigger class="md-icon-button menu-button">
+            <md-icon>more_vert</md-icon>
+          </md-button>
+
+          <md-menu-content>
+            <md-menu-item @click.native="onEntryDelete">Delete</md-menu-item>
+          </md-menu-content>
+          
+        </md-menu>
       </div>
     </md-whiteframe>
 
@@ -123,6 +138,13 @@ export default {
     isSidebarEnabled() {
       return this.$route.meta.sidebar
     },
+    isEntry() {
+      return this.$route.name === 'entry'
+    },
+    entryUUID() {
+      if (this.isEntry) return this.$route.params.uuid
+      return null
+    },
   },
   methods: {
     toggleLeftSidenav() {
@@ -131,6 +153,10 @@ export default {
     },
     goBack() {
       router.go(-1)
+    },
+    onEntryDelete() {
+      store.commit('entries/delete', { uuid: this.entryUUID })
+      router.push('/log')
     },
   },
 }
@@ -146,6 +172,15 @@ export default {
 .md-sidenav
   &-content
     box-shadow none !important
+
+.menu-button
+  position relative
+  right -16px
+
+.md-menu-content
+  min-height 48px !important
+  .md-list
+    padding 0
 /*.md-tabs
   &-navigation
     .md-tab-indicator

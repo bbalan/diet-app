@@ -1,9 +1,12 @@
 <template>
 
-  <md-table-row v-if="nutrient" :class="`nutrient-id-${id}`">
-    <md-table-cell class="nutrient-name">{{ name }}</md-table-cell>
-    <md-table-cell md-numeric>{{ value }} {{ nutrient.unit }}</md-table-cell>
-  </md-table-row>
+  <div v-if="nutrient && showNutrient" :class="`nutrient nutrient-id-${id}`">
+    <div class="nutrient__name">{{ name }}</div>
+    <div class="nutrient__value">
+      {{ value }} 
+      <span class="nutrient__unit">{{ nutrient.unit }}</span>
+    </div>
+  </div>
 
 </template>
 
@@ -41,24 +44,45 @@ export default {
         default: return this.nutrient.name
       }
     },
+    // Only show secondary nutrients if value is not 0
+    showNutrient() {
+      if (['605', '606', '307'].includes(this.id)) {
+        return this.value !== 0
+      }
+      return true
+    },
   },
 }
 </script>
 
 <style scoped lang="stylus">
-.nutrient-name
-  font-weight bold
+.nutrient
+  padding 8px 16px
+  
+  &__name
+    font-weight bold
+    float left
+  &__value
+    float right
 
-.nutrient-id-208
-  background #eee
-  .md-table-cell
-    /*color white !important*/
+  &-id-208
+    background #eee
+    font-weight normal
+    font-size 20px
+    padding 16px
 
-.nutrient-id-606
-.nutrient-id-605
-  font-weight normal
-  padding-left 20px !important
+    .nutrient__name
+      font-weight normal
 
-.nutrient-id-307
-  font-weight normal
+    .nutrient__unit
+      /*display none*/
+
+  &-id-606
+  &-id-605
+    .nutrient__name
+      font-weight normal
+      padding-left 20px
+
+  &-id-307
+    font-weight normal
 </style>

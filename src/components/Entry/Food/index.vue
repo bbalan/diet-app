@@ -3,9 +3,12 @@
 
     <span v-if="loading" class="loading">Loading...</span>
 
-    <form v-else @submit.prevent>
-      <div class="md-display-1">{{ dataFood.name }}</div>
-      <p class="md-caption" v-if="source">Source: {{ source }}</p>
+    <form @submit.prevent="onSubmit" :class="{ loading: loading }">
+      <div class="md-display-1 entry-name">
+        {{ dataFood.name }}
+        <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
+      </div>
+      
 
       <!--<hr class="md-divider">-->
 
@@ -24,7 +27,8 @@
         </md-button>
       </div>
 
-        <button v-if="uuid" @click="entryDelete">Delete</button>
+      <!-- Moved this to MainNav.vue -->
+      <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
 
       <nutrition-facts
         :dataFood="dataFood" 
@@ -157,9 +161,12 @@ export default {
       const foodCache = store.state.foodCache
       const existing = Object
         .entries(foodCache)
-        .find(food =>
-          food[1].id === this.id && food[1].source === this.source
-        )
+        .find((food) => {
+          if (food[1]) {
+            return food[1].id === this.id && food[1].source === this.source
+          }
+          return false
+        })
 
       if (existing) {
         this.dataFood = existing[1].dataFood
@@ -216,28 +223,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.food-entry
-  position absolute
-  top 0
-  left 0
-  width 100%
-  height 100%
-  border-top 64px solid #eee
-  background white
-.mass__unit
-  height 0
-  line-height 1em
-  position absolute
-  bottom 24px
-  right 0
-.inputs
-  margin-top 32px
-  position relative
-  &__mass
-    border-right 110px solid transparent
-  &__eat
-    position absolute
-    bottom 0
-    right 0
-    margin-right 0
+form.loading
+  background red
 </style>

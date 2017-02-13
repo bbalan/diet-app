@@ -1,20 +1,27 @@
 <template>
-  <div>
-    <h2>Workout</h2>
-
+  <div class="workout-entry grid__outer">
     <form @submit.prevent="onSubmit">
-      <p>
-        <label for="workoutName">Name:</label>
-        <input name="workoutName" type="text" v-model="name">
-      </p>
+      <div v-if="!isNew" class="md-display-1 entry-name">{{ name }}</div>
 
-      <p>
-        <label for="workoutCalories">Calories burned:</label>
-        <input name="workoutCalories" type="number" v-model.number="calories">
-      </p>
+      <div class="inputs">
+        <md-input-container v-if="isNew" class="inputs__name">
+          <label>Workout name</label>
+          <md-input v-model.number="name"></md-input>
+        </md-input-container>
 
-      <button v-if="isNew" type="submit">Log workout</button>
-      <button v-if="!isNew" type="submit">Save</button>
+        <md-input-container class="inputs__calories">
+          <label>Calories burned</label>
+          <md-input type="number" v-model.number="calories"></md-input>
+          <span class="calories__unit">kcal</span>
+        </md-input-container>
+
+        <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+          Track
+        </md-button>
+        <md-button v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+          Save
+        </md-button>
+      </div>
     </form>
     
   </div>

@@ -1,24 +1,11 @@
 <template>
   <md-card class="nutrition-facts">
-
-    <md-table>
-      <!--<md-table-header>
-        <md-table-row>
-          <md-table-head>Nutrient</md-table-head>
-          <md-table-head md-numeric>Amount</md-table-head>
-        </md-table-row>
-      </md-table-header>-->
-
-      <md-table-body>
-        <nutrient 
-          v-for="nutrientID in visibleNutrients"
-          v-if="getNutrient(nutrientID)"
-          :nutrient="getNutrient(nutrientID)"
-          :mass="mass"
-          :decimals="1">
-        </nutrient>
-      </md-table-body>
-    </md-table>
+    <nutrient 
+      v-for="nutrient in nutrientData"
+      :nutrient="nutrient"
+      :mass="mass"
+      :decimals="1">
+    </nutrient>
   </md-card>
 </template>
 
@@ -38,22 +25,21 @@ export default {
         default: return []
       }
     },
-  },
-  methods: {
-    // Get nutrient by USDA nutrient ID
-    getNutrient(id) {
-      let nutrientFilter
+    nutrientData() {
+      return this.visibleNutrients.map((id) => {
+        let nutrientFilter
 
-      switch (this.source) {
-        case API.USDA:
-          nutrientFilter = item => (item.nutrient_id === id)
-          break
-        case API.OTHER:
-        default:
-          return []
-      }
+        switch (this.source) {
+          case API.USDA:
+            nutrientFilter = item => (item.nutrient_id === id)
+            break
+          case API.OTHER:
+          default:
+            return []
+        }
 
-      return this.dataFood.nutrients.filter(nutrientFilter)[0]
+        return this.dataFood.nutrients.filter(nutrientFilter)[0]
+      })
     },
   },
 }
@@ -61,7 +47,8 @@ export default {
 
 <style lang="stylus">
 .nutrition-facts
-  padding 0 0 16px 0
+  padding 0 0 8px 0
+  margin-bottom 16px
   .md-table-row:first-child
     padding-bottom 16px !important
     height 48px

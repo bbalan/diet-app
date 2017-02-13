@@ -50,3 +50,43 @@ export default {
   },
 }
 </script>
+
+<style lang="stylus">
+
+.entry-name
+  margin-bottom 16px
+
+.food-entry
+.workout-entry
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  border-top 64px solid #eee
+  background white
+  overflow-x hidden
+  overflow-y scroll
+
+  .inputs
+    margin 0 0 32px 0
+    position relative
+    &__submit
+      margin-bottom 0
+    &__mass
+    &__calories
+      border-right 110px solid transparent
+      margin-bottom 16px
+    &__eat
+      position absolute
+      bottom 0
+      right 0
+      margin-right 0
+.mass__unit
+.calories__unit
+  height 0
+  line-height 1em
+  position absolute
+  bottom 24px
+  right 0
+</style>
