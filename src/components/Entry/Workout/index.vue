@@ -1,12 +1,14 @@
 <template>
   <div class="workout-entry grid__outer">
     <form @submit.prevent="onSubmit">
-      <div v-if="!isNew" class="md-display-1 entry-name">{{ name }}</div>
+      <!--<div  v-if="!isNew && !isEditingName" :class="`${headingClass} entry-name`">
+        {{ name }}
+      </div>-->
 
       <div class="inputs">
-        <md-input-container v-if="isNew" class="inputs__name">
-          <label>Workout name</label>
-          <md-input v-model.number="name"></md-input>
+        <md-input-container class="inputs__name">
+          <label>Edit name</label>
+          <md-input @click="startEditingName" v-model.number="name" ref="workoutName"></md-input>
         </md-input-container>
 
         <md-input-container class="inputs__calories">
@@ -44,7 +46,30 @@ export default {
     }
   },
   created() {
+    this.stopEditingName()
     this.getData()
+  },
+  computed: {
+    isEditingName() {
+      return store.state.appStatus.workout.isEditingName
+    },
+    headingClass() {
+      if (!this.uuid) return 'md-display-1'
+
+      const len = this.name.length
+
+      if (len <= 20) {
+        return 'md-display-1'
+      } else if (len > 20 && len <= 50) {
+        return 'md-title'
+      }
+      return 'md-subheading'
+    },
+  },
+  watch: {
+    isEditingName() {
+      this.$refs.workoutName.$el.focus()
+    },
   },
   methods: {
     getData() {
@@ -65,6 +90,8 @@ export default {
       return
     },
     onSubmit() {
+      store.commit('appStatus/workoutStopEditingName')
+
       // This is a new entry
       if (!this.uuid) {
         const workoutUUID = uuid.v4()
@@ -99,6 +126,12 @@ export default {
       }
 
       router.push({ name: 'log' })
+    },
+    startEditingName() {
+      store.commit('appStatus/workoutStartEditingName')
+    },
+    stopEditingName() {
+      store.commit('appStatus/workoutStopEditingName')
     },
   },
 }

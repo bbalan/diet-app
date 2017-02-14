@@ -1,8 +1,7 @@
 <template>
   <div class="log">
     <div class="grid__outer">
-      <day v-for="(dataDay, date) in calendar" :dataDay="dataDay" :date="date">
-      </day>
+      <day :dataDay="dataCurrentDay" :date="currentDay"></day>
     </div>
   </div>
 </template>
@@ -16,22 +15,14 @@ export default {
   components: { Day },
   computed: {
     // TODO: sort calendar by date
-    calendar: {
-      get() {
-        return store.state.calendar.data
-      },
+    calendar() {
+      return store.state.calendar.data
     },
     currentDay() {
       return store.state.calendar.currentDay
     },
-    dateFormatted() {
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-
-      const parsed = new Date(Date.parse(this.currentDay))
-      const formatted = `${months[parsed.getMonth()]}
-       ${parsed.getDate()}`
-
-      return formatted
+    dataCurrentDay() {
+      return store.state.calendar.data[this.currentDay]
     },
   },
 }
@@ -45,7 +36,7 @@ export default {
   width 100%
   height 100%
   box-sizing border-box
-  border-top 64px solid transparent
+  border-top 56px solid transparent
   overflow-x hidden
   overflow-y scroll
 </style>

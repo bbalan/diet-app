@@ -49,6 +49,7 @@ export default {
 <style scoped lang="stylus">
 .bodyFatPct
   display inline-block !important
+  max-width 40% !important
   label
     width 200px
     pointer-events none !important
@@ -66,6 +67,8 @@ export default {
     .bodyFatPct__percent
       opacity 1
 .bodyFatPct__dont-know
-  margin 16px 16px 16px 32px
+  margin 16px 0 16px 16px
   display inline-block !important
+  /*max-width 40%*/
+  min-width 142px
 </style>

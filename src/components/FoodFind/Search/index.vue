@@ -235,7 +235,7 @@ export default {
   left 0
   width 100%
   height 100%
-  padding-top 112px
+  padding-top 104px
   box-sizing border-box
   overflow hidden
   form

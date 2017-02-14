@@ -10,9 +10,11 @@
       v-if="isWorkout"
       :uuid="uuid">
     </workout>
-    <div v-if="!dataEntry && !isFood">
-      Entry not found
-      <pre>{{entries}}</pre>
+    <div class="grid__outer">
+      <div v-if="!dataEntry && !isFood" class="md-display-1">
+        <md-icon>warning</md-icon>
+        Entry not found
+      </div>
     </div>
   </div>
 </template>
@@ -55,7 +57,27 @@ export default {
 
 .entry-name
   margin-bottom 16px
+  width 100%
+  overflow hidden
+  position relative
+  &:after
+    pointer-events none
+    display block
+    content ''
+    width 50px
+    height 100%
+    position absolute
+    top 0
+    right 0
+    background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
 
+.workout-entry
+  .entry-name
+    border-right 32px solid transparent
+  .md-icon.workout__edit
+    position absolute
+    right 0
+    top 0
 .food-entry
 .workout-entry
   position absolute
@@ -63,7 +85,7 @@ export default {
   left 0
   width 100%
   height 100%
-  border-top 64px solid #eee
+  border-top 56px solid #eee
   background white
   overflow-x hidden
   overflow-y scroll

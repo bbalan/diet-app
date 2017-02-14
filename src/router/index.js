@@ -88,7 +88,7 @@ const router = new VueRouter({
       component: FoodFind,
       redirect: { name: 'foodSearch' },
       meta: {
-        title: 'Track Food',
+        title: 'Track food',
         sidebar: true,
       },
       children: [
@@ -98,7 +98,7 @@ const router = new VueRouter({
           component: FoodSearch,
           props: true,
           meta: {
-            title: 'Track Food',
+            title: 'Track food',
             sidebar: true,
           },
         },
@@ -107,7 +107,7 @@ const router = new VueRouter({
           path: 'favorites',
           component: FoodFavorites,
           meta: {
-            title: 'Track Food',
+            title: 'Track food',
             sidebar: true,
           },
         },
@@ -116,7 +116,7 @@ const router = new VueRouter({
           path: 'custom',
           component: FoodCustom,
           meta: {
-            title: 'Track Food',
+            title: 'Track food',
             sidebar: true,
           },
         },
@@ -125,7 +125,7 @@ const router = new VueRouter({
           path: 'recipes',
           component: FoodRecipes,
           meta: {
-            title: 'Track Food',
+            title: 'Track food',
             sidebar: true,
           },
         },
@@ -184,7 +184,7 @@ router.afterEach((route) => {
   }
 })
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 sync(store, router)
 
 export default router
