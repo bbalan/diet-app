@@ -5,14 +5,12 @@
     </md-whiteframe>
 
     <div class="slide__content grid__outer">
-      <!-- TODO: replace this with a vue <slot> -->
-      <p v-if="description">{{ description }}</p>
+      <slot name="description"></slot>
 
       <div class="slide__inputs">
-        <slot>
-          Slide content goes here.
-        </slot>
+        <slot></slot>
       </div>
+
     </div>
   </div>
 </template>
@@ -46,9 +44,8 @@ export default {
   background white
 
   &__inputs
-    text-align left
-    p:first-child
-        margin-top 0
+    position relative
+    margin-top 24px
 
   &__content
     box-sizing border-box

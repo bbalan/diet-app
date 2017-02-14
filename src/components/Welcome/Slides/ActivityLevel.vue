@@ -1,52 +1,43 @@
 <template>
-  <slide 
-    title="How active are you?" 
-    description="Your lifestyle affects your calorie needs.">
-    
-    <label class="activity-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="activityLevel">
-      <input 
-        type="radio" 
-        name="activityLevel"
-        id="sendentary" 
-        :value="1.2" 
-        v-model="activityLevel"
-        class="mdl-radio__button"
-        required>
-      <span class="mdl-radio__label">Sendentary</span>
-    </label>
-    <label class="activity-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="activityLevel">
-      <input 
-        type="radio" 
-        name="activityLevel"
-        id="sendentary" 
-        :value="1.4" 
-        v-model="activityLevel"
-        class="mdl-radio__button"
-        required>
-      <span class="mdl-radio__label">Active</span>
-    </label>
-    <label class="activity-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="activityLevel">
-      <input 
-        type="radio" 
-        name="activityLevel"
-        id="sendentary" 
-        :value="1.6" 
-        v-model="activityLevel"
-        class="mdl-radio__button"
-        required>
-      <span class="mdl-radio__label">Heavy activity</span>
-    </label>
-    <label class="activity-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="activityLevel">
-      <input 
-        type="radio" 
-        name="activityLevel"
-        id="sendentary" 
-        :value="1.8" 
-        v-model="activityLevel"
-        class="mdl-radio__button"
-        required>
-      <span class="mdl-radio__label">Intense activity</span>
-    </label>
+  <slide title="How active are you?">
+
+    <p slot="description">Your lifestyle affects your calorie needs.</p>
+
+    <md-radio 
+      type="radio" 
+      name="activityLevel" 
+      id="sedentary" 
+      md-value="1.2" 
+      v-model="activityLevel"
+      class="md-primary goal-radio"
+      required>Sedentary</md-radio>
+
+    <md-radio 
+      type="radio" 
+      name="activityLevel" 
+      id="active" 
+      md-value="1.4" 
+      v-model="activityLevel"
+      class="md-primary goal-radio"
+      required>Active</md-radio>
+
+    <md-radio 
+      type="radio" 
+      name="activityLevel" 
+      id="heavy-activity" 
+      md-value="1.6" 
+      v-model="activityLevel"
+      class="md-primary gender-radio"
+      required>Heavy activity</md-radio>
+
+    <md-radio 
+      type="radio" 
+      name="activityLevel" 
+      id="intense-activity" 
+      md-value="1.8" 
+      v-model="activityLevel"
+      class="md-primary gender-radio"
+      required>Intense activity</md-radio>
     
   </slide>
 </template>

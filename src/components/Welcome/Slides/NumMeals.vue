@@ -1,5 +1,10 @@
 <template>
-  <slide title="How many meals per day?" description="Most people eat 3 meals per day. The recommended number is 5 or 6.">
+  <slide title="How many meals per day?">
+
+    <div slot="description">
+      <p>Most people eat 3 meals per day.</p>
+      <p>The recommended number is 5 or 6 &mdash; smaller meals, eaten more frequently.</p>
+    </div>
 
     <md-input-container>
       <label>Number of meals per day</label>

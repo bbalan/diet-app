@@ -1,31 +1,26 @@
 <template>
-  <slide title="What is your gender?" description="This is required to calculate your basal metabolic rate.">
-    <div class="slide__inputs">
-      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gender-male">
-        <input 
-          type="radio" 
-          name="gender" 
-          id="gender-male" 
-          value="male" 
-          v-model="gender"
-          class="mdl-radio__button"
-          required>
-        <span class="mdl-radio__label">Male</span>
-      </label>
-      <label class="mdl-radio mdl-js-radio mdl-js-ripple-effect" for="gender-female">
-        <input 
-          type="radio" 
-          name="gender" 
-          id="gender-female" 
-          value="female" 
-          v-model="gender"
-          class="mdl-radio__button"
-          required>
-        <span class="mdl-radio__label">Female</span>
-      </label>
-    </div>
+  <slide title="What is your gender?" class="slide--gender">
 
-    
+    <p slot="description">This is required to calculate your basal metabolic rate.</p>
+
+    <md-radio 
+      type="radio" 
+      name="gender" 
+      id="gender-male" 
+      md-value="male" 
+      v-model="gender"
+      class="md-primary gender-radio"
+      required>Male</md-radio>
+
+    <md-radio 
+      type="radio" 
+      name="gender" 
+      id="gender-female" 
+      md-value="female" 
+      v-model="gender"
+      class="md-primary gender-radio"
+      required>Female</md-radio>
+
   </slide>
 </template>
 
@@ -51,11 +46,5 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
-.mdl-radio
-  display block
-.gender__inputs
-  display inline-block
-  text-align left
-  margin 20px
+<style lang="stylus">
 </style>

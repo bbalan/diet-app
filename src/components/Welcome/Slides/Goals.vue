@@ -1,41 +1,34 @@
 <template>
-  <slide title="What are your goals?" description="This will affect how much you can eat.">
+  <slide title="What are your goals?">
 
-    <div class="slide__inputs">
-      <label class="goal-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="burn-fat">
-        <input 
-          type="radio" 
-          name="goal"
-          id="burn-fat" 
-          value="burn-fat" 
-          v-model="goal"
-          class="mdl-radio__button"
-          required>
-        <span class="mdl-radio__label">Burn fat</span>
-      </label>
-      <label class="goal-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="build-muscle">
-        <input 
-          type="radio" 
-          name="goal"
-          id="build-muscle" 
-          value="build-muscle" 
-          v-model="goal"
-          class="mdl-radio__button"
-          required>
-        <span class="mdl-radio__label">Build muscle</span>
-      </label>
-      <label class="goal-radio mdl-radio mdl-js-radio mdl-js-ripple-effect" for="maintain-weight">
-        <input 
-          type="radio" 
-          name="goal"
-          id="maintain-weight" 
-          value="maintain-weight" 
-          v-model="goal"
-          class="mdl-radio__button"
-          required>
-        <span class="mdl-radio__label">Maintain weight</span>
-      </label>
-    </div>
+    <p slot="description">This will affect how much you can eat.</p>
+
+    <md-radio 
+      type="radio" 
+      name="goal" 
+      id="burn-fat" 
+      md-value="burn-fat" 
+      v-model="goal"
+      class="md-primary goal-radio"
+      required>Burn fat</md-radio>
+
+    <md-radio 
+      type="radio" 
+      name="goal" 
+      id="build-muscle" 
+      md-value="build-muscle" 
+      v-model="goal"
+      class="md-primary goal-radio"
+      required>Build muscle</md-radio>
+
+    <md-radio 
+      type="radio" 
+      name="goal" 
+      id="maintain-weight" 
+      md-value="maintain-weight" 
+      v-model="goal"
+      class="md-primary goal-radio"
+      required>Maintain weight</md-radio>
     
   </slide>
 </template>

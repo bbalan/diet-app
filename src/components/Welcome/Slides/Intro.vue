@@ -1,7 +1,9 @@
 <template>
-  <slide nextText="Let's go" title="Hi!" text="">
-    <p>This app is a simple way to manage your nutrition.</p>
-    <p>First, let's find out a little about you.</p>
+  <slide nextText="Let's go" title="Hi!">
+    <div slot="description">
+      <p>This app is a simple way to manage your nutrition.</p>
+      <p>First, let's find out a little about you.</p>
+    </div>
   </slide>
 </template>
 

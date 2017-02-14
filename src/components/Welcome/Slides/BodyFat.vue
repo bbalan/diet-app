@@ -1,28 +1,22 @@
 <template>
-  <slide title="What's your body fat percentage?" description="You can measure this with calipers.">
+  <slide title="What's your body fat percentage?" class="slide--bodyfat">
 
-    <div class="slide__inputs">
-      <div 
-        v-if="knowBodyFat" 
-        class="bodyFatPct mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        
-        <input 
-          v-model="bodyFatPct" 
-          class="mdl-textfield__input" 
-          type="number" 
-          step="1" 
-          id="bodyFatPct">%
-        <!--<label class="mdl-textfield__label" for="bodyFatPct">Body fat</label>-->
-        <span class="mdl-textfield__error">Input is not a number!</span>
-      </div>
-
-      <button 
-        type="button"
-        @click="onDontKnow" 
-        class="bodyFatPct__dont-know mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-        I don't know
-      </button>
+    <div slot="description">
+      <p>You can measure your body fat with calipers. It's ok if you're not sure!</p>
     </div>
+
+    <md-input-container class="bodyFatPct">
+      <label for="bodyFatPct__input">Body fat</label>
+      <md-input name="bodyFatPct__input" v-model="bodyFatPct" type="number"></md-input>
+      <span class="bodyFatPct__percent">%</span>
+    </md-input-container>
+    
+    <md-button 
+      @click.native="onDontKnow" 
+      class="md-raised md-primary icon-right bodyFatPct__dont-know">
+      I'm not sure
+      <md-icon>navigate_next</md-icon>
+    </md-button>
     
   </slide>
 </template>
@@ -33,9 +27,6 @@ import Slide from 'components/Welcome/Slide'
 
 export default {
   components: { Slide },
-  data() {
-    return { knowBodyFat: true }
-  },
   computed: {
     bodyFatPct: {
       get() {
@@ -49,6 +40,7 @@ export default {
   methods: {
     onDontKnow() {
       this.bodyFatPct = null
+      this.$emit('evtDontKnow')
     },
   },
 }
@@ -56,16 +48,24 @@ export default {
 
 <style scoped lang="stylus">
 .bodyFatPct
-  display block
-  width 50px
-  text-align left
-
-  &__dont-know
-    display inline-block
-    margin 20px 0
-    float left
-
-  input
-    width 30px
-    display inline-block
+  display inline-block !important
+  label
+    width 200px
+    pointer-events none !important
+  position relative
+  width 124px
+  &__percent
+    opacity 0
+    transition opacity .2s
+    position absolute
+    right 0
+    bottom 7px
+    pointer-events none
+  &.md-input-focused
+  &.md-has-value
+    .bodyFatPct__percent
+      opacity 1
+.bodyFatPct__dont-know
+  margin 16px
+  display inline-block !important
 </style>

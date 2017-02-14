@@ -10,7 +10,7 @@
           <gender data-hash="gender"></gender>
           <height data-hash="height"></height>
           <weight data-hash="weight"></weight>
-          <body-fat data-hash="body-fat"></body-fat>
+          <body-fat data-hash="body-fat" @evtDontKnow="swiperNext"></body-fat>
           <goals data-hash="goals"></goals>
           <activity-level data-hash="activity-level"></activity-level>
           <num-meals data-hash="num-meals"></num-meals>

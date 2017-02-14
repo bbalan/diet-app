@@ -1,25 +1,32 @@
 <template>
-  <slide title="How much do you weigh?" description="Your weight affects the number of calories you burn. Use a bathroom scale to measure your weight.">
+  <slide title="How much do you weigh?" class="slide--weight">
 
-    <div class="slide__inputs">
-      <div class="weight--textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-        <input class="mdl-textfield__input" type="number" step=".1" id="weight" v-model.number="weight">
-        <!--<label class="mdl-textfield__label" for="weight">Weight</label>-->
-        <span class="mdl-textfield__error">Please enter a number</span>
-      </div>
-
-      <div class="unit--textfield mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select getmdl-select__fix-height">
-        <input class="mdl-textfield__input" type="text" id="sample2" v-model="unitWeight" readonly tabIndex="-1">
-        <label for="sample2">
-          <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-        </label>
-        <!--<label for="sample2" class="mdl-textfield__label">Unit</label>-->
-        <ul for="sample2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-          <li class="mdl-menu__item" @click="setUnitWeight('lbs')">lbs</li>
-          <li class="mdl-menu__item" @click="setUnitWeight('kg')">kg</li>
-        </ul>
-      </div>
+    <div slot="description">
+      <p>Your weight affects the number of calories you burn.</p>
+      <p>If you don't already own a bathroom scale, get one.</p>
     </div>
+
+    <md-input-container 
+      v-if="unitWeight == 'lbs'" 
+      class="weight__lbs weight__input">
+      <label for="weight__lbs">Weight</label>
+      <md-input name="weight__lbs" v-model="weight"></md-input>
+    </md-input-container>
+
+    <md-input-container 
+      v-if="unitWeight == 'kg'" 
+      class="weight__kg weight__input">
+      <label for="weight__kg">Weight</label>
+      <md-input name="weight__kg" v-model="weight"></md-input>
+    </md-input-container>
+
+    <md-input-container class="weight__unit">
+      <!--<label for="weight__unit">Unit</label>-->
+      <md-select name="weight__unit" id="weight__unit" v-model="unitWeight">
+        <md-option value="lbs">lbs</md-option>
+        <md-option value="kg">kg</md-option>
+      </md-select>
+    </md-input-container>
     
   </slide>
 </template>
@@ -69,8 +76,15 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.weight--textfield
-  width 70px
-.unit--textfield
-  width 50px
+.weight__input
+  width 75%
+  float left
+  position absolute
+
+.weight__unit
+  position absolute
+  right 0
+  width 20%
+  .md-select
+    min-width 0 !important
 </style>
