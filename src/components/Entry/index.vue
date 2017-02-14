@@ -60,7 +60,7 @@ export default {
   left 0
   width 100%
   height 100%
-  border-top 56px solid #eee
+  border-top 56px solid transparent
   background white
   overflow-x hidden
   overflow-y scroll

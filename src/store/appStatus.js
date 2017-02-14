@@ -2,16 +2,7 @@
 export default {
   namespaced: true,
   state: {
-    workout: {
-      isEditingName: false,
-    },
+    workout: {},
   },
-  mutations: {
-    workoutStartEditingName(state) {
-      state.workout.isEditingName = true
-    },
-    workoutStopEditingName(state) {
-      state.workout.isEditingName = false
-    },
-  },
+  mutations: {},
 }

@@ -65,14 +65,14 @@
         <md-list-item>
           <router-link :to="{ name: 'foodSearch' }">
             <md-icon>restaurant</md-icon>
-            <span>Track food</span>
+            <span>Food</span>
           </router-link>
         </md-list-item>
 
         <md-list-item>
           <router-link :to="{ name: 'workout' }">
             <md-icon>fitness_center</md-icon>
-            <span>Track workout</span>
+            <span>Workouts</span>
           </router-link>
         </md-list-item>
 

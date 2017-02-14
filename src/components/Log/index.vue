@@ -1,5 +1,5 @@
 <template>
-  <div class="log">
+  <div class="log solid__bg">
     <div class="grid__outer">
       <day :dataDay="dataCurrentDay" :date="currentDay"></day>
     </div>

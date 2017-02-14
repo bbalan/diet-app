@@ -1,5 +1,5 @@
 <template>
-  <div class="food-search">
+  <div class="food-search solid__bg">
     
     <form @submit.prevent="" class="grid__outer">
 
@@ -107,8 +107,8 @@ export default {
   },
   watch: {
     // User typed something into the search field.
-    searchText(text) {
-      this.doSearch(text)
+    searchText() {
+      this.doSearch(this.sanitizedSearch)
     },
   },
   computed: {

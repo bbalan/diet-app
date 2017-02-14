@@ -110,7 +110,7 @@ export default {
       padding-top 32px
       margin-top 16px !important
       color rgba(0,0,0,.5)
-      border-top 1px solid #eee
+      border-top 1px solid transparent
       .md-list-item-container
         padding 0 !important
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div>Custom</div>
+  <div class="solid__bg grid__outer">Custom</div>
 </template>
 
 <script>

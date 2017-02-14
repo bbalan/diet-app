@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <main-nav></main-nav>
-    <router-view></router-view>
+
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
@@ -26,28 +29,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="stylus">
-#app
-  width 100%
-  height 100%
-  position relative
-  font-family: 'Roboto', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing: antialiased
-  -moz-osx-font-smoothing: grayscale
-
-.clearfix
-  clear: both
-
-h2
-  font-size: 20px
-
-a
-  color: #42b983
-  text-decoration: none
-
-@media only screen and (max-width: 600px)
-  .container
-    width: 100% !important
-
-</style>

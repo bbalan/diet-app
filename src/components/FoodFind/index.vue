@@ -1,5 +1,5 @@
 <template>
-  <div class="entryFood">
+  <div class="entryFood solid__bg">
 
     <md-tabs md-fixed @change="nav" class="md-transparent">
       <md-tab md-label="Search"></md-tab>
@@ -14,7 +14,9 @@
         <router-link to="/food/new/USDA/05064">Chicken</router-link>
       </nav>-->
 
+    <transition name="fade" mode="out-in">
       <router-view></router-view>
+    </transition>
   </div>
 </template>
 

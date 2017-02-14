@@ -102,7 +102,6 @@ export default {
     // User pressed the Eat button
     onSubmit() {
       if (!this.mass) {
-        // console.log(this.$refs.massInput.)
         this.$refs.massInput.$el.classList.add('md-input-invalid')
         return
       }

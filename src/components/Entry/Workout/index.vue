@@ -9,19 +9,19 @@
       <div class="inputs">
         <md-input-container class="inputs__name">
           <label>Edit name</label>
-          <md-input @click="startEditingName" v-model.number="name" ref="workoutName"></md-input>
+          <md-input v-model.number="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
         </md-input-container>
 
         <md-input-container class="inputs__calories">
           <label>Calories burned</label>
-          <md-input type="number" v-model.number="calories"></md-input>
+          <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
           <span class="calories__unit">kcal</span>
         </md-input-container>
 
         <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
           Track
         </md-button>
-        <md-button v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+        <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
           Save
         </md-button>
       </div>
@@ -47,7 +47,6 @@ export default {
     }
   },
   created() {
-    this.stopEditingName()
     this.getData()
   },
   computed: {
@@ -91,8 +90,6 @@ export default {
       return
     },
     onSubmit() {
-      store.commit('appStatus/workoutStopEditingName')
-
       // This is a new entry
       if (!this.uuid) {
         const workoutUUID = uuid.v4()
@@ -128,11 +125,8 @@ export default {
 
       router.push({ name: 'log' })
     },
-    startEditingName() {
-      store.commit('appStatus/workoutStartEditingName')
-    },
-    stopEditingName() {
-      store.commit('appStatus/workoutStopEditingName')
+    onKeyUp(e) {
+      if (e.code === 'Enter') this.onSubmit()
     },
   },
 }
