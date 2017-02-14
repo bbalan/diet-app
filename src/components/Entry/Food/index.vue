@@ -14,10 +14,11 @@
       </div>
 
       <div class="inputs">
-        <md-input-container class="inputs__mass">
+        <md-input-container class="inputs__mass" ref="massInput">
           <label>Mass</label>
-          <md-input type="number" v-model.number="mass"></md-input>
+          <md-input type="number" v-model.number="mass" @click.native="onFocusMass"></md-input>
           <span class="mass__unit">grams</span>
+          <span class="md-error">Please enter a number</span>
         </md-input-container>
 
         <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
@@ -94,6 +95,12 @@ export default {
   methods: {
     // User pressed the Eat button
     onSubmit() {
+      if (!this.mass) {
+        // console.log(this.$refs.massInput.)
+        this.$refs.massInput.$el.classList.add('md-input-invalid')
+        return
+      }
+
       if (this.uuid) {
         this.entryEdit()
       } else {
@@ -242,11 +249,27 @@ export default {
           this.dataFood = null
         })
     },
+    onFocusMass() {
+      this.mass = null
+    },
   },
 }
 </script>
 
 <style scoped lang="stylus">
+.inputs__mass
+  input::-webkit-outer-spin-button
+  input::-webkit-inner-spin-button
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance none
+    margin 0 /* <-- Apparently some margin are still there even though it's hidden */
+  
+  .mass__unit
+    transition color .2s
+  &.md-input-invalid
+    .mass__unit
+      color #ff5722
+
 .food-entry-spinner
   position absolute
   top 0
