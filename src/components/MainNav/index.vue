@@ -171,6 +171,9 @@ export default {
   &-container
     padding 0 8px
 
+.menu-button
+  margin-right -8px !important
+
 .md-sidenav
   box-shadow none !important
   &-content
@@ -178,4 +181,9 @@ export default {
 
 .menu-open
   margin-left -8px !important
+
+.md-menu-content
+  min-height 48px !important
+  .md-list
+    padding 0
 </style>

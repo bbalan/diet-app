@@ -16,7 +16,7 @@
       <div class="inputs">
         <md-input-container class="inputs__mass" ref="massInput">
           <label>Mass</label>
-          <md-input type="number" v-model.number="mass" @click.native="onFocusMass"></md-input>
+          <md-input type="number" v-model.number="mass" @focus.native="onFocusMass" @blur.native="onBlurMass"></md-input>
           <span class="mass__unit">grams</span>
           <span class="md-error">Please enter a number</span>
         </md-input-container>
@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
+      massTemp: 100,
       dataFood: null,
       entrySource: null,
       loading: false,
@@ -69,6 +70,9 @@ export default {
   },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
+    mass(mass) {
+      if (mass) this.massTemp = mass
+    },
   },
   computed: {
     name() {
@@ -76,8 +80,8 @@ export default {
       return this.dataFood.name
     },
     normalizedMass() {
-      if (typeof this.mass !== 'number') return 0
-      return this.mass
+      if (typeof this.massTemp !== 'number') return 0
+      return this.massTemp
     },
     headingClass() {
       if (!this.dataFood) return ''
@@ -251,6 +255,9 @@ export default {
     },
     onFocusMass() {
       this.mass = null
+    },
+    onBlurMass() {
+      if (!this.mass) this.mass = this.massTemp
     },
   },
 }
