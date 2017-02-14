@@ -20,8 +20,6 @@ export default {
 
     if (!store.state.appSettings.signupComplete) {
       router.replace('/welcome#intro')
-    } else {
-      // router.replace('/log')
     }
   },
 }

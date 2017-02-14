@@ -51,11 +51,6 @@ const router = new VueRouter({
       path: '',
       redirect: { name: 'log' },
     },
-    {
-      name: 'root-android',
-      path: 'android_asset/www/index.html',
-      redirect: { name: 'log' },
-    },
 
     // =========== MAIN PAGES
     {
@@ -90,8 +85,8 @@ const router = new VueRouter({
     {
       name: 'food',
       path: '/food',
-      redirect: '/food/search',
       component: FoodFind,
+      redirect: { name: 'foodSearch' },
       meta: {
         title: 'Track Food',
         sidebar: true,
@@ -99,8 +94,9 @@ const router = new VueRouter({
       children: [
         {
           name: 'foodSearch',
-          path: 'search',
+          path: 'search/:query?',
           component: FoodSearch,
+          props: true,
           meta: {
             title: 'Track Food',
             sidebar: true,
@@ -158,8 +154,19 @@ const router = new VueRouter({
   ],
 })
 
+// Set tab title after each route change
 router.afterEach((route) => {
-  document.title = route.meta.title ? `${appName} | ${route.meta.title}` : appName
+  const title = route.meta.title
+  // document.title = title ? `${appName} | ${title}` : appName
+  document.title = title || appName
+
+  if (route.matched.length === 0) {
+    if (store.state.appSettings.signupComplete) {
+      router.replace({ name: 'log' })
+    } else {
+      router.replace('/welcome#intro')
+    }
+  }
 })
 
 Vue.use(VueRouter);

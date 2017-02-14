@@ -55,7 +55,7 @@
         </md-list-item>
 
         <md-list-item>
-          <router-link :to="{ name: 'food' }">
+          <router-link :to="{ name: 'foodSearch' }">
             <md-icon>restaurant</md-icon>
             <span>Track food</span>
           </router-link>
@@ -114,6 +114,7 @@
         </md-list-item>
 
       </md-list>
+
     </md-sidenav>
 
   </header>

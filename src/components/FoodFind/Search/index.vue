@@ -1,7 +1,7 @@
 <template>
   <div class="food-search">
     
-    <form @submit.prevent class="grid__outer">
+    <form @submit.prevent="" class="grid__outer">
 
       <md-whiteframe 
         md-elevation="2"
@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import router from 'router'
 // https://github.com/github/fetch
 import 'whatwg-fetch'
 import debounce from 'lodash.debounce'
@@ -80,28 +81,37 @@ import ResultList from './ResultList'
 export default {
   name: 'FoodSearch',
   components: { ResultList },
+  props: ['query'],
   data() {
     return {
-      searchText: '',
+      searchText: this.query,
       searchResults: [],
       dataFood: null,
       loading: false,
       didSearch: false,
     }
   },
+  mounted() {
+    if (this.searchText) this.doSearch(this.searchText)
+  },
+  watch: {
+    // User typed something into the search field.
+    searchText(text) {
+      this.doSearch(text)
+    },
+  },
   computed: {
     sanitizedSearch() {
       return encodeURIComponent(this.searchText)
     },
   },
-  watch: {
-    // User typed something into the search field.
-    searchText() {
+  methods: {
+    doSearch(text) {
+      router.replace(`/food/search/${text}`)
+
       this.didSearch = false
       this.searchAllAPIs(this.sanitizedSearch, this)
     },
-  },
-  methods: {
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
     searchAllAPIs: debounce((searchText, that) => {
@@ -280,7 +290,11 @@ export default {
       position absolute
       left 0
 
+  .md-input
+    color rgba(0,0,0,.54) !important
+
   .md-input-focused
+    color black !important
     i.md-icon
       color rgba(0,0,0,.54) !important
       &.search
