@@ -187,11 +187,11 @@ export default {
       if (sidenav) sidenav.toggle()
     },
     goBack() {
-      router.go(-1)
+      router.push({ name: 'log' })
     },
     onEntryDelete() {
       store.commit('entries/delete', { uuid: this.entryUUID })
-      router.push('/log')
+      router.push({ name: 'log' })
     },
   },
 }
@@ -244,7 +244,7 @@ export default {
   &-enter
   &-leave-to
     opacity 0
-    transform scale(.5)
+    /*transform scale(.5)*/
     transform-origin 70% center
 
 .main-nav

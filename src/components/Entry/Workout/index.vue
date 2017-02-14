@@ -1,9 +1,10 @@
 <template>
-  <div class="workout-entry grid__outer">
+  <div class="workout-entry">
     <form @submit.prevent="onSubmit">
       <!--<div  v-if="!isNew && !isEditingName" :class="`${headingClass} entry-name`">
         {{ name }}
       </div>-->
+      <div  v-if="isNew" class="md-headline entry-name">New Workout</div>
 
       <div class="inputs">
         <md-input-container class="inputs__name">

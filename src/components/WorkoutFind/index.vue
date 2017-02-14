@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div class="grid__outer">
     <entry-workout></entry-workout>
+    <md-separator></md-separator>
     <workout-list></workout-list>
   </div>
 </template>

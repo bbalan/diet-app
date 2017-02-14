@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Previous workouts</h2>
+    <div class="md-headline">Past workouts</div>
     <workout-link
       v-for="workout in reversed" 
       :workoutData="workout.data"

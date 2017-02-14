@@ -74,7 +74,7 @@ const router = new VueRouter({
       path: '/food/new/:foodSource/:foodID',
       component: Entry,
       props: true,
-      meta: { title: 'Track food' }, // TODO: replace with food title?
+      meta: { title: 'Food' }, // TODO: replace with food title?
     },
     {
       name: 'weighin',
@@ -88,7 +88,7 @@ const router = new VueRouter({
       component: FoodFind,
       redirect: { name: 'foodSearch' },
       meta: {
-        title: 'Track food',
+        title: 'Food',
         sidebar: true,
       },
       children: [
@@ -98,8 +98,8 @@ const router = new VueRouter({
           component: FoodSearch,
           props: true,
           meta: {
-            title: 'Track food',
-            sidebar: true,
+            title: 'Food',
+            // sidebar: true,
           },
         },
         {
@@ -107,8 +107,8 @@ const router = new VueRouter({
           path: 'favorites',
           component: FoodFavorites,
           meta: {
-            title: 'Track food',
-            sidebar: true,
+            title: 'Food',
+            // sidebar: true,
           },
         },
         {
@@ -116,8 +116,8 @@ const router = new VueRouter({
           path: 'custom',
           component: FoodCustom,
           meta: {
-            title: 'Track food',
-            sidebar: true,
+            title: 'Food',
+            // sidebar: true,
           },
         },
         {
@@ -125,8 +125,8 @@ const router = new VueRouter({
           path: 'recipes',
           component: FoodRecipes,
           meta: {
-            title: 'Track food',
-            sidebar: true,
+            title: 'Food',
+            // sidebar: true,
           },
         },
       ],
@@ -137,7 +137,7 @@ const router = new VueRouter({
       component: WorkoutFind,
       meta: {
         title: 'Workouts',
-        sidebar: true,
+        // sidebar: true,
       },
     },
     {

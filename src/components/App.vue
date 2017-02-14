@@ -21,6 +21,8 @@ export default {
     if (!store.state.appSettings.signupComplete) {
       router.replace('/welcome#intro')
     }
+
+    store.commit('calendar/setCurrentDay', store.state.calendar.today)
   },
 }
 </script>

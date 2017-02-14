@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="entry-root grid__outer">
     <food
       v-if="isFood"
       :id="foodID"
@@ -54,6 +54,16 @@ export default {
 </script>
 
 <style lang="stylus">
+.entry-root
+  position absolute !important
+  top 0
+  left 0
+  width 100%
+  height 100%
+  border-top 56px solid #eee
+  background white
+  overflow-x hidden
+  overflow-y scroll
 
 .entry-name
   margin-bottom 16px
@@ -78,17 +88,6 @@ export default {
     position absolute
     right 0
     top 0
-.food-entry
-.workout-entry
-  position absolute
-  top 0
-  left 0
-  width 100%
-  height 100%
-  border-top 56px solid #eee
-  background white
-  overflow-x hidden
-  overflow-y scroll
 
   .inputs
     margin 0 0 32px 0

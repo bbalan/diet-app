@@ -1,5 +1,5 @@
 <template>
-  <div class="food-entry grid__outer">
+  <div class="food-entryf">
 
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
@@ -28,6 +28,8 @@
           Save
         </md-button>
       </div>
+
+      <div class="clearfix"></div>
 
       <!-- Moved this to MainNav.vue -->
       <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
@@ -265,6 +267,8 @@ export default {
 
 <style scoped lang="stylus">
 .inputs__mass
+  max-width 70%
+  float left
   input::-webkit-outer-spin-button
   input::-webkit-inner-spin-button
     /* display: none; <- Crashes Chrome on hover */
@@ -276,6 +280,13 @@ export default {
   &.md-input-invalid
     .mass__unit
       color #ff5722
+
+.inputs__eat
+  float right
+  width 25%
+  position relative
+  top 8px
+  margin-right 0
 
 .food-entry-spinner
   position absolute

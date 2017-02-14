@@ -7,7 +7,7 @@
         md-elevation="2"
         class="search-bar">
 
-        <md-input-container class="search-bar__input">
+        <md-input-container class="search-bar__input" ref="searchBar">
           <md-icon class="search">search</md-icon>
           <md-icon class="arrow_back" @click.native="onClear">arrow_back</md-icon>
           <md-input 
@@ -93,7 +93,17 @@ export default {
     }
   },
   mounted() {
-    if (this.searchText) this.doSearch(this.searchText)
+    if (this.searchText) {
+      this.doSearch(this.searchText)
+    } else {
+      const $el = this.$refs.searchBar.$el
+      const input = $el.querySelector('input')
+
+      if (input) {
+        input.focus()
+        input.classList.add('md-input-focused')
+      }
+    }
   },
   watch: {
     // User typed something into the search field.
