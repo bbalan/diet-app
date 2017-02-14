@@ -3,16 +3,17 @@
     <!-- TODO: show bar automatically at width > 1160px -->
     <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-toolbar">
       <div class="md-toolbar-container">
+        
         <md-button 
           v-if="isSidebarEnabled"
-          class="md-icon-button"
+          class="md-icon-button menu-open"
           @click.native="toggleLeftSidenav">
           <md-icon>menu</md-icon>
         </md-button>
 
         <md-button 
           v-else
-          class="md-icon-button"
+          class="md-icon-button menu-open"
           @click.native="goBack">
           <md-icon>arrow_back</md-icon>
         </md-button>
@@ -171,19 +172,10 @@ export default {
     padding 0 8px
 
 .md-sidenav
+  box-shadow none !important
   &-content
     box-shadow none !important
 
-.menu-button
-  position relative
-  right -16px
-
-.md-menu-content
-  min-height 48px !important
-  .md-list
-    padding 0
-/*.md-tabs
-  &-navigation
-    .md-tab-indicator
-      background white !important*/
+.menu-open
+  margin-left -8px !important
 </style>

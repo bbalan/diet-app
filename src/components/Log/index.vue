@@ -46,5 +46,6 @@ export default {
   height 100%
   box-sizing border-box
   border-top 64px solid transparent
-  overflow scroll
+  overflow-x hidden
+  overflow-y scroll
 </style>

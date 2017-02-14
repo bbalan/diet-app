@@ -11,9 +11,9 @@ const stateDefault = {
   unitHeight: 'ft',
   numMeals: 3, // TODO: expose this to user
   mealStops: [],
-  goal: null,
+  goal: 'burn-fat',
   goalSpeed: 350,
-  activityLevel: 1.21,
+  activityLevel: 1.2,
   signupComplete: false,
 }
 

@@ -37,6 +37,11 @@ import Slide from 'components/Welcome/Slide'
 
 export default {
   components: { Slide },
+  methods: {
+    setUnitWeight(val) {
+      this.unitWeight = val
+    },
+  },
   computed: {
     weight: {
       get() {
@@ -65,11 +70,6 @@ export default {
       set(unitWeight) {
         store.commit('appSettings/setUnitWeight', unitWeight)
       },
-    },
-  },
-  methods: {
-    setUnitWeight(val) {
-      this.unitWeight = val
     },
   },
 }

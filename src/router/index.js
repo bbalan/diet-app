@@ -148,9 +148,24 @@ const router = new VueRouter({
       meta: { title: 'Edit workout' },
     },
 
-    { name: 'devCache', path: '/cache', component: Cache },
-    { name: 'devEntries', path: '/entries', component: Entries },
-    { name: 'devLocalStorage', path: '/localStorage', component: LocalStorage },
+    {
+      name: 'devCache',
+      path: '/cache',
+      component: Cache,
+      meta: { title: 'Cache' },
+    },
+    {
+      name: 'devEntries',
+      path: '/entries',
+      component: Entries,
+      meta: { title: 'Entries' },
+    },
+    {
+      name: 'devLocalStorage',
+      path: '/localStorage',
+      component: LocalStorage,
+      meta: { title: 'localStorage' },
+    },
   ],
 })
 

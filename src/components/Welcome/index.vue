@@ -129,7 +129,7 @@ export default {
       hashnav: true,
       hashnavWatchState: true,
       onInit: swiper => this.updateSwiper(swiper),
-      onSlideChangeEnd: swiper => this.updateSwiper(swiper),
+      onSlideChangeStart: swiper => this.updateSwiper(swiper),
     })
   },
   beforeDestroy() {
@@ -157,6 +157,7 @@ export default {
     updateSwiper(swiper) {
       this.isBeginning = swiper.isBeginning
       this.isEnd = swiper.isEnd
+      this.currentSlide = swiper.activeIndex
     },
     swiperNext() {
       this.swiper.slideNext()

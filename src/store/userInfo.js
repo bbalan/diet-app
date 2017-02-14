@@ -16,7 +16,7 @@ const stateDefault = {
   // TODO: replace default values with HTML5 form placeholder
   metrics: {
     age: null,
-    gender: null,
+    gender: 'male',
     height: 177,
     weight: 160,
     bodyFatPct: null,
@@ -37,9 +37,9 @@ export default {
     prepopulate(state) {
       state.metrics.gender = 'male'
       state.metrics.height = 177
-      state.metrics.weight = 152.2
+      store.commit('userInfo/setWeight', 151.6)
       state.metrics.bodyFatPct = 20
-      state.metrics.mass = 69
+      state.metrics.mass = 68.76
       store.commit('appSettings/setGoal', 'burn-fat')
       store.commit('appSettings/setActivityLevel', 1.2)
       store.commit('appSettings/setNumMeals', 6)

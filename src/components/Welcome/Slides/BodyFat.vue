@@ -58,7 +58,7 @@ export default {
     opacity 0
     transition opacity .2s
     position absolute
-    right 0
+    right -10px
     bottom 7px
     pointer-events none
   &.md-input-focused
@@ -66,6 +66,6 @@ export default {
     .bodyFatPct__percent
       opacity 1
 .bodyFatPct__dont-know
-  margin 16px
+  margin 16px 16px 16px 32px
   display inline-block !important
 </style>
