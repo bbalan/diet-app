@@ -15,7 +15,9 @@
           </router-link>
         </li>
         
-        <li class="end-of-results">That's it!</li>
+        <li class="end-of-results">
+          Found {{ orderedList.length }} food {{ orderedList.length == 1 ? 'item' : 'items' }}
+        </li>
       </ul>
     </div>
 
@@ -106,6 +108,7 @@ export default {
     &.end-of-results
       padding-left 56px
       padding-top 32px
+      margin-top 16px !important
       color rgba(0,0,0,.5)
       border-top 1px solid #eee
       .md-list-item-container

@@ -66,13 +66,21 @@ export default {
     },
 
     setHeight(state, height) {
-      state.metrics.height = height
+      if (!height) {
+        state.metrics.height = 0
+      } else {
+        state.metrics.height = height
+      }
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
 
     setMass(state, mass) {
-      state.metrics.mass = mass
+      if (!mass) {
+        state.metrics.mass = 0
+      } else {
+        state.metrics.mass = mass
+      }
       store.commit('calendar/setMass', mass)
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)

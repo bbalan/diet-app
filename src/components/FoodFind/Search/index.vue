@@ -306,6 +306,7 @@ export default {
       opacity 0
       position absolute
       left 0
+      cursor pointer
 
   .md-input
     color rgba(0,0,0,.54) !important
