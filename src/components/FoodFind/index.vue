@@ -1,14 +1,20 @@
 <template>
   <div class="entryFood">
 
-    <md-tabs md-fixed class="md-transparent">
-      <md-tab @click="nav(0)" md-label="Search"></md-tab>
-      <md-tab @click="nav(1)" md-label="Favorites"></md-tab>
-      <md-tab @click="nav(2)" md-label="Custom"></md-tab>
-      <md-tab @click="nav(3)" md-label="Recipes"></md-tab>
+    <md-tabs md-fixed @change="nav" class="md-transparent">
+      <md-tab md-label="Search"></md-tab>
+      <md-tab md-label="Favorites"></md-tab>
+      <md-tab md-label="Custom"></md-tab>
+      <md-tab md-label="Recipes"></md-tab>
     </md-tabs>
+    
+      <!--<nav>Foods:
+        <router-link to="/food/new/USDA/09503">Apples</router-link>
+        <router-link to="/food/new/USDA/42131">Milk</router-link>
+        <router-link to="/food/new/USDA/05064">Chicken</router-link>
+      </nav>-->
 
-    <router-view></router-view>
+      <router-view></router-view>
   </div>
 </template>
 
@@ -19,6 +25,7 @@ export default {
   name: 'FoodFind',
   data() {
     return {
+      currentTab: 0,
       foodPathNames: [
         'foodSearch',
         'foodFavorites',
@@ -29,8 +36,10 @@ export default {
   },
   methods: {
     nav(tabIdx) {
-      console.log('md-tabs change', tabIdx)
-      router.push({ name: this.foodPathNames[tabIdx] })
+      if (tabIdx !== this.currentTab) {
+        this.currentTab = tabIdx
+        router.push({ name: this.foodPathNames[tabIdx] })
+      }
     },
   },
 }

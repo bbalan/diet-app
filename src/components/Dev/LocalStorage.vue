@@ -6,10 +6,13 @@
     <h2>entries</h2><pre>{{ entries }}</pre>
     <h2>foodCache</h2><pre>{{ foodCache }}</pre>
     <h2>workoutPresets</h2><pre>{{ workoutPresets }}</pre>
+    <h2>search</h2><pre>{{ search }}</pre>
   </div>
 </template>
 
 <script>
+import store from 'store'
+
 export default {
   name: 'LocalStorage',
   computed: {
@@ -18,6 +21,7 @@ export default {
     entries() { return JSON.parse(localStorage.getItem('entries')) },
     foodCache() { return JSON.parse(localStorage.getItem('foodCache')) },
     workoutPresets() { return JSON.parse(localStorage.getItem('workoutPresets')) },
+    search() { return store.state.search },
   },
   methods: {
     localStorageClear() {

@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import store from 'store'
 import router from 'router'
 // https://github.com/github/fetch
 import 'whatwg-fetch'
@@ -108,9 +109,21 @@ export default {
   methods: {
     doSearch(text) {
       router.replace(`/food/search/${text}`)
-
       this.didSearch = false
-      this.searchAllAPIs(this.sanitizedSearch, this)
+
+      if (!this.tryCachedResults(text)) {
+        this.searchAllAPIs(this.sanitizedSearch, this)
+      }
+    },
+    tryCachedResults(text) {
+      const cachedResults = store.state.search.history
+
+      if (Object.hasOwnProperty.call(cachedResults, text)) {
+        this.searchResults = cachedResults[text]
+        return true
+      }
+
+      return false
     },
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
@@ -131,6 +144,10 @@ export default {
 
       function loadComplete() {
         that.loading = false
+        store.commit('search/setSearchResults', {
+          query: that.searchText,
+          results: that.searchResults,
+        })
       }
 
       // Append USDA search results to the total search results
