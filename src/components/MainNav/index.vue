@@ -1,10 +1,10 @@
 <template>
   <header>
     <!-- TODO: show bar automatically at width > 1160px -->
-    <md-whiteframe md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-nav">
+    <md-whiteframe v-if="!isWelcome" md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-nav">
       <div class="md-toolbar-container">
         
-        <transition name="main-nav">
+        <transition name="main-nav-button">
           <md-button 
             v-if="isSidebarEnabled"
             class="md-icon-button main-nav-open"
@@ -41,12 +41,11 @@
             </md-menu-content>
 
           </md-menu>
-        </transition>
-      </div>
-    </md-whiteframe>
+        </div>
+      </md-whiteframe>
+    </transition>
 
     <md-sidenav 
-      v-if="isSidebarEnabled"
       :md-swipeable="true"
       :md-swipe-distance="50" 
       :md-swipe-threshold="50"
@@ -226,6 +225,9 @@ export default {
   box-shadow none !important
   &-content
     box-shadow none !important
+    .md-list-item
+      .md-ink-ripple
+        display none !important
 
 .main-nav
   &-open
@@ -259,6 +261,18 @@ export default {
     transform-origin 70% center
 
 .main-nav
+  &-enter-active
+  &-leave-active
+    opacity 1
+    transition all .2s ease-out
+    transform translate3d(0, 0, 0)
+    
+  &-enter
+  &-leave-to
+    opacity 0
+    transform translate3d(0, -56px, 0)
+
+.main-nav-button
   &-enter-active
   &-leave-active
     transition all .4s ease-out

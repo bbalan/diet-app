@@ -12,7 +12,7 @@ const stateDefault = {
   numMeals: 3, // TODO: expose this to user
   mealStops: [],
   goal: 'burn-fat',
-  goalSpeed: 350,
+  goalSpeed: 500,
   activityLevel: 1.2,
   signupComplete: false,
 }
@@ -48,6 +48,11 @@ export default {
     },
     setGoal(state, goal) {
       state.goal = goal
+      store.commit('userInfo/calcTDEE')
+      setLocalStorage(MODULE_KEY, state)
+    },
+    setGoalSpeed(state, goalSpeed) {
+      state.goalSpeed = goalSpeed
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
