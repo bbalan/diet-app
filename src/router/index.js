@@ -67,14 +67,19 @@ const router = new VueRouter({
       path: '/entry/:uuid',
       component: Entry,
       props: true,
-      meta: { title: 'Edit Log Entry' }, // TODO: replace with relevant entry type
+      meta: {
+        title: 'Edit Log Entry', // TODO: replace with relevant entry type
+      },
     },
     {
       name: 'newFood',
       path: '/food/new/:foodSource/:foodID',
       component: Entry,
       props: true,
-      meta: { title: 'Food' }, // TODO: replace with food title?
+      meta: {
+        title: 'Food', // TODO: replace with food title?
+        backMode: 'history',
+      },
     },
     {
       name: 'weighin',
@@ -90,6 +95,7 @@ const router = new VueRouter({
       meta: {
         title: 'Food',
         sidebar: true,
+        backMode: 'history',
       },
       children: [
         {
@@ -145,7 +151,10 @@ const router = new VueRouter({
       path: '/workout/:uuid',
       component: WorkoutPreset,
       props: true,
-      meta: { title: 'Edit workout' },
+      meta: {
+        title: 'Edit workout',
+        backMode: 'history',
+      },
     },
 
     {

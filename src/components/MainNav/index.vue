@@ -157,15 +157,10 @@ export default {
       if (!entryData) return false
       return entryData.type === 'workout'
     },
-    isWelcome() {
-      return this.$route.name === 'welcome'
-    },
-    isSidebarEnabled() {
-      return this.$route.meta.sidebar
-    },
-    isEntry() {
-      return this.$route.name === 'entry'
-    },
+    isWelcome() { return this.$route.name === 'welcome' },
+    isSidebarEnabled() { return this.$route.meta.sidebar },
+    isEntry() { return this.$route.name === 'entry' },
+    isBackModeHistory() { return this.$route.meta.backMode === 'history' },
     entryUUID() {
       if (this.isEntry) return this.$route.params.uuid
       return null
@@ -187,7 +182,11 @@ export default {
       if (sidenav) sidenav.toggle()
     },
     goBack() {
-      router.push({ name: 'log' })
+      if (this.isBackModeHistory) {
+        router.go(-1)
+      } else {
+        router.push({ name: 'log' })
+      }
     },
     onEntryDelete() {
       store.commit('entries/delete', { uuid: this.entryUUID })

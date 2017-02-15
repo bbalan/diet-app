@@ -5,15 +5,15 @@
       <router-link class="workout__edit" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">
         <md-icon>create</md-icon>
         <span class="workout__name">{{ name | capitalize }}</span>
+      
+        <span class="workout__calories md-caption">
+          {{ calories | roundTo | toKcal }} 
+        </span>
       </router-link>
 
       <md-button @click="logEntry" class="md-raised md-primary button--track">
         Track
       </md-button>
-      
-      <span class="workout__calories md-caption">
-        {{ calories | roundTo | toKcal }} 
-      </span>
     </div>
 
   </md-list-item>
