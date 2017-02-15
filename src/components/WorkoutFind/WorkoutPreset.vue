@@ -1,30 +1,40 @@
 <template>
-  <div>
-    <form @submit.prevent v-if="workoutData">
-      <p>
-        <label for="workoutName">Name:</label>
-        <input name="workoutName" type="text" v-model="name">
-      </p>
+  <div class="workout--preset grid__outer page page--main page--menu page--cards">
+    
+    <md-card v-if="workoutData">
 
-      <p>
-        <label for="workoutCalories">Calories burned:</label>
-        <input name="workoutCalories" type="number" v-model.number="calories">
-      </p>
+      <md-card-content tag="form" @submit.prevent="onSubmit">
 
-      <button @click="onSubmit">Save</button>
-      <button @click="onDelete">Delete</button>
-    </form>
+        <div class="inputs">
+          <md-input-container class="inputs__name">
+            <label>Name</label>
+            <md-input v-model.number="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
+          </md-input-container>
+
+          <md-input-container class="inputs__calories">
+            <label>Calories burned</label>
+            <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
+            <span class="calories__unit">kcal</span>
+          </md-input-container>
+
+          <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+            Save
+          </md-button>
+        </div>
+      </md-card-content>
+    </md-card>
 
     <h2 v-else>Workout not found</h2>
   </div>
 </template>
 
 <script>
+import 'components/WorkoutFind/styles.styl'
 import store from 'store'
 import router from 'router'
 
 export default {
-  name: 'WorkoutCached',
+  name: 'WorkoutPreset',
   props: ['uuid'],
   data() {
     return {

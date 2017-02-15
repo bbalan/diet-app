@@ -1,16 +1,20 @@
 <template>
   <md-card class="workout__list">
     <md-card-header class="md-headline md-title">
-      Saved workouts
+      Previous workouts
     </md-card-header>
     <md-card-content>
-      <md-list>
+      <md-list v-if="reversed.length">
         <workout-link
           v-for="workout in reversed" 
           :workoutData="workout.data"
           :uuid="workout.uuid">
         </workout-link>
       </md-list>
+      <div v-else class="md-body-1 saved-workout">
+        <md-icon class="saved-workout__icon">access_time</md-icon>
+        Your previous workouts will appear here.
+      </div>
     </md-card-content>
   </md-card>
 </template>
@@ -54,4 +58,14 @@ ul.md-list
     margin-bottom 0
   .md-list-item-container
     padding 0 !important
+
+.saved-workout
+  padding-left 32px
+  position relative
+  &__icon
+    position absolute !important
+    left 0
+    top 0
+    color rgba(0,0,0,.54)
+    margin-right 8px !important
 </style>

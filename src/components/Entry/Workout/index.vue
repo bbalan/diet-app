@@ -102,14 +102,14 @@ export default {
       if (!this.uuid) {
         const workoutUUID = uuid.v4()
 
-        // Add workout to the workout cache
-        store.commit('workoutPresets/add', {
-          uuid: workoutUUID,
-          data: {
-            name: this.name,
-            calories: this.calories,
-          },
-        })
+        // // Add workout to the workout cache
+        // store.commit('workoutPresets/add', {
+        //   uuid: workoutUUID,
+        //   data: {
+        //     name: this.name,
+        //     calories: this.calories,
+        //   },
+        // })
 
         // Add an workout entry with the cached workout uuid
         store.commit('entries/add', {

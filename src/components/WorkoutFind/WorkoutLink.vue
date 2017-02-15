@@ -60,6 +60,20 @@ export default {
 .workout
   &__list
     &__link
+      padding-bottom 8px
+      &:after
+        display block
+        content ''
+        width 100%
+        border-left 36px solid white
+        height 1px
+        background #eee
+        position absolute
+        bottom 0
+        right 0
+      &:last-child
+        &:after
+          display none
       &__inner
         position relative
         width 100%
@@ -69,6 +83,7 @@ export default {
     height 48px
     padding 8px 0 16px 0
     max-width 40%
+    text-decoration none !important
 
     .md-icon
       margin-right 8px
