@@ -1,30 +1,37 @@
 <template>
   <header>
     <!-- TODO: show bar automatically at width > 1160px -->
-    <md-whiteframe v-if="!isWelcome" md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-nav">
-      <div class="md-toolbar-container">
+    <transition name="page-fade">
+      <md-whiteframe v-if="!isWelcome" md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="main-nav">
+        <div class="md-toolbar-container">
         
-        <transition name="main-nav-button">
-          <md-button 
-            v-if="isSidebarEnabled"
-            class="md-icon-button main-nav-open"
-            @click.native="toggleLeftSidenav">
-            <md-icon>menu</md-icon>
-          </md-button>
-        </transition>
+          <transition name="main-nav-button">
+            <md-button 
+              v-if="isSidebarEnabled"
+              class="md-icon-button main-nav-open"
+              @click.native="toggleLeftSidenav">
+              <md-icon>menu</md-icon>
+            </md-button>
+          </transition>
 
-        <transition name="main-nav-back">
-          <md-button 
-            v-if="!isSidebarEnabled"
-            class="md-icon-button main-nav-open main-nav-back"
-            @click.native="goBack">
-            <md-icon>arrow_back</md-icon>
-          </md-button>
-        </transition>
+          <transition name="main-nav-back">
+            <md-button 
+              v-if="!isSidebarEnabled"
+              class="md-icon-button main-nav-open main-nav-back"
+              @click.native="goBack">
+              <md-icon>arrow_back</md-icon>
+            </md-button>
+          </transition>
 
-        <h2 class="md-title main-nav-title" style="flex: 1">{{ pageTitle }}</h2>
+          <h2 class="md-title main-nav-title" style="flex: 1">
+            <span v-if="!isLog">{{ pageTitle }}</span>
+            <span v-else>
+              <input type="date" class="date-selector">
+              {{ pageTitle }}
+              <md-icon>arrow_drop_down</md-icon>
+            </span>
+          </h2>
         
-        <transition name="side-menu">
           <md-menu 
             v-if="isEntry || isWorkoutPreset"
             md-size="2" 
@@ -57,8 +64,8 @@
 
         <md-list-item>
           <router-link :to="{ name: 'log' }">
-            <md-icon>assignment</md-icon>
-            <span>Log</span>
+            <md-icon>today</md-icon>
+            <span>Today</span>
           </router-link>
         </md-list-item>
 
@@ -238,6 +245,14 @@ export default {
     position absolute
     left 56px
     top 16px
+
+    .date-selector
+      position absolute
+      top 0
+      left 0
+      width 100%
+      height 100%
+      opacity 0
 
 .md-menu-content
   min-height 48px !important

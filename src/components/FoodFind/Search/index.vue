@@ -93,8 +93,8 @@ export default {
     }
   },
   mounted() {
-    if (this.searchText) {
-      this.doSearch(this.searchText)
+    if (this.sanitizedSearch) {
+      this.doSearch(this.sanitizedSearch)
     } else {
       const $el = this.$refs.searchBar.$el
       const input = $el.querySelector('input')

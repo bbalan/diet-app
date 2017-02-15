@@ -1,8 +1,20 @@
 <template>
-  <div class="log solid__bg">
+  <div class="log solid__bg page page--main page--menu">
     <div class="grid__outer">
       <day :dataDay="dataCurrentDay" :date="currentDay"></day>
     </div>
+
+    <router-link :to="{ name: 'food' }">
+      <md-button class="md-fab md-fab-bottom-right log__food">
+        <md-icon>restaurant</md-icon>
+      </md-button>
+    </router-link>
+
+    <router-link :to="{ name: 'workout' }">
+      <md-button class="md-fab md-fab-bottom-right log__workout md-primary">
+        <md-icon>fitness_center</md-icon>
+      </md-button>
+    </router-link>
   </div>
 </template>
 
@@ -39,4 +51,8 @@ export default {
   border-top 56px solid transparent
   overflow-x hidden
   overflow-y scroll
+
+  &__workout
+    bottom 96px !important
+
 </style>

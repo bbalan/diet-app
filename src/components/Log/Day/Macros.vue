@@ -7,7 +7,7 @@
 
     <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
     <p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>
-    <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
+    <p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>
     <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
     <p class="percentages">
       Macros: {{ fatPct | roundTo }} F / {{ carbsPct | roundTo }} C / {{ proteinPct | roundTo }} P

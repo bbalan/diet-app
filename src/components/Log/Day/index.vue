@@ -1,7 +1,7 @@
 <template>
   <div class="log__day" v-if="true || filteredEntries.length || isToday">
 
-    {{ mass | toMassUnit }}
+    Weight: {{ mass | toMassUnit }}
 
     <macros 
       ref="macros"
@@ -9,26 +9,22 @@
       :tdee="tdee">
     </macros>
 
-    <router-link 
-      :to="{ name: 'food' }" 
-      class="addLog logFood" 
-      @click.native="setCurrentDay">
-      + Add food
-    </router-link>
+    <!--<router-link :to="{ name: 'food' }" class="addLog logFood">Add food</router-link>-->
+    <!--<router-link :to="{ name: 'workout' }" class="addLog logWorkout">Add workout</router-link>-->
 
-    <router-link 
-      :to="{ name: 'workout' }" 
-      class="addLog logWorkout" 
-      @click.native="setCurrentDay">
-      + Add workout
-    </router-link>
+    <transition name="fade">
+      <div class="weigh-in" v-if="!massUpdated">
 
-    <router-link 
-      :to="{ name: 'weighin' }" 
-      class="addLog logWeight" 
-      @click.native="setCurrentDay">
-      + Weigh In
-    </router-link>
+        <p class="md-subheading">It's time to log your body weight!</p>
+
+        <router-link :to="{ name: 'weighin' }" class="addLog logWeight">
+          <md-button class="md-raised md-primary">
+            Weigh In
+          </md-button>
+        </router-link>
+
+      </div>
+    </transition>
 
     <entry-list 
       v-if="filteredEntries.length" 
@@ -74,8 +70,12 @@ export default {
       return 0
     },
     mass() {
-      if (this.dataDay) return this.dataDay.userInfo.mass
-      return 0
+      if (this.dataDay) return this.dataDay.userInfo.mass || store.state.userInfo.metrics.mass
+      return store.state.userInfo.metrics.mass
+    },
+    massUpdated() {
+      if (this.dataDay) return this.dataDay.userInfo.massUpdated
+      return false
     },
   },
 }
@@ -90,4 +90,7 @@ export default {
   font-weight bold
   color #42b983
   margin-right 20px
+
+.weigh-in
+  text-align center
 </style>

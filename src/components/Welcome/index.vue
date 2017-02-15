@@ -2,7 +2,8 @@
   <div id="welcome">
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
     
-    <form class="welcome-form" @submit.prevent="onSubmit">
+    <!-- Do nothing on submit, to prevent submitting on enter-->
+    <form class="welcome-form" @submit.prevent="swiperNext">
       <div class="swiper-container">
 
         <div class="swiper-wrapper">
@@ -160,7 +161,11 @@ export default {
       this.currentSlide = swiper.activeIndex
     },
     swiperNext() {
-      this.swiper.slideNext()
+      if (this.isEnd) {
+        this.onSubmit()
+      } else {
+        this.swiper.slideNext()
+      }
     },
   },
   // firebase: {

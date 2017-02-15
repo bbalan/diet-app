@@ -3,7 +3,8 @@
 
     <div slot="description">
       <p>Most people eat 3 meals per day.</p>
-      <p>The recommended number is 5 or 6 &mdash; smaller meals, eaten more frequently.</p>
+      <p>However, smaller meals, eaten more frequently, are better for keeping hunger down.</p>
+      <p>The recommended number of meals is 5 or 6.</p>
     </div>
 
     <md-input-container>

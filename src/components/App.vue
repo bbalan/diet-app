@@ -2,7 +2,7 @@
   <div id="app">
     <main-nav></main-nav>
 
-    <transition name="fade" mode="out-in">
+    <transition name="page-fade" mode="out-in">
       <router-view></router-view>
     </transition>
   </div>
@@ -17,6 +17,7 @@ export default {
   components: { MainNav },
   beforeCreate() {
     // Update store.state.calendar.today every 1 min
+    store.commit('calendar/setToday')
     setInterval(() => {
       store.commit('calendar/setToday')
     }, 60000)

@@ -16,7 +16,7 @@
           <md-input-container class="inputs__name">
             <label v-if="!isNew">Edit name</label>
             <label v-else>Name</label>
-            <md-input v-model.number="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
+            <md-input v-model="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
           </md-input-container>
 
           <md-input-container class="inputs__calories">

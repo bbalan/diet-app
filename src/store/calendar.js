@@ -22,6 +22,9 @@ const log = {
   mutations: {
     setCurrentDay(state, currentDay) {
       state.currentDay = currentDay
+      if (!state.data[currentDay]) {
+        store.commit('calendar/add', currentDay)
+      }
     },
     setToday(state, today) {
       if (!today) {
@@ -40,7 +43,8 @@ const log = {
       // TODO: add timestamp
       Vue.set(state.data, day, {
         userInfo: {
-          mass: store.state.userInfo.metrics.mass,
+          mass: null,
+          massUpdated: false,
           tdee: store.state.userInfo.tdee,
         },
         entries: [],
@@ -79,6 +83,7 @@ const log = {
     setMass(state, mass) {
       store.commit('calendar/setToday')
       state.data[state.today].userInfo.mass = mass
+      state.data[state.today].userInfo.massUpdated = true
       setLocalStorage(MODULE_KEY, state)
     },
   },

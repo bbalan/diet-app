@@ -8,7 +8,7 @@
       <md-tab md-label="Recipes"></md-tab>
     </md-tabs>
 
-    <transition name="fade" mode="out-in">
+    <transition name="page-fade" mode="out-in">
       <router-view></router-view>
     </transition>
     
