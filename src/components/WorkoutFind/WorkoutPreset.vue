@@ -68,9 +68,8 @@ export default {
       })
       router.go(-1)
     },
-    onDelete() {
-      store.commit('workoutPresets/delete', { uuid: this.uuid })
-      router.go(-1)
+    onKeyUp(e) {
+      if (e.code === 'Enter') this.onSubmit()
     },
   },
 }

@@ -82,6 +82,7 @@ export default {
     background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
 
 .workout-entry
+.workout--preset
   .entry-name
     border-right 32px solid transparent
   .md-icon.workout__edit

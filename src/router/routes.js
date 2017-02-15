@@ -11,7 +11,7 @@ import FoodCustom from 'components/FoodFind/Custom'
 import FoodRecipes from 'components/FoodFind/Recipes'
 
 import WorkoutFind from 'components/WorkoutFind'
-// import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
+import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
 
 import Cache from 'components/Dev/FoodCache'
 import Entries from 'components/Dev/Entries'
@@ -140,7 +140,7 @@ export default [
   {
     name: 'workoutPreset',
     path: '/workout/:uuid',
-    component: Entry,
+    component: WorkoutPreset,
     props: true,
     meta: {
       title: 'Edit workout',

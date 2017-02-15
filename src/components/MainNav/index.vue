@@ -26,7 +26,7 @@
         
         <transition name="side-menu">
           <md-menu 
-            v-if="isEntry"
+            v-if="isEntry || isWorkoutPreset"
             md-size="2" 
             md-direction="bottom left"
             class="side-menu">
@@ -36,7 +36,8 @@
             </md-button>
 
             <md-menu-content>
-              <md-menu-item @click.native="onEntryDelete">Delete</md-menu-item>
+              <md-menu-item v-if="isEntry" @click.native="onEntryDelete">Delete</md-menu-item>
+              <md-menu-item v-if="isWorkoutPreset" @click.native="onPresetDelete">Delete</md-menu-item>
             </md-menu-content>
 
           </md-menu>
@@ -157,12 +158,17 @@ export default {
       if (!entryData) return false
       return entryData.type === 'workout'
     },
+    isWorkoutPreset() { return this.$route.name === 'workoutPreset' },
     isWelcome() { return this.$route.name === 'welcome' },
     isSidebarEnabled() { return this.$route.meta.sidebar },
     isEntry() { return this.$route.name === 'entry' },
     isBackModeHistory() { return this.$route.meta.backMode === 'history' },
     entryUUID() {
       if (this.isEntry) return this.$route.params.uuid
+      return null
+    },
+    presetUUID() {
+      if (this.isWorkoutPreset) return this.$route.params.uuid
       return null
     },
     currentDayFormatted() {
@@ -190,7 +196,11 @@ export default {
     },
     onEntryDelete() {
       store.commit('entries/delete', { uuid: this.entryUUID })
-      router.push({ name: 'log' })
+      router.replace({ name: 'log' })
+    },
+    onPresetDelete() {
+      store.commit('workoutPresets/delete', { uuid: this.presetUUID })
+      router.replace({ name: 'workout' })
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <md-card class="workout__list">
     <md-card-header class="md-headline md-title">
-      Previous workouts
+      Saved workouts
     </md-card-header>
     <md-card-content>
       <md-list v-if="reversed.length">
@@ -13,7 +13,7 @@
       </md-list>
       <div v-else class="md-body-1 saved-workout">
         <md-icon class="saved-workout__icon">access_time</md-icon>
-        Your previous workouts will appear here.
+        Your saved workouts will appear here.
       </div>
     </md-card-content>
   </md-card>
@@ -28,19 +28,17 @@ export default {
   components: { WorkoutLink },
   computed: {
     workoutPresets: () => store.state.workoutPresets,
-    numInCache() {
-      if (!this.workoutPresets) return 0
-      return Object.keys(this.workoutPresets).length
-    },
     reversed() {
       const reversed = []
       /* eslint-disable no-restricted-syntax */
       for (const uuid in this.workoutPresets) {
         if (Object.prototype.hasOwnProperty.call(this.workoutPresets, uuid)) {
-          reversed.unshift({
-            uuid,
-            data: this.workoutPresets[uuid],
-          })
+          if (uuid && this.workoutPresets[uuid]) {
+            reversed.unshift({
+              uuid,
+              data: this.workoutPresets[uuid],
+            })
+          }
         }
       }
       return reversed

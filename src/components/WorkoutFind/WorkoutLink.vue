@@ -82,8 +82,20 @@ export default {
     float left
     height 48px
     padding 8px 0 16px 0
-    max-width 40%
+    border-right 100px solid transparent
+    width 100%
     text-decoration none !important
+    overflow hidden
+
+    &:after
+      display block
+      content ''
+      position absolute
+      right 100px
+      top 0
+      width 20px
+      height 100%
+      background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
 
     .md-icon
       margin-right 8px
@@ -100,10 +112,21 @@ export default {
 
 .workout__name 
   display inline-block
+  width 100%
+  padding-left 36px
+  position absolute
+  top 8px
+  left 0
+  height 22px
+  overflow hidden
+  border-right 100px solid white
+  white-space nowrap
 
 .button--track
   display block
-  float right
+  position absolute !important
+  bottom 0
+  right 0
   margin-right 0
   margin-left 16px
 </style>
