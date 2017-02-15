@@ -26,7 +26,7 @@
           </md-input-container>
 
           <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-            Track
+            Add
           </md-button>
           <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
             Save

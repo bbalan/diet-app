@@ -102,6 +102,7 @@ export default {
       bottom 0
       right 0
       margin-right 0
+
 .mass__unit
 .calories__unit
   height 0
@@ -109,4 +110,11 @@ export default {
   position absolute
   bottom 22px
   right 0
+  opacity 0
+  transition all .2s
+
+.md-input-focused
+.md-has-value
+  .calories__unit
+    opacity 1
 </style>

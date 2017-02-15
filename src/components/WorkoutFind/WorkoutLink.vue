@@ -11,8 +11,8 @@
         </span>
       </router-link>
 
-      <md-button @click="logEntry" class="md-raised md-primary button--track">
-        Track
+      <md-button @click.native="logEntry" class="md-raised md-primary button--track">
+        Add
       </md-button>
     </div>
 
