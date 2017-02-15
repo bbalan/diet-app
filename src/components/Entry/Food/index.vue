@@ -65,6 +65,7 @@ export default {
       dataFood: null,
       entrySource: null,
       loading: false,
+      cacheUUID: null,
     }
   },
   created() {
@@ -99,73 +100,11 @@ export default {
     },
   },
   methods: {
-    // User pressed the Eat button
-    onSubmit() {
-      if (!this.mass) {
-        this.$refs.massInput.$el.classList.add('md-input-invalid')
-        return
-      }
-
-      if (this.uuid) {
-        this.entryEdit()
-      } else {
-        this.entryAdd()
-      }
-
-      router.push('/log')
-    },
-
-    // Commit new log entry
-    entryAdd() {
-      let foodUUID
-      const existing = Object
-        .entries(store.state.foodCache)
-        .find(food =>
-          food[1].id === this.id && food[1].source === this.source
-        )
-
-      // Cache this food so we don't have to hit the API next time
-      if (!existing) {
-        foodUUID = uuid.v4()
-        store.commit('foodCache/addFood', {
-          uuid: foodUUID,
-          id: this.id,
-          source: this.source,
-          // mass: this.mass, // TODO: remove? not sure if used anywhere
-          dataFood: this.dataFood,
-        })
-      } else {
-        // Already cached
-        foodUUID = existing[0]
-      }
-
-      // Add a food entry with the cached food uuid
-      store.commit('entries/add', {
-        item: foodUUID,
-        type: 'food',
-        data: { mass: this.mass },
-      })
-    },
-
-    // Save changes to this entry
-    entryEdit() {
-      store.commit('entries/edit', {
-        uuid: this.uuid,
-        data: { mass: this.mass },
-      })
-    },
-
-    // Remove this entry forever
-    entryDelete() {
-      store.commit('entries/delete', { uuid: this.uuid })
-      router.push('/log')
-    },
-
     getData() {
       if (this.uuid) {
         this.getDataFromEntry()
-      } else {
-        this.getDataFromCache()
+      } else if (!this.getDataFromCache()) {
+        this.getDataFromAPI()
       }
     },
 
@@ -187,9 +126,8 @@ export default {
 
     // Try to get dataFood from cache, then try the API
     getDataFromCache() {
-      const foodCache = store.state.foodCache
       const existing = Object
-        .entries(foodCache)
+        .entries(store.state.foodCache)
         .find((food) => {
           if (food[1]) {
             return food[1].id === this.id && food[1].source === this.source
@@ -198,11 +136,13 @@ export default {
         })
 
       if (existing) {
+        this.cacheUUID = existing[0]
         this.dataFood = existing[1].dataFood
-      } else {
-        this.loading = true
-        this.getDataFromAPI()
+
+        return true
       }
+
+      return false
     },
 
     // Hit the source API for food data
@@ -213,12 +153,8 @@ export default {
       const usdaReportHandler = (json) => {
         try {
           this.dataFood = json.report.food
-          return new Promise((resolve) => {
-            resolve()
-          })
-        } catch (e) {
-          return e
-        }
+          return new Promise((resolve) => { resolve() })
+        } catch (e) { return e }
       }
 
       const otherReportHandler = (/* json */) => {
@@ -227,17 +163,20 @@ export default {
 
       const loadComplete = () => {
         this.loading = false
+        this.cacheFood()
       }
+
+      this.loading = true
 
       // Figure out which API URLs and handlers to use
       switch (this.source) {
         case API.USDA:
           foodReportAPI = USDA.foodReport(this.id)
-          reportHandler = usdaReportHandler
+          reportHandler = usdaReportHandler.bind(this)
           break
         case API.OTHER:
           foodReportAPI = OTHER.foodReport(this.id)
-          reportHandler = otherReportHandler
+          reportHandler = otherReportHandler.bind(this)
           break
         default:
           return // invalid source
@@ -254,9 +193,64 @@ export default {
           this.dataFood = null
         })
     },
+    // User pressed the Eat button
+    onSubmit() {
+      // Validate mass
+      if (!this.mass) {
+        this.$refs.massInput.$el.classList.add('md-input-invalid')
+        return
+      }
+
+      if (this.uuid) {
+        this.entryEdit()
+      } else {
+        this.entryAdd()
+      }
+
+      router.push('/log')
+    },
+
+    // Commit new log entry
+    entryAdd() {
+      // Add a food entry with the cached food uuid
+      store.commit('entries/add', {
+        item: this.cacheUUID,
+        type: 'food',
+        data: { mass: this.mass },
+      })
+    },
+
+    // Save changes to this entry
+    entryEdit() {
+      store.commit('entries/edit', {
+        uuid: this.uuid,
+        data: { mass: this.mass },
+      })
+    },
+
+    // Remove this entry forever
+    entryDelete() {
+      store.commit('entries/delete', { uuid: this.uuid })
+      router.push('/log')
+    },
+
+    // Add dataFood to cache
+    cacheFood() {
+      this.cacheUUID = uuid.v4()
+      store.commit('foodCache/addFood', {
+        uuid: this.cacheUUID,
+        id: this.id,
+        source: this.source,
+        dataFood: this.dataFood,
+      })
+    },
+
+    // TODO: make this just select all instead of replacing text
     onFocusMass() {
       this.mass = null
     },
+
+    // TODO: get rid of this
     onBlurMass() {
       if (!this.mass) this.mass = this.massTemp
     },

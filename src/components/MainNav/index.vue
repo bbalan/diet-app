@@ -26,7 +26,7 @@
           <h2 class="md-title main-nav-title" style="flex: 1">
             <span v-if="!isLog">{{ pageTitle }}</span>
             <span v-else>
-              <input type="date" class="date-selector">
+              <!--<input type="date" class="date-selector">-->
               {{ pageTitle }}
               <md-icon>arrow_drop_down</md-icon>
             </span>

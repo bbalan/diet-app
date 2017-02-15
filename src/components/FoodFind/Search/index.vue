@@ -93,7 +93,7 @@ export default {
     }
   },
   mounted() {
-    if (this.sanitizedSearch) {
+    if (this.searchText) {
       this.doSearch(this.sanitizedSearch)
     } else {
       const $el = this.$refs.searchBar.$el

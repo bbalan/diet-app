@@ -31,6 +31,7 @@ export default {
     reversed() {
       const reversed = []
       /* eslint-disable no-restricted-syntax */
+      // TODO: replace for-in with Object.entries()
       for (const uuid in this.workoutPresets) {
         if (Object.prototype.hasOwnProperty.call(this.workoutPresets, uuid)) {
           if (uuid && this.workoutPresets[uuid]) {
