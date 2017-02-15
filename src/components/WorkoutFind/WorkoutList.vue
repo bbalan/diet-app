@@ -1,13 +1,18 @@
 <template>
-  <div>
-    <div class="md-headline">Past workouts</div>
-    <workout-link
-      v-for="workout in reversed" 
-      :workoutData="workout.data"
-      :uuid="workout.uuid">
-    </workout-link>
-    <p v-if="!numInCache">No workouts yet!</p>
-  </div>
+  <md-card class="workout__list">
+    <md-card-header class="md-headline md-title">
+      Saved workouts
+    </md-card-header>
+    <md-card-content>
+      <md-list>
+        <workout-link
+          v-for="workout in reversed" 
+          :workoutData="workout.data"
+          :uuid="workout.uuid">
+        </workout-link>
+      </md-list>
+    </md-card-content>
+  </md-card>
 </template>
 
 <script>
@@ -39,3 +44,14 @@ export default {
   },
 }
 </script>
+
+<style lang="stylus">
+ul.md-list
+  padding 0
+.workout__list__link 
+  margin-bottom 8px
+  &:last-child
+    margin-bottom 0
+  .md-list-item-container
+    padding 0 !important
+</style>

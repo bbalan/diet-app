@@ -1,5 +1,5 @@
 <template>
-  <div class="grid__outer">
+  <div class="grid__outer page page--main page--menu page--workout">
     <entry-workout></entry-workout>
     <workout-list></workout-list>
   </div>
@@ -14,3 +14,8 @@ export default {
   components: { WorkoutList, EntryWorkout },
 }
 </script>
+
+<style scoped lang="stylus">
+.page--workout
+  background #eee
+</style>

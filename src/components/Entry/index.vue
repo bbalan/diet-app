@@ -90,14 +90,13 @@ export default {
     top 0
 
   .inputs
-    margin 0 0 32px 0
+    margin 0
     position relative
     &__submit
       margin-bottom 0
     &__mass
     &__calories
       border-right 110px solid transparent
-      margin-bottom 16px
     &__eat
       position absolute
       bottom 0
@@ -108,6 +107,6 @@ export default {
   height 0
   line-height 1em
   position absolute
-  bottom 24px
+  bottom 22px
   right 0
 </style>

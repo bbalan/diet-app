@@ -1,17 +1,22 @@
 <template>
-  <div v-if="workoutData" class="workoutLink">
+  <md-list-item v-if="workoutData" class="workout__list__link">
 
-    <div class="entry__info">
-      <router-link class="workout_edit" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">Edit</router-link>
+    <div class="workout__list__link__inner">
+      <router-link class="workout__edit" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">
+        <md-icon>create</md-icon>
+        <span class="workout__name">{{ name | capitalize }}</span>
+      </router-link>
 
-      <span class="workout__name">{{ name | capitalize }}</span>
-      <span class="workout__calories">
+      <md-button @click="logEntry" class="md-raised md-primary button--track">
+        Track
+      </md-button>
+      
+      <span class="workout__calories md-caption">
         {{ calories | roundTo | toKcal }} 
-        <button @click="logEntry">Log</button>
       </span>
-
     </div>
-  </div>
+
+  </md-list-item>
 </template>
 
 <script>
@@ -52,11 +57,38 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.workout
+  &__list
+    &__link
+      &__inner
+        position relative
+        width 100%
+  &__edit
+    display block
+    float left
+    height 48px
+    padding 8px 0 16px 0
+    max-width 40%
+
+    .md-icon
+      margin-right 8px
+      position relative
+      top 4px
+
 .workout__calories
-  font-weight bold
-  float right
+  display block
+  height 48px
+  padding 12px 0
+  position absolute
+  top 16px
+  left 36px
 
 .workout__name 
   display inline-block
-  width 200px
+
+.button--track
+  display block
+  float right
+  margin-right 0
+  margin-left 16px
 </style>

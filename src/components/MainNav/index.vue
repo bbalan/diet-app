@@ -199,6 +199,8 @@ export default {
 
 <style lang="stylus">
 .md-toolbar
+  position relative
+  z-index 2 !important
   padding 0
   min-height 56px !important
   height 56px !important

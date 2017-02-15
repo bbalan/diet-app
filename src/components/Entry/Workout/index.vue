@@ -1,31 +1,39 @@
 <template>
   <div class="workout-entry">
-    <form @submit.prevent="onSubmit">
-      <!--<div  v-if="!isNew && !isEditingName" :class="`${headingClass} entry-name`">
-        {{ name }}
-      </div>-->
-      <div  v-if="isNew" class="md-headline entry-name">New Workout</div>
 
-      <div class="inputs">
-        <md-input-container class="inputs__name">
-          <label>Edit name</label>
-          <md-input v-model.number="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
-        </md-input-container>
+    <md-card>
 
-        <md-input-container class="inputs__calories">
-          <label>Calories burned</label>
-          <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
-          <span class="calories__unit">kcal</span>
-        </md-input-container>
+      <md-card-header v-if="isNew" class="md-title entry-name workout-name">
+        New Workout
+      </md-card-header>
 
-        <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-          Track
-        </md-button>
-        <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-          Save
-        </md-button>
-      </div>
-    </form>
+      <md-card-content tag="form" @submit.prevent="onSubmit">
+        <!--<div  v-if="!isNew && !isEditingName" :class="`${headingClass} entry-name`">
+          {{ name }}
+        </div>-->
+
+        <div class="inputs">
+          <md-input-container class="inputs__name">
+            <label v-if="!isNew">Edit name</label>
+            <label v-else>Name</label>
+            <md-input v-model.number="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
+          </md-input-container>
+
+          <md-input-container class="inputs__calories">
+            <label>Calories burned</label>
+            <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
+            <span class="calories__unit">kcal</span>
+          </md-input-container>
+
+          <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+            Track
+          </md-button>
+          <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
+            Save
+          </md-button>
+        </div>
+      </md-card-content>
+    </md-card>
     
   </div>
 </template>
@@ -131,3 +139,17 @@ export default {
   },
 }
 </script>
+
+<style scoped lang="stylus">
+.workout-name
+  margin-top 0
+
+.workout-entry
+  margin-bottom 16px
+  
+  .md-input-container
+    margin-top -8px !important
+
+    &.inputs__calories
+      margin-bottom 0 !important
+</style>

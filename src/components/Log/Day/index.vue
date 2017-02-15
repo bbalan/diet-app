@@ -1,8 +1,6 @@
 <template>
   <div class="log__day" v-if="true || filteredEntries.length || isToday">
 
-    <h1>{{ dateFormatted }}</h1>
-
     {{ mass | toMassUnit }}
 
     <macros 
@@ -63,29 +61,6 @@ export default {
     // This Day is displaying today's data.
     isToday() {
       return this.date === store.state.calendar.today
-    },
-    // Format this Day's full date as: February X, 20XX
-    dateFormatted() {
-      const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-      ]
-
-      const parsed = new Date(Date.parse(this.date))
-      const formatted = `${months[parsed.getMonth()]}
-       ${parsed.getDate()}, ${parsed.getFullYear()}`
-
-      return formatted
     },
     // Filter only keys that match a value in store.state.entries
     filteredEntries() {
