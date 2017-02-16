@@ -12,9 +12,9 @@ const stateDefault = {
   unitFood: 'grams',
   numMeals: 3, // TODO: expose this to user
   mealStops: [],
-  goal: 'burn-fat',
+  goal: undefined,
   goalSpeed: 500,
-  activityLevel: 1.2,
+  activityLevel: undefined,
   signupComplete: false,
 }
 

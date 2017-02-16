@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <main-nav></main-nav>
+    <toolbar></toolbar>
 
     <transition name="page-fade" mode="out-in">
       <router-view></router-view>

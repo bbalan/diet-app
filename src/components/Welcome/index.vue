@@ -145,6 +145,7 @@ export default {
   methods: {
     onSubmit() {
       store.commit('appSettings/signupComplete')
+      router.go(-9000)
       router.push('/log')
 
       // Send form data to Firebase

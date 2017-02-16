@@ -1,5 +1,5 @@
 <template>
-  <div class="macros">
+  <div class="dashboard">
 
     <!--<pre>{{ entryDetails }}</pre>-->
     <!--<pre>{{ foodDetails }}</pre>-->
@@ -31,7 +31,7 @@ import { toKcal, roundTo } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 
 export default {
-  name: 'Macros',
+  name: 'Dashboard',
   props: ['entries', 'tdee'],
   filters: { toKcal, roundTo },
   data() {
@@ -133,6 +133,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.macros
+.dashboard
   margin-bottom 20px
 </style>

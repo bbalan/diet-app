@@ -47,13 +47,13 @@ const entries = {
       }
     },
 
-    // TODO: make this affect tdee in Day & Macros components
+    // TODO: make this affect tdee in Day & Dashboard components
     disable(state, { uuid }) {
       state[uuid].enabled = false
       setLocalStorage(MODULE_KEY, state)
     },
 
-    // TODO: make this affect tdee in Day & Macros components
+    // TODO: make this affect tdee in Day & Dashboard components
     enable(state, { uuid }) {
       state[uuid].enabled = false
       setLocalStorage(MODULE_KEY, state)

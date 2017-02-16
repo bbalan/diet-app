@@ -15,13 +15,13 @@ const stateDefault = {
   },
   // TODO: replace default values with HTML5 form placeholder
   metrics: {
-    age: null,
-    gender: 'male',
-    height: 177,
-    weight: 160,
-    bodyFatPct: null,
-    mass: 72.57,
-    tdee: null,
+    age: undefined,
+    gender: undefined,
+    height: undefined,
+    weight: undefined,
+    bodyFatPct: undefined,
+    mass: undefined,
+    tdee: undefined,
   },
 }
 

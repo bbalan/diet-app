@@ -86,6 +86,7 @@ export default [
     meta: {
       title: 'Food',
       sidebar: true,
+      search: true,
       backMode: 'history',
     },
     children: [
@@ -95,6 +96,7 @@ export default [
         component: FoodFavorites,
         meta: {
           title: 'Food',
+          search: true,
         },
       },
       {
@@ -104,6 +106,7 @@ export default [
         props: true,
         meta: {
           title: 'Food',
+          search: true,
         },
       },
       {
@@ -112,6 +115,7 @@ export default [
         component: FoodCustom,
         meta: {
           title: 'Food',
+          search: true,
         },
       },
       {
@@ -120,6 +124,7 @@ export default [
         component: FoodRecipes,
         meta: {
           title: 'Food',
+          search: true,
         },
       },
     ],

@@ -3,11 +3,11 @@
 
     Weight: {{ mass | toMassUnit }}
 
-    <macros 
-      ref="macros"
+    <dashboard 
+      ref="dashboard"
       :entries="filteredEntries"
       :tdee="tdee">
-    </macros>
+    </dashboard>
 
     <!--<router-link :to="{ name: 'food' }" class="addLog logFood">Add food</router-link>-->
     <!--<router-link :to="{ name: 'workout' }" class="addLog logWorkout">Add workout</router-link>-->
@@ -40,11 +40,11 @@
 import store from 'store'
 import { toMassUnit, roundTo } from 'util/filters'
 import EntryList from 'components/Log/Day/EntryList'
-import Macros from 'components/Log/Day/Macros'
+import Dashboard from 'components/Log/Day/Dashboard'
 
 export default {
   props: ['dataDay', 'date'],
-  components: { EntryList, Macros },
+  components: { EntryList, Dashboard },
   filters: { toMassUnit, roundTo },
   methods: {
     /* Set the "current Day", or the Day we navigated away from,
