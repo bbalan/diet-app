@@ -11,10 +11,10 @@
 <script>
 import router from 'router'
 import store from 'store'
-import MainNav from 'components/MainNav'
+import Toolbar from 'components/Toolbar'
 
 export default {
-  components: { MainNav },
+  components: { Toolbar },
   beforeCreate() {
     // Update store.state.calendar.today every 1 min
     store.commit('calendar/setToday')

@@ -47,7 +47,7 @@
 
         <div class="clearfix"></div>
 
-        <!-- Moved this to MainNav.vue -->
+        <!-- Moved this to Toolbar.vue -->
         <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
 
         <nutrition-facts
