@@ -1,7 +1,7 @@
 <template>
   <div class="food-search page page--tabs">
     
-    <form @submit.prevent="" class="grid__outer">
+    <form @submit.prevent="doSearch" class="grid__outer">
 
       <md-whiteframe 
         md-elevation="2"
@@ -72,7 +72,7 @@ import store from 'store'
 import router from 'router'
 // https://github.com/github/fetch
 import 'whatwg-fetch'
-import debounce from 'lodash.debounce'
+// import debounce from 'lodash.debounce'
 import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
@@ -91,27 +91,34 @@ export default {
       loading: false,
       didSearch: false,
       searchBar: null,
+      stopTypingTimeout: null,
+      debounce: 500,
     }
   },
   mounted() {
+    // Do a search with searchText from router params
     if (this.searchText) {
       this.doSearch(this.sanitizedSearch)
     }
 
+    // Focus the search bar and add classes
     this.searchBar = this.$refs.searchBar.$el
     const input = this.searchBar.querySelector('input')
 
     if (input) {
       input.focus()
       input.select()
-
       setTimeout(() => { this.searchBar.classList.add('md-input-focused') }, 100)
     }
   },
   watch: {
     // User typed something into the search field.
     searchText() {
-      this.doSearch(this.sanitizedSearch)
+      // this.doSearch(this.sanitizedSearch)
+      this.stopTypingTimeout = clearTimeout(this.stopTypingTimeout)
+      this.stopTypingTimeout = setTimeout(() => {
+        this.doSearch(this.sanitizedSearch)
+      }, 250)
     },
   },
   computed: {
@@ -121,7 +128,6 @@ export default {
   },
   methods: {
     doSearch(text) {
-      router.replace(`/food/search/${text}`)
       this.didSearch = false
 
       if (!this.tryCachedResults(text)) {
@@ -140,28 +146,30 @@ export default {
     },
     // Hit the search API for a list of foods that match the search field
     // we pass context as "that" because debounce() breaks "this" keyword
-    searchAllAPIs: debounce((searchText, that) => {
+    searchAllAPIs(searchText) {
+      router.replace(`/food/search/${searchText}`)
+
       // TODO: run analytics to determine how many searches done before an option is selected
       // TODO: add search term to router URL so hitting back will go back to previous search
 
       if (searchText === '' || searchText === undefined) {
-        that.searchResults = []
-        that.loading = false
-        that.didSearch = false
+        this.searchResults = []
+        this.loading = false
+        this.didSearch = false
         return
       }
 
-      that.loading = true
-      that.didSearch = true
+      this.loading = true
+      this.didSearch = true
       let resultsTemp = []
 
-      function loadComplete() {
-        that.loading = false
+      const loadComplete = (function f() {
+        this.loading = false
         store.commit('search/setSearchResults', {
-          query: that.searchText,
-          results: that.searchResults,
+          query: this.searchText,
+          results: this.searchResults,
         })
-      }
+      }).bind(this)
 
       // Append USDA search results to the total search results
       function usdaSearchHandler(json) {
@@ -231,10 +239,10 @@ export default {
       Promise
         .all(searches)
         .then(() => {
-          that.searchResults = resultsTemp
+          this.searchResults = resultsTemp
         })
         .then(loadComplete)
-    }, 5000),
+    },
     onClear() {
       this.searchText = ''
       this.searchBar.classList.remove('md-has-value')

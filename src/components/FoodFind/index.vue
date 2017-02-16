@@ -2,7 +2,9 @@
   <div class="entryFood page page--menu">
 
     <md-tabs md-fixed @change="nav" class="md-transparent" ref="tabs">
-      <md-tab md-label="Favorites"></md-tab>
+      <md-tab md-label="Favorites">
+        <router-link :to="{ name: 'foodFavorites'}"></router-link>
+      </md-tab>
       <md-tab md-label="Search"></md-tab>
       <md-tab md-label="Custom"></md-tab>
       <md-tab md-label="Recipes"></md-tab>
@@ -48,7 +50,11 @@ export default {
     },
     // Click the tab that matches the tab child path
     updateTabs() {
-      const tabIdx = this.foodPathNames.indexOf(this.$route.name)
+      const name = this.$route.name
+      const tabIdx = this.foodPathNames.indexOf(name)
+
+      if (tabIdx === this.currentTab) return
+
       const tabsList = this.$refs.tabs
 
       if (tabsList) {
@@ -57,7 +63,16 @@ export default {
 
         setTimeout(() => {
           const tabs = wrapper.querySelectorAll('button')
+          const params = this.$route.params
           if (tabs && tabs[tabIdx]) tabs[tabIdx].click()
+          this.currentTab = tabIdx
+
+          if (name === 'foodSearch') {
+            router.replace({
+              name: 'foodSearch',
+              params: { query: params ? params.query : undefined },
+            })
+          }
         })
       }
     },
