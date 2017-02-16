@@ -1,5 +1,5 @@
 // Round a number to the nearest divisor.
-// roundTo(123.45, 10) == 120
+// roundTo(123.45, 5) == 125
 export function roundTo(num, divisor) {
   const remainder = num % divisor
 
@@ -10,6 +10,7 @@ export function roundTo(num, divisor) {
   return (num + divisor) - remainder
 }
 
+// Truncate a long string on word break, and add ellipses
 export function truncate(str, n, useWordBoundary = true) {
   if (!str || !n) return 'error'
 
@@ -22,4 +23,9 @@ export function truncate(str, n, useWordBoundary = true) {
   }
 
   return isTooLong ? `${newStr}&hellip;` : newStr
+}
+
+// Select contents of an input on click or focus
+export function onFocusInput(ref) {
+  this.$refs[ref].$el.querySelector('input').select()
 }

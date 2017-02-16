@@ -2,16 +2,16 @@
   <div class="entry-root grid__outer">
     <food
       v-if="isFood"
-      :id="foodID"
-      :source="foodSource"
+      :id="id"
+      :source="source"
       :uuid="uuid"
       ></food>
     <workout
       v-if="isWorkout"
       :uuid="uuid">
     </workout>
-    <div class="grid__outer">
-      <div v-if="!dataEntry && !isFood" class="md-display-1">
+    <div v-if="!dataEntry && !isFood" class="grid__outer">
+      <div class="md-display-1">
         <md-icon>warning</md-icon>
         Entry not found
       </div>
@@ -26,7 +26,7 @@ import Workout from 'components/Entry/Workout'
 
 export default {
   name: 'Entry',
-  props: ['uuid', 'foodID', 'foodSource'],
+  props: ['uuid', 'id', 'source'],
   data() {
     return {
       mass: 100,
@@ -44,7 +44,7 @@ export default {
       return this.dataEntry ? this.dataEntry.type : false
     },
     isFood() {
-      return this.entryType === 'food' || (this.foodID && this.foodSource)
+      return this.entryType === 'food' || (this.id && this.source)
     },
     isWorkout() {
       return this.entryType === 'workout'
@@ -60,7 +60,6 @@ export default {
   left 0
   width 100%
   height 100%
-  border-top 56px solid transparent
   background white
   overflow-x hidden
   overflow-y scroll
@@ -116,6 +115,7 @@ export default {
 
 .md-input-focused
 .md-has-value
+  .mass__unit
   .calories__unit
     opacity 1
 </style>

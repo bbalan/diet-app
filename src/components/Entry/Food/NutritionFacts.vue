@@ -1,12 +1,12 @@
 <template>
-  <md-card v-if="dataFood" class="nutrition-facts">
+  <div v-if="dataFood" class="nutrition-facts">
     <nutrient 
       v-for="nutrient in nutrientData"
       :nutrient="nutrient"
       :mass="mass"
       :decimals="1">
     </nutrient>
-  </md-card>
+  </div>
 </template>
 
 <script>
@@ -56,6 +56,6 @@ export default {
 
 <style lang="stylus">
 .nutrition-facts
-  padding 0 0 8px 0
-  margin-bottom 16px
+  margin-top 16px
+  position relative
 </style>

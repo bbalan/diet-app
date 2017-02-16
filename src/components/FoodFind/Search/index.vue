@@ -1,5 +1,5 @@
 <template>
-  <div class="food-search solid__bg">
+  <div class="food-search page page--tabs">
     
     <form @submit.prevent="" class="grid__outer">
 
@@ -90,19 +90,22 @@ export default {
       dataFood: null,
       loading: false,
       didSearch: false,
+      searchBar: null,
     }
   },
   mounted() {
     if (this.searchText) {
       this.doSearch(this.sanitizedSearch)
-    } else {
-      const $el = this.$refs.searchBar.$el
-      const input = $el.querySelector('input')
+    }
 
-      if (input) {
-        input.focus()
-        input.classList.add('md-input-focused')
-      }
+    this.searchBar = this.$refs.searchBar.$el
+    const input = this.searchBar.querySelector('input')
+
+    if (input) {
+      input.focus()
+      input.select()
+
+      setTimeout(() => { this.searchBar.classList.add('md-input-focused') }, 100)
     }
   },
   watch: {
@@ -204,6 +207,7 @@ export default {
 
       const searches = []
 
+      // Append results from API.USA
       searches.push(searchWithAPI({
         searchText,
         source: API.USDA,
@@ -230,9 +234,11 @@ export default {
           that.searchResults = resultsTemp
         })
         .then(loadComplete)
-    }, 250),
+    }, 5000),
     onClear() {
       this.searchText = ''
+      this.searchBar.classList.remove('md-has-value')
+      this.searchBar.querySelector('input').focus()
     },
   },
 }
@@ -245,7 +251,6 @@ export default {
   left 0
   width 100%
   height 100%
-  padding-top 104px
   box-sizing border-box
   overflow hidden
   form
@@ -323,6 +328,10 @@ export default {
 
   .md-input-focused
     color black !important
+    i.md-icon
+      color rgba(0,0,0,.54) !important
+
+  .md-has-value
     i.md-icon
       color rgba(0,0,0,.54) !important
       &.search

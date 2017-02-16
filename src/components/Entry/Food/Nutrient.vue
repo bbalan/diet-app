@@ -62,7 +62,13 @@ export default {
 
 <style scoped lang="stylus">
 .nutrient
-  padding 8px 16px
+  clear both
+  padding 8px 0
+
+  &:after
+    display block
+    content ''
+    clear both
   
   &__name
     font-weight bold
@@ -71,10 +77,9 @@ export default {
     float right
 
   &-id-208
-    background #eee
+    border-bottom 1px solid #eee
     font-weight normal
     font-size 20px
-    padding 16px
 
     .nutrient__name
       font-weight normal

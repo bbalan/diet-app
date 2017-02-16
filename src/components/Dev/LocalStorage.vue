@@ -1,5 +1,5 @@
 <template>
-  <div class="grid__outer">
+  <div class="grid__outer page page--menu">
     <md-button  @click.native="localStorageClear"class="md-raised md-accent ls-clear icon-left">
       <md-icon>warning</md-icon>
       localStorage.clear()

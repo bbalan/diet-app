@@ -64,7 +64,7 @@ export default [
   },
   {
     name: 'newFood',
-    path: '/food/new/:foodSource/:foodID',
+    path: '/food/new/:source/:id',
     component: Entry,
     props: true,
     meta: {
@@ -82,7 +82,7 @@ export default [
     name: 'food',
     path: '/food',
     component: FoodFind,
-    redirect: { name: 'foodSearch' },
+    redirect: { name: 'foodFavorites' },
     meta: {
       title: 'Food',
       sidebar: true,
@@ -90,22 +90,20 @@ export default [
     },
     children: [
       {
+        name: 'foodFavorites',
+        path: 'favorites',
+        component: FoodFavorites,
+        meta: {
+          title: 'Food',
+        },
+      },
+      {
         name: 'foodSearch',
         path: 'search/:query?',
         component: FoodSearch,
         props: true,
         meta: {
           title: 'Food',
-          // sidebar: true,
-        },
-      },
-      {
-        name: 'foodFavorites',
-        path: 'favorites',
-        component: FoodFavorites,
-        meta: {
-          title: 'Food',
-          // sidebar: true,
         },
       },
       {
@@ -114,7 +112,6 @@ export default [
         component: FoodCustom,
         meta: {
           title: 'Food',
-          // sidebar: true,
         },
       },
       {
@@ -123,7 +120,6 @@ export default [
         component: FoodRecipes,
         meta: {
           title: 'Food',
-          // sidebar: true,
         },
       },
     ],
@@ -134,7 +130,6 @@ export default [
     component: WorkoutFind,
     meta: {
       title: 'Workouts',
-      // sidebar: true,
     },
   },
   {

@@ -1,9 +1,9 @@
 <template>
-  <div class="entryFood solid__bg">
+  <div class="entryFood page page--menu">
 
     <md-tabs md-fixed @change="nav" class="md-transparent" ref="tabs">
-      <md-tab md-label="Search"></md-tab>
       <md-tab md-label="Favorites"></md-tab>
+      <md-tab md-label="Search"></md-tab>
       <md-tab md-label="Custom"></md-tab>
       <md-tab md-label="Recipes"></md-tab>
     </md-tabs>
@@ -24,8 +24,8 @@ export default {
     return {
       currentTab: 0,
       foodPathNames: [
-        'foodSearch',
         'foodFavorites',
+        'foodSearch',
         'foodCustom',
         'foodRecipes',
       ],
@@ -54,8 +54,11 @@ export default {
       if (tabsList) {
         const el = tabsList.$el
         const wrapper = el.querySelector('nav')
-        const tabs = wrapper.querySelectorAll('button')
-        if (tabs) tabs[tabIdx].click()
+
+        setTimeout(() => {
+          const tabs = wrapper.querySelectorAll('button')
+          if (tabs && tabs[tabIdx]) tabs[tabIdx].click()
+        })
       }
     },
   },

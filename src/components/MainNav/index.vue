@@ -70,7 +70,7 @@
         </md-list-item>
 
         <md-list-item>
-          <router-link :to="{ name: 'foodSearch' }">
+          <router-link :to="{ name: 'food' }">
             <md-icon>restaurant</md-icon>
             <span>Food</span>
           </router-link>

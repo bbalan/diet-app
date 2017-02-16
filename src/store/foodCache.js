@@ -26,6 +26,21 @@ const foodCache = {
       Vue.set(state, uuid, { id, source, dataFood })
       setLocalStorage(MODULE_KEY, state)
     },
+
+    // Track how many times a cached food item has been eaten
+    increment(state, uuid) {
+      const food = state[uuid]
+
+      if (food) {
+        if (food.timesLogged) {
+          food.timesLogged += 1
+        } else {
+          food.timesLogged = 1
+        }
+      }
+
+      setLocalStorage(MODULE_KEY, state)
+    },
   },
 }
 

@@ -35,6 +35,14 @@ body
     position relative
     top -5px
 
+// Remove spinner from input type="number"
+input[type="number"]
+  &::-webkit-outer-spin-button
+  &::-webkit-inner-spin-button
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance none
+    margin 0 /* <-- Apparently some margin are still there even though it's hidden */
+
 // page transitions
 .fade
   &-enter-active, &-leave-active
@@ -66,9 +74,14 @@ body
   height 100%
   overflow-x hidden
   overflow-y scroll
+  background white
+  transition background-color .2s
 
   &--menu
     border-top 56px solid white
+
+  &--tabs
+    border-top 46px solid white
 
   &--cards
     background #eee
@@ -78,6 +91,3 @@ body
   max-width 1160px
   padding 16px 16px
   position relative
-
-.solid__bg
-  background white

@@ -1,46 +1,62 @@
 <template>
-  <div class="food-entryf">
-
-    <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
+  <div :class="`food-entry grid__outer page page--menu page--cards`"> 
+    <!--${loading ? '' : 'page--cards'}`">-->
 
     <div v-if="loading" class="food-entry-spinner">
       <md-spinner md-indeterminate></md-spinner>
     </div>
 
-    <form v-if="!loading && dataFood" @submit.prevent="onSubmit" :class="{ loading: loading }">
-      <div :class="`${headingClass} entry-name`">
-        {{ name }}
-        <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
-      </div>
+    <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
-      <div class="inputs">
-        <md-input-container class="inputs__mass" ref="massInput">
-          <label>Mass</label>
-          <md-input type="number" v-model.number="mass" @focus.native="onFocusMass" @blur.native="onBlurMass"></md-input>
-          <span class="mass__unit">grams</span>
-          <span class="md-error">Please enter a number</span>
-        </md-input-container>
+    <md-card v-if="!loading && dataFood" class="grid__outer">
 
-        <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-          Eat
-        </md-button>
-        <md-button v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-          Save
-        </md-button>
-      </div>
+      <form @submit.prevent="onSubmit" :class="{ loading: loading }">
+        <div :class="`${headingClass} entry-name`">
+          {{ name }}
+          <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
+        </div>
 
-      <div class="clearfix"></div>
+        <div class="inputs">
+          <md-input-container class="inputs__mass" ref="massInput">
+            <label>How much?</label>
+            <md-input 
+              type="number"  
+              ref="massInput"
+              v-model.number="mass"
+              @focus.native="onFocusInput('massInput')"
+              @click.native="onFocusInput('massInput')">
+            </md-input>
+            <span class="mass__unit">{{ unitMass }}</span>
+            <span class="md-error">Please enter a number</span>
+          </md-input-container>
 
-      <!-- Moved this to MainNav.vue -->
-      <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
+          <md-button 
+            v-if="!uuid"
+            class="md-raised md-primary inputs__eat inputs__submit"
+            @click.native="onSubmit">
+            Eat
+          </md-button>
 
-      <nutrition-facts
-        :dataFood="dataFood" 
-        :source="source || entrySource"
-        :mass="normalizedMass">
-      </nutrition-facts>
-    </form>
-    
+          <md-button
+            v-if="uuid"
+            class="md-raised md-primary inputs__eat inputs__submit"
+            @click.native="onSubmit">
+            Save
+          </md-button>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <!-- Moved this to MainNav.vue -->
+        <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
+
+        <nutrition-facts
+          :dataFood="dataFood" 
+          :source="source || entrySource"
+          :mass="normalizedMass">
+        </nutrition-facts>
+      </form>
+    </md-card>
   </div>
 </template>
 
@@ -52,6 +68,7 @@ import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
+import { onFocusInput } from 'util'
 import NutritionFacts from './NutritionFacts'
 
 export default {
@@ -63,6 +80,7 @@ export default {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
       massTemp: 100,
       dataFood: null,
+      timesLogged: null,
       entrySource: null,
       loading: false,
       cacheUUID: null,
@@ -98,6 +116,7 @@ export default {
       }
       return 'md-subheading'
     },
+    unitMass: () => store.state.appSettings.unitMass,
   },
   methods: {
     getData() {
@@ -124,20 +143,25 @@ export default {
       this.entrySource = food.source
     },
 
-    // Try to get dataFood from cache, then try the API
+    // Try to get dataFood from cache
     getDataFromCache() {
       const existing = Object
         .entries(store.state.foodCache)
         .find((food) => {
-          if (food[1]) {
-            return food[1].id === this.id && food[1].source === this.source
+          const data = food[1]
+          if (data) {
+            return data.id === this.id && data.source === this.source
           }
           return false
         })
 
       if (existing) {
-        this.cacheUUID = existing[0]
-        this.dataFood = existing[1].dataFood
+        const key = existing[0]
+        const data = existing[1]
+
+        this.cacheUUID = key
+        this.dataFood = data.dataFood
+        this.timesLogged = data.timesLogged || 'sdfds'
 
         return true
       }
@@ -218,6 +242,8 @@ export default {
         type: 'food',
         data: { mass: this.mass },
       })
+
+      store.commit('foodCache/increment', this.cacheUUID)
     },
 
     // Save changes to this entry
@@ -240,57 +266,46 @@ export default {
       store.commit('foodCache/addFood', {
         uuid: this.cacheUUID,
         id: this.id,
+        timesLogged: 0,
         source: this.source,
         dataFood: this.dataFood,
       })
     },
-
-    // TODO: make this just select all instead of replacing text
-    onFocusMass() {
-      this.mass = null
-    },
-
-    // TODO: get rid of this
-    onBlurMass() {
-      if (!this.mass) this.mass = this.massTemp
-    },
+    onFocusInput,
   },
 }
 </script>
 
 <style scoped lang="stylus">
-.inputs__mass
-  max-width 70%
-  float left
-  input::-webkit-outer-spin-button
-  input::-webkit-inner-spin-button
-    /* display: none; <- Crashes Chrome on hover */
-    -webkit-appearance none
-    margin 0 /* <-- Apparently some margin are still there even though it's hidden */
-  
-  .mass__unit
-    transition color .2s
-  &.md-input-invalid
+.food-entry
+
+  .inputs__mass
+    max-width 70%
+    float left
+    
     .mass__unit
-      color #ff5722
+      transition color .2s
+    &.md-input-invalid
+      .mass__unit
+        color #ff5722
 
-.inputs__eat
-  float right
-  width 25%
-  position relative
-  top 8px
-  margin-right 0
+  .inputs__eat
+    float right
+    width 25%
+    position relative
+    top 8px
+    margin-right 0
 
-.food-entry-spinner
-  position absolute
-  top 0
-  left 0
-  width 100%
-  height 100%
-
-  .md-spinner
+  &-spinner
     position absolute
-    top 50%
-    left 50%
-    margin -25px 0 0 -25px
+    top 0
+    left 0
+    width 100%
+    height 100%
+
+    .md-spinner
+      position absolute
+      top 50%
+      left 50%
+      margin -25px 0 0 -25px
 </style>
