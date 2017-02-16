@@ -41,6 +41,13 @@ const foodCache = {
 
       setLocalStorage(MODULE_KEY, state)
     },
+
+    // Save the last mass amount this food was logged with
+    setLastLoggedMass(state, { uuid, lastLoggedMass }) {
+      const cached = state[uuid]
+      if (cached) cached.lastLoggedMass = lastLoggedMass
+      setLocalStorage(MODULE_KEY, state)
+    },
   },
 }
 

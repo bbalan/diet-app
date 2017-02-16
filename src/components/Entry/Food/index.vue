@@ -26,7 +26,7 @@
               @focus.native="onFocusInput('massInput')"
               @click.native="onFocusInput('massInput')">
             </md-input>
-            <span class="mass__unit">{{ unitMass }}</span>
+            <span class="mass__unit">{{ unitFood }}</span>
             <span class="md-error">Please enter a number</span>
           </md-input-container>
 
@@ -91,9 +91,6 @@ export default {
   },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
-    mass(mass) {
-      if (mass) this.massTemp = mass
-    },
   },
   computed: {
     name() {
@@ -101,8 +98,8 @@ export default {
       return this.dataFood.name
     },
     normalizedMass() {
-      if (typeof this.massTemp !== 'number') return 0
-      return this.massTemp
+      if (typeof this.mass !== 'number') return 0
+      return this.mass
     },
     headingClass() {
       if (!this.dataFood) return ''
@@ -116,7 +113,7 @@ export default {
       }
       return 'md-subheading'
     },
-    unitMass: () => store.state.appSettings.unitMass,
+    unitFood: () => store.state.appSettings.unitFood,
   },
   methods: {
     getData() {
@@ -160,6 +157,7 @@ export default {
         const data = existing[1]
 
         this.cacheUUID = key
+        this.mass = data.lastLoggedMass || this.mass
         this.dataFood = data.dataFood
         this.timesLogged = data.timesLogged || 'sdfds'
 
@@ -244,6 +242,10 @@ export default {
       })
 
       store.commit('foodCache/increment', this.cacheUUID)
+      store.commit('foodCache/setLastLoggedMass', {
+        uuid: this.cacheUUID,
+        lastLoggedMass: this.mass,
+      })
     },
 
     // Save changes to this entry
@@ -251,6 +253,10 @@ export default {
       store.commit('entries/edit', {
         uuid: this.uuid,
         data: { mass: this.mass },
+      })
+      store.commit('foodCache/setLastLoggedMass', {
+        uuid: this.cacheUUID,
+        lastLoggedMass: this.mass,
       })
     },
 
@@ -280,8 +286,9 @@ export default {
 .food-entry
 
   .inputs__mass
-    max-width 70%
+    max-width 60%
     float left
+    position relative
     
     .mass__unit
       transition color .2s
@@ -291,7 +298,7 @@ export default {
 
   .inputs__eat
     float right
-    width 25%
+    width 30%
     position relative
     top 8px
     margin-right 0

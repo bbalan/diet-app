@@ -9,6 +9,7 @@ const MODULE_KEY = 'appSettings'
 const stateDefault = {
   unitWeight: 'lbs',
   unitHeight: 'ft',
+  unitFood: 'grams',
   numMeals: 3, // TODO: expose this to user
   mealStops: [],
   goal: 'burn-fat',
@@ -29,6 +30,7 @@ export default {
       state.unitWeight = unitWeight
       setLocalStorage(MODULE_KEY, state)
     },
+
     setUnitHeight(state, unitHeight) {
       state.unitHeight = unitHeight
 
@@ -42,25 +44,35 @@ export default {
 
       setLocalStorage(MODULE_KEY, state)
     },
+
+    setUnitFoot(state, unitFood) {
+      state.unitFood = unitFood
+      setLocalStorage(MODULE_KEY, state)
+    },
+
     setNumMeals(state, numMeals) {
       state.numMeals = numMeals
       setLocalStorage(MODULE_KEY, state)
     },
+
     setGoal(state, goal) {
       state.goal = goal
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     setGoalSpeed(state, goalSpeed) {
       state.goalSpeed = goalSpeed
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     setActivityLevel(state, activityLevel) {
       state.activityLevel = activityLevel
       store.commit('userInfo/calcTDEE')
       setLocalStorage(MODULE_KEY, state)
     },
+
     signupComplete(state) {
       state.signupComplete = true
       state.signupDate = dateFormat(new Date(), 'mm-dd-yy')

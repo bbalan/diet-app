@@ -34,11 +34,11 @@ export default {
     }
   },
   mounted() {
-    setTimeout(this.updateTabs, 300)
+    setTimeout(this.updateTabs, 100)
   },
   watch: {
     $route() {
-      this.updateTabs()
+      setTimeout(this.updateTabs, 100)
     },
   },
   methods: {
@@ -60,20 +60,17 @@ export default {
       if (tabsList) {
         const el = tabsList.$el
         const wrapper = el.querySelector('nav')
+        const tabs = wrapper.querySelectorAll('button')
+        const params = this.$route.params
+        if (tabs && tabs[tabIdx]) tabs[tabIdx].click()
+        this.currentTab = tabIdx
 
-        setTimeout(() => {
-          const tabs = wrapper.querySelectorAll('button')
-          const params = this.$route.params
-          if (tabs && tabs[tabIdx]) tabs[tabIdx].click()
-          this.currentTab = tabIdx
-
-          if (name === 'foodSearch') {
-            router.replace({
-              name: 'foodSearch',
-              params: { query: params ? params.query : undefined },
-            })
-          }
-        })
+        if (name === 'foodSearch') {
+          router.replace({
+            name: 'foodSearch',
+            params: { query: params ? params.query : undefined },
+          })
+        }
       }
     },
   },

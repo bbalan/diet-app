@@ -3,7 +3,7 @@
 
     <md-card>
       <md-list class="md-double-line">
-        <md-list-item v-for="food in cachedItems">
+        <md-list-item v-for="food in cachedItems" v-if="food.timesLogged">
 
           <router-link 
             :to="{ name: 'newFood', params: { source: food.source, id: food.id }}"
@@ -28,7 +28,9 @@
 
       <div v-if="!cachedItems.length" class="grid__outer favorites__empty">
         <md-icon class="favorites__clock">access_time</md-icon>
-        Foods that you log often will appear here.
+        Foods that you eat often will appear here.
+        <br><br>
+        Tap the <md-icon>search</md-icon> icon in the menu to find food.
       </div>
     </md-card>
 
@@ -82,9 +84,16 @@ export default {
   &__clock
     color rgba(0,0,0,.54)
     margin-right 8px
+    position absolute
+    top 0
+    left 16px
+    display none
   &__empty
-    padding-top 24px !important
-    padding-bottom 24px !important
+    position relative
+    /*padding 0 16px 0px 56px !important*/
+    padding 0 24px !important
+    margin-top 24px !important
+    margin-bottom 24px !important
   &__name
     text-overflow clip !important
     position relative
@@ -98,4 +107,6 @@ export default {
       top 0
       right 0
       background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
+  .empty__search
+    margin 16px 0 0 0
 </style>

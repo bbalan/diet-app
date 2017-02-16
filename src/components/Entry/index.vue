@@ -73,7 +73,7 @@ export default {
     pointer-events none
     display block
     content ''
-    width 50px
+    width 25px
     height 100%
     position absolute
     top 0
