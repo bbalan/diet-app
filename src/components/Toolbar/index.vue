@@ -290,7 +290,7 @@ export default {
 .main-nav-button
   &-enter-active
   &-leave-active
-    transition all .4s ease-out
+    transition all .3s ease-out
     
   &-enter
   &-leave-to
@@ -301,8 +301,10 @@ export default {
   transform rotate(0deg)
 
   &-enter-active
+    transition all .15s .15s ease-out
+    transform rotate(0deg)
   &-leave-active
-    transition all .4s ease-out
+    transition all .15s 0s ease-out
     transform rotate(0deg)
     
   &-enter
