@@ -1,5 +1,5 @@
 <template>
-  <div class="workout--preset grid__outer page page--main page--menu page--cards">
+  <div class="workout--preset page--padded page page--main page--menu page--cards">
     
     <md-card v-if="workoutData">
 

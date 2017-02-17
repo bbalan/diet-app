@@ -1,7 +1,7 @@
 <template>
   <div class="food-search page page--tabs">
     
-    <form @submit.prevent="doSearch" class="grid__outer">
+    <form @submit.prevent="doSearch" class="page--padded">
 
       <md-whiteframe 
         md-elevation="2"

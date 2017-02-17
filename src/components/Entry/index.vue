@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-root grid__outer">
+  <div class="entry-root page--padded">
     <food
       v-if="isFood"
       :id="id"
@@ -10,7 +10,7 @@
       v-if="isWorkout"
       :uuid="uuid">
     </workout>
-    <div v-if="!dataEntry && !isFood" class="grid__outer">
+    <div v-if="!dataEntry && !isFood" class="page--padded">
       <div class="md-display-1">
         <md-icon>warning</md-icon>
         Entry not found

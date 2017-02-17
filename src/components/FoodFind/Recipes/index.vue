@@ -1,5 +1,5 @@
 <template>
-  <div class="grid__outer">Recipes</div>
+  <div class="page--padded">Recipes</div>
 </template>
 
 <script>

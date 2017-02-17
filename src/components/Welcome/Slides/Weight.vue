@@ -1,7 +1,7 @@
 <template>
   <slide title="How much do you weigh?" class="slide--weight">
 
-    <div slot="description">
+    <div v-if="weighIn === undefined" slot="description">
       <p>Your weight affects the number of calories you burn.</p>
       <p>If you don't already own a bathroom scale, get one.</p>
     </div>

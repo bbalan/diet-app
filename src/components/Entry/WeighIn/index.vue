@@ -1,11 +1,39 @@
 <template>
-  <div>
-    <h2>Weigh in</h2>
-    <form @submit.prevent="onSubmit">
-      <input type="number" step=".1" v-model="weight"> {{ unitWeight }}
-      <button type="submit">Submit</button>
-    </form>
-    <!--<weight></weight>-->
+  <div class="weigh-in page page--padded page--menu page--cards">
+
+    <md-card class="page--padded weigh-in__card">
+      <h2 class="card__heading md-display-1">Weigh in</h2>
+
+      <!-- TODO: validation for all md-inputs -->
+      <md-input-container 
+        v-if="unitWeight == 'lbs'" 
+        class="weight__lbs weight__input"
+        ref="weight__lbs">
+        <label for="weight__lbs">Weight</label>
+        <md-input name="weight__lbs" v-model="weight"></md-input>
+      </md-input-container>
+
+      <md-input-container 
+        v-if="unitWeight == 'kg'" 
+        class="weight__kg weight__input"
+        ref="weight__kg">
+        <label for="weight__kg">Weight</label>
+        <md-input name="weight__kg" v-model="weight"></md-input>
+      </md-input-container>
+
+      <md-button type="submit" class="md-raised md-primary weigh-in__submit">
+        Save
+      </md-button>
+
+      <md-input-container class="weight__unit">
+        <!--<label for="weight__unit">Unit</label>-->
+        <md-select name="weight__unit" id="weight__unit" v-model="unitWeight">
+          <md-option value="lbs">lbs</md-option>
+          <md-option value="kg">kg</md-option>
+        </md-select>
+      </md-input-container>
+      
+    </md-card>
   </div>
 </template>
 
@@ -17,24 +45,46 @@ import Weight from 'components/Welcome/Slides/Weight'
 export default {
   name: 'WeighIn',
   components: { Weight },
-  data() {
-    return {
-      weight: null,
-    }
-  },
-  computed: {
-    unitWeight() {
-      switch (store.state.appSettings.unitWeight) {
-        case 'kg': return 'kg'
-        case 'lbs': return 'lbs'
-        default: return ''
-      }
-    },
-  },
   methods: {
     onSubmit() {
       store.commit('userInfo/setWeight', this.weight)
       router.push({ name: 'log' })
+    },
+  },
+  mounted() {
+    const ref = this.$refs.weight__lbs || this.$refs.weight__kg
+    const el = ref.$el.querySelector('input')
+    el.focus()
+    el.select()
+  },
+  computed: {
+    weight: {
+      get() {
+        const mass = store.state.userInfo.metrics.mass
+
+        if (mass === null || mass === undefined) return mass
+
+        let weight
+
+        if (store.state.appSettings.unitWeight === 'kg') {
+          weight = Math.round(mass * 10) / 10
+        } else {
+          weight = Math.round(mass * 2.20462 * 10) / 10
+        }
+
+        return weight
+      },
+      set(weight) {
+        store.commit('userInfo/setWeight', weight)
+      },
+    },
+    unitWeight: {
+      get() {
+        return store.state.appSettings.unitWeight
+      },
+      set(unitWeight) {
+        store.commit('appSettings/setUnitWeight', unitWeight)
+      },
     },
   },
 }
@@ -43,4 +93,33 @@ export default {
 <style scoped lang="stylus">
 button
   display block
+
+.weigh-in
+  &__card
+    display block
+  &__submit
+    position relative
+    top 8px
+    margin-right 0
+    margin-bottom 0
+    float right
+    min-width 88px
+    width 20%
+
+.weight__input
+  display block
+  width 35%
+  float left
+  margin-right 8px
+  margin-bottom 0
+
+.weight__unit
+  display block
+  float left
+  width 20%
+  margin-right 8px
+  margin-bottom 0
+  min-width 50px
+  .md-select
+    min-width 0 !important
 </style>

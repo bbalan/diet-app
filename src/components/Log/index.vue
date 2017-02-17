@@ -1,6 +1,6 @@
 <template>
   <div class="log solid__bg page page--main page--menu">
-    <div class="grid__outer">
+    <div class="page--padded">
       <day :dataDay="dataCurrentDay" :date="currentDay"></day>
     </div>
 

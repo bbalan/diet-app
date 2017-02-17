@@ -4,8 +4,8 @@
       <h2>{{ title }}</h2>
     </md-whiteframe>
 
-    <div class="slide__content grid__outer">
-      <slot name="description"></slot>
+    <div class="slide__content page--padded">
+      <slot v-if="$slots.description" name="description"></slot>
 
       <div class="slide__inputs">
         <slot></slot>
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.grid__outer
+.page--padded
   max-width 1160px
   margin 0 auto
   position relative

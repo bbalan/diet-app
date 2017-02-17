@@ -1,5 +1,5 @@
 <template>
-  <div class="page page--tabs grid__outer">Custom</div>
+  <div class="page page--tabs page--padded">Custom</div>
 </template>
 
 <script>

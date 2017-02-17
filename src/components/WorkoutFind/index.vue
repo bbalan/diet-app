@@ -1,5 +1,5 @@
 <template>
-  <div class="grid__outer page page--main page--menu page--workout">
+  <div class="page--padded page page--main page--menu page--workout">
     <entry-workout></entry-workout>
     <workout-list></workout-list>
   </div>

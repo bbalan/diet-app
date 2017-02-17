@@ -1,5 +1,5 @@
 <template>
-  <div :class="`food-entry grid__outer page page--menu page--cards`"> 
+  <div :class="`food-entry page--padded page page--menu page--cards`"> 
     <!--${loading ? '' : 'page--cards'}`">-->
 
     <div v-if="loading" class="food-entry-spinner">
@@ -8,7 +8,7 @@
 
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
-    <md-card v-if="!loading && dataFood" class="grid__outer">
+    <md-card v-if="!loading && dataFood" class="page--padded">
 
       <form @submit.prevent="onSubmit" :class="{ loading: loading }">
         <div :class="`${headingClass} entry-name`">

@@ -1,5 +1,5 @@
 <template>
-  <div class="favorites grid__outer page page--tabs page--cards">
+  <div class="favorites page--padded page page--tabs page--cards">
 
     <md-card>
       <md-list class="md-double-line">
@@ -26,7 +26,7 @@
         </md-list-item>
       </md-list>
 
-      <div v-if="!cachedItems.length" class="grid__outer favorites__empty">
+      <div v-if="!cachedItems.length" class="page--padded favorites__empty">
         <md-icon class="favorites__clock">access_time</md-icon>
         Foods that you eat often will appear here.
         <br><br>

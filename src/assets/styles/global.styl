@@ -67,7 +67,7 @@ input[type="number"]
 
 // global page styling
 .page
-  position absolute !important
+  position absolute
   top 0
   left 0
   width 100%
@@ -85,8 +85,12 @@ input[type="number"]
   &--cards
     background #eee
 
-.grid__outer
-  width 100%
-  max-width 1160px
-  padding 16px 16px
-  position relative
+  &--padded
+    width 100%
+    max-width 1160px
+    padding 16px 16px
+
+.card
+  &__heading
+    padding-top 0
+    margin-top 0
