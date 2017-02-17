@@ -1,6 +1,8 @@
 <template>
   <div class="dashboard">
 
+    <canvas id="caloriesGauge"></canvas>
+
     <!--<pre>{{ entryDetails }}</pre>-->
     <!--<pre>{{ foodDetails }}</pre>-->
     <!--<pre>{{ workoutDetails }}</pre>-->
@@ -25,10 +27,15 @@
 </template>
 
 <script>
+/* eslint-disable */
+
 import store from 'store'
 import * as API from 'api'
 import { toKcal, roundTo } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
+import { Gauge } from 'gaugeJS/dist/gauge.min'
+
+let gauge
 
 export default {
   name: 'Dashboard',
@@ -40,6 +47,33 @@ export default {
     }
   },
   components: { ProgressBar },
+  mounted() {
+    const opts = {
+      angle: -0.25,
+      lineWidth: 0.05,
+      radiusScale: 1,
+      pointer: {
+        length: 0.38,
+        strokeWidth: 0.011,
+        color: '#000000',
+      },
+      limitMax: false,
+      limitMin: false,
+      colorStart: '#6FADCF',
+      colorStop: '#8FC0DA',
+      strokeColor: '#E0E0E0',
+      generateGradient: true,
+      highDpiSupport: true,
+    }
+
+    const target = document.getElementById('caloriesGauge')
+
+    gauge = new Gauge(target).setOptions(opts)
+    gauge.maxValue = 3000
+    gauge.setMinValue(0)
+    gauge.animationSpeed = 128
+    gauge.set(1250)
+  },
   computed: {
     entryDetails() {
       return this.entries.map(entry => store.state.entries[entry])
@@ -135,4 +169,9 @@ export default {
 <style scoped lang="stylus">
 .dashboard
   margin-bottom 20px
+
+#caloriesGauge
+  width 250px
+  height 250px
+  transform rotate(-45deg)
 </style>

@@ -21,7 +21,7 @@
         <md-input name="weight__kg" v-model="weight"></md-input>
       </md-input-container>
 
-      <md-button type="submit" class="md-raised md-primary weigh-in__submit">
+      <md-button @click.native="onSubmit" class="md-raised md-primary weigh-in__submit">
         Save
       </md-button>
 

@@ -90,6 +90,7 @@ import store from 'store'
 import router from 'router'
 import Swiper from 'swiper'
 // import db from 'util/Firebase'
+import 'swiper/dist/css/swiper.min.css'
 
 // TODO: validate each slide and call mySwiper.lockSwipeToNext()
 // or mySwiper.unlockSwipeToNext() to prevent swiping
@@ -121,6 +122,7 @@ export default {
     router.replace('/welcome#intro')
   },
   mounted() {
+    // TODO: move this outside vue component definition
     // Docs: http://idangero.us/swiper/api
     this.swiper = new Swiper('.swiper-container', {
       pagination: '.swiper-pagination',
