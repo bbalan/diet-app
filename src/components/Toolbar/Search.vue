@@ -62,6 +62,9 @@ export default {
         this.searchText = ''
       }
     },
+    searchText() {
+      this.updateRoute()
+    },
   },
   methods: {
     open() {
@@ -69,7 +72,6 @@ export default {
     },
     close() {
       this.isOpen = false
-      console.log(this.$route.name)
       if (this.$route.name === 'foodSearch') router.go(-1)
     },
     clear() {
@@ -83,6 +85,12 @@ export default {
     },
     submit() {
       router.push({ name: 'foodSearch', params: { query: this.searchText } })
+    },
+    updateRoute() {
+      if (this.$route.name !== 'foodSearch') {
+        router.push({ name: 'foodSearch', params: { query: this.searchText } })
+      }
+      router.replace({ name: 'foodSearch', params: { query: this.searchText } })
     },
   },
 }

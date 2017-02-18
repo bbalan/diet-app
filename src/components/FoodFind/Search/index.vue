@@ -120,7 +120,7 @@ export default {
       }, 250)
     },
     $route(route) {
-      console.log(route.params.query)
+      this.searchText = route.params.query
     },
   },
   computed: {
