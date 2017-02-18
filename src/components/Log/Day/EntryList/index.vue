@@ -1,11 +1,13 @@
 <template>
-  <div>
-    <ul>
-      <entry-link 
-        v-for="uuid in entriesReversed" 
-        :uuid="uuid">
-      </entry-link>
-    </ul>
+  <div class="entry-list page--padded">
+    <md-card class="entry-list__contents">
+      <md-list>
+        <entry-link 
+          v-for="uuid in entriesReversed" 
+          :uuid="uuid">
+        </entry-link>
+      </md-list>
+    </md-card>
   </div>
 </template>
 
@@ -29,7 +31,16 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-ul
-  padding 0
-  list-style-type none
+.entry-list
+  box-sizing border-box
+  position absolute
+  bottom 0
+  left 0
+  width 100%
+  height 100%
+  border-top 148px solid transparent
+
+  &__contents
+    overflow-x hidden
+    overflow-y hidden
 </style>

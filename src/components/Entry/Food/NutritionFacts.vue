@@ -1,5 +1,8 @@
 <template>
   <div v-if="dataFood" class="nutrition-facts">
+
+    <!-- TODO: macro percentages/gauges -->
+
     <nutrient 
       v-for="nutrient in nutrientData"
       :nutrient="nutrient"

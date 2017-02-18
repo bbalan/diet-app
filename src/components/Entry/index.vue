@@ -105,7 +105,7 @@ export default {
 
 .mass__unit
 .calories__unit
-  height 0
+  /*height 0*/
   line-height 1em
   position absolute
   bottom 22px

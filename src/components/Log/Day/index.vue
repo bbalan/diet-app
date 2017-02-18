@@ -1,13 +1,5 @@
 <template>
-  <div class="log__day" v-if="true || filteredEntries.length || isToday">
-
-    Weight: {{ mass | toMassUnit }}
-
-    <dashboard 
-      ref="dashboard"
-      :entries="filteredEntries"
-      :tdee="tdee">
-    </dashboard>
+  <div class="log__day page page--cards" v-if="true || filteredEntries.length || isToday">
 
     <!--<router-link :to="{ name: 'food' }" class="addLog logFood">Add food</router-link>-->
     <!--<router-link :to="{ name: 'workout' }" class="addLog logWorkout">Add workout</router-link>-->
@@ -30,6 +22,12 @@
       v-if="filteredEntries.length" 
       :entries="filteredEntries">
     </entry-list>
+
+    <dashboard 
+      ref="dashboard"
+      :entries="filteredEntries"
+      :tdee="tdee">
+    </dashboard>
 
     <div v-if="filteredEntries.length === 0">No entries today!</div>
 

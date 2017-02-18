@@ -3,7 +3,7 @@
     
     <form @submit.prevent="doSearch" class="page--padded">
 
-      <md-whiteframe 
+      <!--<md-whiteframe 
         md-elevation="2"
         class="search-bar">
 
@@ -16,9 +16,8 @@
           </md-input>
         </md-input-container>
 
-        <!--<md-icon v-if="searchText" @click="onClear" class="clear">close</md-icon>-->
+        <md-icon v-if="searchText" @click="onClear" class="clear">close</md-icon>
 
-        <!-- TODO: make this work -->
         <md-list v-if="false" class="search-bar__result-list">
           <md-list-item>
             <md-icon>access_time</md-icon>
@@ -45,7 +44,7 @@
             <span>Past search</span>
           </md-list-item>
         </md-list>
-      </md-whiteframe>
+      </md-whiteframe>-->
 
       <div class="search-loader-container">
         <md-spinner v-if="loading && searchText.length" md-indeterminate class="search-loader"></md-spinner>
@@ -102,14 +101,14 @@ export default {
     }
 
     // Focus the search bar and add classes
-    this.searchBar = this.$refs.searchBar.$el
-    const input = this.searchBar.querySelector('input')
+    // this.searchBar = this.$refs.searchBar.$el
+    // const input = this.searchBar.querySelector('input')
 
-    if (input) {
-      input.focus()
-      input.select()
-      setTimeout(() => { this.searchBar.classList.add('md-input-focused') }, 100)
-    }
+    // if (input) {
+    //   input.focus()
+    //   input.select()
+    //   setTimeout(() => { this.searchBar.classList.add('md-input-focused') }, 100)
+    // }
   },
   watch: {
     // User typed something into the search field.
@@ -119,6 +118,9 @@ export default {
       this.stopTypingTimeout = setTimeout(() => {
         this.doSearch(this.sanitizedSearch)
       }, 250)
+    },
+    $route(route) {
+      console.log(route.params.query)
     },
   },
   computed: {

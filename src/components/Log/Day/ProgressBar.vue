@@ -6,7 +6,7 @@
     <div class="progressBar">
       <div 
         class="progressBar__indicator" 
-        :style="{ width: `${caloriesEatenPct}%` }"
+        :style="{ width: `${percent}%` }"
         :class="progressClasses">
       </div>
       <div class="progressBar__mealStops">
@@ -24,27 +24,21 @@
 import store from 'store'
 
 export default {
-  props: ['current', 'total'],
+  props: ['percent'],
   data() {
     return { calorieTolerance: 25 }
   },
   computed: {
     numMeals: () => store.state.appSettings.numMeals,
-    caloriesRemaining() {
-      return this.total - this.current
-    },
-    caloriesEatenPct() {
-      return (this.current / this.total) * 100
-    },
     progressClasses() {
-      const remain = this.caloriesRemaining * -1
+      const remain = this.remaining * -1
       return {
         warning: remain > 0 && remain < this.calorieTolerance,
         error: remain >= this.calorieTolerance,
       }
     },
     progressWarnings() {
-      const remain = this.caloriesRemaining * -1
+      const remain = this.remaining * -1
       if (remain > 0) {
         return `${remain} kcal over limit`
       }

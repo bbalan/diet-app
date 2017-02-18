@@ -1,8 +1,7 @@
 <template>
   <div class="log solid__bg page page--main page--menu">
-    <div class="page--padded">
-      <day :dataDay="dataCurrentDay" :date="currentDay"></day>
-    </div>
+    
+    <day :dataDay="dataCurrentDay" :date="currentDay"></day>
 
     <md-speed-dial md-mode="scale" class="md-fab-bottom-right" ref="speedDial">
       <md-button class="md-fab" md-fab-trigger @click.native="onClickFood">
@@ -72,7 +71,7 @@ export default {
   box-sizing border-box
   border-top 56px solid transparent
   overflow-x hidden
-  overflow-y scroll
+  overflow-y hidden
 
   &__workout
     bottom 96px !important

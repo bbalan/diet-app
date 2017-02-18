@@ -1,30 +1,30 @@
 <template>
-  <li v-if="dataEntry" :class="{ entryLink: true, deleted: deleteTimeout }">
+  
+  <md-list-item v-if="dataEntry" class="entry-link">
 
-    <div class="entry__info" v-if="!deleteTimeout">
-      <button @click="deleteEntry">X</button>
+    <div class="entry-link__contents">
 
       <router-link
         :to="`entry/${uuid}`"
         class="edit">
-        <span class="name" v-html="name"></span>
+        <span class="entry-link__name" v-html="name"></span>
+
+        <span class="entry-link__calories">{{calories | roundTo | roundTo | toKcal}}</span>
       </router-link>
 
-      <div class="mass" v-if="isFood">
-        <input name="mass" v-model="mass" type="number">
-        <label for="mass">g</label>
-      </div>
-
-      <span class="calories">{{calories | roundTo | roundTo | toKcal}}</span>
-
+      <md-input-container v-if="isFood" class="entry-link__mass">
+        <md-input 
+          type="number"  
+          ref="massInput"
+          :placeholder="unitFood"
+          v-model.number="mass"
+          @click.native="onFocus">
+        </md-input>
+        <span class="mass__unit">{{ unitFoodShort }}</span>
+      </md-input-container>
     </div>
 
-    <div class="entry__undo-delete" v-if="deleteTimeout">
-      Deleted
-      <button @click="undoDelete">Undo</button>
-    </div>
-
-  </li>
+  </md-list-item>
 </template>
 
 <script>
@@ -36,11 +36,15 @@ import { toKcal, roundTo } from 'util/filters'
 export default {
   props: ['uuid'],
   filters: { toKcal, roundTo },
-  data() {
-    return {
-      deleteTimeout: null,
-      deleteTime: 2000,
-    }
+  methods: {
+    onFocus() {
+      const el = this.$refs.massInput.$el
+
+      if (el) {
+        el.focus()
+        el.select()
+      }
+    },
   },
   computed: {
     dataEntry() {
@@ -125,71 +129,56 @@ export default {
 
       return null
     },
-  },
-  methods: {
-    // Remove this entry forever
-    // TODO: make this do something
-    deleteEntry() {
-      store.commit('entries/disable', { uuid: this.uuid })
-
-      this.deleteTimeout = setTimeout(() => {
-        store.commit('entries/delete', { uuid: this.uuid })
-        this.deleteTimeout = null
-      }, this.deleteTime)
-    },
-    undoDelete() {
-      store.commit('entries/enable', { uuid: this.uuid })
-      clearTimeout(this.deleteTimeout)
-      this.deleteTimeout = null
+    unitFood: () => store.state.appSettings.unitFood,
+    unitFoodShort() {
+      switch (store.state.appSettings.unitFood) {
+        case 'grams': return 'g'
+        default: return ''
+      }
     },
   },
 }
 </script>
 
 <style scoped lang="stylus">
-.entryLink
-  width 100%
-  height 25px
+.entry-link
   position relative
+  a
+    display block
+    width 100%
+    height 100%
+    position absolute
+    top 0
+    left 0
+    padding 16px
+    color black !important
+    text-decoration none !important
+  &__name
+    display block
+    width 100%
+    border-right 150px solid transparent
+    white-space nowrap
+    overflow hidden
+  &__calories
+    display block
+    position absolute
+    top 0
+    right 0
+    padding 16px
+  &__mass
+    position absolute
+    top -10px
+    right 90px
+    width 50px
 
-  .foodInfo
-    display inline
+    &.md-input-focused
+      .mass__unit
+        opacity 0
 
-  &.deleted
-    .entry__info
-      display none
-  
-.edit
-  width 50px
-  color #42b983
+    &.md-input-focused.md-has-value
+      .mass__unit
+        opacity 1
 
-.name
-  display inline-block
-  width 60%
-
-.mass
-  width 10%
-  position absolute
-  right 10%
-  top 0
-
-  input
-    font-size 16px
-    text-align right
-    width 70%
-    display inline-block
-
-  label
-    width 30%
-
-.calories
-  display inline-block
-  width 10%
-  text-align right
-  font-weight bold
-  position absolute
-  right 0
-  top 0
-span
-  margin 0 10px
+    .mass__unit
+      bottom 10px !important
 </style>

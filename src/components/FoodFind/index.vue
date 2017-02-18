@@ -5,7 +5,7 @@
       <md-tab md-label="Favorites">
         <router-link :to="{ name: 'foodFavorites'}"></router-link>
       </md-tab>
-      <md-tab md-label="Search"></md-tab>
+      <!--<md-tab md-label="Search"></md-tab>-->
       <md-tab md-label="Custom"></md-tab>
       <md-tab md-label="Recipes"></md-tab>
     </md-tabs>
@@ -27,7 +27,7 @@ export default {
       currentTab: 0,
       foodPathNames: [
         'foodFavorites',
-        'foodSearch',
+        // 'foodSearch',
         'foodCustom',
         'foodRecipes',
       ],

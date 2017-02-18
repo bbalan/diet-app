@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard">
+  <md-whiteframe md-elevation="2" class="dashboard page--padded">
 
     <canvas id="caloriesGauge"></canvas>
 
@@ -7,23 +7,25 @@
     <!--<pre>{{ foodDetails }}</pre>-->
     <!--<pre>{{ workoutDetails }}</pre>-->
 
-    <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
-    <p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>
-    <p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>
-    <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
-    <p class="percentages">
-      Macros: {{ fatPct | roundTo }} F / {{ carbsPct | roundTo }} C / {{ proteinPct | roundTo }} P
-    </p>
+    <div class="stats">
+      <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
+      <p class="weight">Weight: {{ mass | toMassUnit }}</p>
+      <p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>
+      <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
+      <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
+      <p class="percentages">
+        Macros: {{ fatPct | roundTo }} F / {{ carbsPct | roundTo }} C / {{ proteinPct | roundTo }} P
+      </p>
+    </div>
 
-    <progress-bar 
-      :current="calories" 
-      :total="caloriesToEat">
-    </progress-bar>
+    <!--<progress-bar :percent="caloriesPercent"></progress-bar>-->
 
     <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
     <!--<span class="nutrient">{{ fat }}g fat</span>-->
     <!--<span class="nutrient">{{ protein }}g protein</span>-->
-  </div>
+
+    <div class="clearfix"></div>
+  </md-whiteframe>
 </template>
 
 <script>
@@ -31,7 +33,7 @@
 
 import store from 'store'
 import * as API from 'api'
-import { toKcal, roundTo } from 'util/filters'
+import { toKcal, roundTo, toMassUnit } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 import { Gauge } from 'gaugeJS/dist/gauge.min'
 
@@ -40,7 +42,7 @@ let gauge
 export default {
   name: 'Dashboard',
   props: ['entries', 'tdee'],
-  filters: { toKcal, roundTo },
+  filters: { toKcal, roundTo, toMassUnit },
   data() {
     return {
       usdaNutrients: ['208', '204', '205', '203'],
@@ -69,12 +71,18 @@ export default {
     const target = document.getElementById('caloriesGauge')
 
     gauge = new Gauge(target).setOptions(opts)
-    gauge.maxValue = 3000
+    gauge.maxValue = 100
     gauge.setMinValue(0)
-    gauge.animationSpeed = 128
-    gauge.set(1250)
+    gauge.animationSpeed = 32
+    gauge.set(this.caloriesPercent)
+  },
+  watch: {
+    caloriesPercent(percent) {
+      gauge.set(percent)
+    },
   },
   computed: {
+    mass: () => store.state.userInfo.metrics.mass,
     entryDetails() {
       return this.entries.map(entry => store.state.entries[entry])
     },
@@ -135,6 +143,7 @@ export default {
       }
       return this.tdee - this.caloriesTotal
     },
+    caloriesPercent() { return this.calories / this.caloriesToEat * 100 },
   },
   methods: {
     computeNutrient(nutrientID) {
@@ -168,10 +177,20 @@ export default {
 
 <style scoped lang="stylus">
 .dashboard
+  background white
   margin-bottom 20px
 
+.stats
+  float left
+
+  p
+    margin 0 0 4px 0
+
 #caloriesGauge
-  width 250px
-  height 250px
+  width 100px
+  height 100px
   transform rotate(-45deg)
+  float left
+  margin-right 16px
+  margin-bottom 16px
 </style>
