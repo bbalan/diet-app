@@ -15,14 +15,18 @@
           <input 
             type="text" 
             placeholder="Search foods" 
-            v-model="searchText">
+            v-model="searchText"
+            @keyup="onKeyUp"
+            @blur="onBlur"
+            @focus="onFocus"
+            @click="onFocus">
         </form>
 
         <!-- TODO: previous searches -->
           
         <transition name="fade">
           <md-button 
-            v-if="searchText.length"
+            v-if="searchText"
             class="md-icon-button toolbar__search__clear"
             @click.native="clear">
             <md-icon>close</md-icon>
@@ -31,7 +35,7 @@
 
         <md-button 
           class="md-icon-button toolbar__search__back"
-          @click.native="close">
+          @click.native="goBack">
           <md-icon>arrow_back</md-icon>
         </md-button>
       </div>
@@ -43,35 +47,44 @@
 import router from 'router'
 
 export default {
-  name: 'Search',
+  name: 'SearchBar',
   data() {
     return {
       isOpen: false,
       searchText: '',
+      searchTextLast: '',
       inputEl: null,
     }
   },
   computed: {
     searchEnabled() { return this.$route.meta.search },
   },
+  mounted() {
+    this.onRouteChange()
+  },
   watch: {
+    $route() {
+      this.onRouteChange()
+    },
     isOpen(open) {
       if (open) {
-        this.focus()
+        // this.focus()
       } else {
         this.searchText = ''
       }
     },
     searchText() {
-      this.updateRoute()
+      this.onSearchText()
     },
   },
   methods: {
     open() {
       this.isOpen = true
+      this.focus()
     },
-    close() {
-      this.isOpen = false
+    close() { this.isOpen = false },
+    goBack() {
+      this.close()
       if (this.$route.name === 'foodSearch') router.go(-1)
     },
     clear() {
@@ -84,13 +97,45 @@ export default {
       setTimeout(() => { this.$el.querySelector('input').focus() }, 100)
     },
     submit() {
+      console.log('submit', this.searchText)
+      this.searchTextLast = this.searchText
       router.push({ name: 'foodSearch', params: { query: this.searchText } })
     },
-    updateRoute() {
+    onFocus() {
+      // this.$el.querySelector('input').select()
+      this.searchText = ''
+    },
+    onBlur() {
+      console.log('onBlur')
       if (this.$route.name !== 'foodSearch') {
-        router.push({ name: 'foodSearch', params: { query: this.searchText } })
+        this.searchText = ''
+        this.close()
+      } else {
+        this.searchText = this.searchTextLast
       }
-      router.replace({ name: 'foodSearch', params: { query: this.searchText } })
+    },
+    onSearchText() {
+      // if (this.searchText.length) {
+      //   const params = this.searchText.length ? { query: this.searchText } : undefined
+
+      //   if (this.$route.name !== 'foodSearch') {
+      //     router.push({ name: 'foodSearch', params })
+      //   } else {
+      //     router.replace({ name: 'foodSearch', params })
+      //   }
+      // }
+    },
+    onRouteChange() {
+      if (this.$route.name === 'foodSearch') {
+        this.isOpen = true
+        this.searchText = this.$route.params.query
+        this.searchTextLast = this.searchText
+      } else {
+        this.isOpen = false
+      }
+    },
+    onKeyUp(e) {
+      if (e.key === 'Enter') this.submit()
     },
   },
 }

@@ -1,26 +1,22 @@
 <template>
-  <div class="resultList">
-
-    <div v-if="list !== null && list.length > 0 && !!searchText">
-      <!--<h2>{{list.length}} results</h2>-->
-      <!--<span class="md-headline">{{list.length}} results</span>-->
+  <div class="resultList" v-if="list !== null && list.length > 0 && !!searchText">
+    <!--<h2>{{list.length}} results</h2>-->
+    <!--<span class="md-headline">{{list.length}} results</span>-->
+    
+    <ul class="link-list">
+      <li 
+        v-for="result in orderedList" class="md-subheading">
+        <router-link 
+          class="foodLink" 
+          :to="`/food/new/${result.source}/${result.id}`">
+          {{ result.name }}
+        </router-link>
+      </li>
       
-      <ul class="link-list">
-        <li 
-          v-for="result in orderedList" class="md-subheading">
-          <router-link 
-            class="foodLink" 
-            :to="`/food/new/${result.source}/${result.id}`">
-            {{ result.name }}
-          </router-link>
-        </li>
-        
-        <li class="end-of-results">
-          Found {{ orderedList.length }} food {{ orderedList.length == 1 ? 'item' : 'items' }}
-        </li>
-      </ul>
-    </div>
-
+      <li class="end-of-results">
+        Found {{ orderedList.length }} food {{ orderedList.length == 1 ? 'item' : 'items' }}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -72,7 +68,7 @@ export default {
   height 100%
   overflow-x hidden
   overflow-y scroll
-  padding-bottom 48px
+  padding-bottom 16px
   position relative
   z-index 1
   a
@@ -80,6 +76,7 @@ export default {
 
   ul
     padding 0
+    margin 0
   li
     list-style-type none
     background white
@@ -110,7 +107,7 @@ export default {
       padding-top 32px
       margin-top 16px !important
       color rgba(0,0,0,.5)
-      border-top 1px solid transparent
+      border-top 1px solid #eee
       .md-list-item-container
         padding 0 !important
 </style>

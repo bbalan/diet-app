@@ -266,6 +266,8 @@ export default {
   form
     position relative
     height 100%
+    padding-top 2px !important
+    padding-bottom 0 !important
 .clear
   position absolute
   right 8px

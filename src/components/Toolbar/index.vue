@@ -7,7 +7,7 @@
         
           <left-menu @evtToggleSidenav="toggleSidenav"></left-menu>
 
-          <search></search>
+          <search-bar></search-bar>
 
           <h2 class="md-title toolbar__title" style="flex: 1">
             <span v-if="!isLog">{{ pageTitle }}</span>
@@ -33,7 +33,7 @@ import store from 'store'
 import RightMenu from 'components/Toolbar/RightMenu'
 import LeftMenu from 'components/Toolbar/LeftMenu'
 import Sidenav from 'components/Toolbar/Sidenav'
-import Search from 'components/Toolbar/Search'
+import SearchBar from 'components/Toolbar/SearchBar'
 
 export default {
   data() {
@@ -41,7 +41,7 @@ export default {
       searchOpen: false,
     }
   },
-  components: { RightMenu, LeftMenu, Sidenav, Search },
+  components: { RightMenu, LeftMenu, Sidenav, SearchBar },
   computed: {
     signupComplete: () => store.state.appSettings.signupComplete,
     pageTitle() {
