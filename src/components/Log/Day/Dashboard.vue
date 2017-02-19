@@ -11,8 +11,9 @@
       <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
       <p class="weight">Weight: {{ mass | toMassUnit }}</p>
       <p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>
+      <p class="perMeal">Per meal: {{ caloriesToEat / numMeals | roundTo | toKcal }}</p>
       <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
-      <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
+      <!--<p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>-->
       <p class="percentages">
         Macros: {{ fatPct | roundTo }} F / {{ carbsPct | roundTo }} C / {{ proteinPct | roundTo }} P
       </p>
@@ -83,6 +84,7 @@ export default {
   },
   computed: {
     mass: () => store.state.userInfo.metrics.mass,
+    numMeals: () => store.state.appSettings.numMeals,
     entryDetails() {
       return this.entries.map(entry => store.state.entries[entry])
     },
@@ -177,20 +179,34 @@ export default {
 
 <style scoped lang="stylus">
 .dashboard
+  position absolute
+  top 0
+  left 0
+  height 96px
   background white
-  margin-bottom 20px
+  z-index 2
+  overflow hidden
 
 .stats
-  float left
+  margin-left 96px
 
   p
     margin 0 0 4px 0
 
 #caloriesGauge
-  width 100px
-  height 100px
+  width 80px
+  height 80px
   transform rotate(-45deg)
   float left
   margin-right 16px
   margin-bottom 16px
+  position absolute
+  top 4px
+  left 8px
+
+.calories
+.perMeal
+  float left
+  margin-right 16px !important
+  display block
 </style>

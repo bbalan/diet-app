@@ -36,6 +36,7 @@ import store from 'store'
 import Slide from 'components/Welcome/Slide'
 
 export default {
+  props: ['weighIn'],
   components: { Slide },
   methods: {
     setUnitWeight(val) {

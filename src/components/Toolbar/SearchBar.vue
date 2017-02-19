@@ -97,7 +97,6 @@ export default {
       setTimeout(() => { this.$el.querySelector('input').focus() }, 100)
     },
     submit() {
-      console.log('submit', this.searchText)
       this.searchTextLast = this.searchText
       router.push({ name: 'foodSearch', params: { query: this.searchText } })
     },
@@ -106,7 +105,6 @@ export default {
       this.searchText = ''
     },
     onBlur() {
-      console.log('onBlur')
       if (this.$route.name !== 'foodSearch') {
         this.searchText = ''
         this.close()

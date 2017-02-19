@@ -1,35 +1,36 @@
 <template>
   <div class="log__day page page--cards" v-if="true || filteredEntries.length || isToday">
 
-    <!--<router-link :to="{ name: 'food' }" class="addLog logFood">Add food</router-link>-->
-    <!--<router-link :to="{ name: 'workout' }" class="addLog logWorkout">Add workout</router-link>-->
-
-    <transition name="fade">
-      <div class="weigh-in" v-if="!massUpdated">
-
-        <p class="md-subheading">It's time to log your body weight!</p>
-
-        <router-link :to="{ name: 'weighin' }" class="addLog logWeight">
-          <md-button class="md-raised md-primary">
-            Weigh In
-          </md-button>
-        </router-link>
-
-      </div>
-    </transition>
-
-    <entry-list 
-      v-if="filteredEntries.length" 
-      :entries="filteredEntries">
-    </entry-list>
-
     <dashboard 
       ref="dashboard"
       :entries="filteredEntries"
       :tdee="tdee">
     </dashboard>
 
-    <div v-if="filteredEntries.length === 0">No entries today!</div>
+    <div class="log__day__scroll page--padded">
+
+      <transition name="fade">
+        <md-card class="weigh-in" v-if="!massUpdated">
+          <div class="page--padded">
+            <p class="md-subheading">It's time to log your body weight!</p>
+
+            <router-link :to="{ name: 'weighin' }" class="addLog logWeight">
+              <md-button class="md-raised md-primary">
+                Weigh In
+              </md-button>
+            </router-link>
+          </div>
+        </md-card>
+      </transition>
+
+      <entry-list 
+        v-if="filteredEntries.length" 
+        :entries="filteredEntries">
+      </entry-list>
+
+      <div v-if="filteredEntries.length === 0">No entries today!</div>
+
+    </div>
 
   </div>
 </template>
@@ -80,6 +81,9 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.log__day
+  overflow-x hidden
+  overflow-y hidden
 .nutrient
   margin-right 20px
   
@@ -91,4 +95,16 @@ export default {
 
 .weigh-in
   text-align center
+  margin-bottom 16px
+
+.log__day__scroll
+  position absolute
+  top 0
+  left 0
+  width 100%
+  height 100%
+  box-sizing border-box
+  border-top 96px solid transparent
+  overflow-x hidden
+  overflow-y scroll
 </style>
