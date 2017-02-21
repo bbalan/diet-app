@@ -1,5 +1,5 @@
 <template>
-  <div :class="`food-entry page--padded page page--menu page--cards`"> 
+  <div :class="`food-entry page--padded page page--cards`"> 
     <!--${loading ? '' : 'page--cards'}`">-->
 
     <div v-if="loading" class="food-entry-spinner">
@@ -11,7 +11,7 @@
     <md-card v-if="!loading && dataFood" class="page--padded">
 
       <form @submit.prevent="onSubmit" :class="{ loading: loading }">
-        <div :class="`${headingClass} entry-name`">
+        <div :class="`${headingClass} entry-name wordwrap--fade`">
           {{ name }}
           <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
         </div>

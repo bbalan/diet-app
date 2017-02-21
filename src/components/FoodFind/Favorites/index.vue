@@ -1,30 +1,28 @@
 <template>
-  <div class="favorites page--padded page page--tabs page--cards">
+  <div class="favorites page page--tabs page--cards">
 
-    <md-card>
-      <md-list class="md-double-line">
-        <md-list-item v-for="food in cachedItems" v-if="food.timesLogged">
+    <md-list class="md-double-line">
+      <md-list-item v-for="food in cachedItems" v-if="food.timesLogged">
 
-          <router-link 
-            :to="{ name: 'newFood', params: { source: food.source, id: food.id }}"
-            class="favorites__link">
+        <router-link 
+          :to="{ name: 'newFood', params: { source: food.source, id: food.id }}"
+          class="favorites__link">
 
-            <!--<md-icon class="favorites__star">star</md-icon>-->
-            
-            <div class="md-list-text-container">
-              <span class="favorites__name">{{ food.name | capitalize }}</span>
-              <span class="favorites__times">Logged {{ food.timesLogged }} time{{ food.timesLogged === 1 ? '' : 's' }}</span>
-            </div>
+          <!--<md-icon class="favorites__star">star</md-icon>-->
+          
+          <div class="md-list-text-container">
+            <span class="favorites__name wordwrap--fade">{{ food.name | capitalize }}</span>
+            <span class="favorites__times">Logged {{ food.timesLogged }} time{{ food.timesLogged === 1 ? '' : 's' }}</span>
+          </div>
 
-            <md-button class="md-icon-button md-list-action">
-              <md-icon>keyboard_arrow_right</md-icon>
-            </md-button>
-          </router-link>
+          <md-button class="md-icon-button md-list-action">
+            <md-icon>keyboard_arrow_right</md-icon>
+          </md-button>
+        </router-link>
 
-          <md-divider></md-divider>
+        <md-divider></md-divider>
 
-        </md-list-item>
-      </md-list>
+      </md-list-item>
 
       <div v-if="!cachedItems.length" class="page--padded favorites__empty">
         <md-icon class="favorites__clock">access_time</md-icon>
@@ -95,18 +93,8 @@ export default {
     margin-top 24px !important
     margin-bottom 24px !important
   &__name
-    text-overflow clip !important
+    text-overflow clip
     position relative
-    &:after
-      pointer-events none
-      display block
-      content ''
-      width 25px
-      height 100%
-      position absolute
-      top 0
-      right 0
-      background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
   .empty__search
     margin 16px 0 0 0
 </style>

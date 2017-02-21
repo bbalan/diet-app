@@ -58,18 +58,21 @@ export default {
     setGoal(state, goal) {
       state.goal = goal
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
     setGoalSpeed(state, goalSpeed) {
       state.goalSpeed = goalSpeed
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
     setActivityLevel(state, activityLevel) {
       state.activityLevel = activityLevel
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 

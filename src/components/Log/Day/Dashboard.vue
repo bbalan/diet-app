@@ -1,7 +1,7 @@
 <template>
   <md-whiteframe md-elevation="2" class="dashboard page--padded">
 
-    <canvas id="caloriesGauge"></canvas>
+    <!--<canvas id="caloriesGauge"></canvas>-->
 
     <!--<pre>{{ entryDetails }}</pre>-->
     <!--<pre>{{ foodDetails }}</pre>-->
@@ -10,7 +10,9 @@
     <div class="stats">
       <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
       <p class="weight">Weight: {{ mass | toMassUnit }}</p>
-      <p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>
+      <p>{{ caloriesPercent | roundTo(2)}}%</p>
+      <!--<p class="toEat">To eat: {{ caloriesToEat }}</p>-->
+      <!--<p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>-->
       <p class="perMeal">Per meal: {{ caloriesToEat / numMeals | roundTo | toKcal }}</p>
       <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
       <!--<p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>-->
@@ -38,7 +40,7 @@ import { toKcal, roundTo, toMassUnit } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 import { Gauge } from 'gaugeJS/dist/gauge.min'
 
-let gauge
+// let gauge
 
 export default {
   name: 'Dashboard',
@@ -51,35 +53,35 @@ export default {
   },
   components: { ProgressBar },
   mounted() {
-    const opts = {
-      angle: -0.25,
-      lineWidth: 0.05,
-      radiusScale: 1,
-      pointer: {
-        length: 0.38,
-        strokeWidth: 0.011,
-        color: '#000000',
-      },
-      limitMax: false,
-      limitMin: false,
-      colorStart: '#6FADCF',
-      colorStop: '#8FC0DA',
-      strokeColor: '#E0E0E0',
-      generateGradient: true,
-      highDpiSupport: true,
-    }
+    // const opts = {
+    //   angle: -0.25,
+    //   lineWidth: 0.05,
+    //   radiusScale: 1,
+    //   pointer: {
+    //     length: 0.38,
+    //     strokeWidth: 0.011,
+    //     color: '#000000',
+    //   },
+    //   limitMax: false,
+    //   limitMin: false,
+    //   colorStart: '#6FADCF',
+    //   colorStop: '#8FC0DA',
+    //   strokeColor: '#E0E0E0',
+    //   generateGradient: true,
+    //   highDpiSupport: true,
+    // }
 
-    const target = document.getElementById('caloriesGauge')
+    // const target = document.getElementById('caloriesGauge')
 
-    gauge = new Gauge(target).setOptions(opts)
-    gauge.maxValue = 100
-    gauge.setMinValue(0)
-    gauge.animationSpeed = 32
-    gauge.set(this.caloriesPercent)
+    // gauge = new Gauge(target).setOptions(opts)
+    // gauge.maxValue = 100
+    // gauge.setMinValue(0)
+    // gauge.animationSpeed = 0
+    // gauge.set(this.caloriesPercent)
   },
   watch: {
     caloriesPercent(percent) {
-      gauge.set(percent)
+      // gauge.set(percent)
     },
   },
   computed: {
@@ -112,7 +114,7 @@ export default {
     },
     workoutCalories() {
       return this.workoutDetails
-        .reduce((a, b) => a + parseInt(b.data.calories, 10), 0)
+        .reduce((a, b) => a + b.data.calories, 0)
     },
     calories() { return this.computeNutrient('208') },
     carbs() { return this.computeNutrient('205') },
@@ -188,12 +190,12 @@ export default {
   overflow hidden
 
 .stats
-  margin-left 96px
+  /*margin-left 96px*/
 
   p
     margin 0 0 4px 0
 
-#caloriesGauge
+/*#caloriesGauge
   width 80px
   height 80px
   transform rotate(-45deg)
@@ -202,7 +204,7 @@ export default {
   margin-bottom 16px
   position absolute
   top 4px
-  left 8px
+  left 8px*/
 
 .calories
 .perMeal

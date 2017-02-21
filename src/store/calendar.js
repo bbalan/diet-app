@@ -43,9 +43,8 @@ const log = {
       // TODO: add timestamp
       Vue.set(state.data, day, {
         userInfo: {
-          mass: null,
           massUpdated: false,
-          tdee: store.state.userInfo.tdee,
+          metrics: {},
         },
         entries: [],
       })
@@ -76,15 +75,17 @@ const log = {
       }
     },
     setTDEE(state, tdee) {
-      store.commit('calendar/setToday')
-      state.data[state.today].userInfo.tdee = tdee
+      state.data[state.today].userInfo.metrics.tdee = tdee
       setLocalStorage(MODULE_KEY, state)
     },
-    setMass(state, mass) {
-      store.commit('calendar/setToday')
-      state.data[state.today].userInfo.mass = mass
+    setMass(state) {
+      // state.data[state.today].userInfo.metrics.mass = mass
       state.data[state.today].userInfo.massUpdated = true
       setLocalStorage(MODULE_KEY, state)
+    },
+
+    setUserMetrics(state) {
+      state.data[state.today].userMetrics = store.state.userInfo.metrics
     },
   },
 }

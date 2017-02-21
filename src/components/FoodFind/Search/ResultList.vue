@@ -7,7 +7,7 @@
       <li 
         v-for="result in orderedList" class="md-subheading">
         <router-link 
-          class="foodLink" 
+          class="foodLink wordwrap--fade" 
           :to="`/food/new/${result.source}/${result.id}`">
           {{ result.name }}
         </router-link>
@@ -90,18 +90,6 @@ export default {
       color black !important
       text-decoration none !important
       padding 16px 0
-      &:hover
-        color 
-      &:after
-        pointer-events none
-        display block
-        content ''
-        width 50px
-        height 100%
-        position absolute
-        top 0
-        right 0
-        background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
     &.end-of-results
       padding-left 56px
       padding-top 32px

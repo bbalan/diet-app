@@ -2,14 +2,14 @@
   
   <md-list-item v-if="dataEntry" class="entry-link">
 
-    <div class="entry-link__contents">
+    <!--<div class="entry-link__contents">-->
+    <div class="md-list-text-container">
+      <span class="entry-link__name">{{ name }}</span>
+      <span class="entry-link__calories">{{calories | roundTo | roundTo | toKcal}}</span>
 
       <router-link
         :to="`entry/${uuid}`"
         class="edit">
-        <span class="entry-link__name" v-html="name"></span>
-
-        <span class="entry-link__calories">{{calories | roundTo | roundTo | toKcal}}</span>
       </router-link>
 
       <md-input-container v-if="isFood" class="entry-link__mass">
@@ -24,11 +24,13 @@
       </md-input-container>
     </div>
 
+    <md-divider></md-divider>
+
   </md-list-item>
 </template>
 
 <script>
-import { truncate } from 'util'
+// import { truncate } from 'util'
 import store from 'store'
 import { USDA, OTHER } from 'api'
 import { toKcal, roundTo } from 'util/filters'
@@ -78,11 +80,13 @@ export default {
     },
     name() {
       if (this.isFood && this.dataFood) {
-        return truncate(this.dataFood.name, 50)
+        // return truncate(this.dataFood.name, 50)
+        return this.dataFood.name
       }
 
       if (this.isWorkout && this.dataWorkout) {
-        return truncate(this.dataEntry.data.name, 50)
+        // return truncate(this.dataEntry.data.name, 50)
+        return this.dataEntry.data.name
       }
 
       return null
@@ -150,26 +154,29 @@ export default {
     position absolute
     top 0
     left 0
-    padding 16px
-    color black !important
+    padding 20px 16px
+    /*color black !important*/
     text-decoration none !important
   &__name
+    white-space nowrap
     display block
+    border-right 64px solid transparent
+    /*display block
     width 100%
     border-right 150px solid transparent
-    white-space nowrap
-    overflow hidden
+    overflow hidden*/
   &__calories
-    display block
+    color rgba(0,0,0,.54) !important
+    /*display block
     position absolute
     top 0
     right 0
-    padding 16px
+    padding 16px*/
   &__mass
     position absolute
-    top -10px
-    right 90px
-    width 50px
+    top 0px
+    right 16px
+    width 48px
 
     &.md-input-focused
       .mass__unit

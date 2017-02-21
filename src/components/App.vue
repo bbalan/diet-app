@@ -1,10 +1,12 @@
 <template>
   <div id="app">
+
     <toolbar></toolbar>
 
     <transition name="page-fade" mode="out-in">
       <router-view></router-view>
     </transition>
+
   </div>
 </template>
 
@@ -15,18 +17,25 @@ import Toolbar from 'components/Toolbar'
 
 export default {
   components: { Toolbar },
-  beforeCreate() {
+  created() {
+    this.setToday()
+    this.welcome()
+  },
+  methods: {
     // Update store.state.calendar.today every 1 min
-    store.commit('calendar/setToday')
-    setInterval(() => {
+    setToday() {
       store.commit('calendar/setToday')
-    }, 60000)
+      store.commit('calendar/setCurrentDay', store.state.calendar.today)
 
-    if (!store.state.appSettings.signupComplete) {
-      router.replace('/welcome#intro')
-    }
-
-    store.commit('calendar/setCurrentDay', store.state.calendar.today)
+      setInterval(() => {
+        store.commit('calendar/setToday')
+      }, 60000)
+    },
+    welcome() {
+      if (!store.state.appSettings.signupComplete) {
+        router.replace('/welcome#intro')
+      }
+    },
   },
 }
 </script>

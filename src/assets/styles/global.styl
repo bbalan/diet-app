@@ -46,6 +46,30 @@ input[type="number"]
     -webkit-appearance none
     margin 0 /* <-- Apparently some margin are still there even though it's hidden */
 
+.wordwrap--fade
+  text-overflow ellipsis !important
+//   &:after
+//     pointer-events none
+//     display block
+//     content ''
+//     width 25px
+//     height 100%
+//     position absolute
+//     top 0
+//     right 0
+//     background linear-gradient(to right, rgba(255,0,0,0) 0%,rgba(255,0,0,1) 100%)
+//     transition all 2s !important
+
+// a:hover .wordwrap--fade:after
+//   background linear-gradient(to right, rgba(235,235,235,0) 0%,rgba(235,235,235,1) 100%)
+
+// a:active .wordwrap--fade:after
+//   background linear-gradient(to right, rgba(214,214,214,0) 0%,rgba(214,214,214,1) 100%)
+
+.md-list-item
+  .md-ink-ripple
+    display none !important
+
 // page transitions
 .fade
   &-enter-active, &-leave-active

@@ -1,13 +1,13 @@
 <template>
   <div class="entry-list">
-    <md-card class="entry-list__contents">
-      <md-list>
+    <md-whiteframe md-elevation="2" class="entry-list__contents">
+      <md-list class="md-double-line">
         <entry-link 
           v-for="uuid in entriesReversed" 
           :uuid="uuid">
         </entry-link>
       </md-list>
-    </md-card>
+    </md-whiteframe>
   </div>
 </template>
 
@@ -32,7 +32,6 @@ export default {
 
 <style scoped lang="stylus">
 .entry-list
-
   &__contents
     overflow-x hidden
     overflow-y hidden

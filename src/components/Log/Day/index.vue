@@ -7,7 +7,7 @@
       :tdee="tdee">
     </dashboard>
 
-    <div class="log__day__scroll page--padded">
+    <div class="log__day__scroll">
 
       <transition name="fade">
         <md-card class="weigh-in" v-if="!massUpdated">
@@ -28,7 +28,9 @@
         :entries="filteredEntries">
       </entry-list>
 
-      <div v-if="filteredEntries.length === 0">No entries today!</div>
+      <div v-if="filteredEntries.length === 0" class="no-entries">
+        No entries today!
+      </div>
 
     </div>
 
@@ -65,11 +67,15 @@ export default {
     },
     // Get the user's latest TDEE
     tdee() {
-      if (this.dataDay) return this.dataDay.userInfo.tdee
-      return 0
+      if (this.dataDay && this.dataDay.userInfo.metrics) {
+        return this.dataDay.userInfo.metrics.tdee
+      }
+      return store.state.userInfo.metrics.tdee
     },
     mass() {
-      if (this.dataDay) return this.dataDay.userInfo.mass || store.state.userInfo.metrics.mass
+      if (this.dataDay && this.dataDay.userInfo.metrics) {
+        return this.dataDay.userInfo.metrics.mass
+      }
       return store.state.userInfo.metrics.mass
     },
     massUpdated() {
@@ -91,7 +97,6 @@ export default {
   font-size 20px
   font-weight bold
   color #42b983
-  margin-right 20px
 
 .weigh-in
   text-align center
@@ -107,4 +112,8 @@ export default {
   border-top 96px solid transparent
   overflow-x hidden
   overflow-y scroll
+
+.no-entries
+  margin 16px
+  text-align center
 </style>

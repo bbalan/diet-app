@@ -2,7 +2,7 @@
   <md-list-item v-if="workoutData" class="workout__list__link">
 
     <div class="workout__list__link__inner">
-      <router-link class="workout__edit" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">
+      <router-link class="workout__edit wordwrap--fade" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">
         <md-icon>create</md-icon>
         <span class="workout__name">{{ name | capitalize }}</span>
       
@@ -86,16 +86,6 @@ export default {
     width 100%
     text-decoration none !important
     overflow hidden
-
-    &:after
-      display block
-      content ''
-      position absolute
-      right 100px
-      top 0
-      width 20px
-      height 100%
-      background linear-gradient(to right, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%)
 
     .md-icon
       margin-right 8px

@@ -3,12 +3,12 @@
 
     <md-card>
 
-      <md-card-header v-if="isNew" class="md-title entry-name workout-name">
+      <md-card-header v-if="isNew" class="md-title entry-name wordwrap--fade workout-name">
         New Workout
       </md-card-header>
 
       <md-card-content tag="form" @submit.prevent="onSubmit">
-        <!--<div  v-if="!isNew && !isEditingName" :class="`${headingClass} entry-name`">
+        <!--<div  v-if="!isNew && !isEditingName" :class="`${headingClass} entry-name wordwrap--fade`">
           {{ name }}
         </div>-->
 

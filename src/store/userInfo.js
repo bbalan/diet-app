@@ -44,6 +44,7 @@ export default {
       store.commit('appSettings/setActivityLevel', 1.2)
       store.commit('appSettings/setNumMeals', 6)
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
     },
     /** Translates the user's birthday into a timestamp, and calculates their age. */
     setBirthday(state, birthday) {
@@ -56,12 +57,15 @@ export default {
       state.personal.personal.birthdayTimestamp = birthdayTimestamp
       state.metrics.age = age
 
+      store.commit('calendar/setUserMetrics')
+
       setLocalStorage(MODULE_KEY, state)
     },
 
     setGender(state, gender) {
       state.metrics.gender = gender
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -72,6 +76,7 @@ export default {
         state.metrics.height = height
       }
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -83,12 +88,14 @@ export default {
       }
       store.commit('calendar/setMass', mass)
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
     setBodyFatPct(state, bodyFatPct) {
       state.metrics.bodyFatPct = bodyFatPct
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -116,6 +123,7 @@ export default {
 
       store.commit('userInfo/setMass', mass)
       store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
 
       setLocalStorage(MODULE_KEY, state)
     },
@@ -161,7 +169,6 @@ export default {
       const tdee = basalMetabolicRate * store.state.appSettings.activityLevel + deficit
 
       state.metrics.tdee = tdee
-      store.commit('calendar/setTDEE', tdee)
       setLocalStorage(MODULE_KEY, state)
     },
   },

@@ -80,7 +80,7 @@ export default {
 
 .toolbar
   position relative
-  z-index 2 !important
+  z-index 4 !important
   padding 0
   min-height 56px !important
   height 56px !important
