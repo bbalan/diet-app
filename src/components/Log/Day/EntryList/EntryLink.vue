@@ -4,12 +4,14 @@
 
     <!--<div class="entry-link__contents">-->
     <div class="md-list-text-container">
-      <span class="entry-link__name">{{ name }}</span>
-      <span class="entry-link__calories">{{calories | roundTo | roundTo | toKcal}}</span>
 
       <router-link
         :to="`entry/${uuid}`"
         class="edit">
+      
+        <span class="entry-link__name">{{ name }}</span>
+        <span class="entry-link__calories">{{calories | roundTo | roundTo | toKcal}}</span>
+
       </router-link>
 
       <md-input-container v-if="isFood" class="entry-link__mass">
@@ -22,6 +24,8 @@
         </md-input>
         <span class="mass__unit">{{ unitFoodShort }}</span>
       </md-input-container>
+
+      <button v-else class="entry-link__edit"><md-icon>create</md-icon></button>
     </div>
 
     <md-divider></md-divider>
@@ -154,7 +158,8 @@ export default {
     position absolute
     top 0
     left 0
-    padding 20px 16px
+    padding 16px
+    padding-left 86px
     /*color black !important*/
     text-decoration none !important
   &__name
@@ -175,7 +180,7 @@ export default {
   &__mass
     position absolute
     top 0px
-    right 16px
+    left 16px
     width 48px
 
     &.md-input-focused
@@ -188,4 +193,9 @@ export default {
 
     .mass__unit
       bottom 10px !important
+  &__edit
+    position absolute
+    top 16px
+    left 16px
+    padding 8px
 </style>

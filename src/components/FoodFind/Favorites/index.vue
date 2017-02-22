@@ -30,7 +30,7 @@
         <br><br>
         Tap the <md-icon>search</md-icon> icon in the menu to find food.
       </div>
-    </md-card>
+    </md-list>
 
   </div>
 </template>
@@ -66,7 +66,12 @@ export default {
 
           return {}
         })
-        .sort((a, b) => a.timesLogged < b.timesLogged)
+        .sort((a, b) => {
+          if (!a.timesLogged && b.timesLogged) return 1
+          if (a.timesLogged && !b.timesLogged) return -1
+          if (a.timesLogged === b.TimesLogged) return 0
+          return a.timesLogged < b.timesLogged ? 1 : -1
+        })
     },
   },
 }

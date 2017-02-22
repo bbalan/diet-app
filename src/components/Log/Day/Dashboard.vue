@@ -9,15 +9,14 @@
 
     <div class="stats">
       <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
-      <p class="weight">Weight: {{ mass | toMassUnit }}</p>
-      <p>{{ caloriesPercent | roundTo(2)}}%</p>
+      <!--<p class="weight">Weight: {{ mass | toMassUnit }}</p>-->
+      <p>Eaten {{ caloriesPercent | roundTo(2)}}% | Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
       <!--<p class="toEat">To eat: {{ caloriesToEat }}</p>-->
       <!--<p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>-->
       <p class="perMeal">Per meal: {{ caloriesToEat / numMeals | roundTo | toKcal }}</p>
       <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
-      <!--<p>Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>-->
       <p class="percentages">
-        Macros: {{ fatPct | roundTo }} F / {{ carbsPct | roundTo }} C / {{ proteinPct | roundTo }} P
+        Macros: {{ fatPct | roundTo }}% fat | {{ carbsPct | roundTo }}% carbs | {{ proteinPct | roundTo }}% protein
       </p>
     </div>
 

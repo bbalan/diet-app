@@ -38,6 +38,8 @@ const log = {
       }
 
       if (state.currentDay === '') state.currentDay = today
+
+      store.commit('calendar/setUserMetrics')
     },
     add(state, day) {
       // TODO: add timestamp
@@ -85,7 +87,7 @@ const log = {
     },
 
     setUserMetrics(state) {
-      state.data[state.today].userMetrics = store.state.userInfo.metrics
+      state.data[state.today].userInfo.metrics = store.state.userInfo.metrics
     },
   },
 }

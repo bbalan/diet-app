@@ -3,16 +3,9 @@
     
     <day :dataDay="dataCurrentDay" :date="currentDay"></day>
 
-    <md-speed-dial md-mode="scale" class="md-fab-bottom-right" ref="speedDial">
-      <md-button class="md-fab" md-fab-trigger @click.native="onClickFood">
-        <md-icon md-icon-morph>restaurant</md-icon>
-        <md-icon>add</md-icon>
-      </md-button>
-
-      <md-button class="md-fab md-mini md-clean" @click.native="onClickWorkout">
-        <md-icon>fitness_center</md-icon>
-      </md-button>
-    </md-speed-dial>
+    <md-button class="md-fab md-fab-bottom-right" @click.native="onClickFood">
+      <md-icon>add</md-icon>
+    </md-button>
 
     <!--<router-link :to="{ name: 'food' }">
       <md-button class="md-fab md-fab-bottom-right log__food">
@@ -51,8 +44,9 @@ export default {
   },
   methods: {
     onClickFood() {
-      const isSpeedDialOpen = this.$refs.speedDial.$el.classList.contains('md-active')
-      if (isSpeedDialOpen) router.push({ name: 'food' })
+      router.push({ name: 'food' })
+      // const isSpeedDialOpen = this.$refs.speedDial.$el.classList.contains('md-active')
+      // if (isSpeedDialOpen) router.push({ name: 'food' })
     },
     onClickWorkout() {
       router.push({ name: 'workout' })
