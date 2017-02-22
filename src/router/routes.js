@@ -100,16 +100,6 @@ export default [
         },
       },
       {
-        name: 'foodSearch',
-        path: 'search/:query?',
-        component: FoodSearch,
-        props: true,
-        meta: {
-          title: 'Food',
-          search: true,
-        },
-      },
-      {
         name: 'foodCustom',
         path: 'custom',
         component: FoodCustom,
@@ -128,6 +118,16 @@ export default [
         },
       },
     ],
+  },
+  {
+    name: 'search',
+    path: '/search/:query?',
+    component: FoodSearch,
+    props: true,
+    meta: {
+      title: 'Food',
+      search: true,
+    },
   },
   {
     name: 'workout',

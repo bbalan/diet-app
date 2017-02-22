@@ -1,5 +1,5 @@
 <template>
-  <div class="food-search page page--tabs">
+  <div class="food-search page page--menu">
     
     <form @submit.prevent="doSearch" class="page--padded food-search__form">
 
@@ -147,9 +147,8 @@ export default {
       return false
     },
     // Hit the search API for a list of foods that match the search field
-    // we pass context as "that" because debounce() breaks "this" keyword
     searchAllAPIs(searchText) {
-      router.replace(`/food/search/${searchText}`)
+      router.replace({ name: 'search', params: { query: searchText } })
 
       // TODO: run analytics to determine how many searches done before an option is selected
       // TODO: add search term to router URL so hitting back will go back to previous search

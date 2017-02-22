@@ -85,7 +85,7 @@ export default {
     close() { this.isOpen = false },
     goBack() {
       this.close()
-      if (this.$route.name === 'foodSearch') router.go(-1)
+      if (this.$route.name === 'search') router.go(-1)
     },
     clear() {
       this.searchText = ''
@@ -98,14 +98,14 @@ export default {
     },
     submit() {
       this.searchTextLast = this.searchText
-      router.push({ name: 'foodSearch', params: { query: this.searchText } })
+      router.push({ name: 'search', params: { query: this.searchText } })
     },
     onFocus() {
       // this.$el.querySelector('input').select()
       this.searchText = ''
     },
     onBlur() {
-      if (this.$route.name !== 'foodSearch') {
+      if (this.$route.name !== 'search') {
         this.searchText = ''
         this.close()
       } else {
@@ -124,7 +124,7 @@ export default {
       // }
     },
     onRouteChange() {
-      if (this.$route.name === 'foodSearch') {
+      if (this.$route.name === 'search') {
         this.isOpen = true
         this.searchText = this.$route.params.query
         this.searchTextLast = this.searchText

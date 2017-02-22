@@ -89,9 +89,6 @@ export default {
   created() {
     this.getData()
   },
-  mounted() {
-    this.focusInput()
-  },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
   },
@@ -120,9 +117,16 @@ export default {
   },
   methods: {
     focusInput() {
+      const ref = this.$refs.massInput
+
+      if (!ref) return
+
       const el = this.$refs.massInput.$el
       const input = el.querySelector('input')
-      input.focus()
+
+      if (input) input.focus()
+
+      return
     },
     getData() {
       if (this.uuid) {
@@ -167,7 +171,9 @@ export default {
         this.cacheUUID = key
         this.mass = data.lastLoggedMass || this.mass
         this.dataFood = data.dataFood
-        this.timesLogged = data.timesLogged || 'sdfds'
+        this.timesLogged = data.timesLogged || 1
+
+        this.focusInput()
 
         return true
       }

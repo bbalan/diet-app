@@ -65,9 +65,9 @@ export default {
         if (tabs && tabs[tabIdx]) tabs[tabIdx].click()
         this.currentTab = tabIdx
 
-        if (name === 'foodSearch') {
+        if (name === 'search') {
           router.replace({
-            name: 'foodSearch',
+            name: 'search',
             params: { query: params ? params.query : undefined },
           })
         }
