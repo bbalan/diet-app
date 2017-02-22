@@ -193,6 +193,8 @@ export default {
 
   p
     margin 0 0 4px 0
+    display block
+    float none
 
 /*#caloriesGauge
   width 80px

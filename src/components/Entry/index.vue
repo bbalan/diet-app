@@ -98,7 +98,7 @@ export default {
   /*height 0*/
   line-height 1em
   position absolute
-  bottom 22px
+  bottom 10px
   right 0
   opacity 0
   transition all .2s

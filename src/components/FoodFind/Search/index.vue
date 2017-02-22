@@ -1,7 +1,7 @@
 <template>
   <div class="food-search page page--tabs">
     
-    <form @submit.prevent="doSearch" class="page--padded">
+    <form @submit.prevent="doSearch" class="page--padded food-search__form">
 
       <!--<md-whiteframe 
         md-elevation="2"
@@ -263,11 +263,15 @@ export default {
   height 100%
   box-sizing border-box
   overflow hidden
+
   form
     position relative
     height 100%
     padding-top 2px !important
     padding-bottom 0 !important
+    padding-left 24px
+    padding-right 24px
+
 .clear
   position absolute
   right 8px

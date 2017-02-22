@@ -12,6 +12,10 @@
         <span class="entry-link__name">{{ name }}</span>
         <span class="entry-link__calories">{{calories | roundTo | roundTo | toKcal}}</span>
 
+        <button v-if="isWorkout" class="entry-link__edit">
+          <md-icon>create</md-icon>
+        </button>
+
       </router-link>
 
       <md-input-container v-if="isFood" class="entry-link__mass">
@@ -24,8 +28,6 @@
         </md-input>
         <span class="mass__unit">{{ unitFoodShort }}</span>
       </md-input-container>
-
-      <button v-else class="entry-link__edit"><md-icon>create</md-icon></button>
     </div>
 
     <md-divider></md-divider>
@@ -164,8 +166,10 @@ export default {
     text-decoration none !important
   &__name
     white-space nowrap
+    text-overflow ellipsis
+    overflow hidden
     display block
-    border-right 64px solid transparent
+    /*border-right 64px solid transparent*/
     /*display block
     width 100%
     border-right 150px solid transparent
@@ -193,9 +197,12 @@ export default {
 
     .mass__unit
       bottom 10px !important
+
   &__edit
     position absolute
-    top 16px
-    left 16px
+    top 8px
+    left 8px
     padding 8px
+    background transparent
+    border none
 </style>

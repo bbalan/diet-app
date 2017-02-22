@@ -89,6 +89,9 @@ export default {
   created() {
     this.getData()
   },
+  mounted() {
+    this.focusInput()
+  },
   watch: {
     $route: 'getData', // if route changes, re-hydrate component
   },
@@ -116,6 +119,11 @@ export default {
     unitFood: () => store.state.appSettings.unitFood,
   },
   methods: {
+    focusInput() {
+      const el = this.$refs.massInput.$el
+      const input = el.querySelector('input')
+      input.focus()
+    },
     getData() {
       if (this.uuid) {
         this.getDataFromEntry()

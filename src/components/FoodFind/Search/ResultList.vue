@@ -63,12 +63,10 @@ export default {
 
 <style lang="stylus">
 .resultList
-  padding-top 0
   width 100%
   height 100%
   overflow-x hidden
   overflow-y scroll
-  padding-bottom 16px
   position relative
   z-index 1
   a
@@ -82,14 +80,19 @@ export default {
     background white
     width 100%
     margin 0 !important
+
     .foodLink
       display block
+      /*width 100px !important*/
       position relative
-      padding-left 56px !important
+      padding 16px 0
+      /*padding-left 56px !important*/
       white-space nowrap
       color black !important
       text-decoration none !important
-      padding 16px 0
+      white-space nowrap
+      text-overflow ellipsis
+      overflow hidden
     &.end-of-results
       padding-left 56px
       padding-top 32px

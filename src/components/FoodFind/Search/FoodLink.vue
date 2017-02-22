@@ -11,6 +11,5 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.foodLink
-  display block
+
 </style>
