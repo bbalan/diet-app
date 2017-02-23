@@ -8,6 +8,7 @@
 
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
+    <transition name="page-fade">
     <md-card v-if="!loading && dataFood" class="page--padded">
 
       <form @submit.prevent="onSubmit" :class="{ loading: loading }">
@@ -57,6 +58,8 @@
         </nutrition-facts>
       </form>
     </md-card>
+    </transition>
+
   </div>
 </template>
 
@@ -86,7 +89,7 @@ export default {
       cacheUUID: null,
     }
   },
-  created() {
+  mounted() {
     this.getData()
   },
   watch: {
@@ -117,16 +120,18 @@ export default {
   },
   methods: {
     focusInput() {
-      const ref = this.$refs.massInput
+      setTimeout(() => {
+        const ref = this.$refs.massInput
 
-      if (!ref) return
+        if (!ref) return
 
-      const el = this.$refs.massInput.$el
-      const input = el.querySelector('input')
+        const el = this.$refs.massInput.$el
+        const input = el.querySelector('input')
 
-      if (input) input.focus()
+        if (input) input.focus()
 
-      return
+        return
+      }, 50)
     },
     getData() {
       if (this.uuid) {
@@ -150,6 +155,8 @@ export default {
       this.mass = entry.data.mass
       this.dataFood = food.dataFood
       this.entrySource = food.source
+
+      this.focusInput()
     },
 
     // Try to get dataFood from cache
@@ -200,6 +207,7 @@ export default {
       const loadComplete = () => {
         this.loading = false
         this.cacheFood()
+        this.focusInput()
       }
 
       this.loading = true
