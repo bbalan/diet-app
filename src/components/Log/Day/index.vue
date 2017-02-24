@@ -90,6 +90,18 @@ export default {
 .log__day
   overflow-x hidden
   overflow-y hidden
+
+  &__scroll
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    box-sizing border-box
+    border-top 80px solid transparent
+    overflow-x hidden
+    overflow-y scroll
+
 .nutrient
   margin-right 20px
   
@@ -101,17 +113,6 @@ export default {
 .weigh-in
   text-align center
   margin-bottom 16px
-
-.log__day__scroll
-  position absolute
-  top 0
-  left 0
-  width 100%
-  height 100%
-  box-sizing border-box
-  border-top 96px solid transparent
-  overflow-x hidden
-  overflow-y scroll
 
 .no-entries
   margin 16px

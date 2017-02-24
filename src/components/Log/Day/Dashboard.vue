@@ -1,32 +1,18 @@
 <template>
-  <md-whiteframe md-elevation="2" class="dashboard page--padded">
+  <md-whiteframe md-elevation="2" class="dashboard page">
 
-    <!--<canvas id="caloriesGauge"></canvas>-->
+    <div class="dashboard__stats page page--padded">
 
-    <!--<pre>{{ entryDetails }}</pre>-->
-    <!--<pre>{{ foodDetails }}</pre>-->
-    <!--<pre>{{ workoutDetails }}</pre>-->
-
-    <div class="stats">
-      <!--<p class="tdee">Goal: {{ caloriesToEat | roundTo | toKcal }}</p>-->
-      <!--<p class="weight">Weight: {{ mass | toMassUnit }}</p>-->
-      <p>Eaten {{ caloriesPercent | roundTo(2)}}% | Remaining: {{ caloriesRemaining | roundTo | toKcal }}</p>
-      <!--<p class="toEat">To eat: {{ caloriesToEat }}</p>-->
-      <!--<p class="calories">Eaten: {{ calories | roundTo | toKcal}}</p>-->
-      <p class="perMeal">Per meal: {{ caloriesToEat / numMeals | roundTo | toKcal }}</p>
-      <!--<p class="workoutCalories">Workout: {{ workoutCalories | roundTo | toKcal }}</p>-->
-      <p class="percentages">
-        Macros: {{ fatPct | roundTo }}% fat | {{ carbsPct | roundTo }}% carbs | {{ proteinPct | roundTo }}% protein
-      </p>
+      <div class="stats">
+        <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }} | Per meal: {{ caloriesToEat / numMeals | roundTo | toKcal }}</p>
+        <p class="percentages">
+          Macros: {{ fatPct | roundTo }}% fat | {{ carbsPct | roundTo }}% carbs | {{ proteinPct | roundTo }}% protein
+        </p>
+      </div>
     </div>
 
-    <!--<progress-bar :percent="caloriesPercent"></progress-bar>-->
-
-    <!--<span class="nutrient">{{ carbs }}g carbs</span>-->
-    <!--<span class="nutrient">{{ fat }}g fat</span>-->
-    <!--<span class="nutrient">{{ protein }}g protein</span>-->
-
-    <div class="clearfix"></div>
+    <md-progress class="md-accent dashboard__progress" :md-progress="caloriesPercent"></md-progress>
+    
   </md-whiteframe>
 </template>
 
@@ -183,10 +169,19 @@ export default {
   position absolute
   top 0
   left 0
-  height 96px
+  height 80px
   background white
   z-index 2
   overflow hidden
+
+  &__progress
+    position absolute
+    bottom 0
+    left 0
+
+  &__stats
+    overflow hidden
+    padding-bottom 20px !important
 
 .stats
   /*margin-left 96px*/
