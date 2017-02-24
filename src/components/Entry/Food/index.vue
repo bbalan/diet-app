@@ -71,7 +71,7 @@ import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
-import { onFocusInput } from 'util'
+import { onFocusInput, routerBackTo } from 'util'
 import NutritionFacts from './NutritionFacts'
 
 export default {
@@ -251,7 +251,7 @@ export default {
         this.entryAdd()
       }
 
-      router.push('/log')
+      routerBackTo('log')
     },
 
     // Commit new log entry

@@ -73,9 +73,9 @@ export default {
         this.searchText = ''
       }
     },
-    searchText() {
-      this.onSearchText()
-    },
+    // searchText() {
+    //   this.onSearchText()
+    // },
   },
   methods: {
     open() {
@@ -112,17 +112,17 @@ export default {
         this.searchText = this.searchTextLast
       }
     },
-    onSearchText() {
-      // if (this.searchText.length) {
-      //   const params = this.searchText.length ? { query: this.searchText } : undefined
+    // onSearchText() {
+    //   if (this.searchText.length) {
+    //     const params = this.searchText.length ? { query: this.searchText } : undefined
 
-      //   if (this.$route.name !== 'foodSearch') {
-      //     router.push({ name: 'foodSearch', params })
-      //   } else {
-      //     router.replace({ name: 'foodSearch', params })
-      //   }
-      // }
-    },
+    //     if (this.$route.name !== 'foodSearch') {
+    //       router.push({ name: 'foodSearch', params })
+    //     } else {
+    //       router.replace({ name: 'foodSearch', params })
+    //     }
+    //   }
+    // },
     onRouteChange() {
       if (this.$route.name === 'search') {
         this.isOpen = true
