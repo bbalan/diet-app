@@ -4,34 +4,39 @@
     <md-card class="page--padded weigh-in__card">
       <h2 class="card__heading md-display-1">Weigh in</h2>
 
-      <!-- TODO: validation for all md-inputs -->
-      <md-input-container 
-        v-if="unitWeight == 'lbs'" 
-        class="weight__lbs weight__input"
-        ref="weight__lbs">
-        <label for="weight__lbs">Weight</label>
-        <md-input name="weight__lbs" v-model="weight"></md-input>
-      </md-input-container>
+      <form @submit.prevent="onSubmit">
+        <!-- TODO: validation for all md-inputs -->
+        <md-input-container 
+          v-if="unitWeight == 'lbs'" 
+          :class="{ 'weight__lbs': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
+          ref="weight__lbs"
+          required="true">
+          <label for="weight__lbs">Weight</label>
+          <md-input name="weight__lbs" v-model="weight"></md-input>
+        </md-input-container>
 
-      <md-input-container 
-        v-if="unitWeight == 'kg'" 
-        class="weight__kg weight__input"
-        ref="weight__kg">
-        <label for="weight__kg">Weight</label>
-        <md-input name="weight__kg" v-model="weight"></md-input>
-      </md-input-container>
+        <md-input-container 
+          v-if="unitWeight == 'kg'" 
+          :class="{ 'weight__kg': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
+          ref="weight__kg"
+          required="true">
+          <label for="weight__kg">Weight</label>
+          <md-input name="weight__kg" v-model="weight"></md-input>
+        </md-input-container>
 
-      <md-button @click.native="onSubmit" class="md-raised md-primary weigh-in__submit">
-        Save
-      </md-button>
+        <md-button @click.native="onSubmit" class="md-raised md-primary weigh-in__submit">
+          Save
+        </md-button>
 
-      <md-input-container class="weight__unit">
-        <!--<label for="weight__unit">Unit</label>-->
-        <md-select name="weight__unit" id="weight__unit" v-model="unitWeight">
-          <md-option value="lbs">lbs</md-option>
-          <md-option value="kg">kg</md-option>
-        </md-select>
-      </md-input-container>
+        <md-input-container class="weight__unit">
+          <!--<label for="weight__unit">Unit</label>-->
+          <md-select name="weight__unit" id="weight__unit" v-model="unitWeight">
+            <md-option value="lbs">lbs</md-option>
+            <md-option value="kg">kg</md-option>
+          </md-select>
+        </md-input-container>
+
+      </form>
       
     </md-card>
   </div>
@@ -47,8 +52,10 @@ export default {
   components: { Weight },
   methods: {
     onSubmit() {
-      store.commit('userInfo/setWeight', this.weight)
-      router.push({ name: 'log' })
+      if (this.isValidWeight) {
+        store.commit('userInfo/setWeight', this.weight)
+        router.push({ name: 'log' })
+      }
     },
   },
   mounted() {
@@ -85,6 +92,12 @@ export default {
       set(unitWeight) {
         store.commit('appSettings/setUnitWeight', unitWeight)
       },
+    },
+    isValidWeight() {
+      if (isNaN(parseFloat(this.weight)) || !isFinite(this.weight) || this.weight === 0) {
+        return false
+      }
+      return true
     },
   },
 }

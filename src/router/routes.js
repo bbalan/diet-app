@@ -51,6 +51,7 @@ export default [
     meta: {
       title: 'Log',
       sidebar: true,
+      search: true,
     },
   },
   {
