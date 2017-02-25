@@ -14,7 +14,7 @@
         <form @submit.prevent="submit">
           <input 
             type="text" 
-            placeholder="Search foods" 
+            placeholder="Search" 
             v-model="searchText"
             @keyup="onKeyUp"
             @blur="onBlur"
@@ -39,6 +39,10 @@
           <md-icon>arrow_back</md-icon>
         </md-button>
       </div>
+    </transition>
+
+    <transition name="fade">
+      <div class="toolbar__search__overlay" v-if="isOpen" @click.native="close"></div>
     </transition>
   </div>
 </template>
@@ -146,6 +150,14 @@ export default {
   left 0
   width 100%
   height 0
+
+  &__overlay
+    background rgba(0,0,0,.54)
+    width 9000px
+    height 9000px
+    position absolute
+    top 0
+    left -4500px
 
   &__toggle
     position absolute !important
