@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import * as API from 'api'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'foodCache'
@@ -14,16 +15,19 @@ const foodCache = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    addFood(state, { uuid, id, source, dataFood }) {
+    add(state, { uuid, id, source, dataFood, timesLogged }) {
       // Strip unnecessary stuff to make stringification faster
       dataFood.ds = undefined
       dataFood.ru = undefined
-      dataFood.nutrients.forEach((nutrient) => {
-        nutrient.measures = undefined
-        nutrient.group = undefined
-      })
 
-      Vue.set(state, uuid, { id, source, dataFood })
+      if (source === API.USDA) {
+        dataFood.nutrients.forEach((nutrient) => {
+          nutrient.measures = undefined
+          nutrient.group = undefined
+        })
+      }
+
+      Vue.set(state, uuid, { id, source, dataFood, timesLogged })
       setLocalStorage(MODULE_KEY, state)
     },
 

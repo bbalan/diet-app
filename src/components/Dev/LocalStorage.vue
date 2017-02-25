@@ -1,31 +1,27 @@
 <template>
   <div class="page--padded page page--menu">
-    <md-button  @click.native="localStorageClear"class="md-raised md-accent ls-clear icon-left">
+    <local-storage-item lsKey="userInfo"></local-storage-item>
+    <local-storage-item lsKey="foodCache"></local-storage-item>
+    <local-storage-item lsKey="appSettings"></local-storage-item>
+    <local-storage-item lsKey="calendar"></local-storage-item>
+    <local-storage-item lsKey="entries"></local-storage-item>
+    <local-storage-item lsKey="workoutPresets"></local-storage-item>
+
+    <md-button @click.native="localStorageClear" class="md-raised md-accent localStorage__clear--all icon-left">
       <md-icon>warning</md-icon>
       localStorage.clear()
     </md-button>
-    <h2>userInfo</h2><pre>{{ userInfo }}</pre>
-    <h2>appSettings</h2><pre>{{ appSettings }}</pre>
-    <h2>calendar</h2><pre>{{ calendar }}</pre>
-    <h2>entries</h2><pre>{{ entries }}</pre>
-    <h2>foodCache</h2><pre>{{ foodCache }}</pre>
-    <h2>workoutPresets</h2><pre>{{ workoutPresets }}</pre>
-    <h2>search</h2><pre>{{ search }}</pre>
   </div>
 </template>
 
 <script>
 import store from 'store'
+import LocalStorageItem from 'components/Dev/LocalStorageItem'
 
 export default {
   name: 'LocalStorage',
+  components: { LocalStorageItem },
   computed: {
-    userInfo() { return JSON.parse(localStorage.getItem('userInfo')) },
-    appSettings() { return JSON.parse(localStorage.getItem('appSettings')) },
-    calendar() { return JSON.parse(localStorage.getItem('calendar')) },
-    entries() { return JSON.parse(localStorage.getItem('entries')) },
-    foodCache() { return JSON.parse(localStorage.getItem('foodCache')) },
-    workoutPresets() { return JSON.parse(localStorage.getItem('workoutPresets')) },
     search() { return store.state.search },
   },
   methods: {
@@ -38,6 +34,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.ls-clear
+.localStorage__clear--all
+  display inline-block
   margin-left 0
 </style>

@@ -293,7 +293,7 @@ export default {
     // Add dataFood to cache
     cacheFood() {
       this.cacheUUID = uuid.v4()
-      store.commit('foodCache/addFood', {
+      store.commit('foodCache/add', {
         uuid: this.cacheUUID,
         id: this.id,
         timesLogged: 0,

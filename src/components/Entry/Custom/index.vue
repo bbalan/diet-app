@@ -55,17 +55,22 @@
       </md-input-container>
 
       <md-button class="entry-custom__save md-raised md-primary" @click.native="onSubmit">Save</md-button>
+
+      <md-button class="entry-custom__prepopulate md-raised" @click.native="prepopulate">Prepopulate</md-button>
     </form>
 
   </div>
 </template>
 
 <script>
+import store from 'store'
+import router from 'router'
+import uuid from 'uuid'
+
 export default {
   name: 'EntryCustom',
   data() {
     return {
-      id: null,
       name: null,
       serving: null,
       calories: null,
@@ -80,7 +85,39 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log('sdfsdf')
+      this.cacheUUID = uuid.v4()
+      store.commit('foodCache/add', {
+        uuid: this.cacheUUID,
+        id: 'custom',
+        timesLogged: 0,
+        source: 'custom',
+        dataFood: {
+          name: this.name,
+          serving: this.serving,
+          calories: this.calories,
+          fat: this.fat,
+          fat_saturated: this.fat_saturated,
+          fat_trans: this.fat_trans,
+          carbs: this.carbs,
+          sugar: this.sugar,
+          protein: this.protein,
+          fiber: this.fiber,
+        },
+      })
+
+      router.go(-1)
+    },
+    prepopulate() {
+      this.name = 'sdfsdfds'
+      this.serving = Math.round(Math.random() * 100)
+      this.calories = Math.round(Math.random() * 100)
+      this.fat = Math.round(Math.random() * 100)
+      this.fat_saturated = Math.round(Math.random() * 100)
+      this.fat_trans = Math.round(Math.random() * 100)
+      this.carbs = Math.round(Math.random() * 100)
+      this.sugar = Math.round(Math.random() * 100)
+      this.protein = Math.round(Math.random() * 100)
+      this.fiber = Math.round(Math.random() * 100)
     },
   },
 }
@@ -90,6 +127,10 @@ export default {
 .entry-custom
   &__save
     margin 16px 0 !important
+    float right
+
+  &__prepopulate
+    margin 16px
     float right
 
 .md-input-container

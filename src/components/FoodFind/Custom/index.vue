@@ -1,6 +1,8 @@
 <template>
   <div class="food-custom page page--tabs page--cards">
 
+    <pre>{{ customFoods }}</pre>
+
     <md-list class="md-double-line">
       <md-list-item v-for="food in customFoods">
 
@@ -29,10 +31,9 @@
       </md-list-item>
 
       <div v-if="!customFoods.length" class="page--padded custom__empty">
-        <md-icon class="favorites__clock">access_time</md-icon>
         Foods that you create manually will appear here.
         <br><br>
-        Tap the <md-icon>add</md-icon> button below to find food.
+        Tap the <md-icon>add</md-icon> button below to create a new food item.
       </div>
     </md-list>
 
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import store from 'store'
 import router from 'router'
 import { capitalize } from 'util/filters'
 
@@ -52,13 +54,16 @@ export default {
   filters: { capitalize },
   computed: {
     customFoods() {
-      return [
-        {
-          id: 'sdfdsf',
-          name: 'Broken link',
-          source: 'custom',
-        },
-      ]
+      const foods = []
+      Object.entries(store.state.foodCache).forEach((item) => {
+        if (item[1].source === 'custom' &&
+            item[1].dataFood.name &&
+            item[1].dataFood.serving &&
+            item[1].dataFood.calories) {
+          foods.push(item[1])
+        }
+      })
+      return foods
     },
   },
   methods: {
