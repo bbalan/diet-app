@@ -5,11 +5,9 @@
       <md-list-item v-for="food in cachedItems" v-if="food.timesLogged">
 
         <router-link 
-          :to="{ name: 'newFood', params: { source: food.source, id: food.id }}"
+          :to="{ name: 'entryNew', params: { source: food.source, id: food.id }}"
           class="favorites__link">
 
-          <!--<md-icon class="favorites__star">star</md-icon>-->
-          
           <div class="md-list-text-container">
             <span class="favorites__name wordwrap--fade">{{ food.name | capitalize }}</span>
             <span class="favorites__times">Logged {{ food.timesLogged }} time{{ food.timesLogged === 1 ? '' : 's' }}</span>

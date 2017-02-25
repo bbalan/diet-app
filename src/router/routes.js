@@ -2,6 +2,7 @@ import Welcome from 'components/Welcome'
 
 import Log from 'components/Log'
 import Entry from 'components/Entry'
+import EntryCustom from 'components/Entry/Custom'
 import WeighIn from 'components/Entry/WeighIn'
 
 import FoodFind from 'components/FoodFind'
@@ -64,13 +65,23 @@ export default [
     },
   },
   {
-    name: 'newFood',
+    name: 'entryNew',
     path: '/food/new/:source/:id',
     component: Entry,
     props: true,
     meta: {
       title: 'Food', // TODO: replace with food title?
-      backMode: 'history',
+      backMode: 'history', // toolbar back arrow behavior
+    },
+  },
+  {
+    name: 'entryCustom',
+    path: '/food/new/custom',
+    component: EntryCustom,
+    props: true,
+    meta: {
+      title: 'Custom Food',
+      backMode: 'history', // toolbar back arrow behavior
     },
   },
   {
@@ -88,7 +99,7 @@ export default [
       title: 'Food',
       sidebar: true,
       search: true,
-      backMode: 'history',
+      backMode: 'history', // toolbar back arrow behavior
     },
     children: [
       {
@@ -145,7 +156,7 @@ export default [
     props: true,
     meta: {
       title: 'Edit workout',
-      backMode: 'history',
+      backMode: 'history', // toolbar back arrow behavior
     },
   },
 

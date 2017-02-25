@@ -1,5 +1,5 @@
 <template>
-  <div :class="`food-entry page--padded page page--cards`"> 
+  <div class="food-entry page--padded page"> 
     <!--${loading ? '' : 'page--cards'}`">-->
 
     <div v-if="loading" class="food-entry-spinner">
@@ -9,55 +9,57 @@
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
     <transition name="page-fade">
-    <md-card v-if="!loading && dataFood" class="page--padded">
+      <!--<md-card v-if="!loading && dataFood" class="page--padded">-->
+      <div v-if="!loading && dataFood" class="food-entry__wrapper">
 
-      <form @submit.prevent="onSubmit" :class="{ loading: loading }">
-        <div :class="`${headingClass} entry-name wordwrap--fade`">
-          {{ name }}
-          <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
-        </div>
+        <form @submit.prevent="onSubmit" :class="{ loading: loading }">
+          <div :class="`${headingClass} entry-name wordwrap--fade`">
+            {{ name }}
+            <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
+          </div>
 
-        <div class="inputs">
-          <md-input-container class="inputs__mass" ref="massInput">
-            <label>How much?</label>
-            <md-input 
-              type="number"  
-              ref="massInput"
-              v-model.number="mass"
-              @focus.native="onFocusInput('massInput')"
-              @click.native="onFocusInput('massInput')">
-            </md-input>
-            <span class="mass__unit">{{ unitFood }}</span>
-            <span class="md-error">Please enter a number</span>
-          </md-input-container>
+          <div class="inputs">
+            <md-input-container class="inputs__mass" ref="massInput">
+              <label>How much?</label>
+              <md-input 
+                type="number"  
+                ref="massInput"
+                v-model.number="mass"
+                @focus.native="onFocusInput('massInput')"
+                @click.native="onFocusInput('massInput')">
+              </md-input>
+              <span class="mass__unit">{{ unitFood }}</span>
+              <span class="md-error">Please enter a number.</span>
+            </md-input-container>
 
-          <md-button 
-            v-if="!uuid"
-            class="md-raised md-primary inputs__eat inputs__submit"
-            @click.native="onSubmit">
-            Eat
-          </md-button>
+            <md-button 
+              v-if="!uuid"
+              class="md-raised md-primary inputs__eat inputs__submit"
+              @click.native="onSubmit">
+              Eat
+            </md-button>
 
-          <md-button
-            v-if="uuid"
-            class="md-raised md-primary inputs__eat inputs__submit"
-            @click.native="onSubmit">
-            Save
-          </md-button>
-        </div>
+            <md-button
+              v-if="uuid"
+              class="md-raised md-primary inputs__eat inputs__submit"
+              @click.native="onSubmit">
+              Save
+            </md-button>
+          </div>
 
-        <div class="clearfix"></div>
+          <div class="clearfix"></div>
 
-        <!-- Moved this to Toolbar.vue -->
-        <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
+          <!-- Moved this to Toolbar.vue -->
+          <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
 
-        <nutrition-facts
-          :dataFood="dataFood" 
-          :source="source || entrySource"
-          :mass="normalizedMass">
-        </nutrition-facts>
-      </form>
-    </md-card>
+          <nutrition-facts
+            :dataFood="dataFood" 
+            :source="source || entrySource"
+            :mass="normalizedMass">
+          </nutrition-facts>
+        </form>
+      </div>
+      <!--</md-card>-->
     </transition>
 
   </div>

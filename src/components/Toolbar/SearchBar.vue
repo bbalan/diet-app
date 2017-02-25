@@ -83,9 +83,17 @@ export default {
         this.searchText = ''
       }
     },
-    // searchText() {
-    //   this.onSearchText()
-    // },
+    searchText() {
+      // if (this.searchText.length) {
+      //   const params = this.searchText.length ? { query: this.searchText } : undefined
+
+      //   if (this.$route.name !== 'foodSearch') {
+      //     router.push({ name: 'foodSearch', params })
+      //   } else {
+      //     router.replace({ name: 'foodSearch', params })
+      //   }
+      // }
+    },
   },
   methods: {
     open() {
@@ -125,17 +133,6 @@ export default {
 
       this.showOverlay = false
     },
-    // onSearchText() {
-    //   if (this.searchText.length) {
-    //     const params = this.searchText.length ? { query: this.searchText } : undefined
-
-    //     if (this.$route.name !== 'foodSearch') {
-    //       router.push({ name: 'foodSearch', params })
-    //     } else {
-    //       router.replace({ name: 'foodSearch', params })
-    //     }
-    //   }
-    // },
     onRouteChange() {
       if (this.$route.name === 'search') {
         this.isOpen = true
@@ -200,7 +197,7 @@ export default {
     input
       width 100%
       height 56px
-      padding 16px 8px 16px 56px
+      padding 17px 8px 15px 56px
       background white
       border none
       font-size 20px
