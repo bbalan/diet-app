@@ -42,7 +42,7 @@
     </transition>
 
     <transition name="fade">
-      <div class="toolbar__search__overlay" v-if="isOpen" @click.native="close"></div>
+      <div class="toolbar__search__overlay" v-if="showOverlay" @click.native="close"></div>
     </transition>
   </div>
 </template>
@@ -57,11 +57,17 @@ export default {
       isOpen: false,
       searchText: '',
       searchTextLast: '',
+      showOverlay: false,
       inputEl: null,
     }
   },
   computed: {
-    searchEnabled() { return this.$route.meta.search },
+    searchEnabled() {
+      return this.$route.meta.search
+    },
+    // showOverlay() {
+    //   return this.isOpen && this.$route.name !== 'search'
+    // },
   },
   mounted() {
     this.onRouteChange()
@@ -106,7 +112,8 @@ export default {
     },
     onFocus() {
       // this.$el.querySelector('input').select()
-      this.searchText = ''
+      // this.searchText = ''
+      this.showOverlay = true
     },
     onBlur() {
       if (this.$route.name !== 'search') {
@@ -115,6 +122,8 @@ export default {
       } else {
         this.searchText = this.searchTextLast
       }
+
+      this.showOverlay = false
     },
     // onSearchText() {
     //   if (this.searchText.length) {
@@ -132,6 +141,7 @@ export default {
         this.isOpen = true
         this.searchText = this.$route.params.query
         this.searchTextLast = this.searchText
+        this.showOverlay = false
       } else {
         this.isOpen = false
       }
