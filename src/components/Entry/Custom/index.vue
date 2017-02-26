@@ -52,14 +52,14 @@
       </md-input-container>
 
       <md-input-container>
-        <label>Protein</label>
-        <md-input v-model="protein" type="number"></md-input>
+        <label>Fiber</label>
+        <md-input v-model="fiber" type="number"></md-input>
         <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
-        <label>Fiber</label>
-        <md-input v-model="fiber" type="number"></md-input>
+        <label>Protein</label>
+        <md-input v-model="protein" type="number"></md-input>
         <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 

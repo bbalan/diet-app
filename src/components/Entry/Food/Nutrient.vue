@@ -1,7 +1,7 @@
 <template>
 
-  <div v-if="nutrient && showNutrient" :class="`nutrient nutrient-id-${id}`">
-    <div class="nutrient__name">{{ name }}</div>
+  <div v-if="nutrient && showNutrient" :class="`nutrient nutrient-id-${id} nutrient-name-${name}`">
+    <div class="nutrient__name">{{ name | capitalize }}</div>
     <div class="nutrient__value">
       {{ value }} 
       <span class="nutrient__unit">{{ nutrient.unit }}</span>
@@ -11,7 +11,10 @@
 </template>
 
 <script>
+import { capitalize } from 'util/filters'
+
 export default {
+  filters: { capitalize },
   props: {
     nutrient: {
       Object,
@@ -77,6 +80,7 @@ export default {
     float right
 
   &-id-208
+  &-name-calories
     border-bottom 1px solid #eee
     font-weight normal
     font-size 20px

@@ -30,26 +30,36 @@ export default {
     },
     // Get nutrient data from food data
     nutrientData() {
+      if (!this.dataFood) return []
+
       const data = []
 
-      if (!this.dataFood) return data
+      if (this.source === API.USDA) {
+        this.visibleNutrients.forEach((id) => {
+          let nutrientFilter
 
-      this.visibleNutrients.forEach((id) => {
-        let nutrientFilter
+          switch (this.source) {
+            case API.USDA:
+              nutrientFilter = item => (item.nutrient_id === id)
+              break
+            case API.OTHER: break
+            case 'custom':
+            default:
+              break
+          }
 
-        switch (this.source) {
-          case API.USDA:
-            nutrientFilter = item => (item.nutrient_id === id)
-            break
-          case API.OTHER:
-          default:
-            break
-        }
+          const foundNutrient = this.dataFood.nutrients.filter(nutrientFilter)[0]
 
-        const foundNutrient = this.dataFood.nutrients.filter(nutrientFilter)[0]
+          if (foundNutrient) data.push(foundNutrient)
+        })
+      }
 
-        if (foundNutrient) data.push(foundNutrient)
-      })
+      if (this.source === 'custom') {
+        data.push({ name: 'calories', decimals: 0, unit: 'kcal', value: this.dataFood.calories })
+        data.push({ name: 'fat', decimals: 0, unit: 'g', value: this.dataFood.fat })
+        data.push({ name: 'carbs', decimals: 0, unit: 'g', value: this.dataFood.carbs })
+        data.push({ name: 'protein', decimals: 0, unit: 'g', value: this.dataFood.protein })
+      }
 
       return data
     },

@@ -15,7 +15,7 @@
         <form @submit.prevent="onSubmit" :class="{ loading: loading }">
           <div :class="`${headingClass} entry-name wordwrap--fade`">
             {{ name }}
-            <p class="md-caption" v-if="source || entrySource">Source: {{ source || entrySource }}</p>
+            <p class="md-caption" v-if="showSource">Source: {{ sourceName }}</p>
           </div>
 
           <div class="inputs">
@@ -119,6 +119,12 @@ export default {
       return 'md-subheading'
     },
     unitFood: () => store.state.appSettings.unitFood,
+    sourceName() {
+      return this.source || this.entrySource
+    },
+    showSource() {
+      return this.sourceName && this.sourceName !== 'custom'
+    },
   },
   methods: {
     focusInput() {
