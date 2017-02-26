@@ -22,7 +22,7 @@
           <md-input-container class="inputs__calories">
             <label>Calories burned</label>
             <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
-            <span class="calories__unit">kcal</span>
+            <span class="calories__unit input__unit">kcal</span>
           </md-input-container>
 
           <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">

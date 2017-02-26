@@ -16,6 +16,24 @@ body
 input
   font-family 'Roboto', Helvetica, Arial, sans-serif
 
+.md-input-container
+  .input__unit
+    line-height 1em
+    position absolute
+    bottom 10px !important
+    right 0
+    opacity 0
+    transition all .2s
+
+  &.md-input-focused
+  &.md-has-value
+    .input__unit
+      opacity 1
+
+  &.md-input-invalid
+    .input__unit
+      color #ff5722
+
 // md-button icon fixes
 .md-button
   &.icon-left

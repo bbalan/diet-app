@@ -26,7 +26,7 @@
           v-model.number="mass"
           @click.native="onFocus">
         </md-input>
-        <span class="mass__unit">{{ unitFoodShort }}</span>
+        <span class="mass__unit input__unit">{{ unitFoodShort }}</span>
       </md-input-container>
     </div>
 

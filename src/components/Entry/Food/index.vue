@@ -28,7 +28,7 @@
                 @focus.native="onFocusInput('massInput')"
                 @click.native="onFocusInput('massInput')">
               </md-input>
-              <span class="mass__unit">{{ unitFood }}</span>
+              <span class="mass__unit input__unit">{{ unitFood }}</span>
               <span class="md-error">Please enter a number.</span>
             </md-input-container>
 
@@ -313,12 +313,6 @@ export default {
     max-width 60%
     float left
     position relative
-    
-    .mass__unit
-      transition color .2s
-    &.md-input-invalid
-      .mass__unit
-        color #ff5722
 
   .inputs__eat
     float right

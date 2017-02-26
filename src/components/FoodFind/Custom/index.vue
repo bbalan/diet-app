@@ -1,24 +1,25 @@
 <template>
   <div class="food-custom page page--tabs page--cards">
 
-    <pre>{{ customFoods }}</pre>
+    <!--<pre>{{ customFoods }}</pre>-->
 
-    <md-list class="md-double-line">
+    <!--<md-list class="md-double-line">-->
+    <md-list>
       <md-list-item v-for="food in customFoods">
 
         <router-link 
-          :to="{ name: 'entryNew', params: { source: food.source, id: food.id }}"
+          :to="{ name: 'entryNew', params: { source: food.source, id: 'custom' }}"
           class="custom__link">
 
           <!--<md-icon class="favorites__star">star</md-icon>-->
           
           <div class="md-list-text-container">
             <span class="custom__name wordwrap--fade">
-              {{ food.name | capitalize }}
+              {{ food.dataFood.name | capitalize }}
             </span>
-            <span class="custom__times">
+            <!--<span class="custom__times">
               Logged {{ food.timesLogged }} time{{ food.timesLogged === 1 ? '' : 's' }}
-            </span>
+            </span>-->
           </div>
 
           <md-button class="md-icon-button md-list-action">

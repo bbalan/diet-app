@@ -11,47 +11,56 @@
 
       <md-input-container>
         <label>Serving size</label>
-        <md-input v-model="serving" required></md-input>
+        <md-input v-model="serving" type="number" required></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Calories per serving</label>
         <md-input v-model="calories" type="number" required></md-input>
+        <span class="calories__unit input__unit">kcal</span>
       </md-input-container>
 
       <md-input-container>
         <label>Fat</label>
         <md-input v-model="fat" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Fat (saturated)</label>
         <md-input v-model="fat_saturated" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Fat (trans)</label>
         <md-input v-model="fat_trans" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Carbs</label>
         <md-input v-model="carbs" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Sugar</label>
         <md-input v-model="sugar" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Protein</label>
         <md-input v-model="protein" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-input-container>
         <label>Fiber</label>
         <md-input v-model="fiber" type="number"></md-input>
+        <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
       <md-button class="entry-custom__save md-raised md-primary" @click.native="onSubmit">Save</md-button>
@@ -82,6 +91,9 @@ export default {
       protein: null,
       fiber: null,
     }
+  },
+  computed: {
+    unitFood: () => store.state.appSettings.unitFood,
   },
   methods: {
     onSubmit() {
