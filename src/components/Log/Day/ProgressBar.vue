@@ -29,7 +29,7 @@ export default {
     return { calorieTolerance: 25 }
   },
   computed: {
-    numMeals: () => store.state.appSettings.numMeals,
+    numMeals: () => store.state.userInfo.metrics.numMeals,
     progressClasses() {
       const remain = this.remaining * -1
       return {

@@ -44,10 +44,10 @@ export default {
   computed: {
     goal: {
       get() {
-        return store.state.appSettings.goal
+        return store.state.userInfo.metrics.goal
       },
       set(goal) {
-        store.commit('appSettings/setGoal', goal)
+        store.commit('userInfo/setGoal', goal)
       },
     },
   },

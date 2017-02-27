@@ -38,7 +38,7 @@
 <script>
 // import { truncate } from 'util'
 import store from 'store'
-import { USDA, OTHER } from 'api'
+import * as API from 'api'
 import { toKcal, roundTo } from 'util/filters'
 
 export default {
@@ -116,20 +116,25 @@ export default {
         if (!this.foodFromCache) return 0
 
         let energy = 0
+        let calories = 0
 
         switch (this.foodFromCache.source) {
-          case USDA:
+          case API.USDA:
             energy = this.dataFood.nutrients.find(
               nutrient => nutrient.nutrient_id === '208'
             )
+            calories = energy.value * (this.mass / 100)
             break
-          case OTHER:
+          case API.OTHER: break
+          case 'custom':
+            calories = this.dataFood.calories * (this.mass / 100)
+            break
           default:
             // Not implemented
             break
         }
 
-        return energy.value * (this.mass / 100)
+        return calories
       }
 
       if (this.isWorkout) {

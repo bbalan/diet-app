@@ -22,6 +22,11 @@ const stateDefault = {
     bodyFatPct: undefined,
     mass: undefined,
     tdee: undefined,
+    numMeals: 3, // TODO: expose this to user
+    mealStops: [],
+    goal: undefined,
+    goalSpeed: 500,
+    activityLevel: undefined,
   },
 }
 
@@ -40,9 +45,9 @@ export default {
       store.commit('userInfo/setWeight', 151.6)
       state.metrics.bodyFatPct = 20
       state.metrics.mass = 68.76
-      store.commit('appSettings/setGoal', 'burn-fat')
-      store.commit('appSettings/setActivityLevel', 1.2)
-      store.commit('appSettings/setNumMeals', 6)
+      store.commit('userInfo/setGoal', 'burn-fat')
+      store.commit('userInfo/setActivityLevel', 1.2)
+      store.commit('userInfo/setNumMeals', 6)
       store.commit('userInfo/calcTDEE')
       store.commit('calendar/setUserMetrics')
     },
@@ -128,17 +133,44 @@ export default {
       setLocalStorage(MODULE_KEY, state)
     },
 
+    setNumMeals(state, numMeals) {
+      state.metrics.numMeals = numMeals
+      store.commit('calendar/setUserMetrics')
+      setLocalStorage(MODULE_KEY, state)
+    },
+
+    setGoal(state, goal) {
+      state.metrics.goal = goal
+      store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
+      setLocalStorage(MODULE_KEY, state)
+    },
+
+    setGoalSpeed(state, goalSpeed) {
+      state.metrics.goalSpeed = goalSpeed
+      store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
+      setLocalStorage(MODULE_KEY, state)
+    },
+
+    setActivityLevel(state, activityLevel) {
+      state.metrics.activityLevel = activityLevel
+      store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
+      setLocalStorage(MODULE_KEY, state)
+    },
+
     // Calculate the TDEE using various formulas
     calcTDEE(state) {
       const bodyFatPct = state.metrics.bodyFatPct
       const mass = state.metrics.mass
       const height = state.metrics.height
-      const goalSpeed = store.state.appSettings.goalSpeed
+      const goalSpeed = store.state.userInfo.metrics.goalSpeed
 
       let leanBodyMass
       let deficit
 
-      switch (store.state.appSettings.goal) {
+      switch (store.state.userInfo.metrics.goal) {
         case 'burn-fat':
           deficit = goalSpeed * -1
           break
@@ -162,13 +194,14 @@ export default {
         leanBodyMass = (0.252 * mass) + (0.473 * height) - 48.3
       }
 
-      // Katch McArdle
+      // Katch McArdle formula
       const basalMetabolicRate = 370 + (21.6 * leanBodyMass)
 
       // Multiply by activity level to get TDEE
-      const tdee = basalMetabolicRate * store.state.appSettings.activityLevel + deficit
+      const tdee = basalMetabolicRate * store.state.userInfo.metrics.activityLevel + deficit
 
       state.metrics.tdee = tdee
+
       setLocalStorage(MODULE_KEY, state)
     },
   },

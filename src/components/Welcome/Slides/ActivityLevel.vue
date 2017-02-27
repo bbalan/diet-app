@@ -51,10 +51,10 @@ export default {
   computed: {
     activityLevel: {
       get() {
-        return store.state.appSettings.activityLevel
+        return store.state.userInfo.metrics.activityLevel
       },
       set(activityLevel) {
-        store.commit('appSettings/setActivityLevel', activityLevel)
+        store.commit('userInfo/setActivityLevel', activityLevel)
       },
     },
   },
