@@ -120,7 +120,9 @@ export default {
       }, 250)
     },
     $route(route) {
-      this.searchText = route.params.query
+      this.searchText = decodeURIComponent(route.params.query)
+
+      console.log(route.params.query, this.searchText)
     },
   },
   computed: {
@@ -147,13 +149,13 @@ export default {
       return false
     },
     // Hit the search API for a list of foods that match the search field
-    searchAllAPIs(searchText) {
-      router.replace({ name: 'search', params: { query: searchText } })
+    searchAllAPIs(sanitizedText) {
+      router.replace({ name: 'search', params: { query: this.searchText } })
 
       // TODO: run analytics to determine how many searches done before an option is selected
       // TODO: add search term to router URL so hitting back will go back to previous search
 
-      if (searchText === '' || searchText === undefined) {
+      if (sanitizedText === '' || sanitizedText === undefined) {
         this.searchResults = []
         this.loading = false
         this.didSearch = false
@@ -196,11 +198,11 @@ export default {
 
         switch (opts.source) {
           case API.USDA:
-            searchAPI = USDA.search(opts.searchText, opts.library)
+            searchAPI = USDA.search(opts.sanitizedText, opts.library)
             searchHandler = usdaSearchHandler
             break
           case API.OTHER:
-            searchAPI = OTHER.search(opts.searchText)
+            searchAPI = OTHER.search(opts.sanitizedText)
             searchHandler = otherSearchHandler
             break
           default:
@@ -218,7 +220,7 @@ export default {
 
       // Append results from API.USA
       searches.push(searchWithAPI({
-        searchText,
+        sanitizedText,
         source: API.USDA,
         library: 'Standard Reference',
       }))
@@ -226,13 +228,13 @@ export default {
       // How to implement other APIs
 
       // searches.push(search({
-      //   searchText,
+      //   sanitizedText,
       //   source: API.USDA,
       //   library: 'Branded Food Products',
       // }))
 
       // searches.push(search({
-      //   searchText,
+      //   sanitizedText,
       //   source: API.OTHER,
       // }))
 
