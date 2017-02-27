@@ -22,12 +22,12 @@
 
       </md-list-item>
 
-      <div v-if="!cachedItems.length" class="page--padded favorites__empty">
+      <md-whiteframe md-elevation="2" v-if="!cachedItems.length" class="page--padded favorites__empty">
         <md-icon class="favorites__clock">access_time</md-icon>
         Foods that you eat often will appear here.
         <br><br>
         Tap the <md-icon>search</md-icon> icon in the menu to find food.
-      </div>
+      </md-whiteframe>
     </md-list>
 
   </div>
@@ -90,11 +90,8 @@ export default {
     left 16px
     display none
   &__empty
-    position relative
-    /*padding 0 16px 0px 56px !important*/
-    padding 0 24px !important
-    margin-top 24px !important
-    margin-bottom 24px !important
+    padding 16px 24px
+    margin 0
   &__name
     text-overflow clip
     position relative

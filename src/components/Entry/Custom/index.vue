@@ -100,7 +100,7 @@ export default {
       this.cacheUUID = uuid.v4()
       store.commit('foodCache/add', {
         uuid: this.cacheUUID,
-        id: 'custom',
+        id: this.cacheUUID,
         timesLogged: 0,
         source: 'custom',
         dataFood: {

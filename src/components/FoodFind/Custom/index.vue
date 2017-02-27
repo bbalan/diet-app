@@ -8,7 +8,7 @@
       <md-list-item v-for="food in customFoods">
 
         <router-link 
-          :to="{ name: 'entryNew', params: { source: food.source, id: 'custom' }}"
+          :to="{ name: 'entryNew', params: { source: food.source, id: food.id }}"
           class="custom__link">
 
           <!--<md-icon class="favorites__star">star</md-icon>-->
@@ -31,11 +31,11 @@
 
       </md-list-item>
 
-      <div v-if="!customFoods.length" class="page--padded custom__empty">
+      <md-whiteframe md-elevation="2" v-if="!customFoods.length" class="page--padded custom__empty">
         Foods that you create manually will appear here.
         <br><br>
-        Tap the <md-icon>add</md-icon> button below to create a new food item.
-      </div>
+        Tap the <md-icon>add</md-icon> button to create a new food item.
+      </md-whiteframe>
     </md-list>
 
     <md-button class="md-fab md-fab-bottom-right" @click.native="onAddCustomFood">
