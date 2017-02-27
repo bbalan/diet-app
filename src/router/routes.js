@@ -65,8 +65,8 @@ export default [
     },
   },
   {
-    name: 'entryNew',
-    path: '/food/new/:source/:id',
+    name: 'foodFromCache',
+    path: '/food/cached/:source/:id',
     component: Entry,
     props: true,
     meta: {
@@ -76,11 +76,21 @@ export default [
   },
   {
     name: 'entryCustom',
-    path: '/food/new/custom',
+    path: '/food/custom/new',
     component: EntryCustom,
     props: true,
     meta: {
       title: 'Custom Food',
+      backMode: 'history', // toolbar back arrow behavior
+    },
+  },
+  {
+    name: 'editCustom',
+    path: '/food/custom/:id',
+    component: EntryCustom,
+    props: true,
+    meta: {
+      title: 'Edit Custom Food',
       backMode: 'history', // toolbar back arrow behavior
     },
   },

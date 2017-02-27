@@ -44,10 +44,13 @@ export default {
       return this.dataEntry ? this.dataEntry.type : false
     },
     isFood() {
-      return this.entryType === 'food' || (this.id && this.source)
+      return this.entryType === 'food' || (!!this.id && !!this.source)
     },
     isWorkout() {
       return this.entryType === 'workout'
+    },
+    isCustom() {
+      return this.isFood && this.source === 'custom'
     },
   },
 }

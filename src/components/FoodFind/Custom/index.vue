@@ -8,7 +8,7 @@
       <md-list-item v-for="food in customFoods">
 
         <router-link 
-          :to="{ name: 'entryNew', params: { source: food.source, id: food.id }}"
+          :to="{ name: 'foodFromCache', params: { source: food.source, id: food.id }}"
           class="custom__link">
 
           <!--<md-icon class="favorites__star">star</md-icon>-->
@@ -21,11 +21,11 @@
               Logged {{ food.timesLogged }} time{{ food.timesLogged === 1 ? '' : 's' }}
             </span>-->
           </div>
-
-          <md-button class="md-icon-button md-list-action">
-            <md-icon>keyboard_arrow_right</md-icon>
-          </md-button>
         </router-link>
+
+        <md-button class="md-icon-button md-list-action food-custom__edit" @click.native="onEdit(food.id)">
+          <md-icon>create</md-icon>
+        </md-button>
 
         <md-divider></md-divider>
 
@@ -38,7 +38,7 @@
       </md-whiteframe>
     </md-list>
 
-    <md-button class="md-fab md-fab-bottom-right" @click.native="onAddCustomFood">
+    <md-button class="md-fab md-fab-bottom-right" @click.native="onAdd">
       <md-icon>add</md-icon>
     </md-button>
 
@@ -68,9 +68,24 @@ export default {
     },
   },
   methods: {
-    onAddCustomFood() {
+    onAdd() {
       router.push({ name: 'entryCustom' })
+    },
+    onEdit(id) {
+      router.push({ name: 'editCustom', params: { id } })
     },
   },
 }
 </script>
+
+<style scoped lang="stylus">
+.food-custom
+  &__edit
+    position absolute !important
+    top 0
+    right -6px
+    padding 12px 18px 12px 12px !important
+    width 54px !important
+    height 48px !important
+    border-radius 0 !important
+</style>
