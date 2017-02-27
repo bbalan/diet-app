@@ -49,6 +49,7 @@ export default {
     cachedItems() {
       return Object
         .entries(store.state.foodCache)
+        .filter(cached => cached[1] && cached[1].timesLogged)
         .map((cached) => {
           const val = cached[1]
           const data = val.dataFood

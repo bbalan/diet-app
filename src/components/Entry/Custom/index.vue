@@ -98,6 +98,7 @@ export default {
   methods: {
     onSubmit() {
       this.cacheUUID = uuid.v4()
+
       store.commit('foodCache/add', {
         uuid: this.cacheUUID,
         id: this.cacheUUID,

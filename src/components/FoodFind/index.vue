@@ -45,7 +45,7 @@ export default {
     nav(tabIdx) {
       if (tabIdx !== this.currentTab) {
         this.currentTab = tabIdx
-        router.push({ name: this.foodPathNames[tabIdx] })
+        router.replace({ name: this.foodPathNames[tabIdx] })
       }
     },
     // Click the tab that matches the tab child path
@@ -53,24 +53,18 @@ export default {
       const name = this.$route.name
       const tabIdx = this.foodPathNames.indexOf(name)
 
+      // already displaying correct tab
       if (tabIdx === this.currentTab) return
 
-      const tabsList = this.$refs.tabs
+      const refTabs = this.$refs.tabs
 
-      if (tabsList) {
-        const el = tabsList.$el
+      if (refTabs) {
+        const el = refTabs.$el
         const wrapper = el.querySelector('nav')
         const tabs = wrapper.querySelectorAll('button')
-        const params = this.$route.params
+
         if (tabs && tabs[tabIdx]) tabs[tabIdx].click()
         this.currentTab = tabIdx
-
-        if (name === 'search') {
-          router.replace({
-            name: 'search',
-            params: { query: params ? params.query : undefined },
-          })
-        }
       }
     },
   },
