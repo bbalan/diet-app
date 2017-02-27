@@ -121,8 +121,6 @@ export default {
     },
     $route(route) {
       this.searchText = decodeURIComponent(route.params.query)
-
-      console.log(route.params.query, this.searchText)
     },
   },
   computed: {

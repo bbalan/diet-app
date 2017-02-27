@@ -116,7 +116,12 @@ export default {
     },
     submit() {
       this.searchTextLast = this.searchText
-      router.replace({ name: 'search', params: { query: this.searchText } })
+
+      if (this.$route.name === 'search') {
+        router.replace({ name: 'search', params: { query: this.searchText } })
+      } else {
+        router.push({ name: 'search', params: { query: this.searchText } })
+      }
     },
     onFocus() {
       // this.$el.querySelector('input').select()
@@ -136,7 +141,7 @@ export default {
     onRouteChange() {
       if (this.$route.name === 'search') {
         this.isOpen = true
-        this.searchText = decodeURI(this.$route.params.query)
+        this.searchText = this.$route.params.query
         this.searchTextLast = this.searchText
         this.showOverlay = false
       } else {

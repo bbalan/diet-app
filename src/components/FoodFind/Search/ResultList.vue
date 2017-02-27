@@ -8,7 +8,7 @@
         v-for="result in orderedList" class="md-subheading">
         <router-link 
           class="foodLink wordwrap--fade" 
-          :to="`/food/new/${result.source}/${result.id}`">
+          :to="{ name: 'foodFromCache', params: { source: result.source, id: result.id } }">
           {{ result.name }}
         </router-link>
       </li>

@@ -1,4 +1,4 @@
-// import router from 'router'
+import router from 'router'
 
 // Round a number to the nearest divisor.
 // roundTo(123.45, 5) == 125
@@ -32,18 +32,18 @@ export function onFocusInput(ref) {
   this.$refs[ref].$el.querySelector('input').select()
 }
 
-// let iterations = 0
+let iterations = 0
 
 // Go back to a named route
 // TODO: this code seems fragile
-// export function routerBackTo(routeName) {
-//   setTimeout(() => {
-//     const matched = router.match(location.pathname)
+export function routerBackTo(routeName) {
+  setTimeout(() => {
+    const matched = router.match(location.pathname)
 
-//     if (matched.name !== routeName && iterations < 10) {
-//       iterations += 1
-//       router.go(-1)
-//       routerBackTo(routeName)
-//     }
-//   }, 100)
-// }
+    if (matched.name !== routeName && iterations < 10) {
+      iterations += 1
+      router.go(-1)
+      routerBackTo(routeName)
+    }
+  }, 0)
+}

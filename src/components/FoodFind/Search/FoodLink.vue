@@ -1,5 +1,5 @@
 <template>
-  <router-link class="foodLink" :to="`/food/new/${source}/${id}`">
+  <router-link class="foodLink" :to="{ name: 'foodFromCache', params: { source, id } }">
     {{ name }}
   </router-link>
 </template>
