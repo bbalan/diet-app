@@ -1,6 +1,5 @@
 <template>
   <div class="food-entry page--padded page"> 
-    <!--${loading ? '' : 'page--cards'}`">-->
 
     <div v-if="loading" class="food-entry-spinner">
       <md-spinner md-indeterminate></md-spinner>
@@ -9,7 +8,6 @@
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
     <transition name="page-fade">
-      <!--<md-card v-if="!loading && dataFood" class="page--padded">-->
       <div v-if="!loading && dataFood" class="food-entry__wrapper">
 
         <form @submit.prevent="onSubmit" :class="{ loading: loading }">
@@ -27,9 +25,9 @@
                 v-model.number="mass"
                 required
                 @focus.native="onFocusInput('massInput')"
-                @click.native="onFocusInput('massInput')">
+                @click.native="onFocusInput('massInput')"
+                @keyup.native="onKeyUp">
               </md-input>
-              <!-- TODO: submit form on Android softkeyboard Enter/Tab -->
               <span class="mass__unit input__unit">{{ unitFood }}</span>
               <span class="md-error">Please enter a number.</span>
             </md-input-container>
@@ -51,9 +49,6 @@
 
           <div class="clearfix"></div>
 
-          <!-- Moved this to Toolbar.vue -->
-          <!--<button v-if="uuid" @click="entryDelete">Delete</button>-->
-
           <nutrition-facts
             :dataFood="dataFood" 
             :source="source || entrySource"
@@ -61,7 +56,6 @@
           </nutrition-facts>
         </form>
       </div>
-      <!--</md-card>-->
     </transition>
 
   </div>
@@ -311,6 +305,9 @@ export default {
       })
     },
     onFocusInput,
+    onKeyUp(e) {
+      if (e.code === 'Enter') this.onSubmit()
+    },
   },
 }
 </script>
