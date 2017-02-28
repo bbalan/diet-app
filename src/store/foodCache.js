@@ -28,6 +28,7 @@ const foodCache = {
           })
           break
         case API.CUSTOM:
+          // do nothing (?)
           break
         default:
           break

@@ -2,7 +2,6 @@
   
   <md-list-item v-if="dataEntry" class="entry-link">
 
-    <!--<div class="entry-link__contents">-->
     <div class="md-list-text-container">
 
       <router-link
@@ -28,6 +27,9 @@
         </md-input>
         <span class="mass__unit input__unit">{{ unitFoodShort }}</span>
       </md-input-container>
+
+      <!-- TODO: add three-dot menu icon for editing/deleting entry without entering entry page -->
+
     </div>
 
     <md-divider></md-divider>

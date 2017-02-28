@@ -37,6 +37,8 @@ const entries = {
       setLocalStorage(MODULE_KEY, state)
     },
 
+    // TODO: disable entry instead of deleting
+    // TODO: snackbar with undo button
     delete(state, { uuid }) {
       if (state[uuid]) {
         const date = state[uuid].date

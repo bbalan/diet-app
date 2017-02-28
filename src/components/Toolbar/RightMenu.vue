@@ -74,10 +74,12 @@ export default {
   },
   methods: {
     onEntryDelete() {
+      // TODO: commit entries/disable instead of entries/delete
       store.commit('entries/delete', { uuid: this.entryUUID })
       router.replace({ name: 'log' })
     },
     onPresetDelete() {
+      // TODO: commit workoutPresets/disable instead of workoutPresets/delete
       store.commit('workoutPresets/delete', { uuid: this.presetUUID })
       router.replace({ name: 'workout' })
     },
