@@ -12,19 +12,17 @@
         <md-input-container 
           v-if="unitWeight == 'lbs'" 
           :class="{ 'weight__lbs': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
-          ref="weight__lbs"
-          required="true">
+          ref="weight__lbs">
           <label for="weight__lbs">Weight</label>
-          <md-input name="weight__lbs" v-model="weight" type="number" step="any"></md-input>
+          <md-input name="weight__lbs" v-model="weight" type="number" step="any" required="true"></md-input>
         </md-input-container>
 
         <md-input-container 
           v-if="unitWeight == 'kg'" 
           :class="{ 'weight__kg': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
-          ref="weight__kg"
-          required="true">
+          ref="weight__kg">
           <label for="weight__kg">Weight</label>
-          <md-input name="weight__kg" v-model="weight" type="number" step="any"></md-input>
+          <md-input name="weight__kg" v-model="weight" type="number" step="any" required="true" @keydown.native="onKeyDown"></md-input>
         </md-input-container>
 
         <md-button @click.native="onSubmit" class="md-raised md-primary weigh-in__submit">
@@ -57,6 +55,12 @@ export default {
       if (this.isValidWeight) {
         store.commit('userInfo/setWeight', this.weight)
         router.push({ name: 'log' })
+      }
+    },
+    onKeyDown(e) {
+      // TODO: disable tab for desktop?
+      if (e.code === 'Enter' || e.code === 'Tab') {
+        this.onSubmit()
       }
     },
   },

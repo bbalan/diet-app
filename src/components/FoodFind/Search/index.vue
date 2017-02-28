@@ -151,7 +151,6 @@ export default {
       router.replace({ name: 'search', params: { query: this.searchText } })
 
       // TODO: run analytics to determine how many searches done before an option is selected
-      // TODO: add search term to router URL so hitting back will go back to previous search
 
       if (sanitizedText === '' || sanitizedText === undefined) {
         this.searchResults = []

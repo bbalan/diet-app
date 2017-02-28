@@ -7,9 +7,9 @@
       <p>The recommended number of meals is 5 or 6.</p>
     </div>
 
-    <md-input-container>
+    <md-input-container ref="numMealsInput">
       <label>Number of meals per day</label>
-      <md-input v-model="numMeals" type="number" min="2" max="10" required></md-input>
+      <md-input v-model="numMeals" type="number" min="2" max="10" :required="true" placeholder="3" @focus.native="onFocusInput('numMealsInput')"></md-input>
       <span class="md-error">That's not a number.</span>
     </md-input-container>
     
@@ -19,6 +19,7 @@
 <script>
 import store from 'store'
 import Slide from 'components/Welcome/Slide'
+import { onFocusInput } from 'util'
 
 export default {
   components: { Slide },
@@ -29,6 +30,9 @@ export default {
         store.commit('userInfo/setNumMeals', numMeals)
       },
     },
+  },
+  methods: {
+    onFocusInput,
   },
 }
 </script>

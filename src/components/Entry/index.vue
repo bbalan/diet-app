@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-root page--menu page--padded page--cards">
+  <div class="entry-root page--menu">
     <food
       v-if="isFood"
       :id="id"

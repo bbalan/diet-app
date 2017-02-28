@@ -1,5 +1,5 @@
 <template>
-  <div class="page--padded page page--main page--menu page--workout">
+  <div class="page page--menu page--workout page--cards page--padded">
     <entry-workout></entry-workout>
     <workout-list></workout-list>
   </div>

@@ -13,7 +13,6 @@
         <form @submit.prevent="onSubmit" :class="{ loading: loading }">
           <div :class="`${headingClass} entry-name wordwrap--fade`">
             {{ name }}
-            <p class="md-caption" v-if="showSource">Source: {{ sourceName }}</p>
           </div>
 
           <div class="inputs">
@@ -23,27 +22,19 @@
                 type="number"  
                 ref="massInput"
                 v-model.number="mass"
-                required
+                required="true"
                 @focus.native="onFocusInput('massInput')"
                 @click.native="onFocusInput('massInput')"
-                @keyup.native="onKeyUp">
+                @keydown.native="onKeyDown">
               </md-input>
               <span class="mass__unit input__unit">{{ unitFood }}</span>
               <span class="md-error">Please enter a number.</span>
             </md-input-container>
 
             <md-button 
-              v-if="!uuid"
               class="md-raised md-primary inputs__eat inputs__submit"
-              @click.native="onSubmit">
-              Eat
-            </md-button>
-
-            <md-button
-              v-else
-              class="md-raised md-primary inputs__eat inputs__submit"
-              @click.native="onSubmit">
-              Save
+              @click.native.prevent="onSubmit">
+              {{ uuid ? 'Save' : 'Eat' }}
             </md-button>
           </div>
 
@@ -115,12 +106,6 @@ export default {
       return 'md-subheading'
     },
     unitFood: () => store.state.appSettings.unitFood,
-    sourceName() {
-      return this.source || this.entrySource
-    },
-    showSource() {
-      return this.sourceName && this.sourceName !== API.CUSTOM
-    },
   },
   methods: {
     focusInput() {
@@ -305,8 +290,11 @@ export default {
       })
     },
     onFocusInput,
-    onKeyUp(e) {
-      if (e.code === 'Enter') this.onSubmit()
+    onKeyDown(e) {
+      // TODO: disable tab for desktop?
+      if (e.code === 'Enter' || e.code === 'Tab') {
+        this.onSubmit()
+      }
     },
   },
 }

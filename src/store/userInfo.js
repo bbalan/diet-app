@@ -22,7 +22,7 @@ const stateDefault = {
     bodyFatPct: undefined,
     mass: undefined,
     tdee: undefined,
-    numMeals: 3, // TODO: expose this to user
+    numMeals: null, // TODO: expose this to user
     mealStops: [],
     goal: undefined,
     goalSpeed: 500,

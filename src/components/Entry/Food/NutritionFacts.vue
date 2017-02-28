@@ -10,6 +10,8 @@
       :decimals="1"
       :serving="nutrient.serving">
     </nutrient>
+
+    <p class="md-caption" v-if="showSource">Source: {{ source }}</p>
   </div>
 </template>
 
@@ -56,6 +58,9 @@ export default {
       }
 
       return data
+    },
+    showSource() {
+      return this.source && this.source !== API.CUSTOM
     },
   },
 }

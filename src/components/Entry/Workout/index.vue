@@ -16,12 +16,12 @@
           <md-input-container class="inputs__name">
             <label v-if="!isNew">Edit name</label>
             <label v-else>Name</label>
-            <md-input v-model="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
+            <md-input v-model="name" ref="workoutName" @keydown.native="onKeyDown"></md-input>
           </md-input-container>
 
           <md-input-container class="inputs__calories">
             <label>Calories burned</label>
-            <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
+            <md-input type="number" v-model.number="calories" @keydown.native="onKeyDown"></md-input>
             <span class="calories__unit input__unit">kcal</span>
           </md-input-container>
 
@@ -130,8 +130,11 @@ export default {
 
       router.push({ name: 'log' })
     },
-    onKeyUp(e) {
-      if (e.code === 'Enter') this.onSubmit()
+    onKeyDown(e) {
+      // TODO: disable tab for desktop?
+      if (e.code === 'Enter' || e.code === 'Tab') {
+        this.onSubmit()
+      }
     },
   },
 }

@@ -10,14 +10,14 @@
       v-if="unitWeight == 'lbs'" 
       class="weight__lbs weight__input">
       <label for="weight__lbs">Weight</label>
-      <md-input name="weight__lbs" v-model="weight" type="number"></md-input>
+      <md-input name="weight__lbs" v-model="weight" type="number" step="any"></md-input>
     </md-input-container>
 
     <md-input-container 
       v-if="unitWeight == 'kg'" 
       class="weight__kg weight__input">
       <label for="weight__kg">Weight</label>
-      <md-input name="weight__kg" v-model="weight" type="number"></md-input>
+      <md-input name="weight__kg" v-model="weight" type="number" step="any"></md-input>
     </md-input-container>
 
     <md-input-container class="weight__unit">

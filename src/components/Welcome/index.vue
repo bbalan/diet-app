@@ -105,6 +105,8 @@ import NumMeals from 'components/Welcome/Slides/NumMeals'
 // import Birthday from 'components/Welcome/Slides/Birthday'
 // import Credentials from 'components/Welcome/Slides/Credentials'
 
+let swiper
+
 export default {
   name: 'Welcome',
   data() {
@@ -122,21 +124,20 @@ export default {
     router.replace('/welcome#intro')
   },
   mounted() {
-    // TODO: move this outside vue component definition
     // Docs: http://idangero.us/swiper/api
-    this.swiper = new Swiper('.swiper-container', {
+    swiper = new Swiper('.swiper-container', {
       pagination: '.swiper-pagination',
       nextButton: '.swiper-next',
       prevButton: '.swiper-before',
       paginationType: 'progress',
       hashnav: true,
       hashnavWatchState: true,
-      onInit: swiper => this.updateSwiper(swiper),
-      onSlideChangeStart: swiper => this.updateSwiper(swiper),
+      onInit: s => this.updateSwiper(s),
+      onSlideChangeStart: s => this.updateSwiper(s),
     })
   },
   beforeDestroy() {
-    this.swiper.destroy()
+    swiper.destroy()
   },
   computed: {
     tdee: () => store.state.userInfo.metrics.tdee,
@@ -158,16 +159,16 @@ export default {
       store.commit('userInfo/prepopulate')
       this.onSubmit()
     },
-    updateSwiper(swiper) {
-      this.isBeginning = swiper.isBeginning
-      this.isEnd = swiper.isEnd
-      this.currentSlide = swiper.activeIndex
+    updateSwiper(s) {
+      this.isBeginning = s.isBeginning
+      this.isEnd = s.isEnd
+      this.currentSlide = s.activeIndex
     },
     swiperNext() {
       if (this.isEnd) {
         this.onSubmit()
       } else {
-        this.swiper.slideNext()
+        swiper.slideNext()
       }
     },
   },

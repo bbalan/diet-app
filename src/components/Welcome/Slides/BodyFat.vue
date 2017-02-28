@@ -5,9 +5,9 @@
       <p>You can measure your body fat with calipers. It's ok if you're not sure!</p>
     </div>
 
-    <md-input-container class="bodyFatPct">
+    <md-input-container class="bodyFatPct" ref="bodyFatInput">
       <label for="bodyFatPct__input">Body fat</label>
-      <md-input name="bodyFatPct__input" v-model="bodyFatPct" type="number"></md-input>
+      <md-input name="bodyFatPct__input" v-model="bodyFatPct" type="number" @focus.native="onFocusInput('bodyFatInput')"></md-input>
       <span class="bodyFatPct__percent">%</span>
     </md-input-container>
     
@@ -24,6 +24,7 @@
 <script>
 import store from 'store'
 import Slide from 'components/Welcome/Slide'
+import { onFocusInput } from 'util'
 
 export default {
   components: { Slide },
@@ -42,6 +43,7 @@ export default {
       this.bodyFatPct = null
       this.$emit('evtDontKnow')
     },
+    onFocusInput,
   },
 }
 </script>

@@ -168,9 +168,7 @@ export default {
     position absolute
     top 0
     left 0
-    padding 16px
-    padding-left 94px
-    /*color black !important*/
+    padding 16px 24px 16px 94px
     text-decoration none !important
   &__name
     white-space nowrap
