@@ -39,6 +39,15 @@ const foodCache = {
       setLocalStorage(MODULE_KEY, state)
     },
 
+    edit(state, { uuid, dataFood }) {
+      const item = state[uuid]
+
+      if (item) {
+        item.dataFood = dataFood
+        item.lastLoggedMass = dataFood.serving
+      }
+    },
+
     // Track how many times a cached food item has been eaten
     increment(state, uuid) {
       const food = state[uuid]

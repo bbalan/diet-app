@@ -33,17 +33,20 @@ import router from 'router'
 export default {
   name: 'RightMenu',
   computed: {
-    isfoodFromCache() { return this.$route.name === 'foodFromCache' },
-
     isEntry() { return this.$route.name === 'entry' },
-    entryUUID() {
-      return this.isEntry ? this.$route.params.uuid : null
-    },
-    entryData() {
-      return this.isEntry ? store.state.entries[this.$route.params.uuid] : null
-    },
-    foodData() {
-      return this.entryData && this.entryData.type === 'food' ? store.state.foodCache[this.entryData.item] : null
+    entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
+    entryData() { return this.isEntry ? store.state.entries[this.$route.params.uuid] : null },
+    isFoodFromCache() { return this.$route.name === 'foodFromCache' },
+    cacheUUID() { return this.isFoodFromCache ? this.$route.params.id : null },
+
+    foodDataCached() {
+      if (this.entryData && this.entryData.type === 'food') {
+        return store.state.foodCache[this.entryData.item]
+      } else if (this.cacheUUID && store.state.foodCache[this.cacheUUID]) {
+        return store.state.foodCache[this.cacheUUID]
+      }
+
+      return null
     },
 
     isEntryFood() {
@@ -51,10 +54,11 @@ export default {
     },
 
     isEntryCustom() {
-      return this.foodData ? this.foodData.source === 'custom' : false
+      return this.foodDataCached ? this.foodDataCached.source === 'custom' : false
     },
+
     customUUID() {
-      return this.isEntryCustom ? this.foodData.id : null
+      return this.isEntryCustom ? this.foodDataCached.id : null
     },
 
     isEntryWorkout() {
@@ -78,7 +82,7 @@ export default {
       router.replace({ name: 'workout' })
     },
     onEntryCustomEdit() {
-      router.push({ name: 'editCustom', params: { id: this.customUUID } })
+      router.push({ name: 'editCustom', params: { uuid: this.customUUID } })
     },
   },
 }

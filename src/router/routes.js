@@ -86,7 +86,7 @@ export default [
   },
   {
     name: 'editCustom',
-    path: '/food/custom/:id',
+    path: '/food/custom/:uuid',
     component: EntryCustom,
     props: true,
     meta: {

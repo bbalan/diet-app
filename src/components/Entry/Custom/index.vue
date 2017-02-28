@@ -78,6 +78,7 @@ import uuid from 'uuid'
 
 export default {
   name: 'EntryCustom',
+  props: ['uuid'],
   data() {
     return {
       name: null,
@@ -87,9 +88,29 @@ export default {
       fat_saturated: null,
       fat_trans: null,
       carbs: null,
+      fiber: null,
       sugar: null,
       protein: null,
-      fiber: null,
+      newCacheUUID: null,
+    }
+  },
+  created() {
+    if (this.uuid) {
+      const cachedFood = store.state.foodCache[this.uuid]
+
+      if (cachedFood) {
+        this.name = cachedFood.dataFood.name
+        this.name = cachedFood.dataFood.name
+        this.serving = cachedFood.dataFood.serving
+        this.calories = cachedFood.dataFood.calories
+        this.fat = cachedFood.dataFood.fat
+        this.fat_saturated = cachedFood.dataFood.fat_saturated
+        this.fat_trans = cachedFood.dataFood.fat_trans
+        this.carbs = cachedFood.dataFood.carbs
+        this.fiber = cachedFood.dataFood.fiber
+        this.sugar = cachedFood.dataFood.sugar
+        this.protein = cachedFood.dataFood.protein
+      }
     }
   },
   computed: {
@@ -97,26 +118,44 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.cacheUUID = uuid.v4()
+      if (this.uuid) {
+        store.commit('foodCache/edit', {
+          uuid: this.uuid,
+          dataFood: {
+            name: this.name,
+            serving: this.serving || 0,
+            calories: this.calories || 0,
+            fat: this.fat || 0,
+            fat_saturated: this.fat_saturated || 0,
+            fat_trans: this.fat_trans || 0,
+            carbs: this.carbs || 0,
+            sugar: this.sugar || 0,
+            protein: this.protein || 0,
+            fiber: this.fiber || 0,
+          },
+        })
+      } else {
+        this.newCacheUUID = uuid.v4()
 
-      store.commit('foodCache/add', {
-        uuid: this.cacheUUID,
-        id: this.cacheUUID,
-        timesLogged: 0,
-        source: 'custom',
-        dataFood: {
-          name: this.name,
-          serving: this.serving,
-          calories: this.calories,
-          fat: this.fat,
-          fat_saturated: this.fat_saturated,
-          fat_trans: this.fat_trans,
-          carbs: this.carbs,
-          sugar: this.sugar,
-          protein: this.protein,
-          fiber: this.fiber,
-        },
-      })
+        store.commit('foodCache/add', {
+          uuid: this.newCacheUUID,
+          id: this.newCacheUUID,
+          timesLogged: 0,
+          source: 'custom',
+          dataFood: {
+            name: this.name,
+            serving: this.serving || 0,
+            calories: this.calories || 0,
+            fat: this.fat || 0,
+            fat_saturated: this.fat_saturated || 0,
+            fat_trans: this.fat_trans || 0,
+            carbs: this.carbs || 0,
+            sugar: this.sugar || 0,
+            protein: this.protein || 0,
+            fiber: this.fiber || 0,
+          },
+        })
+      }
 
       router.go(-1)
     },
