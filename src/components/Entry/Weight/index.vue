@@ -1,24 +1,23 @@
 <template>
-  <div class="weigh-in page page--padded page--menu page--cards">
+  <div class="weigh-in page page--padded page--menu">
 
-    <md-card class="page--padded weigh-in__card">
-      <h2 class="card__heading md-display-1">Weigh in</h2>
+      <h2 class="card__heading md-heading">Today's weight</h2>
 
       <form @submit.prevent="onSubmit">
 
         <!-- TODO: validation for all md-inputs -->
         <!-- TODO: @keyup.native keycode enter call onSubmit() -->
 
-        <md-input-container 
-          v-if="unitWeight == 'lbs'" 
+        <md-input-container
+          v-if="unitWeight == 'lbs'"
           :class="{ 'weight__lbs': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
           ref="weight__lbs">
           <label for="weight__lbs">Weight</label>
           <md-input name="weight__lbs" v-model="weight" type="number" step="any" required="true"></md-input>
         </md-input-container>
 
-        <md-input-container 
-          v-if="unitWeight == 'kg'" 
+        <md-input-container
+          v-if="unitWeight == 'kg'"
           :class="{ 'weight__kg': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
           ref="weight__kg">
           <label for="weight__kg">Weight</label>
@@ -37,8 +36,7 @@
         </md-input-container>
 
       </form>
-      
-    </md-card>
+
   </div>
 </template>
 

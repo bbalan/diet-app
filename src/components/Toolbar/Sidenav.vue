@@ -1,13 +1,13 @@
 <template>
-  <md-sidenav 
+  <md-sidenav
     :md-swipeable="true"
-    :md-swipe-distance="50" 
+    :md-swipe-distance="50"
     :md-swipe-threshold="50"
-    class="md-left toolbar__sidenav" 
+    class="md-left toolbar__sidenav"
     ref="sidenav">
 
-    <md-list @click.native="toggleSidenav">
-      <md-subheader>Tracking</md-subheader>
+    <md-list @click.native="toggleSidenav" class="toolbar__sidenav__list">
+      <!--<md-subheader>Tracking</md-subheader>-->
 
       <md-list-item>
         <router-link :to="{ name: 'log' }">
@@ -30,11 +30,18 @@
         </router-link>
       </md-list-item>
 
+      <md-list-item>
+        <router-link :to="{ name: 'weight' }">
+          <md-icon>insert_chart</md-icon>
+          <span>Weight</span>
+        </router-link>
+      </md-list-item>
+
       <!--<md-divider class="md-inset"></md-divider>-->
       <md-divider></md-divider>
 
-      <md-subheader>Configuration</md-subheader>
-      
+      <!--<md-subheader>Configuration</md-subheader>-->
+
       <md-list-item disabled>
         <router-link :to="{ name: 'profile' }">
           <md-icon>account_circle</md-icon>
@@ -52,7 +59,7 @@
       <!--<md-divider class="md-inset"></md-divider>-->
       <md-divider></md-divider>
 
-      <md-subheader>Dev</md-subheader>
+      <!--<md-subheader>Dev</md-subheader>-->
 
       <md-list-item>
         <router-link :to="{ name: 'welcome' }">
@@ -91,6 +98,10 @@ export default {
 
 <style lang="stylus">
 .toolbar__sidenav
+  hr
+    margin 8px 0
+  &__list
+    padding 8ppx 0 !important
   .md-sidenav-content
     /*box-shadow none !important*/
     .md-list-item

@@ -1,12 +1,12 @@
 <template>
-  <div class="favorites page page--tabs page--cards">
+  <div class="favorites page page--tabs page--bg-grey">
 
     <!-- TODO: dropdown for sorting by food.name or food.timesLogged -->
 
     <md-list class="md-double-line">
       <md-list-item v-for="food in cachedItems" v-if="food.timesLogged">
 
-        <router-link 
+        <router-link
           :to="{ name: 'foodFromCache', params: { source: food.source, id: food.id }}"
           class="favorites__link">
 

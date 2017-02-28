@@ -1,7 +1,7 @@
 <template>
-  <div class="log__day page page--cards" v-if="true || filteredEntries.length || isToday">
+  <div class="log__day page page--bg-grey" v-if="true || filteredEntries.length || isToday">
 
-    <dashboard 
+    <dashboard
       ref="dashboard"
       :entries="filteredEntries"
       :tdee="tdee">
@@ -23,8 +23,8 @@
         </md-card>
       </transition>
 
-      <entry-list 
-        v-if="filteredEntries.length" 
+      <entry-list
+        v-if="filteredEntries.length"
         :entries="filteredEntries">
       </entry-list>
 
@@ -104,7 +104,7 @@ export default {
 
 .nutrient
   margin-right 20px
-  
+
 .addLog
   font-size 20px
   font-weight bold

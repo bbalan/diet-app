@@ -1,9 +1,7 @@
 <template>
-  <div class="workout--preset page--padded page page--main page--menu page--cards">
-    
-    <md-card v-if="workoutData">
+  <div class="workout--preset page--padded page page--menu" >
 
-      <md-card-content tag="form" @submit.prevent="onSubmit">
+      <div v-if="workoutData" tag="form" @submit.prevent="onSubmit">
 
         <div class="inputs">
           <md-input-container class="inputs__name">
@@ -21,10 +19,9 @@
             Save
           </md-button>
         </div>
-      </md-card-content>
-    </md-card>
+      </div>
 
-    <h2 v-else>Workout not found</h2>
+      <h2 v-else>Workout not found</h2>
   </div>
 </template>
 

@@ -1,18 +1,18 @@
 <template>
-  <div class="food-custom page page--tabs page--cards">
+  <div class="food-custom page page--tabs page--bg-grey">
 
     <!--<pre>{{ customFoods }}</pre>-->
 
     <!--<md-list class="md-double-line">-->
     <md-list>
-      <md-list-item v-for="food in customFoods">
+      <md-list-item v-for="food in customFoods" class="food-custom__item">
 
-        <router-link 
+        <router-link
           :to="{ name: 'foodFromCache', params: { source: food.source, id: food.id }}"
           class="custom__link">
 
           <!--<md-icon class="favorites__star">star</md-icon>-->
-          
+
           <div class="md-list-text-container">
             <span class="custom__name wordwrap--fade">
               {{ food.dataFood.name | capitalize }}
@@ -81,6 +81,8 @@ export default {
 
 <style scoped lang="stylus">
 .food-custom
+  &__item a
+    padding-right 64px !important
   &__edit
     position absolute !important
     top 0

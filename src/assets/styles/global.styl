@@ -92,7 +92,7 @@ input[type="number"]
 .fade
   &-enter-active, &-leave-active
     transition opacity .2s
-    
+
   &-enter, &-leave-to
     opacity 0
     transition opacity .2s
@@ -101,7 +101,7 @@ input[type="number"]
 .page-fade
   &-enter-active, &-leave-active
     transition opacity .5s
-    
+
   &-enter, &-leave-to
     opacity 0
     transition opacity .15s
@@ -112,7 +112,7 @@ input[type="number"]
     max-height 1000px
     overflow hidden
     transition all .4s
-    
+
   &-enter, &-leave-to
     opacity 0
     max-height 0
@@ -144,13 +144,16 @@ input[type="number"]
     border-top 102px solid white
 
   &--cards
-    background #eee
+    padding 16px !important // override .page--padded
 
   &--padded
     width 100%
     max-width 1160px
     padding 16px 24px
     margin 0 auto
+
+  &--bg-grey
+    background #eee
 
 .card
   &__heading

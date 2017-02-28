@@ -65,7 +65,7 @@
 
       <md-button class="entry-custom__save md-raised md-primary" @click.native="onSubmit">Save</md-button>
 
-      <md-button class="entry-custom__prepopulate md-raised" @click.native="prepopulate">Prepopulate</md-button>
+      <!--<md-button class="entry-custom__prepopulate md-raised" @click.native="prepopulate">Prepopulate</md-button>-->
     </form>
 
   </div>
@@ -160,18 +160,18 @@ export default {
 
       router.go(-1)
     },
-    prepopulate() {
-      this.name = 'sdfsdfds'
-      this.serving = Math.round(Math.random() * 100)
-      this.calories = Math.round(Math.random() * 100)
-      this.fat = Math.round(Math.random() * 100)
-      this.fat_saturated = Math.round(Math.random() * 100)
-      this.fat_trans = Math.round(Math.random() * 100)
-      this.carbs = Math.round(Math.random() * 100)
-      this.sugar = Math.round(Math.random() * 100)
-      this.protein = Math.round(Math.random() * 100)
-      this.fiber = Math.round(Math.random() * 100)
-    },
+    // prepopulate() {
+    //   this.name = 'sdfsdfds'
+    //   this.serving = Math.round(Math.random() * 100)
+    //   this.calories = Math.round(Math.random() * 100)
+    //   this.fat = Math.round(Math.random() * 100)
+    //   this.fat_saturated = Math.round(Math.random() * 100)
+    //   this.fat_trans = Math.round(Math.random() * 100)
+    //   this.carbs = Math.round(Math.random() * 100)
+    //   this.sugar = Math.round(Math.random() * 100)
+    //   this.protein = Math.round(Math.random() * 100)
+    //   this.fiber = Math.round(Math.random() * 100)
+    // },
   },
 }
 </script>

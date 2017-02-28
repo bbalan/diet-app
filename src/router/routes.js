@@ -3,7 +3,7 @@ import Welcome from 'components/Welcome'
 import Log from 'components/Log'
 import Entry from 'components/Entry'
 import EntryCustom from 'components/Entry/Custom'
-import WeighIn from 'components/Entry/WeighIn'
+import Weight from 'components/Entry/Weight'
 
 import FoodFind from 'components/FoodFind'
 import FoodSearch from 'components/FoodFind/Search'
@@ -95,10 +95,10 @@ export default [
     },
   },
   {
-    name: 'weighin',
-    path: '/weighin',
-    component: WeighIn,
-    meta: { title: 'Weigh in' },
+    name: 'weight',
+    path: '/weight',
+    component: Weight,
+    meta: { title: 'Weight' },
   },
   {
     name: 'food',

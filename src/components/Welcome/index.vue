@@ -22,12 +22,12 @@
           <!--<div class="swiper-scrollbar"></div>-->
           <div class="swiper-pagination"></div>
 
-          <md-button
+          <!--<md-button
             @click.native="onPrepopulate"
             type="button"
             class="button--prepopulate">
             Prepopulate
-          </md-button>
+          </md-button>-->
 
           <md-button
             :disabled="isBeginning"
@@ -155,10 +155,10 @@ export default {
       // db.ref('data')
       //   .push(store.state.userInfo)
     },
-    onPrepopulate() {
-      store.commit('userInfo/prepopulate')
-      this.onSubmit()
-    },
+    // onPrepopulate() {
+    //   store.commit('userInfo/prepopulate')
+    //   this.onSubmit()
+    // },
     updateSwiper(s) {
       this.isBeginning = s.isBeginning
       this.isEnd = s.isEnd
