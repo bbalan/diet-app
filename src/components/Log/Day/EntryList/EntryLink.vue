@@ -22,7 +22,7 @@
         <md-input 
           type="number"  
           ref="massInput"
-          :placeholder="unitFood"
+          :placeholder="unitFoodShort"
           v-model.number="mass"
           @click.native="onFocus">
         </md-input>
@@ -158,6 +158,7 @@ export default {
 <style scoped lang="stylus">
 .entry-link
   position relative
+
   a
     display block
     width 100%
@@ -166,7 +167,7 @@ export default {
     top 0
     left 0
     padding 16px
-    padding-left 86px
+    padding-left 94px
     /*color black !important*/
     text-decoration none !important
   &__name
@@ -189,8 +190,12 @@ export default {
   &__mass
     position absolute
     top 0px
-    left 16px
+    left 24px
     width 48px
+
+    input
+      width 36px
+      max-width 36px
 
     &.md-input-focused
       .mass__unit

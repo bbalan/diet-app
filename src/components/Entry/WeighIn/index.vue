@@ -5,14 +5,17 @@
       <h2 class="card__heading md-display-1">Weigh in</h2>
 
       <form @submit.prevent="onSubmit">
+
         <!-- TODO: validation for all md-inputs -->
+        <!-- TODO: @keyup.native keycode enter call onSubmit() -->
+
         <md-input-container 
           v-if="unitWeight == 'lbs'" 
           :class="{ 'weight__lbs': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
           ref="weight__lbs"
           required="true">
           <label for="weight__lbs">Weight</label>
-          <md-input name="weight__lbs" v-model="weight"></md-input>
+          <md-input name="weight__lbs" v-model="weight" type="number" step="any"></md-input>
         </md-input-container>
 
         <md-input-container 
@@ -21,7 +24,7 @@
           ref="weight__kg"
           required="true">
           <label for="weight__kg">Weight</label>
-          <md-input name="weight__kg" v-model="weight"></md-input>
+          <md-input name="weight__kg" v-model="weight" type="number" step="any"></md-input>
         </md-input-container>
 
         <md-button @click.native="onSubmit" class="md-raised md-primary weigh-in__submit">
@@ -29,7 +32,6 @@
         </md-button>
 
         <md-input-container class="weight__unit">
-          <!--<label for="weight__unit">Unit</label>-->
           <md-select name="weight__unit" id="weight__unit" v-model="unitWeight">
             <md-option value="lbs">lbs</md-option>
             <md-option value="kg">kg</md-option>

@@ -1,6 +1,8 @@
 <template>
   <header>
-    <!-- TODO: show bar automatically at width > 1160px -->
+
+    <!-- TODO: show sidebar/RightMenu automatically at width >= 1160px -->
+
     <transition name="page-fade">
       <md-whiteframe v-if="!isWelcome" md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="toolbar">
         <div class="md-toolbar-container">
@@ -79,9 +81,12 @@ export default {
 <style scoped lang="stylus">
 
 .toolbar
-  position relative
+  position fixed
+  top 0
+  left 0
   z-index 5 !important
   padding 0
+  width 100%
   min-height 56px !important
   height 56px !important
 

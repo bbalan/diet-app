@@ -1,5 +1,5 @@
 <template>
-  <div class="page--padded">Recipes</div>
+  <div class="page page--padded page--tabs">Recipes</div>
 </template>
 
 <script>

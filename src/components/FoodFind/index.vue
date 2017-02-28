@@ -1,7 +1,7 @@
 <template>
-  <div class="entryFood page page--menu">
+  <div class="food-find page page--menu">
 
-    <md-tabs md-fixed @change="nav" class="md-transparent" ref="tabs">
+    <md-tabs md-fixed @change="nav" class="md-transparent food-find__tabs" ref="tabs">
       <md-tab md-label="Favorites">
         <router-link :to="{ name: 'foodFavorites'}"></router-link>
       </md-tab>
@@ -72,7 +72,12 @@ export default {
 </script>
 
 <style lang="stylus">
-.entryFood
+.food-find
+  &__tabs
+    position fixed !important
+    top 56px
+    left 0
+    z-index 4
   .md-tabs-content
     display none
 </style>
