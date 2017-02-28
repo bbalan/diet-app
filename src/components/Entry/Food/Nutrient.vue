@@ -16,23 +16,14 @@ import { capitalize } from 'util/filters'
 export default {
   filters: { capitalize },
   props: {
-    nutrient: {
-      Object,
-      default() {
-        return {}
-      },
-    },
-    decimals: {
-      type: Number,
-      default: 1,
-    },
-    mass: {
-      type: Number,
-    },
+    nutrient: { type: Object, default: () => {} },
+    decimals: { type: Number, default: 1 },
+    mass: { type: Number },
+    serving: { type: Number, default: 100 },
   },
   computed: {
     value() {
-      const val = this.nutrient.value * (this.mass / 100)
+      const val = this.nutrient.value * (this.mass / this.serving)
       return Math.floor(val)
     },
     id() {

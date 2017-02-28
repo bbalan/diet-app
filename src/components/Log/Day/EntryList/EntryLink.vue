@@ -127,7 +127,7 @@ export default {
             break
           case API.OTHER: break
           case 'custom':
-            calories = this.dataFood.calories * (this.mass / 100)
+            calories = this.dataFood.calories * (this.mass / this.dataFood.serving)
             break
           default:
             // Not implemented

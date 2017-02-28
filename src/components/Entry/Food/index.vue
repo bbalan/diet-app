@@ -25,9 +25,11 @@
                 type="number"  
                 ref="massInput"
                 v-model.number="mass"
+                required
                 @focus.native="onFocusInput('massInput')"
                 @click.native="onFocusInput('massInput')">
               </md-input>
+              <!-- TODO: submit form on Android softkeyboard Enter/Tab -->
               <span class="mass__unit input__unit">{{ unitFood }}</span>
               <span class="md-error">Please enter a number.</span>
             </md-input-container>
@@ -40,7 +42,7 @@
             </md-button>
 
             <md-button
-              v-if="uuid"
+              v-else
               class="md-raised md-primary inputs__eat inputs__submit"
               @click.native="onSubmit">
               Save
@@ -73,7 +75,7 @@ import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
-import { onFocusInput, routerBackTo } from 'util'
+import { onFocusInput /* , routerBackTo */ } from 'util'
 import NutritionFacts from './NutritionFacts'
 
 export default {
@@ -260,7 +262,7 @@ export default {
       }
 
       // router.go(-2)
-      routerBackTo('log')
+      router.push({ name: 'log' })
     },
 
     // Commit new log entry

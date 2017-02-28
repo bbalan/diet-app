@@ -4,7 +4,7 @@
     <div class="dashboard__stats page page--padded">
 
       <div class="stats">
-        <p>Remaining: {{ caloriesRemaining | roundTo | toKcal }} | Per meal: {{ caloriesToEat / numMeals | roundTo | toKcal }}</p>
+        <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }} each)</p>
         <p class="percentages">
           Macros: {{ fatPct | roundTo }}% fat | {{ carbsPct | roundTo }}% carbs | {{ proteinPct | roundTo }}% protein
         </p>
@@ -17,15 +17,10 @@
 </template>
 
 <script>
-/* eslint-disable */
-
 import store from 'store'
 import * as API from 'api'
 import { toKcal, roundTo, toMassUnit } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
-import { Gauge } from 'gaugeJS/dist/gauge.min'
-
-// let gauge
 
 export default {
   name: 'Dashboard',
@@ -37,44 +32,10 @@ export default {
     }
   },
   components: { ProgressBar },
-  mounted() {
-    // const opts = {
-    //   angle: -0.25,
-    //   lineWidth: 0.05,
-    //   radiusScale: 1,
-    //   pointer: {
-    //     length: 0.38,
-    //     strokeWidth: 0.011,
-    //     color: '#000000',
-    //   },
-    //   limitMax: false,
-    //   limitMin: false,
-    //   colorStart: '#6FADCF',
-    //   colorStop: '#8FC0DA',
-    //   strokeColor: '#E0E0E0',
-    //   generateGradient: true,
-    //   highDpiSupport: true,
-    // }
-
-    // const target = document.getElementById('caloriesGauge')
-
-    // gauge = new Gauge(target).setOptions(opts)
-    // gauge.maxValue = 100
-    // gauge.setMinValue(0)
-    // gauge.animationSpeed = 0
-    // gauge.set(this.caloriesPercent)
-  },
-  watch: {
-    caloriesPercent(percent) {
-      // gauge.set(percent)
-    },
-  },
   computed: {
     mass: () => store.state.userInfo.metrics.mass,
     numMeals: () => store.state.userInfo.metrics.numMeals,
-    entryDetails() {
-      return this.entries.map(entry => store.state.entries[entry])
-    },
+    entryDetails() { return this.entries.map(entry => store.state.entries[entry]) },
     foodDetails() {
       const foodDetails = []
 
@@ -92,47 +53,22 @@ export default {
 
       return foodDetails
     },
-    workoutDetails() {
-      return this.entryDetails
-        .filter(entry => entry.type === 'workout')
-        // .reduce((a, b) => a.data.calories + b.data.calories)
-    },
-    workoutCalories() {
-      return this.workoutDetails
-        .reduce((a, b) => a + b.data.calories, 0)
-    },
+    workoutDetails() { return this.entryDetails.filter(entry => entry.type === 'workout') },
+    workoutCalories() { return this.workoutDetails.reduce((a, b) => a + b.data.calories, 0) },
     calories() { return this.computeNutrient('208') },
     carbs() { return this.computeNutrient('205') },
     fat() { return this.computeNutrient('204') },
     protein() { return this.computeNutrient('203') },
-    sumMacros() {
-      return this.fat + this.carbs + this.protein
-    },
-    fatPct() {
-      if (this.sumMacros === 0) return 0
-      return (this.fat / this.sumMacros) * 100
-    },
-    carbsPct() {
-      if (this.sumMacros === 0) return 0
-      return (this.carbs / this.sumMacros) * 100
-    },
-    proteinPct() {
-      if (this.sumMacros === 0) return 0
-      return (this.protein / this.sumMacros) * 100
-    },
-    caloriesToEat() {
-      return this.tdee + this.workoutCalories
-    },
-    caloriesTotal() {
-      return this.calories - this.workoutCalories
-    },
-    caloriesRemaining() {
-      if (!this.tdee) {
-        return 0
-      }
-      return this.tdee - this.caloriesTotal
-    },
+    sumMacros() { return this.fat + this.carbs + this.protein },
+    fatPct() { return this.sumMacros !== 0 ? (this.fat / this.sumMacros) * 100 : 0 },
+    carbsPct() { return this.sumMacros !== 0 ? (this.carbs / this.sumMacros) * 100 : 0 },
+    proteinPct() { return this.sumMacros !== 0 ? (this.protein / this.sumMacros) * 100 : 0 },
+    caloriesToEat() { return this.tdee + this.workoutCalories },
+    caloriesTotal() { return this.calories - this.workoutCalories },
+    caloriesRemaining() { return this.tdee ? this.tdee - this.caloriesTotal : 0 },
     caloriesPercent() { return this.calories / this.caloriesToEat * 100 },
+    mealsEaten() { return this.caloriesPercent / (100 / this.numMeals) },
+    mealsRemaining() { return this.numMeals - this.mealsEaten },
   },
   methods: {
     computeNutrient(nutrientID) {

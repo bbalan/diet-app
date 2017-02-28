@@ -20,14 +20,22 @@ const foodCache = {
       dataFood.ds = undefined
       dataFood.ru = undefined
 
-      if (source === API.USDA) {
-        dataFood.nutrients.forEach((nutrient) => {
-          nutrient.measures = undefined
-          nutrient.group = undefined
-        })
+      switch (source) {
+        case API.USDA:
+          dataFood.nutrients.forEach((nutrient) => {
+            nutrient.measures = undefined
+            nutrient.group = undefined
+          })
+          break
+        case 'custom':
+          break
+        default:
+          break
       }
 
-      Vue.set(state, uuid, { id, source, dataFood, timesLogged })
+      const lastLoggedMass = dataFood.serving || 100
+
+      Vue.set(state, uuid, { id, source, dataFood, timesLogged, lastLoggedMass })
       setLocalStorage(MODULE_KEY, state)
     },
 
