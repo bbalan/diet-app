@@ -125,7 +125,7 @@ export default {
       return this.source || this.entrySource
     },
     showSource() {
-      return this.sourceName && this.sourceName !== 'custom'
+      return this.sourceName && this.sourceName !== API.CUSTOM
     },
   },
   methods: {

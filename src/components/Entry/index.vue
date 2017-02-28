@@ -23,6 +23,7 @@
 import store from 'store'
 import Food from 'components/Entry/Food'
 import Workout from 'components/Entry/Workout'
+import * as API from 'api'
 
 export default {
   name: 'Entry',
@@ -50,7 +51,7 @@ export default {
       return this.entryType === 'workout'
     },
     isCustom() {
-      return this.isFood && this.source === 'custom'
+      return this.isFood && this.source === API.CUSTOM
     },
   },
 }

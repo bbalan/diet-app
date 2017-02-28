@@ -6,7 +6,7 @@
       <div class="stats">
         <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }} each)</p>
         <p class="percentages">
-          Macros: {{ fatPct | roundTo }}% fat | {{ carbsPct | roundTo }}% carbs | {{ proteinPct | roundTo }}% protein
+          Macros: {{ fatPct | roundTo }}% fat &nbsp; {{ carbsPct | roundTo }}% carbs &nbsp; {{ proteinPct | roundTo }}% protein
         </p>
       </div>
     </div>
@@ -55,10 +55,12 @@ export default {
     },
     workoutDetails() { return this.entryDetails.filter(entry => entry.type === 'workout') },
     workoutCalories() { return this.workoutDetails.reduce((a, b) => a + b.data.calories, 0) },
-    calories() { return this.computeNutrient('208') },
-    carbs() { return this.computeNutrient('205') },
-    fat() { return this.computeNutrient('204') },
-    protein() { return this.computeNutrient('203') },
+
+    calories() { return this.computeNutrient('calories', '208') },
+    carbs() { return this.computeNutrient('carbs', '205') },
+    fat() { return this.computeNutrient('fat', '204') },
+    protein() { return this.computeNutrient('protein', '203') },
+
     sumMacros() { return this.fat + this.carbs + this.protein },
     fatPct() { return this.sumMacros !== 0 ? (this.fat / this.sumMacros) * 100 : 0 },
     carbsPct() { return this.sumMacros !== 0 ? (this.carbs / this.sumMacros) * 100 : 0 },
@@ -71,7 +73,7 @@ export default {
     mealsRemaining() { return this.numMeals - this.mealsEaten },
   },
   methods: {
-    computeNutrient(nutrientID) {
+    computeNutrient(customID, USDA_ID) {
       let total = 0
       let energy
       let value
@@ -79,7 +81,10 @@ export default {
       this.foodDetails.forEach((item) => {
         switch (item.source) {
           case API.USDA:
-            energy = item.dataFood.nutrients.find(nutrient => nutrient.nutrient_id === nutrientID)
+            energy = item.dataFood.nutrients.find(
+              nutrient => nutrient.nutrient_id === USDA_ID
+            )
+
             if (energy && energy.value) {
               value = parseInt(energy.value, 10) * item.mass / 100
               total += value
@@ -88,6 +93,9 @@ export default {
           case API.OTHER:
             // TODO: implement other API
             total = 0
+            break
+          case API.CUSTOM:
+            total += item.dataFood[customID] / item.dataFood.serving * item.mass
             break
           default:
             break

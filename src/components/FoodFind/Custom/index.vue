@@ -49,6 +49,7 @@
 import store from 'store'
 import router from 'router'
 import { capitalize } from 'util/filters'
+import * as API from 'api'
 
 export default {
   name: 'Custom',
@@ -57,7 +58,7 @@ export default {
     customFoods() {
       const foods = []
       Object.entries(store.state.foodCache).forEach((item) => {
-        if (item[1].source === 'custom' &&
+        if (item[1].source === API.CUSTOM &&
             item[1].dataFood.name &&
             item[1].dataFood.serving &&
             item[1].dataFood.calories) {

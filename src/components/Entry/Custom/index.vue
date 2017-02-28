@@ -75,6 +75,7 @@
 import store from 'store'
 import router from 'router'
 import uuid from 'uuid'
+import * as API from 'api'
 
 export default {
   name: 'EntryCustom',
@@ -141,7 +142,7 @@ export default {
           uuid: this.newCacheUUID,
           id: this.newCacheUUID,
           timesLogged: 0,
-          source: 'custom',
+          source: API.CUSTOM,
           dataFood: {
             name: this.name,
             serving: this.serving || 0,

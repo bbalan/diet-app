@@ -126,8 +126,8 @@ export default {
             calories = energy.value * (this.mass / 100)
             break
           case API.OTHER: break
-          case 'custom':
-            calories = this.dataFood.calories * (this.mass / this.dataFood.serving)
+          case API.CUSTOM:
+            calories = this.dataFood.calories / this.dataFood.serving * this.mass
             break
           default:
             // Not implemented

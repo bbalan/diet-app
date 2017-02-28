@@ -45,7 +45,7 @@ export default {
           break
         case API.OTHER:
           break
-        case 'custom':
+        case API.CUSTOM:
           data.push({ name: 'calories', decimals: 0, unit: 'kcal', value: this.dataFood.calories, serving: this.dataFood.serving })
           data.push({ name: 'fat', decimals: 0, unit: 'g', value: this.dataFood.fat, serving: this.dataFood.serving })
           data.push({ name: 'carbs', decimals: 0, unit: 'g', value: this.dataFood.carbs, serving: this.dataFood.serving })

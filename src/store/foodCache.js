@@ -27,7 +27,7 @@ const foodCache = {
             nutrient.group = undefined
           })
           break
-        case 'custom':
+        case API.CUSTOM:
           break
         default:
           break
