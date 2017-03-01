@@ -4,7 +4,7 @@
     <div class="dashboard__stats page page--padded">
 
       <div class="stats">
-        <p>{{ mass }}</p>
+        <p>{{ mass | toMassUnit}}</p>
         <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }} each)</p>
         <p class="percentages">
           Macros: {{ fatPct | roundTo }}% fat &nbsp; {{ carbsPct | roundTo }}% carbs &nbsp; {{ proteinPct | roundTo }}% protein
@@ -34,7 +34,7 @@ export default {
   },
   components: { ProgressBar },
   computed: {
-    mass: () => store.state.userInfo.metrics.mass,
+    mass: () => store.state.calendar.data[store.state.calendar.currentDay].userInfo.metrics.mass,
     numMeals: () => store.state.userInfo.metrics.numMeals,
     entryDetails() { return this.entries.map(entry => store.state.entries[entry]) },
     foodDetails() {

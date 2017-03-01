@@ -47,13 +47,6 @@ export default {
   props: ['dataDay', 'date'],
   components: { EntryList, Dashboard },
   filters: { toMassUnit, roundTo },
-  methods: {
-    /* Set the "current Day", or the Day we navigated away from,
-    so the New Entry component can add the entry to the correct day. */
-    setCurrentDay() {
-      store.commit('calendar/setCurrentDay', this.date)
-    },
-  },
   computed: {
     // This Day is displaying today's data.
     isToday() { return this.date === store.state.calendar.today },

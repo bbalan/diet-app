@@ -41,23 +41,32 @@ const log = {
 
       store.commit('calendar/setUserMetrics')
     },
+
     add(state, newDate) {
       // find nearest date to copy data from
       const nearestDates = Object.entries(state.data).map(
-        day => Date.parse(newDate) - Date.parse(day[0])
+        day => Date.parse(day[0]) - Date.parse(newDate)
       ).sort((a, b) => {
         if (Math.abs(a) > Math.abs(b)) return 1
         if (Math.abs(a) < Math.abs(b)) return -1
         return 0
       })
 
-      console.log(nearestDates[0])
+      const newTimestamp = Date.parse(newDate)
+      const nearestTimestamp = newTimestamp + nearestDates[0]
+      const nearestDate = new Date(nearestTimestamp)
+      const year = nearestDate.getUTCFullYear()
+      // add trailing 0, get last 2 digits
+      const month = `0${nearestDate.getUTCMonth() + 1}`.slice(-2)
+      const day = `0${nearestDate.getUTCDate()}`.slice(-2)
+      const formattedNearest = `${year}-${month}-${day}`
 
-      // TODO: add timestamp
+      // console.log(`Copying metrics from ${formattedNearest}`)
+
       Vue.set(state.data, newDate, {
         userInfo: {
           massUpdated: false,
-          metrics: store.state.userInfo.metrics,
+          metrics: state.data[formattedNearest].userInfo.metrics,
         },
         entries: [],
       })
@@ -69,8 +78,10 @@ const log = {
       state.data[date].entries.push(uuid)
       setLocalStorage(MODULE_KEY, state)
     },
+
     entryDelete(state, { uuid, date }) {
       let dateToDelete = date
+
       if (!dateToDelete) dateToDelete = state.today
 
       let idx = 0
@@ -87,18 +98,23 @@ const log = {
         if (foundEntry) day.entries.splice(idx, 1)
       }
     },
+
     setTDEE(state, tdee) {
-      state.data[state.today].userInfo.metrics.tdee = tdee
+      state.data[state.currentDay].userInfo.metrics.tdee = tdee
       setLocalStorage(MODULE_KEY, state)
     },
+
     setMass(state) {
       // state.data[state.today].userInfo.metrics.mass = mass
-      state.data[state.today].userInfo.massUpdated = true
+      state.data[state.currentDay].userInfo.massUpdated = true
       setLocalStorage(MODULE_KEY, state)
     },
 
     setUserMetrics(state) {
-      state.data[state.today].userInfo.metrics = store.state.userInfo.metrics
+      // do a shallow copy to prevent reference bugs
+      const newMetrics = {}
+      Object.assign(newMetrics, store.state.userInfo.metrics)
+      state.data[state.currentDay].userInfo.metrics = newMetrics
     },
   },
 }

@@ -71,7 +71,8 @@ export default {
   computed: {
     weight: {
       get() {
-        const mass = store.state.userInfo.metrics.mass
+        const currentDay = store.state.calendar.currentDay
+        const mass = store.state.calendar.data[currentDay].userInfo.metrics.mass
 
         if (mass === null || mass === undefined) return mass
 
