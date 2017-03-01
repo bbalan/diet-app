@@ -69,11 +69,12 @@ export default {
     isLog() { return this.$route.name === 'log' },
     logDate() {
       const currentDay = store.state.calendar.currentDay
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+      ]
 
       const parsed = new Date(Date.parse(currentDay))
-      const formatted = `${months[parsed.getMonth()]}
-       ${parsed.getDate()}`
+      const formatted = `${months[parsed.getUTCMonth()]} ${parsed.getUTCDate()}`
 
       return formatted
     },
@@ -109,10 +110,10 @@ export default {
     .date-selector
       position absolute
       top 0
-      left 100px
+      left 0
       width 100%
       height 100%
-      opacity 1
+      opacity 0
 
   // Transitions
   &-enter-active

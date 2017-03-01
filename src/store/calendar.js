@@ -63,10 +63,18 @@ const log = {
 
       // console.log(`Copying metrics from ${formattedNearest}`)
 
+      let metrics
+
+      if (state.data[formattedNearest]) {
+        metrics = state.data[formattedNearest].userInfo.metrics
+      } else {
+        metrics = store.state.userInfo.metrics
+      }
+
       Vue.set(state.data, newDate, {
         userInfo: {
           massUpdated: false,
-          metrics: state.data[formattedNearest].userInfo.metrics,
+          metrics,
         },
         entries: [],
       })
