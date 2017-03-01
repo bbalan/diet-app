@@ -6,15 +6,15 @@
       <p>If you don't already own a bathroom scale, get one.</p>
     </div>
 
-    <md-input-container 
-      v-if="unitWeight == 'lbs'" 
+    <md-input-container
+      v-if="unitWeight == 'lbs'"
       class="weight__lbs weight__input">
       <label for="weight__lbs">Weight</label>
       <md-input name="weight__lbs" v-model="weight" type="number" step="any"></md-input>
     </md-input-container>
 
-    <md-input-container 
-      v-if="unitWeight == 'kg'" 
+    <md-input-container
+      v-if="unitWeight == 'kg'"
       class="weight__kg weight__input">
       <label for="weight__kg">Weight</label>
       <md-input name="weight__kg" v-model="weight" type="number" step="any"></md-input>
@@ -27,7 +27,7 @@
         <md-option value="kg">kg</md-option>
       </md-select>
     </md-input-container>
-    
+
   </slide>
 </template>
 
@@ -52,7 +52,7 @@ export default {
 
         let weight
 
-        if (store.state.appSettings.unitWeight === 'kg') {
+        if (store.state.config.unitWeight === 'kg') {
           weight = Math.round(mass * 10) / 10
         } else {
           weight = Math.round(mass * 2.20462 * 10) / 10
@@ -66,10 +66,10 @@ export default {
     },
     unitWeight: {
       get() {
-        return store.state.appSettings.unitWeight
+        return store.state.config.unitWeight
       },
       set(unitWeight) {
-        store.commit('appSettings/setUnitWeight', unitWeight)
+        store.commit('config/setUnitWeight', unitWeight)
       },
     },
   },

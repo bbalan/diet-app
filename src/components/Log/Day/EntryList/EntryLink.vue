@@ -1,5 +1,5 @@
 <template>
-  
+
   <md-list-item v-if="dataEntry" class="entry-link">
 
     <div class="md-list-text-container">
@@ -7,7 +7,7 @@
       <router-link
         :to="`entry/${uuid}`"
         class="edit">
-      
+
         <span class="entry-link__name">{{ name }}</span>
         <span class="entry-link__calories">{{ calories | roundTo | roundTo | toKcal }}</span>
 
@@ -18,8 +18,8 @@
       </router-link>
 
       <md-input-container v-if="isFood" class="entry-link__mass">
-        <md-input 
-          type="number"  
+        <md-input
+          type="number"
           ref="massInput"
           :placeholder="unitFoodShort"
           v-model.number="mass"
@@ -146,9 +146,9 @@ export default {
 
       return null
     },
-    unitFood: () => store.state.appSettings.unitFood,
+    unitFood: () => store.state.config.unitFood,
     unitFoodShort() {
-      switch (store.state.appSettings.unitFood) {
+      switch (store.state.config.unitFood) {
         case 'grams': return 'g'
         default: return ''
       }

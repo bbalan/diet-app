@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-custom page page--padded page--menu"> 
+  <div class="entry-custom page page--padded page--menu">
 
     <p>Enter as much information as you can, then tap Save.</p>
 
@@ -115,7 +115,7 @@ export default {
     }
   },
   computed: {
-    unitFood: () => store.state.appSettings.unitFood,
+    unitFood: () => store.state.config.unitFood,
   },
   methods: {
     onSubmit() {

@@ -12,7 +12,7 @@ export function toMassUnit(mass) {
   const kg = Math.floor(mass * 10) / 10
   const lbs = Math.floor(mass * 2.20462 * 10) / 10
 
-  switch (store.state.appSettings.unitWeight) {
+  switch (store.state.config.unitWeight) {
     case 'kg': return `${kg} kg`
     case 'lbs': return `${lbs} lbs`
     default: return ''

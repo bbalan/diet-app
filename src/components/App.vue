@@ -32,7 +32,7 @@ export default {
       }, 60000)
     },
     welcome() {
-      if (!store.state.appSettings.signupComplete) {
+      if (!store.state.config.signupComplete) {
         router.replace('/welcome#intro')
       }
     },

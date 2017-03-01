@@ -78,7 +78,7 @@ export default {
 
         let weight
 
-        if (store.state.appSettings.unitWeight === 'kg') {
+        if (store.state.config.unitWeight === 'kg') {
           weight = Math.round(mass * 10) / 10
         } else {
           weight = Math.round(mass * 2.20462 * 10) / 10
@@ -92,10 +92,10 @@ export default {
     },
     unitWeight: {
       get() {
-        return store.state.appSettings.unitWeight
+        return store.state.config.unitWeight
       },
       set(unitWeight) {
-        store.commit('appSettings/setUnitWeight', unitWeight)
+        store.commit('config/setUnitWeight', unitWeight)
       },
     },
     isValidWeight() {

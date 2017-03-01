@@ -2,7 +2,7 @@
   <div class="page--padded page page--menu">
     <local-storage-item lsKey="userInfo"></local-storage-item>
     <local-storage-item lsKey="foodCache"></local-storage-item>
-    <local-storage-item lsKey="appSettings"></local-storage-item>
+    <local-storage-item lsKey="config"></local-storage-item>
     <local-storage-item lsKey="calendar"></local-storage-item>
     <local-storage-item lsKey="entries"></local-storage-item>
     <local-storage-item lsKey="workoutPresets"></local-storage-item>

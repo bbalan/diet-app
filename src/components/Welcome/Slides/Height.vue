@@ -3,8 +3,8 @@
 
     <p slot="description">Taller people burn more calories.</p>
 
-    <md-input-container 
-      v-if="unitHeight == 'cm'" 
+    <md-input-container
+      v-if="unitHeight == 'cm'"
       class="height__cm height__input">
       <label for="height__cm">Height</label>
       <md-input name="height__cm" v-model="height"></md-input>
@@ -15,17 +15,17 @@
       <md-input-container v-if="unitHeight == 'ft'">
 
         <select v-model="height" class="height__ft--hidden">
-          <option 
-              v-for="height in heightsImperial" 
+          <option
+              v-for="height in heightsImperial"
               :value="height.value">
               {{ height.label }}
           </option>
         </select>
-        
+
         <label for="height__ft">Height</label>
         <md-select name="height__ft" id="height__ft" v-model="height">
-          <md-option 
-            v-for="height in heightsImperial" 
+          <md-option
+            v-for="height in heightsImperial"
             :value="height.value">
               {{ height.label }}
           </md-option>
@@ -40,7 +40,7 @@
         <md-option value="cm">cm</md-option>
       </md-select>
     </md-input-container>
-    
+
   </slide>
 </template>
 
@@ -64,10 +64,10 @@ export default {
     },
     unitHeight: {
       get() {
-        return store.state.appSettings.unitHeight
+        return store.state.config.unitHeight
       },
       set(unitHeight) {
-        store.commit('appSettings/setUnitHeight', unitHeight)
+        store.commit('config/setUnitHeight', unitHeight)
       },
     },
     /**

@@ -114,7 +114,7 @@ export default {
       } else {
         w = weight
 
-        const unitWeight = store.state.appSettings.unitWeight
+        const unitWeight = store.state.config.unitWeight
 
         if (unitWeight === 'kg') {
           mass = weight

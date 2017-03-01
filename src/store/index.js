@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import appStatus from 'store/appStatus'
 import userInfo from 'store/userInfo'
-import appSettings from 'store/appSettings'
+import config from 'store/config'
 import foodCache from 'store/foodCache'
 import workoutPresets from 'store/workoutPresets'
 import entries from 'store/entries'
@@ -17,7 +17,7 @@ const store = new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   modules: {
     userInfo,
-    appSettings,
+    config,
     foodCache,
     workoutPresets,
     entries,

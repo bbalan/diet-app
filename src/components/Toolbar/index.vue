@@ -11,6 +11,8 @@
 
           <search-bar></search-bar>
 
+          <!-- TODO: better calendar dropdown -->
+
           <h2 class="md-title toolbar__title" style="flex: 1">
             <span v-if="!isLog">{{ pageTitle }}</span>
             <span v-else>
@@ -51,7 +53,7 @@ export default {
         store.commit('calendar/setCurrentDay', date)
       },
     },
-    signupComplete: () => store.state.appSettings.signupComplete,
+    signupComplete: () => store.state.config.signupComplete,
     pageTitle() {
       let title = this.$route.meta.title
 

@@ -3,7 +3,7 @@ import dateFormat from 'dateformat'
 import { roundTo } from 'util'
 import { setLocalStorage } from 'store/util'
 
-const MODULE_KEY = 'appSettings'
+const MODULE_KEY = 'config'
 
 // Personal info about the user
 const stateDefault = {

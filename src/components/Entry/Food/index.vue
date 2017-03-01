@@ -105,7 +105,7 @@ export default {
       }
       return 'md-subheading'
     },
-    unitFood: () => store.state.appSettings.unitFood,
+    unitFood: () => store.state.config.unitFood,
   },
   methods: {
     focusInput() {

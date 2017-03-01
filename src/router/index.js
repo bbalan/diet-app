@@ -21,7 +21,7 @@ router.afterEach((route) => {
 
   // If 404, redirect to Log or Welcome page
   if (route.matched.length === 0) {
-    if (store.state.appSettings.signupComplete) {
+    if (store.state.config.signupComplete) {
       router.replace({ name: 'log' })
     } else {
       router.replace('/welcome#intro')

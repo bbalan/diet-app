@@ -117,7 +117,7 @@ export default {
     }
   },
   beforeCreate() {
-    if (store.state.appSettings.signupComplete) {
+    if (store.state.config.signupComplete) {
       // TODO: uncomment this
       // router.replace('/log')
     }
@@ -147,7 +147,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      store.commit('appSettings/signupComplete')
+      store.commit('config/signupComplete')
       router.go(-9000)
       router.push('/log')
 
