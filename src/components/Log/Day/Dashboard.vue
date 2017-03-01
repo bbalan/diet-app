@@ -4,7 +4,7 @@
     <div class="dashboard__stats page page--padded">
 
       <div class="stats">
-        <p>{{ mass | toMassUnit}}</p>
+        <p>Weight: {{ mass | toMassUnit}}</p>
         <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }} each)</p>
         <p class="percentages">
           Macros: {{ fatPct | roundTo }}% fat &nbsp; {{ carbsPct | roundTo }}% carbs &nbsp; {{ proteinPct | roundTo }}% protein
@@ -131,7 +131,7 @@ export default {
   /*margin-left 96px*/
 
   p
-    margin 0 0 4px 0
+    margin 0 0 0px 0
     display block
     float none
 

@@ -25,6 +25,7 @@ const log = {
       if (!state.data[currentDay]) {
         store.commit('calendar/add', currentDay)
       }
+      setLocalStorage(MODULE_KEY, state)
     },
     setToday(state, today) {
       if (!today) {

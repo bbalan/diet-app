@@ -13,7 +13,7 @@
           :class="{ 'weight__lbs': true, 'weight__input': true, 'md-input-invalid': !isValidWeight }"
           ref="weight__lbs">
           <label for="weight__lbs">Weight</label>
-          <md-input name="weight__lbs" v-model="weight" type="number" step="any" required></md-input>
+          <md-input name="weight__lbs" v-model="weight" type="number" step="any" required @keydown.native="onKeyDown"></md-input>
         </md-input-container>
 
         <md-input-container
