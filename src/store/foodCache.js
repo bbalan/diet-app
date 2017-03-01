@@ -4,6 +4,8 @@ import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'foodCache'
 
+// TODO: split this into cache/food and create cache/search, etc
+
 // Personal info about the user
 const stateDefault = {}
 

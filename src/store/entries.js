@@ -4,13 +4,8 @@ import UUID from 'uuid'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'entries'
-
-// Personal info about the user
 const stateDefault = {}
-
-const stateLocalStorage = JSON.parse(
-  localStorage.getItem(MODULE_KEY)
-)
+const stateLocalStorage = JSON.parse(localStorage.getItem(MODULE_KEY))
 
 const entries = {
   namespaced: true,
