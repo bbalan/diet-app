@@ -1,5 +1,5 @@
 <template>
-  <div class="food-entry page--padded page"> 
+  <div class="food-entry page--padded page">
 
     <div v-if="loading" class="food-entry-spinner">
       <md-spinner md-indeterminate></md-spinner>
@@ -18,11 +18,11 @@
           <div class="inputs">
             <md-input-container class="inputs__mass" ref="massInput">
               <label>How much?</label>
-              <md-input 
-                type="number"  
+              <md-input
+                type="number"
                 ref="massInput"
                 v-model.number="mass"
-                required="true"
+                required
                 @focus.native="onFocusInput('massInput')"
                 @click.native="onFocusInput('massInput')"
                 @keydown.native="onKeyDown">
@@ -31,7 +31,7 @@
               <span class="md-error">Please enter a number.</span>
             </md-input-container>
 
-            <md-button 
+            <md-button
               class="md-raised md-primary inputs__eat inputs__submit"
               @click.native.prevent="onSubmit">
               {{ uuid ? 'Save' : 'Eat' }}
@@ -41,7 +41,7 @@
           <div class="clearfix"></div>
 
           <nutrition-facts
-            :dataFood="dataFood" 
+            :dataFood="dataFood"
             :source="source || entrySource"
             :mass="normalizedMass">
           </nutrition-facts>

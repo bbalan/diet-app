@@ -1,6 +1,6 @@
 <template>
   <div class="log solid__bg page page--main page--menu">
-    
+
     <day :dataDay="dataCurrentDay" :date="currentDay"></day>
 
     <md-button class="md-fab md-fab-bottom-right" @click.native="onClickFood">
@@ -30,17 +30,9 @@ export default {
   name: 'Log',
   components: { Day },
   computed: {
-    calendar() {
-      return store.state.calendar.data
-    },
-    currentDay() {
-      if (this.calendar) return store.state.calendar.currentDay
-      return null
-    },
-    dataCurrentDay() {
-      if (this.calendar) return store.state.calendar.data[this.currentDay]
-      return null
-    },
+    calendar() { return store.state.calendar.data },
+    currentDay() { return this.calendar ? store.state.calendar.currentDay : null },
+    dataCurrentDay() { return this.calendar ? store.state.calendar.data[this.currentDay] : null },
   },
   methods: {
     onClickFood() {

@@ -47,7 +47,7 @@ export default {
 
     signupComplete(state) {
       state.signupComplete = true
-      state.signupDate = dateFormat(new Date(), 'mm-dd-yy')
+      state.signupDate = dateFormat(new Date(), 'yyyy-mm-dd')
       setLocalStorage(MODULE_KEY, state)
     },
   },

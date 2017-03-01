@@ -14,7 +14,7 @@
           <div class="page--padded">
             <p class="md-subheading">It's time to log your body weight!</p>
 
-            <router-link :to="{ name: 'weighin' }" class="addLog logWeight">
+            <router-link :to="{ name: 'weight' }" class="addLog logWeight">
               <md-button class="md-raised md-primary">
                 Weigh In
               </md-button>
@@ -28,8 +28,8 @@
         :entries="filteredEntries">
       </entry-list>
 
-      <div v-if="filteredEntries.length === 0" class="no-entries">
-        No entries today!
+      <div v-if="filteredEntries.length === 0 && massUpdated" class="no-entries">
+        Food and workouts that you add to the log will appear here.
       </div>
 
     </div>
@@ -56,15 +56,15 @@ export default {
   },
   computed: {
     // This Day is displaying today's data.
-    isToday() {
-      return this.date === store.state.calendar.today
-    },
+    isToday() { return this.date === store.state.calendar.today },
+
     // Filter only keys that match a value in store.state.entries
     filteredEntries() {
       return this.dataDay.entries.filter(
         entryUUID => store.state.entries[entryUUID]
       )
     },
+
     // Get the user's latest TDEE
     tdee() {
       if (this.dataDay && this.dataDay.userInfo.metrics) {
@@ -72,16 +72,15 @@ export default {
       }
       return store.state.userInfo.metrics.tdee
     },
+
     mass() {
       if (this.dataDay && this.dataDay.userInfo.metrics) {
         return this.dataDay.userInfo.metrics.mass
       }
       return store.state.userInfo.metrics.mass
     },
-    massUpdated() {
-      if (this.dataDay) return this.dataDay.userInfo.massUpdated
-      return false
-    },
+
+    massUpdated() { return this.dataDay ? this.dataDay.userInfo.massUpdated : false },
   },
 }
 </script>
@@ -111,10 +110,18 @@ export default {
   color #42b983
 
 .weigh-in
+  position absolute
+  top 50%
+  left 50%
+  margin-top -52px
+  margin-left -140px
   text-align center
   margin-bottom 16px
 
 .no-entries
-  margin 16px
+  position absolute
+  top 50%
+  margin-top -40px
+  padding 16px 32px
   text-align center
 </style>

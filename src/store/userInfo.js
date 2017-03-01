@@ -38,18 +38,17 @@ export default {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    // prepopulate(state) {
-    //   state.metrics.gender = 'male'
-    //   state.metrics.height = 177
-    //   store.commit('userInfo/setWeight', 151.6)
-    //   state.metrics.bodyFatPct = 20
-    //   state.metrics.mass = 68.76
-    //   store.commit('userInfo/setGoal', 'burn-fat')
-    //   store.commit('userInfo/setActivityLevel', 1.2)
-    //   store.commit('userInfo/setNumMeals', 6)
-    //   store.commit('userInfo/calcTDEE')
-    //   store.commit('calendar/setUserMetrics')
-    // },
+    prepopulate(state) {
+      state.metrics.gender = 'male'
+      state.metrics.height = 177
+      store.commit('userInfo/setWeight', 151.6)
+      state.metrics.bodyFatPct = 20
+      store.commit('userInfo/setGoal', 'burn-fat')
+      store.commit('userInfo/setActivityLevel', 1.2)
+      store.commit('userInfo/setNumMeals', 6)
+      store.commit('userInfo/calcTDEE')
+      store.commit('calendar/setUserMetrics')
+    },
 
     /** Translates the user's birthday into a timestamp, and calculates their age. */
     setBirthday(state, birthday) {

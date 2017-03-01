@@ -1,7 +1,7 @@
 <template>
   <div id="welcome">
     <!--<h1>Data from Firebase: {{ test['.value'] }}</h1>-->
-    
+
     <!-- Do nothing on submit, to prevent submitting on enter-->
     <form class="welcome-form" @submit.prevent="swiperNext">
       <div class="swiper-container">
@@ -22,12 +22,12 @@
           <!--<div class="swiper-scrollbar"></div>-->
           <div class="swiper-pagination"></div>
 
-          <!--<md-button
+          <md-button
             @click.native="onPrepopulate"
             type="button"
             class="button--prepopulate">
             Prepopulate
-          </md-button>-->
+          </md-button>
 
           <md-button
             :disabled="isBeginning"
@@ -36,11 +36,11 @@
             <md-icon>navigate_before</md-icon>
           </md-button>
 
-          <md-button 
+          <md-button
             @click.native="swiperNext"
             type="button"
             :class="{
-              'button-next': true, 
+              'button-next': true,
               'icon-right': true,
               'md-primary': true,
               'md-raised': true,
@@ -50,11 +50,11 @@
             <md-icon>navigate_next</md-icon>
           </md-button>
 
-          <md-button 
+          <md-button
             type="button"
             :class="{
-              'swiper-next': true, 
-              'button-next': true, 
+              'swiper-next': true,
+              'button-next': true,
               'icon-right': true,
               'md-primary': true,
               'md-raised': true,
@@ -65,13 +65,13 @@
           </md-button>
 
           <md-button
-            type="submit" 
+            type="submit"
             :class="{
-              'button-submit': true, 
-              'button-next': true, 
+              'button-submit': true,
+              'button-next': true,
               'icon-right': true,
-              'md-raised': true, 
-              'md-primary': true, 
+              'md-raised': true,
+              'md-primary': true,
               'hidden': !isEnd,
             }">
             All done
@@ -155,10 +155,10 @@ export default {
       // db.ref('data')
       //   .push(store.state.userInfo)
     },
-    // onPrepopulate() {
-    //   store.commit('userInfo/prepopulate')
-    //   this.onSubmit()
-    // },
+    onPrepopulate() {
+      store.commit('userInfo/prepopulate')
+      this.onSubmit()
+    },
     updateSwiper(s) {
       this.isBeginning = s.isBeginning
       this.isEnd = s.isEnd
@@ -220,7 +220,7 @@ export default {
 button.hidden
   opacity 0
   pointer-events none
-  
+
 .button-next
   .md-icon
     margin-right -8px

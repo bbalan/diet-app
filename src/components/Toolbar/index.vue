@@ -6,7 +6,7 @@
     <transition name="page-fade">
       <md-whiteframe v-if="!isWelcome" md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="toolbar">
         <div class="md-toolbar-container">
-        
+
           <left-menu @evtToggleSidenav="toggleSidenav"></left-menu>
 
           <search-bar></search-bar>
@@ -14,12 +14,12 @@
           <h2 class="md-title toolbar__title" style="flex: 1">
             <span v-if="!isLog">{{ pageTitle }}</span>
             <span v-else>
-              <input type="date" class="date-selector">
+              <input type="date" class="date-selector" v-model="currentDay">
               {{ pageTitle }}
               <md-icon>arrow_drop_down</md-icon>
             </span>
           </h2>
-        
+
           <right-menu></right-menu>
         </div>
       </md-whiteframe>
@@ -45,6 +45,12 @@ export default {
   },
   components: { RightMenu, LeftMenu, Sidenav, SearchBar },
   computed: {
+    currentDay: {
+      get: () => store.state.calendar.currentDay,
+      set(date) {
+        store.commit('calendar/setCurrentDay', date)
+      },
+    },
     signupComplete: () => store.state.appSettings.signupComplete,
     pageTitle() {
       let title = this.$route.meta.title
@@ -103,10 +109,10 @@ export default {
     .date-selector
       position absolute
       top 0
-      left 0
+      left 100px
       width 100%
       height 100%
-      opacity 0
+      opacity 1
 
   // Transitions
   &-enter-active
@@ -114,7 +120,7 @@ export default {
     opacity 1
     transition all .2s ease-out
     transform translate3d(0, 0, 0)
-    
+
   &-enter
   &-leave-to
     opacity 0

@@ -4,6 +4,7 @@
     <div class="dashboard__stats page page--padded">
 
       <div class="stats">
+        <p>{{ mass }}</p>
         <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }} each)</p>
         <p class="percentages">
           Macros: {{ fatPct | roundTo }}% fat &nbsp; {{ carbsPct | roundTo }}% carbs &nbsp; {{ proteinPct | roundTo }}% protein
@@ -12,7 +13,7 @@
     </div>
 
     <md-progress class="md-accent dashboard__progress" :md-progress="caloriesPercent"></md-progress>
-    
+
   </md-whiteframe>
 </template>
 

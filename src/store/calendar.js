@@ -28,7 +28,7 @@ const log = {
     },
     setToday(state, today) {
       if (!today) {
-        today = dateFormat(new Date(), 'mm-dd-yy')
+        today = dateFormat(new Date(), 'yyyy-mm-dd')
       }
 
       state.today = today
@@ -41,12 +41,23 @@ const log = {
 
       store.commit('calendar/setUserMetrics')
     },
-    add(state, day) {
+    add(state, newDate) {
+      // find nearest date to copy data from
+      const nearestDates = Object.entries(state.data).map(
+        day => Date.parse(newDate) - Date.parse(day[0])
+      ).sort((a, b) => {
+        if (Math.abs(a) > Math.abs(b)) return 1
+        if (Math.abs(a) < Math.abs(b)) return -1
+        return 0
+      })
+
+      console.log(nearestDates[0])
+
       // TODO: add timestamp
-      Vue.set(state.data, day, {
+      Vue.set(state.data, newDate, {
         userInfo: {
           massUpdated: false,
-          metrics: {},
+          metrics: store.state.userInfo.metrics,
         },
         entries: [],
       })

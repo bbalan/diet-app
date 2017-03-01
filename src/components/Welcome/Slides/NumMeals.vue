@@ -9,10 +9,10 @@
 
     <md-input-container ref="numMealsInput">
       <label>Number of meals per day</label>
-      <md-input v-model="numMeals" type="number" min="2" max="10" :required="true" placeholder="3" @focus.native="onFocusInput('numMealsInput')"></md-input>
+      <md-input v-model="numMeals" type="number" min="2" max="10" required placeholder="3" @focus.native="onFocusInput('numMealsInput')"></md-input>
       <span class="md-error">That's not a number.</span>
     </md-input-container>
-    
+
   </slide>
 </template>
 
