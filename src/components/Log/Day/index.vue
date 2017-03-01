@@ -114,7 +114,10 @@ export default {
 .no-entries
   position absolute
   top 50%
-  margin-top -40px
+  left 50%
+  margin -40px 0 0 -140px
   padding 16px 32px
   text-align center
+  width 100%
+  max-width 280px
 </style>

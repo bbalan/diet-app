@@ -13,6 +13,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "chart.js": "^2.5.0",
     "dateformat": "^2.0.0",
     "dialog-polyfill": "^0.4.6",
     "firebase": "^3.6.6",
