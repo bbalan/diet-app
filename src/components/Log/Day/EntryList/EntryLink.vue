@@ -168,7 +168,7 @@ export default {
     position absolute
     top 0
     left 0
-    padding 16px 24px 16px 94px
+    padding 16px 16px 16px 72px
     text-decoration none !important
   &__name
     white-space nowrap
@@ -190,12 +190,12 @@ export default {
   &__mass
     position absolute
     top 0px
-    left 24px
-    width 48px
+    left 16px
+    width 40px
 
     input
       width 36px
-      max-width 36px
+      max-width 30px
 
     &.md-input-focused
       .mass__unit

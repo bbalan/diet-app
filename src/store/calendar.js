@@ -27,6 +27,7 @@ const log = {
       }
       setLocalStorage(MODULE_KEY, state)
     },
+
     setToday(state, today) {
       if (!today) {
         today = dateFormat(new Date(), 'yyyy-mm-dd')
@@ -41,6 +42,10 @@ const log = {
       if (state.currentDay === '') state.currentDay = today
 
       store.commit('calendar/setUserMetrics')
+    },
+
+    goToToday(state) {
+      state.currentDay = state.today
     },
 
     add(state, newDate) {
@@ -82,6 +87,7 @@ const log = {
 
       setLocalStorage(MODULE_KEY, state)
     },
+
     // TODO: add day argument to add entry to any day
     entryAdd(state, { uuid, date }) {
       state.data[date].entries.push(uuid)
@@ -108,13 +114,7 @@ const log = {
       }
     },
 
-    setTDEE(state, tdee) {
-      state.data[state.currentDay].userInfo.metrics.tdee = tdee
-      setLocalStorage(MODULE_KEY, state)
-    },
-
     setMass(state) {
-      // state.data[state.today].userInfo.metrics.mass = mass
       state.data[state.currentDay].userInfo.massUpdated = true
       setLocalStorage(MODULE_KEY, state)
     },

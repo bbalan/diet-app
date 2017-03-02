@@ -102,8 +102,6 @@ import BodyFat from 'components/Welcome/Slides/BodyFat'
 import Goals from 'components/Welcome/Slides/Goals'
 import ActivityLevel from 'components/Welcome/Slides/ActivityLevel'
 import NumMeals from 'components/Welcome/Slides/NumMeals'
-// import Birthday from 'components/Welcome/Slides/Birthday'
-// import Credentials from 'components/Welcome/Slides/Credentials'
 
 let swiper
 
@@ -118,10 +116,10 @@ export default {
   },
   beforeCreate() {
     if (store.state.config.signupComplete) {
-      // TODO: uncomment this
-      // router.replace('/log')
+      router.replace({ name: 'log' })
+    } else {
+      router.replace('/welcome#intro')
     }
-    router.replace('/welcome#intro')
   },
   mounted() {
     // Docs: http://idangero.us/swiper/api
@@ -137,7 +135,7 @@ export default {
     })
   },
   beforeDestroy() {
-    swiper.destroy()
+    // swiper.destroy()
   },
   computed: {
     tdee: () => store.state.userInfo.metrics.tdee,

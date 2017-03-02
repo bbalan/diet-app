@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar__left-menu">
     <transition name="toolbar__button">
-      <md-button 
+      <md-button
         v-if="isSidebarEnabled"
         class="md-icon-button toolbar__open"
         @click.native="toggleSidenav">
@@ -10,7 +10,7 @@
     </transition>
 
     <transition name="toolbar__back">
-      <md-button 
+      <md-button
         v-if="!isSidebarEnabled"
         class="md-icon-button toolbar__open toolbar__back"
         @click.native="goBack">
@@ -53,14 +53,14 @@ export default {
 
   &__open
     position absolute !important
-    left 8px
+    left 0
     top 8px
 
   &__button
     &-enter-active
     &-leave-active
       transition all .3s ease-out
-      
+
     &-enter
     &-leave-to
       opacity 0
@@ -75,7 +75,7 @@ export default {
     &-leave-active
       transition all .15s 0s ease-out
       transform rotate(0deg)
-      
+
     &-enter
     &-leave-to
       opacity 0

@@ -34,7 +34,6 @@
     </div>
 
     <md-input-container class="height__unit">
-      <!--<label for="height__unit">Unit</label>-->
       <md-select name="height__unit" id="height__unit" v-model="unitHeight">
         <md-option value="ft">ft in</md-option>
         <md-option value="cm">cm</md-option>

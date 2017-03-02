@@ -22,6 +22,13 @@
             </span>
           </h2>
 
+          <md-button
+            v-if="!isToday"
+            class="md-icon-button toolbar__today"
+            @click.native="goToToday">
+            <md-icon>today</md-icon>
+          </md-button>
+
           <right-menu></right-menu>
         </div>
       </md-whiteframe>
@@ -53,6 +60,7 @@ export default {
         store.commit('calendar/setCurrentDay', date)
       },
     },
+    isToday: () => store.state.calendar.currentDay === store.state.calendar.today,
     signupComplete: () => store.state.config.signupComplete,
     pageTitle() {
       let title = this.$route.meta.title
@@ -83,6 +91,7 @@ export default {
   },
   methods: {
     toggleSidenav() { this.$refs.sidenav.toggleSidenav() },
+    goToToday() { store.commit('calendar/goToToday') },
   },
 }
 </script>
@@ -100,13 +109,18 @@ export default {
   height 56px !important
 
   .md-toolbar-container
-    padding 0 8px
+    padding 0
     min-height 56px !important
     height 56px !important
 
+  &__today
+    position absolute
+    left 50%
+    margin-left -12px
+
   &__title
     position absolute
-    left 56px
+    left 72px
     top 16px
 
     .date-selector
