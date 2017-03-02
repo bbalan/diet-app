@@ -1,6 +1,5 @@
 import Vue from 'vue'
 // import store from 'store'
-import UUID from 'uuid'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'recipe'
@@ -11,13 +10,40 @@ const recipe = {
   namespaced: true,
   state: stateFromLocalStorage || stateDefault,
   mutations: {
-    add(state, { data }) {
-      const uuid = UUID.v4()
+    add(state, uuid) {
+      if (state[uuid]) return // do nothing if this recipe already exists
+
       Vue.set(state, uuid, {
-        ...data,
-        enabled: true,
+        name: null,
+        ingredients: null,
+        nutrients: {
+          serving: null,
+          calories: null,
+          fat: null,
+          fat_saturated: null,
+          fat_trans: null,
+          carbs: null,
+          fiber: null,
+          sugar: null,
+          protein: null,
+        },
+        enabled: false,
       })
       setLocalStorage(MODULE_KEY, state)
+    },
+
+    setName(state, { uuid, name }) {
+      const item = state[uuid]
+      if (item) item.name = name
+      setLocalStorage(MODULE_KEY, state)
+    },
+
+    addIngredient(state, { uuid, ingredient_uuid }) {
+      console.log(uuid, ingredient_uuid)
+    },
+
+    deleteIngredient(state, { uuid, ingredient_uuid }) {
+      console.log(uuid, ingredient_uuid)
     },
 
     disable(state, uuid) {

@@ -2,16 +2,18 @@
 
   <div class="entry--recipe page page--menu page--bg-grey">
     <md-whiteframe md-elevation="2" class="entry--recipe__inputs page--padded">
-      <md-input-container class="entry--recipe__inputs__name">
-        <label>Recipe name</label>
-        <md-input name="name" v-model="name"></md-input>
-      </md-input-container>
+      <form @submit.prevent="save">
+        <md-input-container class="entry--recipe__inputs__name">
+          <label>Recipe name</label>
+          <md-input name="name" v-model="name"></md-input>
+        </md-input-container>
 
-      <md-button
-        class="entry--recipe__inputs__save md-raised md-primary"
-        @click.native="save">
-        Save
-      </md-button>
+        <md-button
+          class="entry--recipe__inputs__save md-raised md-primary"
+          type="submit">
+          Save
+        </md-button>
+      </form>
     </md-whiteframe>
 
     <div class="entry--recipe__ingredients">
@@ -47,6 +49,13 @@ export default {
       name: null,
     }
   },
+  created() {
+    store.commit('recipe/add', this.uuid)
+
+    const recipe = store.state.recipe[this.uuid]
+
+    this.name = recipe ? recipe.name : null
+  },
   computed: {
     ingredients() {
       return []
@@ -56,14 +65,12 @@ export default {
     addIngredient() {
       router.push({ name: 'ingredientFind' })
     },
-
     save() {
-      store.commit('recipe/add', {
+      store.commit('recipe/setName', {
+        uuid: this.uuid,
         name: this.name,
-        ingredients: {
-
-        },
       })
+      router.go(-1)
     },
   },
 }
@@ -72,6 +79,10 @@ export default {
 <style lang="stylus">
 .entry--recipe
   display block
+
+  form
+    display flex
+    width 100%
 
   input
     font-size 16px
@@ -85,7 +96,7 @@ export default {
     background white
 
     &__name
-      //
+      margin 0 0 8px 0 !important
 
     &__save
       margin-right 0 !important
@@ -100,7 +111,7 @@ export default {
     left 0
     width 100%
     height 100%
-    border-top 108px solid transparent
+    border-top 88px solid transparent
 
   &__empty
     position absolute

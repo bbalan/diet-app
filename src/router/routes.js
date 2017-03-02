@@ -104,6 +104,7 @@ export default [
     name: 'entryRecipe',
     path: '/food/recipe/:uuid',
     component: EntryRecipe,
+    props: true,
     meta: {
       title: 'Add Recipe',
       backMode: 'history', // toolbar back arrow behavior

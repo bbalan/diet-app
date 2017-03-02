@@ -10,7 +10,7 @@
 
     <transition name="expand">
     <div v-if="isVisible">
-    
+
       <md-button @click.native="clear" class="md-raised md-accent icon-left localStorage__clear">
         <md-icon>warning</md-icon>
         Clear {{ lsKey }}
@@ -41,7 +41,8 @@ export default {
   },
   methods: {
     clear() {
-      localStorage.setItem(this.lsKey, '')
+      localStorage.setItem(this.lsKey, '{}')
+      location.reload()
     },
     toggleVisible() {
       this.isVisible = !this.isVisible

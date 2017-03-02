@@ -22,12 +22,15 @@
             </span>
           </h2>
 
-          <md-button
-            v-if="!isToday"
-            class="md-icon-button toolbar__today"
-            @click.native="goToToday">
-            <md-icon>today</md-icon>
-          </md-button>
+          <!-- TODO: nicer transition for buttons -->
+          <transition name="fade">
+            <md-button
+              v-if="!isToday && isLog"
+              class="md-icon-button toolbar__today"
+              @click.native="goToToday">
+              <md-icon>today</md-icon>
+            </md-button>
+          </transition>
 
           <right-menu></right-menu>
         </div>

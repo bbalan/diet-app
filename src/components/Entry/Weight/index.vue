@@ -3,6 +3,8 @@
 
       <h2 class="card__heading md-heading">Today's weight</h2>
 
+      <p>For the most accurate results, measure your weight when you wake up, right after you use the washroom.</p>
+
       <form @submit.prevent="onSubmit">
 
         <!-- TODO: validation for all md-inputs -->

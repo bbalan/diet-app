@@ -8,6 +8,7 @@ import workoutPresets from 'store/workoutPresets'
 import entries from 'store/entries'
 import calendar from 'store/calendar'
 import search from 'store/search'
+import recipe from 'store/recipe'
 
 Vue.use(Vuex)
 
@@ -22,6 +23,7 @@ const store = new Vuex.Store({
     entries,
     calendar,
     search,
+    recipe,
   },
 })
 

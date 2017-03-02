@@ -1,5 +1,6 @@
 <template>
   <div class="page--padded page page--menu">
+    <local-storage-item lsKey="recipe"></local-storage-item>
     <local-storage-item lsKey="userInfo"></local-storage-item>
     <local-storage-item lsKey="foodCache"></local-storage-item>
     <local-storage-item lsKey="config"></local-storage-item>
@@ -27,7 +28,7 @@ export default {
   methods: {
     localStorageClear() {
       localStorage.clear()
-      window.location.reload()
+      location.reload()
     },
   },
 }
