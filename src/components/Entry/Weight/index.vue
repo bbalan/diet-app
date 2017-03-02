@@ -1,5 +1,5 @@
 <template>
-  <div class="weigh-in page page--padded page--menu">
+  <div class="entry--weight page page--padded page--menu">
 
       <h2 class="card__heading md-heading">Today's weight</h2>
 
@@ -7,6 +7,7 @@
 
         <!-- TODO: validation for all md-inputs -->
         <!-- TODO: @keyup.native keycode enter call onSubmit() -->
+        <!-- TODO: add chart.js progress graph -->
 
         <md-input-container
           v-if="unitWeight == 'lbs'"
@@ -24,7 +25,7 @@
           <md-input name="weight__kg" v-model="weight" type="number" step="any" required @keydown.native="onKeyDown"></md-input>
         </md-input-container>
 
-        <md-button @click.native="onSubmit" class="md-raised md-primary weigh-in__submit">
+        <md-button @click.native="onSubmit" class="md-raised md-primary entry--weight__submit">
           Save
         </md-button>
 
@@ -57,7 +58,7 @@ export default {
     },
     onKeyDown(e) {
       // TODO: disable tab for desktop?
-      if (e.code === 'Enter' || e.code === 'Tab') {
+      if (e.code === 'Enter' || e.which === 9) {
         this.onSubmit()
       }
     },
@@ -112,7 +113,7 @@ export default {
 button
   display block
 
-.weigh-in
+.entry--weight
   &__card
     display block
   &__submit

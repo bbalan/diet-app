@@ -7,7 +7,6 @@
     ref="sidenav">
 
     <md-list @click.native="toggleSidenav" class="toolbar__sidenav__list">
-      <!--<md-subheader>Tracking</md-subheader>-->
 
       <md-list-item>
         <router-link :to="{ name: 'log' }">
@@ -37,10 +36,7 @@
         </router-link>
       </md-list-item>
 
-      <!--<md-divider class="md-inset"></md-divider>-->
       <md-divider></md-divider>
-
-      <!--<md-subheader>Configuration</md-subheader>-->
 
       <md-list-item disabled>
         <router-link :to="{ name: 'profile' }">
@@ -56,10 +52,18 @@
         </router-link>
       </md-list-item>
 
-      <!--<md-divider class="md-inset"></md-divider>-->
       <md-divider></md-divider>
 
-      <!--<md-subheader>Dev</md-subheader>-->
+      <md-list-item disabled>
+        <router-link :to="{ name: 'feedback' }">
+          <md-icon>feedback</md-icon>
+          <span>Feedback</span>
+        </router-link>
+      </md-list-item>
+
+      <md-divider></md-divider>
+
+      <!-- TODO: remove dev links -->
 
       <md-list-item>
         <router-link :to="{ name: 'welcome' }">

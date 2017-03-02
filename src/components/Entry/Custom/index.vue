@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-custom page page--padded page--menu">
+  <div class="entry--custom page page--padded page--menu">
 
     <p>Enter as much information as you can, then tap Save.</p>
 
@@ -63,9 +63,9 @@
         <span class="mass__unit input__unit">{{ unitFood }}</span>
       </md-input-container>
 
-      <md-button class="entry-custom__save md-raised md-primary" @click.native="onSubmit">Save</md-button>
+      <md-button class="entry--custom__save md-raised md-primary" @click.native="onSubmit">Save</md-button>
 
-      <!--<md-button class="entry-custom__prepopulate md-raised" @click.native="prepopulate">Prepopulate</md-button>-->
+      <!--<md-button class="entry--custom__prepopulate md-raised" @click.native="prepopulate">Prepopulate</md-button>-->
     </form>
 
   </div>
@@ -177,7 +177,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.entry-custom
+.entry--custom
   &__save
     margin 16px 0 !important
     float right

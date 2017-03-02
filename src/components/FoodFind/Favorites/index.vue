@@ -6,6 +6,8 @@
     <md-list class="md-double-line">
       <md-list-item v-for="food in cachedItems" v-if="food.timesLogged">
 
+        <!-- TODO: grams input and Add button so we don't have to click through to foodFromCache -->
+
         <router-link
           :to="{ name: 'foodFromCache', params: { source: food.source, id: food.id }}"
           class="favorites__link">

@@ -1,0 +1,114 @@
+<template>
+
+  <div class="entry--recipe page page--menu page--bg-grey">
+    <md-whiteframe md-elevation="2" class="entry--recipe__inputs page--padded">
+      <md-input-container class="entry--recipe__inputs__name">
+        <label>Recipe name</label>
+        <md-input name="name" v-model="name"></md-input>
+      </md-input-container>
+
+      <md-button
+        class="entry--recipe__inputs__save md-raised md-primary"
+        @click.native="save">
+        Save
+      </md-button>
+    </md-whiteframe>
+
+    <div class="entry--recipe__ingredients">
+
+      <md-list v-if="ingredients.length" class="entry--recipe__ingredients__list">
+        <md-list-item v-form="ingredient in ingredients">
+          <pre>{{ ingredient }}</pre>
+        </md-list-item>
+      </md-list>
+
+      <div v-else class="entry--recipe__empty empty">
+        <p>Ingredients for this recipe will appear here.</p>
+        <p>Tap the <md-icon>add</md-icon> button to add an ingredient.</p>
+      </div>
+    </div>
+
+    <md-button class="md-fab md-fab-bottom-right" @click.native="addIngredient">
+      <md-icon>add</md-icon>
+    </md-button>
+  </div>
+
+</template>
+
+<script>
+import router from 'router'
+import store from 'store'
+
+export default {
+  name: 'Recipe',
+  props: ['uuid'],
+  data() {
+    return {
+      name: null,
+    }
+  },
+  computed: {
+    ingredients() {
+      return []
+    },
+  },
+  methods: {
+    addIngredient() {
+      router.push({ name: 'ingredientFind' })
+    },
+
+    save() {
+      store.commit('recipe/add', {
+        name: this.name,
+        ingredients: {
+
+        },
+      })
+    },
+  },
+}
+</script>
+
+<style lang="stylus">
+.entry--recipe
+  display block
+
+  input
+    font-size 16px
+
+  &__inputs
+    position fixed
+    display flex
+    flex-direction row
+    top 0
+    left 0
+    background white
+
+    &__name
+      //
+
+    &__save
+      margin-right 0 !important
+      margin-left 16px !important
+      height 36px
+      position relative
+      top 8px
+
+  &__ingredients
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    border-top 108px solid transparent
+
+  &__empty
+    position absolute
+    top 50%
+    left 50%
+    margin -60px 0 0 -175px
+    padding 16px 32px
+    text-align center
+    width 100%
+    max-width 350px
+</style>

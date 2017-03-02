@@ -1,14 +1,14 @@
 <template>
-  <div class="food-entry page--padded page">
+  <div class="entry--food page--padded page">
 
-    <div v-if="loading" class="food-entry-spinner">
+    <div v-if="loading" class="entry--food-spinner">
       <md-spinner md-indeterminate></md-spinner>
     </div>
 
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 
     <transition name="page-fade">
-      <div v-if="!loading && dataFood" class="food-entry__wrapper">
+      <div v-if="!loading && dataFood" class="entry--food__wrapper">
 
         <form @submit.prevent="onSubmit" :class="{ loading: loading }">
           <div :class="`${headingClass} entry-name wordwrap--fade`">
@@ -60,7 +60,7 @@ import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
-import { onFocusInput /* , routerBackTo */ } from 'util'
+import { onFocusInput, routerBackTo } from 'util'
 import NutritionFacts from './NutritionFacts'
 
 export default {
@@ -135,7 +135,8 @@ export default {
       const entry = store.state.entries[this.uuid]
 
       if (!entry) {
-        router.push('/log')
+        // router.push('/log')
+        routerBackTo('log')
         return
       }
 
@@ -241,7 +242,8 @@ export default {
       }
 
       // router.go(-2)
-      router.push({ name: 'log' })
+      // router.push({ name: 'log' })
+      routerBackTo('log')
     },
 
     // Commit new log entry
@@ -301,7 +303,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.food-entry
+.entry--food
 
   .inputs__mass
     max-width 60%

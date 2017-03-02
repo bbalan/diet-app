@@ -1,5 +1,5 @@
 <template>
-  <div class="workout-entry">
+  <div class="entry--workout">
 
     <md-card>
 
@@ -34,7 +34,7 @@
         </div>
       </md-card-content>
     </md-card>
-    
+
   </div>
 </template>
 
@@ -144,9 +144,9 @@ export default {
 .workout-name
   margin-top 0
 
-.workout-entry
+.entry--workout
   margin-bottom 16px
-  
+
   .md-input-container
     margin-top -8px !important
 

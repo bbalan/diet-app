@@ -3,6 +3,7 @@ import Welcome from 'components/Welcome'
 import Log from 'components/Log'
 import Entry from 'components/Entry'
 import EntryCustom from 'components/Entry/Custom'
+import EntryRecipe from 'components/Entry/Recipe'
 import Weight from 'components/Entry/Weight'
 
 import FoodFind from 'components/FoodFind'
@@ -22,14 +23,20 @@ export default [
   // ========== REDIRECTS
   {
     // TODO: change this
+    name: 'profile',
+    path: '/profile',
+    redirect: { name: 'log' },
+  },
+  {
+    // TODO: change this
     name: 'settings',
     path: '/settings',
     redirect: { name: 'welcome' },
   },
   {
     // TODO: change this
-    name: 'profile',
-    path: '/profile',
+    name: 'feedback',
+    path: '/settings',
     redirect: { name: 'log' },
   },
   {
@@ -70,7 +77,7 @@ export default [
     component: Entry,
     props: true,
     meta: {
-      title: 'Food', // TODO: replace with food title?
+      title: 'Add Food', // TODO: replace with food title?
       backMode: 'history', // toolbar back arrow behavior
     },
   },
@@ -78,9 +85,8 @@ export default [
     name: 'entryCustom',
     path: '/food/custom/new',
     component: EntryCustom,
-    props: true,
     meta: {
-      title: 'Custom Food',
+      title: 'Add Custom Food',
       backMode: 'history', // toolbar back arrow behavior
     },
   },
@@ -91,6 +97,15 @@ export default [
     props: true,
     meta: {
       title: 'Edit Custom Food',
+      backMode: 'history', // toolbar back arrow behavior
+    },
+  },
+  {
+    name: 'entryRecipe',
+    path: '/food/recipe/:uuid',
+    component: EntryRecipe,
+    meta: {
+      title: 'Add Recipe',
       backMode: 'history', // toolbar back arrow behavior
     },
   },

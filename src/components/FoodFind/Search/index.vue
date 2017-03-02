@@ -1,17 +1,17 @@
 <template>
   <div class="food-search page page--menu">
-    
+
     <form @submit.prevent="doSearch" class="page--padded food-search__form">
 
-      <!--<md-whiteframe 
+      <!--<md-whiteframe
         md-elevation="2"
         class="search-bar">
 
         <md-input-container class="search-bar__input" ref="searchBar">
           <md-icon class="search">search</md-icon>
           <md-icon class="arrow_back" @click.native="onClear">arrow_back</md-icon>
-          <md-input 
-            placeholder="Food name" 
+          <md-input
+            placeholder="Food name"
             v-model="searchText">
           </md-input>
         </md-input-container>
@@ -50,8 +50,8 @@
         <md-spinner v-if="loading && searchText.length" md-indeterminate class="search-loader"></md-spinner>
       </div>
 
-      <result-list 
-        :searchText="searchText" 
+      <result-list
+        :searchText="searchText"
         :list="searchResults">
       </result-list>
 
@@ -62,7 +62,7 @@
       }">No results</div>
 
     </form>
-  
+
   </div>
 </template>
 
@@ -129,6 +129,9 @@ export default {
     },
   },
   methods: {
+    cancelSearch() {
+      // TODO: implement this when a new search is done while previous search still in progress
+    },
     doSearch(text) {
       this.didSearch = false
 

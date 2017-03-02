@@ -1,7 +1,7 @@
 <template>
   <div class="toolbar__search">
     <transition name="fade">
-      <md-button 
+      <md-button
         v-if="searchEnabled"
         class="md-icon-button toolbar__search__toggle"
         @click.native="open">
@@ -12,9 +12,10 @@
     <transition name="fade">
       <div class="toolbar__search__bar" v-if="isOpen">
         <form @submit.prevent="submit">
-          <input 
-            type="text" 
-            placeholder="Search" 
+          <input
+            ref="searchBar"
+            type="text"
+            placeholder="Search"
             v-model="searchText"
             @keyup="onKeyUp"
             @blur="onBlur"
@@ -23,9 +24,9 @@
         </form>
 
         <!-- TODO: previous searches -->
-          
+
         <transition name="fade">
-          <md-button 
+          <md-button
             v-if="searchText"
             class="md-icon-button toolbar__search__clear"
             @click.native="clear">
@@ -33,7 +34,7 @@
           </md-button>
         </transition>
 
-        <md-button 
+        <md-button
           class="md-icon-button toolbar__search__back"
           @click.native="goBack">
           <md-icon>arrow_back</md-icon>
@@ -122,6 +123,8 @@ export default {
       } else {
         router.push({ name: 'search', params: { query: this.searchText } })
       }
+
+      this.$refs.searchBar.blur()
     },
     onFocus() {
       // this.$el.querySelector('input').select()
@@ -183,7 +186,7 @@ export default {
     top 8px
     right 8px
     z-index 2
-    
+
     .md-icon
       color rgba(0,0,0,.54)
 

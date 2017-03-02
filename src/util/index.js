@@ -45,5 +45,5 @@ export function routerBackTo(routeName) {
       router.go(-1)
       routerBackTo(routeName)
     }
-  }, 0)
+  }, 100)
 }
