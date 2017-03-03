@@ -10,7 +10,7 @@
           <router-link
             class="foodLink wordwrap--fade"
             :to="{
-              name: 'foodFromCache',
+              name: 'foodGetData',
               params: {
                 source: result.source,
                 id: result.id,

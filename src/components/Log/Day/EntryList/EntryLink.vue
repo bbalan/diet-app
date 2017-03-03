@@ -61,9 +61,9 @@ export default {
     isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
     isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
     isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
-    foodFromCache() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
+    foodGetData() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
     dataWorkout() { return this.isWorkout ? this.dataEntry.data : null },
-    dataFood() { return this.foodFromCache ? this.foodFromCache.dataFood : null },
+    dataFood() { return this.foodGetData ? this.foodGetData.dataFood : null },
     dataRecipe() { return this.isRecipe ? store.state.recipe.data[this.dataEntry.item] : null },
     name() {
       if (this.isFood && this.dataFood) return this.dataFood.name
@@ -84,12 +84,12 @@ export default {
     },
     calories() {
       if (this.isFood) {
-        if (!this.foodFromCache) return 0
+        if (!this.foodGetData) return 0
 
         let energy = 0
         let calories = 0
 
-        switch (this.foodFromCache.source) {
+        switch (this.foodGetData.source) {
           case API.USDA:
             energy = this.dataFood.nutrients.find(
               nutrient => nutrient.nutrient_id === '208'

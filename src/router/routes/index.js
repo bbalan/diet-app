@@ -75,7 +75,7 @@ export default [
     },
   },
   {
-    name: 'foodFromCache',
+    name: 'foodGetData',
     path: '/food/getdata/:source/:id',
     component: GetDataFood,
     props: true,

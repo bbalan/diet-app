@@ -8,7 +8,7 @@
       <md-list-item v-for="food in customFoods" class="food-custom__item">
 
         <router-link
-          :to="{ name: 'foodFromCache', params: { source: food.source, id: food.id }}"
+          :to="{ name: 'foodGetData', params: { source: food.source, id: food.id }}"
           class="custom__link">
 
           <!--<md-icon class="favorites__star">star</md-icon>-->
