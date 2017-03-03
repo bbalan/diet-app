@@ -168,6 +168,17 @@ export default [
     },
   },
   {
+    name: 'searchRecipe',
+    path: '/searchRecipe/:query?',
+    component: FoodSearch,
+    props: true,
+    meta: {
+      title: null,
+      search: true,
+      recipeMode: true,
+    },
+  },
+  {
     name: 'workout',
     path: '/workout',
     component: WorkoutFind,

@@ -1,10 +1,10 @@
 <template>
   <div id="app">
 
-    <toolbar></toolbar>
+    <toolbar ref="toolbar"></toolbar>
 
     <transition name="page-fade" mode="out-in">
-      <router-view></router-view>
+      <router-view @evtOpenSearch="onOpenSearch"></router-view>
     </transition>
 
   </div>
@@ -36,6 +36,7 @@ export default {
         router.replace('/welcome#intro')
       }
     },
+    onOpenSearch() { this.$refs.toolbar.openSearch() },
   },
 }
 </script>

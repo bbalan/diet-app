@@ -1,5 +1,5 @@
 import Vue from 'vue'
-// import store from 'store'
+import store from 'store'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'recipe'
@@ -33,8 +33,11 @@ const recipe = {
     },
 
     setName(state, { uuid, name }) {
-      const item = state[uuid]
-      if (item) item.name = name
+      if (state[uuid]) state[uuid].name = name
+
+      store.commit('recipe/enable', uuid)
+      store.commit('recipe/deleteAllDisabled')
+
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -54,6 +57,15 @@ const recipe = {
     enable(state, uuid) {
       state[uuid].enabled = true
       setLocalStorage(MODULE_KEY, state)
+    },
+
+    deleteAllDisabled(state) {
+      Object.entries(state).forEach((entry) => {
+        const uuid = entry[0]
+        if (!entry[1].enabled) {
+          delete state[uuid]
+        }
+      })
     },
   },
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="food-search page page--menu">
 
-    <form @submit.prevent="doSearch" class="page--padded food-search__form">
+    <form @submit.prevent class="food-search__form">
 
       <!--<md-whiteframe
         md-elevation="2"
@@ -46,9 +46,11 @@
         </md-list>
       </md-whiteframe>-->
 
-      <div class="search-loader-container">
-        <md-spinner v-if="loading && searchText.length" md-indeterminate class="search-loader"></md-spinner>
-      </div>
+      <transition name="fade-spinner">
+        <div v-if="loading && searchText.length" class="search-loader-container">
+          <md-spinner md-indeterminate class="search-loader"></md-spinner>
+        </div>
+      </transition>
 
       <result-list
         :searchText="searchText"
@@ -67,11 +69,9 @@
 </template>
 
 <script>
+import 'whatwg-fetch' // https://github.com/github/fetch
 import store from 'store'
 import router from 'router'
-// https://github.com/github/fetch
-import 'whatwg-fetch'
-// import debounce from 'lodash.debounce'
 import * as API from 'api'
 import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
@@ -85,13 +85,13 @@ export default {
   data() {
     return {
       searchText: this.query,
+      previousSearchText: null,
       searchResults: [],
       dataFood: null,
       loading: false,
       didSearch: false,
       searchBar: null,
       stopTypingTimeout: null,
-      debounce: 500,
     }
   },
   mounted() {
@@ -99,28 +99,11 @@ export default {
     if (this.searchText) {
       this.doSearch(this.sanitizedSearch)
     }
-
-    // Focus the search bar and add classes
-    // this.searchBar = this.$refs.searchBar.$el
-    // const input = this.searchBar.querySelector('input')
-
-    // if (input) {
-    //   input.focus()
-    //   input.select()
-    //   setTimeout(() => { this.searchBar.classList.add('md-input-focused') }, 100)
-    // }
   },
   watch: {
-    // User typed something into the search field.
-    searchText() {
-      // this.doSearch(this.sanitizedSearch)
-      this.stopTypingTimeout = clearTimeout(this.stopTypingTimeout)
-      this.stopTypingTimeout = setTimeout(() => {
-        this.doSearch(this.sanitizedSearch)
-      }, 250)
-    },
     $route(route) {
       this.searchText = decodeURIComponent(route.params.query)
+      this.doSearch(this.sanitizedSearch)
     },
   },
   computed: {
@@ -129,17 +112,23 @@ export default {
     },
   },
   methods: {
-    cancelSearch() {
-      // TODO: implement this when a new search is done while previous search still in progress
-    },
     doSearch(text) {
       this.didSearch = false
 
-      if (!this.tryCachedResults(text)) {
-        this.searchAllAPIs(this.sanitizedSearch, this)
+      if (text !== this.previousSearchText) {
+        this.previousSearchText = text
+        this.searchResults = []
+
+        if (!this.tryCachedResults(text)) {
+          this.searchAllAPIs(this.sanitizedSearch, this)
+        }
       }
     },
+    cancelSearch() {
+      // TODO: implement this when a new search is done while previous search still in progress
+    },
     tryCachedResults(text) {
+      // TODO: cache search results
       const cachedResults = store.state.search.history
 
       if (Object.hasOwnProperty.call(cachedResults, text)) {
@@ -151,7 +140,7 @@ export default {
     },
     // Hit the search API for a list of foods that match the search field
     searchAllAPIs(sanitizedText) {
-      router.replace({ name: 'search', params: { query: this.searchText } })
+      router.replace({ name: this.$route.name, params: { query: this.searchText } })
 
       // TODO: run analytics to determine how many searches done before an option is selected
 
@@ -246,11 +235,6 @@ export default {
         })
         .then(loadComplete)
     },
-    onClear() {
-      this.searchText = ''
-      this.searchBar.classList.remove('md-has-value')
-      this.searchBar.querySelector('input').focus()
-    },
   },
 }
 </script>
@@ -270,8 +254,6 @@ export default {
     height 100%
     padding-top 2px !important
     padding-bottom 0 !important
-    padding-left 24px
-    padding-right 24px
 
 .clear
   position absolute

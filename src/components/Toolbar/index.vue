@@ -9,7 +9,7 @@
 
           <left-menu @evtToggleSidenav="toggleSidenav"></left-menu>
 
-          <search-bar></search-bar>
+          <search-bar ref="searchBar"></search-bar>
 
           <!-- TODO: better calendar dropdown -->
 
@@ -95,6 +95,7 @@ export default {
   methods: {
     toggleSidenav() { this.$refs.sidenav.toggleSidenav() },
     goToToday() { store.commit('calendar/goToToday') },
+    openSearch() { this.$refs.searchBar.open() },
   },
 }
 </script>

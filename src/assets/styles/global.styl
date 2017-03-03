@@ -97,6 +97,16 @@ input[type="number"]
     opacity 0
     transition opacity .2s
 
+.fade-spinner
+  &-enter-active
+    transition opacity .2s .4s
+  &-leave-active
+    transition opacity .2s
+
+  &-enter, &-leave-to
+    opacity 0
+    transition opacity .2s
+
 // page transitions
 .page-fade
   &-enter-active, &-leave-active

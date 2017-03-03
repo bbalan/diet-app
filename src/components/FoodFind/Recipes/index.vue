@@ -2,7 +2,7 @@
   <div class="page--recipes page page--tabs page--bg-grey">
 
     <md-list v-if="recipeList && recipeList.length" class="recipe-list md-double-line">
-      <md-list-item v-for="recipe in recipeList">
+      <md-list-item v-for="recipe in recipeList" v-if="recipe.enabled">
         <router-link :to="{ name: 'entryRecipe', params: { uuid: recipe.uuid } }" class="recipe-link">
           <div class="md-list-text-container">
             <span class="recipe-link__name wordwrap--fade">{{ recipe.name | capitalize }}</span>
@@ -31,9 +31,9 @@
 </template>
 
 <script>
+import { capitalize } from 'util/filters'
 import store from 'store'
 import router from 'router'
-import { capitalize } from 'util/filters'
 import UUID from 'uuid'
 
 // TODO: when saving an edited recipe, create a clone and set 'deprecated: true' on original

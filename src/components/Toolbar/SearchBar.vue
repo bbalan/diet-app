@@ -15,10 +15,9 @@
           <input
             ref="searchBar"
             type="text"
-            placeholder="Search"
+            :placeholder="placeholder"
             v-model="searchText"
             @keyup="onKeyUp"
-            @blur="onBlur"
             @focus="onFocus"
             @click="onFocus">
         </form>
@@ -43,7 +42,7 @@
     </transition>
 
     <transition name="fade">
-      <div class="toolbar__search__overlay" v-if="showOverlay" @click.native="close"></div>
+      <div class="toolbar__search__overlay" v-if="showOverlay" @click="close"></div>
     </transition>
   </div>
 </template>
@@ -57,102 +56,85 @@ export default {
     return {
       isOpen: false,
       searchText: '',
-      searchTextLast: '',
-      showOverlay: false,
       inputEl: null,
     }
-  },
-  computed: {
-    searchEnabled() {
-      return this.$route.meta.search
-    },
-    // showOverlay() {
-    //   return this.isOpen && this.$route.name !== 'search'
-    // },
   },
   mounted() {
     this.onRouteChange()
   },
-  watch: {
-    $route() {
-      this.onRouteChange()
-    },
-    isOpen(open) {
-      if (open) {
-        // this.focus()
-      } else {
-        this.searchText = ''
-      }
-    },
-    searchText() {
-      // if (this.searchText.length) {
-      //   const params = this.searchText.length ? { query: this.searchText } : undefined
-
-      //   if (this.$route.name !== 'foodSearch') {
-      //     router.push({ name: 'foodSearch', params })
-      //   } else {
-      //     router.replace({ name: 'foodSearch', params })
-      //   }
-      // }
-    },
+  computed: {
+    searchEnabled() { return this.$route.meta.search },
+    isEntryRecipe() { return this.$route.name === 'entryRecipe' },
+    isSearchStandard() { return this.$route.name === 'search' },
+    isSearchRecipe() { return this.$route.name === 'searchRecipe' },
+    isSearchAny() { return this.isSearchStandard || this.isSearchRecipe },
+    query() { return this.$route.params.query },
+    hasQuery() { return !!this.query },
+    placeholder() { return `Search ${this.isSearchRecipe || this.isEntryRecipe ? 'ingredients' : 'foods'}` },
+    showOverlay() { return this.isOpen && !this.isSearchAny },
   },
   methods: {
     open() {
       this.isOpen = true
       this.focus()
     },
-    close() { this.isOpen = false },
+    close() {
+      this.isOpen = false
+      this.clear()
+    },
     goBack() {
       this.close()
-      if (this.$route.name === 'search') router.go(-1)
+      if (this.isSearchAny) router.go(-1)
     },
     clear() {
       this.searchText = ''
-      this.isOpen = true
-      this.focus()
     },
     focus() {
-      this.isOpen = true
       setTimeout(() => { this.$el.querySelector('input').focus() }, 100)
     },
+    // Select search bar text on focus
+    onFocus() {
+      this.$el.querySelector('input').select()
+    },
+    blur() {
+      setTimeout(() => { this.$el.querySelector('input').blur() }, 100)
+    },
+    // Clear search bar text and close on blur
+    onBlur() {
+      if (!this.isSearchAny) {
+        this.searchText = ''
+        this.close()
+      }
+    },
     submit() {
-      this.searchTextLast = this.searchText
-
-      if (this.$route.name === 'search') {
-        router.replace({ name: 'search', params: { query: this.searchText } })
+      if (this.isSearchStandard || this.isSearchRecipe) {
+        router.replace({ name: this.$route.name, params: { query: this.searchText } })
+      } else if (this.isEntryRecipe) {
+        router.push({ name: 'searchRecipe', params: { query: this.searchText } })
       } else {
         router.push({ name: 'search', params: { query: this.searchText } })
       }
 
       this.$refs.searchBar.blur()
     },
-    onFocus() {
-      // this.$el.querySelector('input').select()
-      // this.searchText = ''
-      this.showOverlay = true
-    },
-    onBlur() {
-      if (this.$route.name !== 'search') {
-        this.searchText = ''
-        this.close()
-      } else {
-        this.searchText = this.searchTextLast
-      }
-
-      this.showOverlay = false
-    },
     onRouteChange() {
-      if (this.$route.name === 'search') {
+      if (this.isSearchAny) {
         this.isOpen = true
-        this.searchText = this.$route.params.query
-        this.searchTextLast = this.searchText
-        this.showOverlay = false
+        this.searchText = this.query
+        this.blur()
+
+        if (this.isSearchRecipe && !this.hasQuery) this.focus()
       } else {
         this.isOpen = false
       }
     },
     onKeyUp(e) {
       if (e.key === 'Enter') this.submit()
+    },
+  },
+  watch: {
+    $route() {
+      this.onRouteChange()
     },
   },
 }
@@ -192,7 +174,7 @@ export default {
 
   &__back
     right auto
-    left 8px
+    left 0
 
   &__bar
     position absolute
@@ -205,7 +187,7 @@ export default {
     input
       width 100%
       height 56px
-      padding 17px 8px 15px 56px
+      padding 17px 8px 15px 72px
       background white
       border none
       font-size 20px

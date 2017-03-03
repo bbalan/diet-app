@@ -1,23 +1,24 @@
 <template>
-  <div class="resultList" v-if="list !== null && list.length > 0 && !!searchText">
-    <!--<h2>{{list.length}} results</h2>-->
-    <!--<span class="md-headline">{{list.length}} results</span>-->
-    
-    <ul class="link-list">
-      <li 
-        v-for="result in orderedList" class="md-subheading">
-        <router-link 
-          class="foodLink wordwrap--fade" 
-          :to="{ name: 'foodFromCache', params: { source: result.source, id: result.id } }">
-          {{ result.name }}
-        </router-link>
-      </li>
-      
-      <li class="end-of-results">
-        Found {{ orderedList.length }} food {{ orderedList.length == 1 ? 'item' : 'items' }}
-      </li>
-    </ul>
-  </div>
+  <transition name="fade">
+    <div class="resultList" v-if="list !== null && list.length > 0 && !!searchText">
+
+      <md-list class="link-list">
+        <md-list-item
+          v-for="result in orderedList" class="md-subheading">
+          <router-link
+            class="foodLink wordwrap--fade"
+            :to="{ name: 'foodFromCache', params: { source: result.source, id: result.id } }">
+            {{ result.name }}
+          </router-link>
+        </md-list-item>
+
+        <md-list-item class="end-of-results">
+          Found {{ orderedList.length }} food {{ orderedList.length == 1 ? 'item' : 'items' }}
+        </md-list-item>
+
+      </md-list>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -31,31 +32,55 @@ export default {
   computed: {
     /* Sort list alphabetically, except items with searchText at
     the beginning of their names float to the top */
+    // orderedList() {
+      // if (this.list === null || !this.searchText) return null
+
+      // const text = this.searchText.toLowerCase().split(' ')[0]
+      // const startsWithText = []
+      // const doesntStartWithText = []
+
+      // this.list.forEach((item) => {
+      //   if (item.name.toLowerCase().indexOf(text) === 0) {
+      //     startsWithText.push(item)
+      //   } else {
+      //     doesntStartWithText.push(item)
+      //   }
+      // })
+
+      // doesntStartWithText.sort((a, b) => {
+      //   const aName = a.name.toLowerCase()
+      //   const bName = b.name.toLowerCase()
+
+      //   if (aName > bName) return 1
+      //   if (aName < bName) return -1
+      //   return 0
+      // })
+
+      // return startsWithText.concat(doesntStartWithText)
+    // },
     orderedList() {
-      if (this.list === null || !this.searchText) return null
-
-      const text = this.searchText.toLowerCase().split(' ')[0]
-      const startsWithText = []
-      const doesntStartWithText = []
-
-      this.list.forEach((item) => {
-        if (item.name.toLowerCase().indexOf(text) === 0) {
-          startsWithText.push(item)
-        } else {
-          doesntStartWithText.push(item)
-        }
-      })
-
-      doesntStartWithText.sort((a, b) => {
+      return this.list.slice().sort((a, b) => {
         const aName = a.name.toLowerCase()
         const bName = b.name.toLowerCase()
+        const aPos = aName.indexOf(this.searchText.toLowerCase())
+        const bPos = bName.indexOf(this.searchText.toLowerCase())
 
-        if (aName > bName) return 1
+        // Does the search term exist?
+        if (aPos < 0 && bPos >= 0) return -1
+        if (aPos >= 0 && bPos < 0) return 1
+
+        // How close is the search term?
+        if (aPos < 10 && bPos < 10) {
+          if (aPos < bPos) return -1
+          if (aPos > bPos) return 1
+        }
+
+        // Search term is too deep inside string
         if (aName < bName) return -1
+        if (aName > bName) return 1
+
         return 0
       })
-
-      return startsWithText.concat(doesntStartWithText)
     },
   },
 }
@@ -69,33 +94,35 @@ export default {
   overflow-y scroll
   position relative
   z-index 1
-  a
-    padding-left 56px
 
   ul
     padding 0
     margin 0
-  li
+
+  .md-list-item
     list-style-type none
     background white
     width 100%
     margin 0 !important
+    box-sizing border-box
+    max-height 56px
+    overflow hidden
+    text-overflow ellipsis
 
-    .foodLink
+    a
       display block
-      /*width 100px !important*/
+      width 100%
+      line-height 1.3em
       position relative
-      padding 16px 0
-      /*padding-left 56px !important*/
-      white-space nowrap
+      padding 16px 16px 16px 72px !important
       color black !important
       text-decoration none !important
-      white-space nowrap
+      white-space normal !important
       text-overflow ellipsis
       overflow hidden
     &.end-of-results
-      padding-left 56px
-      padding-top 32px
+      padding 32px 16px 32px 72px !important
+      max-height 82px
       margin-top 16px !important
       color rgba(0,0,0,.5)
       border-top 1px solid #eee

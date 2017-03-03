@@ -1,9 +1,11 @@
 <template>
   <div class="entry--food page--padded page">
 
-    <div v-if="loading" class="entry--food-spinner">
-      <md-spinner md-indeterminate></md-spinner>
-    </div>
+    <transition name="fade-spinner">
+      <div v-if="loading" class="entry--food-spinner">
+        <md-spinner md-indeterminate></md-spinner>
+      </div>
+    </transition>
 
     <div v-if="!loading && !dataFood" class="md-display-1">Food not found.</div>
 

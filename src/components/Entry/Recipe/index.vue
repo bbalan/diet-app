@@ -63,7 +63,8 @@ export default {
   },
   methods: {
     addIngredient() {
-      router.push({ name: 'ingredientFind' })
+      // router.push({ name: 'searchRecipe' })
+      this.$emit('evtOpenSearch')
     },
     save() {
       store.commit('recipe/setName', {
