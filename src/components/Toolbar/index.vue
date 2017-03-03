@@ -76,10 +76,19 @@ export default {
         }
       }
 
+      if (this.isRecipe) {
+        const recipe = store.state.recipe.data[this.$route.params.uuid]
+
+        if (recipe) {
+          title = recipe.enabled ? 'Edit Recipe' : 'Add Recipe'
+        }
+      }
+
       return title
     },
     isWelcome() { return this.$route.name === 'welcome' },
     isLog() { return this.$route.name === 'log' },
+    isRecipe() { return this.$route.name === 'entryRecipe' },
     logDate() {
       const currentDay = store.state.calendar.currentDay
       const months = [

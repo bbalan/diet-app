@@ -68,7 +68,8 @@ export default [
     component: Entry,
     props: true,
     meta: {
-      title: 'Edit Log Entry', // TODO: replace with relevant entry type
+      title: 'Edit', // TODO: replace with relevant entry type
+      backMode: 'history', // toolbar back arrow behavior
     },
   },
   {

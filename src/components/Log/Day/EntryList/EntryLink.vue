@@ -5,7 +5,7 @@
     <div class="md-list-text-container">
 
       <router-link
-        :to="`entry/${uuid}`"
+        :to="{ name: 'entry', params: { uuid } }"
         class="edit">
 
         <span class="entry-link__name">{{ name }}</span>

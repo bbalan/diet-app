@@ -57,10 +57,10 @@ export default {
     workoutDetails() { return this.entryDetails.filter(entry => entry.type === 'workout') },
     workoutCalories() { return this.workoutDetails.reduce((a, b) => a + b.data.calories, 0) },
 
-    calories() { return this.computeNutrient('calories', '208') },
-    carbs() { return this.computeNutrient('carbs', '205') },
-    fat() { return this.computeNutrient('fat', '204') },
-    protein() { return this.computeNutrient('protein', '203') },
+    calories() { return this.computeNutrient(this.foodDetails, 'calories', '208') },
+    carbs() { return this.computeNutrient(this.foodDetails, 'carbs', '205') },
+    fat() { return this.computeNutrient(this.foodDetails, 'fat', '204') },
+    protein() { return this.computeNutrient(this.foodDetails, 'protein', '203') },
 
     sumMacros() { return this.fat + this.carbs + this.protein },
     fatPct() { return this.sumMacros !== 0 ? (this.fat / this.sumMacros) * 100 : 0 },
@@ -74,12 +74,12 @@ export default {
     mealsRemaining() { return this.numMeals - this.mealsEaten },
   },
   methods: {
-    computeNutrient(customID, USDA_ID) {
+    computeNutrient(foodDetails, customID, USDA_ID) {
       let total = 0
       let energy
       let value
 
-      this.foodDetails.forEach((item) => {
+      foodDetails.forEach((item) => {
         switch (item.source) {
           case API.USDA:
             energy = item.dataFood.nutrients.find(
@@ -128,23 +128,10 @@ export default {
     padding-bottom 20px !important
 
 .stats
-  /*margin-left 96px*/
-
   p
     margin 4px 0
     display block
     float none
-
-/*#caloriesGauge
-  width 80px
-  height 80px
-  transform rotate(-45deg)
-  float left
-  margin-right 16px
-  margin-bottom 16px
-  position absolute
-  top 4px
-  left 8px*/
 
 .calories
 .perMeal
