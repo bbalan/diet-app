@@ -89,8 +89,8 @@ const log = {
     },
 
     // TODO: add day argument to add entry to any day
-    entryAdd(state, { uuid, date }) {
-      state.data[date].entries.push(uuid)
+    entryAdd(state, uuid) {
+      state.data[state.currentDay].entries.push(uuid)
       setLocalStorage(MODULE_KEY, state)
     },
 

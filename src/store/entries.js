@@ -25,7 +25,7 @@ const entries = {
       if (isForRecipe) {
         store.commit('recipe/addIngredient', uuid)
       } else {
-        store.commit('calendar/entryAdd', { uuid, date: store.state.calendar.currentDay })
+        store.commit('calendar/entryAdd', uuid)
       }
 
       setLocalStorage(MODULE_KEY, state)

@@ -12,6 +12,8 @@ import FoodFavorites from 'components/FoodFind/Favorites'
 import FoodCustom from 'components/FoodFind/Custom'
 import FoodRecipes from 'components/FoodFind/Recipes'
 
+import GetDataFood from 'components/GetData/Food'
+
 import WorkoutFind from 'components/WorkoutFind'
 import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
 
@@ -74,8 +76,8 @@ export default [
   },
   {
     name: 'foodFromCache',
-    path: '/food/cached/:source/:id',
-    component: Entry,
+    path: '/food/getdata/:source/:id',
+    component: GetDataFood,
     props: true,
     meta: {
       title: 'Add Food', // TODO: replace with food title?

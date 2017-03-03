@@ -78,7 +78,6 @@ export default {
   data() {
     return {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
-      massTemp: 100,
       dataFood: null,
       timesLogged: null,
       entrySource: null,

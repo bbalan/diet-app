@@ -17,7 +17,7 @@
 
 <script>
 import * as API from 'api'
-import Nutrient from './Nutrient'
+import Nutrient from 'components/Views/Nutrient'
 
 export default {
   props: ['dataFood', 'source', 'mass'],

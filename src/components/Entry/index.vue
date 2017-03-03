@@ -1,7 +1,16 @@
 <template>
-  <div class="entry-root page--menu">
+  <!-- This component is for EXISTING entries only. Make a new component for new entries. -->
+  <div class="entry-root page--menu page--padded">
 
-    <food v-if="isFood || isRecipe" :id="id" :source="source" :uuid="uuid" :destination="destination"></food>
+    <food-view
+      :name="name"
+      :serving="serving"
+      :nutrients="nutrients"
+      :buttonText="buttonText"
+      @submit="onSubmit">
+    </food-view>
+
+    <!--<food v-if="isFood || isRecipe" :id="id" :source="source" :uuid="uuid" :destination="destination"></food>
 
     <workout v-if="isWorkout" :uuid="uuid"></workout>
 
@@ -10,50 +19,123 @@
         <md-icon>warning</md-icon>
         Entry not found
       </div>
-    </div>
+    </div>-->
 
   </div>
 </template>
 
 <script>
+import router from 'router'
 import store from 'store'
-import Food from 'components/Entry/Food'
-import Workout from 'components/Entry/Workout'
+import FoodView from 'components/Entry/FoodView'
 import * as API from 'api'
+import { routerBackTo } from 'util'
 
 export default {
   name: 'Entry',
   props: ['uuid', 'id', 'source', 'destination'],
-  data() {
-    return {
-      mass: 100,
-    }
-  },
-  components: { Food, Workout },
+  components: { FoodView },
   computed: {
-    entries() {
-      return store.state.entries
+    dataEntry() { return store.state.entries[this.uuid] },
+    entryType() { return this.dataEntry ? this.dataEntry.type : false },
+    isFood() { return this.entryType === 'food' || (!!this.id && !!this.source) },
+    isRecipe() { return this.entryType === 'recipe' },
+    isWorkout() { return this.entryType === 'workout' },
+    isCustom() { return this.isFood && this.source === API.CUSTOM },
+
+    dataFood() {
+      // Check if this is a food entry
+      const entryFood = store.state.entries[this.uuid]
+
+      // Check if this is a recipe entry
+      const entryRecipe = store.state.recipe.data[this.uuid]
+
+      if (entryFood) {
+        const food = store.state.foodCache[entryFood.item]
+        this.isFood = true
+        this.mass = entryFood.data.mass
+        this.dataFood = food.dataFood
+        this.entrySource = food.source
+      } else if (entryRecipe) {
+        this.isRecipe = true
+        this.mass = entryRecipe.nutrients.serving
+        this.dataFood = entryRecipe
+        this.entrySource = API.RECIPE
+      } else {
+        routerBackTo('log')
+        return
+      }
     },
-    dataEntry() {
-      return this.entries[this.uuid]
+
+    name() { return this.dataFood ? this.dataFood.name : '' },
+    serving() { return 0 },
+    buttonText() { return 'Add' },
+    nutrients() { return {} },
+  },
+  methods: {
+    // User submitted changes to this Entry
+    onSubmit() {
+      if (this.uuid) {
+        if (this.isFood) {
+          this.entryEdit()
+        }
+
+        if (this.isRecipe) {
+          this.recipeAdd()
+        }
+
+        routerBackTo('log')
+      } else if (this.isForRecipe) {
+        this.entryAdd(true)
+        routerBackTo('entryRecipe')
+      } else {
+        this.entryAdd()
+        routerBackTo('log')
+      }
     },
-    dataRecipe() {
-      return store.state.recipe.data[this.uuid]
+
+    // User is submitting a recipe entry
+    recipeAdd() {
+      store.commit('entries/add', {
+        item: this.uuid,
+        type: 'recipe',
+        data: { mass: this.mass },
+      })
     },
-    entryType() {
-      return this.dataEntry ? this.dataEntry.type : false
+
+    // Commit new log entry
+    entryAdd(addToRecipe = false) {
+      // Add a food entry with the cached food uuid
+      store.commit('entries/add', {
+        item: this.cacheUUID,
+        type: 'food',
+        data: { mass: this.mass },
+        addToRecipe,
+      })
+
+      store.commit('foodCache/increment', this.cacheUUID)
+      store.commit('foodCache/setLastLoggedMass', {
+        uuid: this.cacheUUID,
+        lastLoggedMass: this.mass,
+      })
     },
-    isFood() {
-      return this.entryType === 'food' || (!!this.id && !!this.source)
+
+    // Save changes to this entry
+    entryEdit() {
+      store.commit('entries/edit', {
+        uuid: this.uuid,
+        data: { mass: this.mass },
+      })
+      store.commit('foodCache/setLastLoggedMass', {
+        uuid: this.cacheUUID,
+        lastLoggedMass: this.mass,
+      })
     },
-    isRecipe() {
-      return !!this.dataRecipe
-    },
-    isWorkout() {
-      return this.entryType === 'workout'
-    },
-    isCustom() {
-      return this.isFood && this.source === API.CUSTOM
+
+    // Remove this entry forever
+    entryDelete() {
+      store.commit('entries/delete', { uuid: this.uuid })
+      router.push('/log')
     },
   },
 }
