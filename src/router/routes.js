@@ -102,7 +102,7 @@ export default [
   },
   {
     name: 'entryRecipe',
-    path: '/food/recipe/:uuid',
+    path: '/food/recipeEdit/:uuid',
     component: EntryRecipe,
     props: true,
     meta: {

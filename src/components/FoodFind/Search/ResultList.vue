@@ -4,7 +4,9 @@
 
       <md-list class="link-list md-double-line">
         <md-list-item
-          v-for="result in orderedList" class="md-subheading">
+          v-for="result in orderedList"
+          v-if="containsSearchText(result.name)"
+          class="md-subheading">
           <router-link
             class="foodLink wordwrap--fade"
             :to="{
@@ -37,32 +39,53 @@ export default {
   props: ['list', 'searchText'],
   components: { FoodLink },
   computed: {
-    resultDestination() {
-      return this.$route.name === 'searchRecipe' ? 'recipe' : 'log'
-    },
+    // Sort list by several criteria, primarily how close to the start the searchText appears
     orderedList() {
       return this.list.slice().sort((a, b) => {
         const aName = a.name.toLowerCase()
         const bName = b.name.toLowerCase()
         const aPos = aName.indexOf(this.searchText.toLowerCase())
         const bPos = bName.indexOf(this.searchText.toLowerCase())
+        const searchDepth = 10 // how far into the search result to stop looking
 
-        // Does the search term exist?
-        if (aPos < 0 && bPos >= 0) return -1
-        if (aPos >= 0 && bPos < 0) return 1
-
-        // How close is the search term?
-        if (aPos < 10 && bPos < 10) {
-          if (aPos < bPos) return -1
-          if (aPos > bPos) return 1
-        }
+        // Does the searchText even exist in the string?
+        if (aPos < 0 && bPos >= 0) return 1
+        if (aPos >= 0 && bPos < 0) return -1
 
         // Search term is too deep inside string
-        if (aName < bName) return -1
-        if (aName > bName) return 1
+        if (aPos >= searchDepth && bPos >= searchDepth) {
+          // Sort alphabetically
+          if (aName < bName) return -1
+          if (aName > bName) return 1
+        }
 
-        return 0
+        // How close to the beginning of the string is the searchText located?
+        if (aPos < bPos) return -1
+        if (aPos > bPos) return 1
+        if (aPos === bPos) {
+          // How short is the result string?
+          if (aName.length > b.name.length) return 1
+          if (aName.length < b.name.length) return -1
+
+          // Sort alphabetically
+          // if (aName < bName) return -1
+          // if (aName > bName) return 1
+        }
+
+        return 0 // Strings are roughly equivalent
       })
+    },
+
+    // What purpose the search result is for (log or recipe)
+    resultDestination() {
+      return this.$route.name === 'searchRecipe' ? 'recipe' : 'log'
+    },
+  },
+  methods: {
+    // Whether this result contains the searchText at all
+    containsSearchText(str) {
+      // return str.toLowerCase().indexOf(this.searchText.toLowerCase()) >= 0
+      return str
     },
   },
 }

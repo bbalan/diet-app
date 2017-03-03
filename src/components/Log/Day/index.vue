@@ -29,7 +29,8 @@
       </entry-list>
 
       <div v-if="filteredEntries.length === 0 && massUpdated" class="no-entries">
-        Food and workouts that you add to the log will appear here.
+        <p>Your food and workout entries will appear here.</p>
+        <p>Tap the <md-icon>add</md-icon> button to add an entry.</p>
       </div>
 
     </div>
@@ -114,10 +115,8 @@ export default {
 .no-entries
   position absolute
   top 50%
-  left 50%
-  margin -40px 0 0 -140px
-  padding 16px 32px
+  margin-top -60px
+  padding 16px
   text-align center
   width 100%
-  max-width 280px
 </style>
