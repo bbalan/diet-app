@@ -1,12 +1,12 @@
 <template>
-  <div v-if="dataFood" class="nutrition-facts">
+  <div v-if="nutrients.length" class="nutrition-facts">
 
     <!-- TODO: macro percentages/gauges -->
 
     <nutrient
       v-for="nutrient in nutrientData"
       :nutrient="nutrient"
-      :mass="mass"
+      :mass="serving"
       :decimals="1"
       :serving="nutrient.serving">
     </nutrient>
@@ -20,7 +20,7 @@ import * as API from 'api'
 import Nutrient from 'components/Views/Nutrient'
 
 export default {
-  props: ['dataFood', 'source', 'mass'],
+  props: ['nutrients', 'source', 'serving'],
   components: { Nutrient },
   computed: {
     // Which (USDA) nutrients to show. All others are ignored
@@ -31,27 +31,26 @@ export default {
         default: return []
       }
     },
+
     // Get nutrient data from food data
     nutrientData() {
-      if (!this.dataFood) return []
-
       const data = []
 
       switch (this.source) {
         case API.USDA:
           this.visibleNutrients.forEach((id) => {
             const nutrientFilter = item => item.nutrient_id === id
-            const foundNutrient = this.dataFood.nutrients.filter(nutrientFilter)[0]
+            const foundNutrient = this.nutrients.filter(nutrientFilter)[0]
             if (foundNutrient) data.push(foundNutrient)
           })
           break
         case API.OTHER:
           break
         case API.CUSTOM:
-          data.push({ name: 'calories', decimals: 0, unit: 'kcal', value: this.dataFood.calories, serving: this.dataFood.serving })
-          data.push({ name: 'fat', decimals: 0, unit: 'g', value: this.dataFood.fat, serving: this.dataFood.serving })
-          data.push({ name: 'carbs', decimals: 0, unit: 'g', value: this.dataFood.carbs, serving: this.dataFood.serving })
-          data.push({ name: 'protein', decimals: 0, unit: 'g', value: this.dataFood.protein, serving: this.dataFood.serving })
+          data.push({ name: 'calories', decimals: 0, unit: 'kcal', value: this.nutrients.calories, serving: this.serving })
+          data.push({ name: 'fat', decimals: 0, unit: 'g', value: this.nutrients.fat, serving: this.serving })
+          data.push({ name: 'carbs', decimals: 0, unit: 'g', value: this.nutrients.carbs, serving: this.serving })
+          data.push({ name: 'protein', decimals: 0, unit: 'g', value: this.nutrients.protein, serving: this.serving })
           break
         default:
           break

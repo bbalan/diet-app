@@ -34,9 +34,9 @@
       </form>
 
       <nutrition-facts
-        :dataFood="dataFood"
+        :nutrients="dataFood.nutrients"
         :source="food.source"
-        :mass="normalizedMass">
+        :serving="normalizedMass">
       </nutrition-facts>
 
     </div>
@@ -50,19 +50,19 @@ import { capitalize } from 'util/filters'
 import { onFocusInput } from 'util'
 
 export default {
-  name: 'FoodView',
-  props: ['name', 'serving', 'food', 'submitText'],
+  name: 'ViewFood',
   components: { NutritionFacts },
   filters: { capitalize },
 
+  props: ['name', 'serving', 'food', 'submitText'],
   data: () => ({ mass: null }),
 
-  created() {
-    this.mass = this.serving
-  },
+  created() { this.mass = this.serving || 100 },
 
   computed: {
+    // Shorthand for this.food.dataFood
     dataFood() { return this.food ? this.food.dataFood : null },
+
     // Return 0 if mass is blank
     normalizedMass() {
       if (typeof this.mass !== 'number') return 0
@@ -71,8 +71,9 @@ export default {
 
     // Use smaller font for title if text is too long
     headingClass() {
-      const len = this.food.dataFood.name.length
+      const len = this.name.length
 
+      // Optimized for iPhone 4 screen
       if (len <= 20) {
         return 'md-display-1'
       } else if (len > 20 && len <= 50) {

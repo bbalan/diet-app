@@ -62,10 +62,8 @@
 import router from 'router'
 import uuid from 'uuid'
 import store from 'store'
-import * as API from 'api'
-import * as USDA from 'api/USDA'
-import * as OTHER from 'api/other'
-import { checkStatus, parseJSON } from 'api/util'
+import { USDA, RECIPE, checkStatus, parseJSON } from 'api'
+import * as API_USDA from 'api/USDA'
 import { onFocusInput, routerBackTo } from 'util'
 import { capitalize } from 'util/filters'
 import NutritionFacts from './NutritionFacts'
@@ -234,7 +232,7 @@ export default {
         this.isRecipe = true
         this.mass = entryRecipe.nutrients.serving
         this.dataFood = entryRecipe
-        this.entrySource = API.RECIPE
+        this.entrySource = RECIPE
       } else {
         routerBackTo('log')
         return
@@ -284,10 +282,6 @@ export default {
         } catch (e) { return e }
       }
 
-      const otherReportHandler = (/* json */) => {
-        // Not implemented
-      }
-
       const loadComplete = () => {
         this.loading = false
         this.cacheFood()
@@ -298,13 +292,9 @@ export default {
 
       // Figure out which API URLs and handlers to use
       switch (this.source) {
-        case API.USDA:
-          foodReportAPI = USDA.foodReport(this.id)
+        case USDA:
+          foodReportAPI = API_USDA.foodReport(this.id)
           reportHandler = usdaReportHandler.bind(this)
-          break
-        case API.OTHER:
-          foodReportAPI = OTHER.foodReport(this.id)
-          reportHandler = otherReportHandler.bind(this)
           break
         default:
           return // invalid source

@@ -1,6 +1,12 @@
 <template>
   <div class="get-data--food page page--menu">
 
+    <transition name="fade-spinner">
+      <div v-if="loading" class="get-data--food__spinner-wrapper">
+        <md-spinner md-indeterminate></md-spinner>
+      </div>
+    </transition>
+
     <view-food
       v-if="food"
       :name="dataFood.name"
@@ -10,35 +16,47 @@
       @submit="onSubmit">
     </view-food>
 
+    <!--<pre>{{ food }}</pre>-->
+
   </div>
 </template>
 
 <script>
+/**
+ * GetData/Food tries to get food data from the foodCache. If
+ * foodCache does not contain requested food, the food APIs are
+ * called.
+ *
+ * Food data is fed to the <view-food> component, which is just
+ * a dumb view containing a form. On form submit, GetData/Food
+ * creates a new entry in the log or in a recipe.
+ */
+
 import store from 'store'
 import UUID from 'uuid'
 import ViewFood from 'components/Views/Food'
-import * as API from 'api'
-import * as USDA from 'api/USDA'
-import * as OTHER from 'api/other'
+import { USDA, checkStatus, parseJSON } from 'api'
+import * as API_USDA from 'api/USDA'
 import { routerBackTo } from 'util'
-import { checkStatus, parseJSON } from 'api/util'
 
 export default {
   name: 'GetDataFood',
   props: ['id', 'source', 'isForRecipe'],
   components: { ViewFood },
   data: () => ({
-    uuid: null,
-    food: {},
-    isDataFromCache: false,
-    isDataFromAPI: false,
-    loading: true,
+    uuid: null, // cache uuid of food being requested (may be null)
+    food: null, // food data from foodCache or API
+    isDataFromCache: false, // food data was obtained from foodCache
+    isDataFromAPI: false, // food data was obtained from external API
+    loading: true, // show spinner
   }),
   created() {
     if (!this.getDataFromCache()) this.getDataFromAPI()
   },
   computed: {
+    // What text to display on the <view-food> submit button
     submitText() { return this.isForRecipe ? 'Add to recipe' : 'Eat' },
+    // Shorthand for this.food.dataFood
     dataFood() { return this.food.dataFood },
   },
   methods: {
@@ -74,17 +92,11 @@ export default {
 
       // Figure out which API URLs and handlers to use
       switch (this.source) {
-        case API.USDA:
-          foodReportAPI = USDA.foodReport(this.id)
+        case USDA:
+          foodReportAPI = API_USDA.foodReport(this.id)
           reportHandler = this.reportHandlerUSDA.bind(this)
           break
-        case API.OTHER:
-          foodReportAPI = OTHER.foodReport(this.id)
-          // reportHandler = this.otherReportHandler.bind(this)
-          reportHandler = () => {}
-          break
-        default:
-          return // invalid source
+        default: return // invalid source
       }
 
       // do the search
@@ -102,7 +114,10 @@ export default {
 
     reportHandlerUSDA(json) {
       try {
-        this.food = json.report.food
+        this.food = {
+          dataFood: json.report.food,
+          source: USDA,
+        }
         this.isDataFromAPI = true
         return new Promise((resolve) => { resolve() })
       } catch (e) { return e }
@@ -110,10 +125,10 @@ export default {
 
     loadComplete() {
       this.loading = false
-      this.cacheFood()
+      // this.cacheFood()
     },
 
-    // Add dataFood to cache
+    // Add dataFood to cache so we don't have to hit the API next time
     cacheFood() {
       this.uuid = UUID.v4()
       store.commit('foodCache/add', {
@@ -157,5 +172,18 @@ export default {
 </script>
 
 <style lang="stylus">
+.get-data--food
 
+  &__spinner-wrapper
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+
+    .md-spinner
+      position absolute
+      top 50%
+      left 50%
+      margin -25px 0 0 -25px
 </style>

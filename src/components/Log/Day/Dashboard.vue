@@ -44,6 +44,7 @@ export default {
         .filter(entry => entry.type === 'food')
         .forEach((entry) => {
           const food = store.state.foodCache[entry.item]
+          if (!food) return
 
           foodDetails.push({
             mass: entry.data.mass,

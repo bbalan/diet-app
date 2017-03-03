@@ -2,13 +2,13 @@
   <!-- This component is for EXISTING entries only. Make a new component for new entries. -->
   <div class="entry-root page--menu page--padded">
 
-    <food-view
+    <!--<food-view
       :name="name"
       :serving="serving"
       :nutrients="nutrients"
       :buttonText="buttonText"
       @submit="onSubmit">
-    </food-view>
+    </food-view>-->
 
     <!--<food v-if="isFood || isRecipe" :id="id" :source="source" :uuid="uuid" :destination="destination"></food>
 
@@ -27,14 +27,14 @@
 <script>
 import router from 'router'
 import store from 'store'
-import FoodView from 'components/Entry/FoodView'
+// import FoodView from 'components/Entry/FoodView'
 import * as API from 'api'
 import { routerBackTo } from 'util'
 
 export default {
   name: 'Entry',
   props: ['uuid', 'id', 'source', 'destination'],
-  components: { FoodView },
+  // components: { FoodView },
   computed: {
     dataEntry() { return store.state.entries[this.uuid] },
     entryType() { return this.dataEntry ? this.dataEntry.type : false },
@@ -52,6 +52,7 @@ export default {
 
       if (entryFood) {
         const food = store.state.foodCache[entryFood.item]
+        if (!food) return
         this.isFood = true
         this.mass = entryFood.data.mass
         this.dataFood = food.dataFood

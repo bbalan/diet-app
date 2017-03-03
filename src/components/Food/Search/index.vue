@@ -72,10 +72,8 @@
 import 'whatwg-fetch' // https://github.com/github/fetch
 import store from 'store'
 import router from 'router'
-import * as API from 'api'
-import * as USDA from 'api/USDA'
-import * as OTHER from 'api/other'
-import { checkStatus, parseJSON } from 'api/util'
+import { USDA, checkStatus, parseJSON } from 'api'
+import * as API_USDA from 'api/USDA'
 import ResultList from './ResultList'
 
 export default {
@@ -169,16 +167,16 @@ export default {
           const results = json.list.item.map(result => ({
             name: result.name,
             id: result.ndbno,
-            source: API.USDA,
+            source: USDA,
           }))
           resultsTemp = resultsTemp.concat(results)
         }
       }
 
       // Append search results from generic API to total search results
-      function otherSearchHandler(/* json */) {
-        // Not implemented
-      }
+      // function otherSearchHandler(/* json */) {
+      //   // Not implemented
+      // }
 
       // Do a search with a specific supported API
       function searchWithAPI(opts) {
@@ -186,14 +184,14 @@ export default {
         let searchHandler
 
         switch (opts.source) {
-          case API.USDA:
-            searchAPI = USDA.search(opts.sanitizedText, opts.library)
+          case USDA:
+            searchAPI = API_USDA.search(opts.sanitizedText, opts.library)
             searchHandler = usdaSearchHandler
             break
-          case API.OTHER:
-            searchAPI = OTHER.search(opts.sanitizedText)
-            searchHandler = otherSearchHandler
-            break
+          // case OTHER:
+          //   searchAPI = OTHER.search(opts.sanitizedText)
+          //   searchHandler = otherSearchHandler
+          //   break
           default:
             return false
         }
@@ -210,7 +208,7 @@ export default {
       // Append results from API.USA
       searches.push(searchWithAPI({
         sanitizedText,
-        source: API.USDA,
+        source: USDA,
         library: 'Standard Reference',
       }))
 
@@ -230,9 +228,7 @@ export default {
       // Execute all searches
       Promise
         .all(searches)
-        .then(() => {
-          this.searchResults = resultsTemp
-        })
+        .then(() => { this.searchResults = resultsTemp })
         .then(loadComplete)
     },
   },
