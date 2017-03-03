@@ -6,11 +6,11 @@ import EntryCustom from 'components/Entry/Custom'
 import EntryRecipe from 'components/Entry/Recipe'
 import Weight from 'components/Entry/Weight'
 
-import FoodFind from 'components/FoodFind'
-import FoodSearch from 'components/FoodFind/Search'
-import FoodFavorites from 'components/FoodFind/Favorites'
-import FoodCustom from 'components/FoodFind/Custom'
-import FoodRecipes from 'components/FoodFind/Recipes'
+import Food from 'components/Food'
+import FoodSearch from 'components/Food/Search'
+import FoodFavorites from 'components/Food/Favorites'
+import FoodCustom from 'components/Food/Custom'
+import FoodRecipes from 'components/Food/Recipes'
 
 import GetDataFood from 'components/GetData/Food'
 
@@ -122,7 +122,7 @@ export default [
   {
     name: 'food',
     path: '/food',
-    component: FoodFind,
+    component: Food,
     redirect: { name: 'foodFavorites' },
     meta: {
       title: 'Food',

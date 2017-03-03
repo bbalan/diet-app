@@ -8,13 +8,13 @@
       :source="food.source"
       :name="food.dataFood.name">
     </food-link>
-    
+
   </div>
 </template>
 
 <script>
 import store from 'store'
-import FoodLink from 'components/FoodFind/Search/FoodLink'
+import FoodLink from 'components/Food/Search/FoodLink'
 
 export default {
   name: 'FoodCache',

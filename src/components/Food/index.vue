@@ -21,7 +21,7 @@
 import router from 'router'
 
 export default {
-  name: 'FoodFind',
+  name: 'Food',
   data() {
     return {
       currentTab: 0,
