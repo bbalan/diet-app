@@ -19,18 +19,20 @@
             <md-input v-model="name" ref="workoutName" @keydown.native="onKeyDown"></md-input>
           </md-input-container>
 
-          <md-input-container class="inputs__calories">
-            <label>Calories burned</label>
-            <md-input type="number" v-model.number="calories" @keydown.native="onKeyDown"></md-input>
-            <span class="calories__unit input__unit">kcal</span>
-          </md-input-container>
+          <div class="inputs__submit-wrapper">
+            <md-input-container class="inputs__calories">
+              <label>Calories burned</label>
+              <md-input type="number" v-model.number="calories" @keydown.native="onKeyDown"></md-input>
+              <span class="calories__unit input__unit">kcal</span>
+            </md-input-container>
 
-          <md-button v-if="!uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-            Add
-          </md-button>
-          <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-            Save
-          </md-button>
+            <md-button v-if="!uuid" class="md-raised md-primary inputs__submit" @click.native="onSubmit">
+              Add
+            </md-button>
+            <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__submit" @click.native="onSubmit">
+              Save
+            </md-button>
+          </div>
         </div>
       </md-card-content>
     </md-card>
@@ -100,7 +102,7 @@ export default {
         const workoutUUID = uuid.v4()
 
         // Add workout to the workout cache
-        store.commit('workoutPresets/add', {
+        store.commit('workout/add', {
           uuid: workoutUUID,
           data: {
             name: this.name,
@@ -152,4 +154,13 @@ export default {
 
     &.inputs__calories
       margin-bottom 0 !important
+
+  .inputs__submit
+    position relative
+    top 4px
+    margin-left 16px
+    margin-right 0
+
+  .inputs__submit-wrapper
+    display flex
 </style>

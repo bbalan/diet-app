@@ -36,7 +36,7 @@
             <md-button
               class="md-raised md-primary inputs__eat inputs__submit"
               @click.native.prevent="onSubmit">
-              {{ uuid ? 'Save' : 'Eat' }}
+              {{ submitText }}
             </md-button>
           </div>
 
@@ -67,7 +67,7 @@ import NutritionFacts from './NutritionFacts'
 
 export default {
   name: 'Food',
-  props: ['id', 'source', 'uuid'],
+  props: ['id', 'source', 'uuid', 'destination'],
   components: { NutritionFacts },
   data() {
     return {
@@ -90,6 +90,17 @@ export default {
     name() {
       if (!this.dataFood) return ''
       return this.dataFood.name
+    },
+    submitText() {
+      if (this.uuid) {
+        return 'Save'
+      } else if (this.isForRecipe) {
+        return 'Add to recipe'
+      }
+      return 'Eat'
+    },
+    isForRecipe() {
+      return this.destination === 'recipe'
     },
     normalizedMass() {
       if (typeof this.mass !== 'number') return 0
@@ -229,6 +240,7 @@ export default {
           this.dataFood = null
         })
     },
+
     // User pressed the Eat button
     onSubmit() {
       // Validate mass
@@ -239,22 +251,24 @@ export default {
 
       if (this.uuid) {
         this.entryEdit()
+        routerBackTo('log')
+      } else if (this.isForRecipe) {
+        this.entryAdd(true)
+        routerBackTo('entryRecipe')
       } else {
         this.entryAdd()
+        routerBackTo('log')
       }
-
-      // router.go(-2)
-      // router.push({ name: 'log' })
-      routerBackTo('log')
     },
 
     // Commit new log entry
-    entryAdd() {
+    entryAdd(isForRecipe) {
       // Add a food entry with the cached food uuid
       store.commit('entries/add', {
         item: this.cacheUUID,
         type: 'food',
         data: { mass: this.mass },
+        isForRecipe,
       })
 
       store.commit('foodCache/increment', this.cacheUUID)
@@ -307,17 +321,19 @@ export default {
 <style scoped lang="stylus">
 .entry--food
 
+  .inputs
+    display flex
+    flex-direction row
+
   .inputs__mass
-    max-width 60%
-    float left
-    position relative
+    //
 
   .inputs__eat
-    float right
-    width 30%
-    position relative
     top 8px
     margin-right 0
+    margin-left 16px
+    height 36px
+    min-width 130px !important
 
   &-spinner
     position absolute

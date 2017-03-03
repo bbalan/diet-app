@@ -22,7 +22,7 @@
       <p>Tap the <md-icon>add</md-icon> button to create a recipe.</p>
     </div>
 
-    <pre>{{ recipeList }}</pre>
+    <!--<pre>{{ recipeList }}</pre>-->
 
     <md-button class="md-fab md-fab-bottom-right" @click.native="add">
       <md-icon>add</md-icon>
@@ -42,7 +42,11 @@ export default {
   filters: { capitalize },
   computed: {
     recipeList() {
-      return Object.entries(store.state.recipe).map(recipe => ({ uuid: recipe[0], ...recipe[1] }))
+      if (!store.state.recipe.data) return []
+
+      return Object.entries(store.state.recipe.data).map(
+        recipe => ({ uuid: recipe[0], ...recipe[1] })
+      )
     },
   },
   methods: {

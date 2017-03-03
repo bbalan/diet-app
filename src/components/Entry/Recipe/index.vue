@@ -2,6 +2,7 @@
 
   <div class="entry--recipe page page--menu page--bg-grey">
     <md-whiteframe md-elevation="2" class="entry--recipe__inputs page--padded">
+
       <form @submit.prevent="save">
         <md-input-container class="entry--recipe__inputs__name">
           <label>Recipe name</label>
@@ -18,10 +19,8 @@
 
     <div class="entry--recipe__ingredients">
 
-      <md-list v-if="ingredients.length" class="entry--recipe__ingredients__list">
-        <md-list-item v-form="ingredient in ingredients">
-          <pre>{{ ingredient }}</pre>
-        </md-list-item>
+      <md-list v-if="ingredients.length" class="md-double-line entry--recipe__ingredients__list">
+        <entry-link v-for="uuid in ingredients" :uuid="uuid"></entry-link>
       </md-list>
 
       <div v-else class="entry--recipe__empty empty">
@@ -40,10 +39,12 @@
 <script>
 import router from 'router'
 import store from 'store'
+import EntryLink from 'components/Log/Day/EntryList/EntryLink'
 
 export default {
   name: 'Recipe',
   props: ['uuid'],
+  components: { EntryLink },
   data() {
     return {
       name: null,
@@ -51,19 +52,15 @@ export default {
   },
   created() {
     store.commit('recipe/add', this.uuid)
-
-    const recipe = store.state.recipe[this.uuid]
-
-    this.name = recipe ? recipe.name : null
+    this.name = this.recipeData ? this.recipeData.name : null
   },
   computed: {
-    ingredients() {
-      return []
-    },
+    recipeData() { return store.state.recipe.data[this.uuid] },
+    ingredients() { return this.recipeData ? this.recipeData.ingredients : [] },
   },
   methods: {
     addIngredient() {
-      // router.push({ name: 'searchRecipe' })
+      store.commit('recipe/setCurrentRecipe', this.uuid)
       this.$emit('evtOpenSearch')
     },
     save() {

@@ -7,7 +7,14 @@
           v-for="result in orderedList" class="md-subheading">
           <router-link
             class="foodLink wordwrap--fade"
-            :to="{ name: 'foodFromCache', params: { source: result.source, id: result.id } }">
+            :to="{
+              name: 'foodFromCache',
+              params: {
+                source: result.source,
+                id: result.id,
+                destination: resultDestination,
+              },
+            }">
             <span class="foodLink__name">{{ result.name }}</span>
           </router-link>
         </md-list-item>
@@ -30,34 +37,9 @@ export default {
   props: ['list', 'searchText'],
   components: { FoodLink },
   computed: {
-    /* Sort list alphabetically, except items with searchText at
-    the beginning of their names float to the top */
-    // orderedList() {
-      // if (this.list === null || !this.searchText) return null
-
-      // const text = this.searchText.toLowerCase().split(' ')[0]
-      // const startsWithText = []
-      // const doesntStartWithText = []
-
-      // this.list.forEach((item) => {
-      //   if (item.name.toLowerCase().indexOf(text) === 0) {
-      //     startsWithText.push(item)
-      //   } else {
-      //     doesntStartWithText.push(item)
-      //   }
-      // })
-
-      // doesntStartWithText.sort((a, b) => {
-      //   const aName = a.name.toLowerCase()
-      //   const bName = b.name.toLowerCase()
-
-      //   if (aName > bName) return 1
-      //   if (aName < bName) return -1
-      //   return 0
-      // })
-
-      // return startsWithText.concat(doesntStartWithText)
-    // },
+    resultDestination() {
+      return this.$route.name === 'searchRecipe' ? 'recipe' : 'log'
+    },
     orderedList() {
       return this.list.slice().sort((a, b) => {
         const aName = a.name.toLowerCase()
@@ -130,7 +112,7 @@ export default {
         overflow hidden
         vertical-align middle
     &.end-of-results
-      padding 32px 16px 32px 72px !important
+      padding 16px 16px 16px 72px !important
       max-height 82px
       margin-top 16px !important
       color rgba(0,0,0,.5)

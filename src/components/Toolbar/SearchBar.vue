@@ -80,7 +80,7 @@ export default {
     },
     close() {
       this.isOpen = false
-      this.clear()
+      this.searchText = ''
     },
     goBack() {
       this.close()
@@ -88,6 +88,7 @@ export default {
     },
     clear() {
       this.searchText = ''
+      this.focus()
     },
     focus() {
       setTimeout(() => { this.$el.querySelector('input').focus() }, 100)

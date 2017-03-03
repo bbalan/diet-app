@@ -2,8 +2,8 @@
   <div class="entry-list">
     <md-whiteframe md-elevation="2" class="entry-list__contents">
       <md-list class="md-double-line">
-        <entry-link 
-          v-for="uuid in entriesReversed" 
+        <entry-link
+          v-for="uuid in entriesReversed"
           :uuid="uuid">
         </entry-link>
       </md-list>
@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import EntryLink from './EntryLink'
+import EntryLink from 'components/Log/Day/EntryList/EntryLink'
 
 export default {
   name: 'EntryList',

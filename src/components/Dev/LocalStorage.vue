@@ -7,7 +7,7 @@
     <local-storage-item lsKey="config"></local-storage-item>
     <local-storage-item lsKey="calendar"></local-storage-item>
     <local-storage-item lsKey="entries"></local-storage-item>
-    <local-storage-item lsKey="workoutPresets"></local-storage-item>
+    <local-storage-item lsKey="workout"></local-storage-item>
 
     <md-button @click.native="localStorageClear" class="md-raised md-accent localStorage__clear--all icon-left">
       <md-icon>warning</md-icon>

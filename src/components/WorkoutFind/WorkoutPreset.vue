@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     getData() {
-      const workoutData = store.state.workoutPresets[this.uuid]
+      const workoutData = store.state.workout[this.uuid]
       this.workoutData = workoutData
 
       if (workoutData) {
@@ -56,7 +56,7 @@ export default {
       }
     },
     onSubmit() {
-      store.commit('workoutPresets/edit', {
+      store.commit('workout/edit', {
         uuid: this.uuid,
         data: {
           name: this.name,

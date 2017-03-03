@@ -6,7 +6,7 @@
     <md-card-content>
       <md-list v-if="reversed.length">
         <workout-link
-          v-for="workout in reversed" 
+          v-for="workout in reversed"
           :workoutData="workout.data"
           :uuid="workout.uuid">
         </workout-link>
@@ -27,11 +27,11 @@ export default {
   name: 'WorkoutList',
   components: { WorkoutLink },
   computed: {
-    workoutPresets: () => store.state.workoutPresets,
+    workout: () => store.state.workout,
     reversed() {
       const reversed = []
 
-      Object.entries(this.workoutPresets).forEach((preset) => {
+      Object.entries(this.workout).forEach((preset) => {
         reversed.unshift({
           uuid: preset[0],
           data: preset[1],
@@ -47,7 +47,7 @@ export default {
 <style lang="stylus">
 ul.md-list
   padding 0
-.workout__list__link 
+.workout__list__link
   margin-bottom 8px
   &:last-child
     margin-bottom 0

@@ -127,12 +127,13 @@ export default {
             )
             calories = energy.value * (this.mass / 100)
             break
-          case API.OTHER: break
+          case API.OTHER:
+            // not implemented
+            break
           case API.CUSTOM:
             calories = this.dataFood.calories / this.dataFood.serving * this.mass
             break
           default:
-            // Not implemented
             break
         }
 
@@ -175,18 +176,10 @@ export default {
     text-overflow ellipsis
     overflow hidden
     display block
-    /*border-right 64px solid transparent*/
-    /*display block
-    width 100%
-    border-right 150px solid transparent
-    overflow hidden*/
+
   &__calories
     color rgba(0,0,0,.54) !important
-    /*display block
-    position absolute
-    top 0
-    right 0
-    padding 16px*/
+
   &__mass
     position absolute
     top 0px

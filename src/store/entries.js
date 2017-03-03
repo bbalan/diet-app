@@ -11,18 +11,23 @@ const entries = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
-    add(state, { item, type, data }) {
+    add(state, { item, type, data, isForRecipe }) {
       const uuid = UUID.v4()
-      const date = store.state.calendar.currentDay
+
       Vue.set(state, uuid, {
         item,
         type,
         data,
         enabled: true,
         checked: false,
-        date,
       })
-      store.commit('calendar/entryAdd', { uuid, date })
+
+      if (isForRecipe) {
+        store.commit('recipe/addIngredient', uuid)
+      } else {
+        store.commit('calendar/entryAdd', { uuid, date: store.state.calendar.currentDay })
+      }
+
       setLocalStorage(MODULE_KEY, state)
     },
 

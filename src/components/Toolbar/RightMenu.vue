@@ -1,8 +1,8 @@
 <template>
   <transition name="toolbar-right-menu">
-    <md-menu 
+    <md-menu
       v-if="isEntry || isWorkoutPreset || isEntryCustom"
-      :md-size="menuSize" 
+      :md-size="menuSize"
       md-direction="bottom left"
       class="side-menu">
 
@@ -79,8 +79,8 @@ export default {
       router.replace({ name: 'log' })
     },
     onPresetDelete() {
-      // TODO: commit workoutPresets/disable instead of workoutPresets/delete
-      store.commit('workoutPresets/delete', { uuid: this.presetUUID })
+      // TODO: commit workout/disable instead of workout/delete
+      store.commit('workout/delete', { uuid: this.presetUUID })
       router.replace({ name: 'workout' })
     },
     onEntryCustomEdit() {
@@ -100,7 +100,7 @@ export default {
   &-enter-active
   &-leave-active
     transition all .4s
-    
+
   &-enter
   &-leave-to
     opacity 0

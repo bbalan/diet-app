@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { setLocalStorage } from 'store/util'
 
-const MODULE_KEY = 'workoutPresets'
+const MODULE_KEY = 'workout'
 
 // Personal info about the user
 const stateDefault = {}
@@ -10,7 +10,7 @@ const stateLocalStorage = JSON.parse(
   localStorage.getItem(MODULE_KEY)
 )
 
-const workoutPresets = {
+const workout = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
   mutations: {
@@ -29,4 +29,4 @@ const workoutPresets = {
   },
 }
 
-export default workoutPresets
+export default workout

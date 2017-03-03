@@ -3,7 +3,10 @@ import store from 'store'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'recipe'
-const stateDefault = {}
+const stateDefault = {
+  currentRecipe: null,
+  data: {},
+}
 const stateFromLocalStorage = JSON.parse(localStorage.getItem(MODULE_KEY))
 
 const recipe = {
@@ -11,11 +14,12 @@ const recipe = {
   state: stateFromLocalStorage || stateDefault,
   mutations: {
     add(state, uuid) {
-      if (state[uuid]) return // do nothing if this recipe already exists
+      // do nothing if this recipe already exists
+      if (!state.data || state.data[uuid]) return
 
-      Vue.set(state, uuid, {
+      Vue.set(state.data, uuid, {
         name: null,
-        ingredients: null,
+        ingredients: [],
         nutrients: {
           serving: null,
           calories: null,
@@ -29,11 +33,12 @@ const recipe = {
         },
         enabled: false,
       })
+
       setLocalStorage(MODULE_KEY, state)
     },
 
     setName(state, { uuid, name }) {
-      if (state[uuid]) state[uuid].name = name
+      if (state.data[uuid]) state.data[uuid].name = name
 
       store.commit('recipe/enable', uuid)
       store.commit('recipe/deleteAllDisabled')
@@ -41,29 +46,36 @@ const recipe = {
       setLocalStorage(MODULE_KEY, state)
     },
 
-    addIngredient(state, { uuid, ingredient_uuid }) {
-      console.log(uuid, ingredient_uuid)
+    setCurrentRecipe(state, uuid) {
+      state.currentRecipe = uuid
     },
 
-    deleteIngredient(state, { uuid, ingredient_uuid }) {
-      console.log(uuid, ingredient_uuid)
+    addIngredient(state, uuid) {
+      const target = state.data[state.currentRecipe]
+      if (target) target.ingredients.push(uuid)
+      setLocalStorage(MODULE_KEY, state)
+    },
+
+    deleteIngredient(state, uuid) {
+      // TODO: implement this
+      console.log(uuid, state.currentRecipe)
     },
 
     disable(state, uuid) {
-      state[uuid].enabled = false
+      state.data[uuid].enabled = false
       setLocalStorage(MODULE_KEY, state)
     },
 
     enable(state, uuid) {
-      state[uuid].enabled = true
+      state.data[uuid].enabled = true
       setLocalStorage(MODULE_KEY, state)
     },
 
     deleteAllDisabled(state) {
-      Object.entries(state).forEach((entry) => {
+      Object.entries(state.data).forEach((entry) => {
         const uuid = entry[0]
         if (!entry[1].enabled) {
-          delete state[uuid]
+          delete state.data[uuid]
         }
       })
     },

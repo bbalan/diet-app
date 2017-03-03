@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     clear() {
-      localStorage.setItem(this.lsKey, '{}')
+      localStorage.removeItem(this.lsKey)
       location.reload()
     },
     toggleVisible() {

@@ -1,21 +1,17 @@
 <template>
   <div class="entry-root page--menu">
-    <food
-      v-if="isFood"
-      :id="id"
-      :source="source"
-      :uuid="uuid"
-      ></food>
-    <workout
-      v-if="isWorkout"
-      :uuid="uuid">
-    </workout>
+
+    <food v-if="isFood" :id="id" :source="source" :uuid="uuid" :destination="destination"></food>
+
+    <workout v-if="isWorkout" :uuid="uuid"></workout>
+
     <div v-if="!dataEntry && !isFood" class="page--padded">
       <div class="md-display-1">
         <md-icon>warning</md-icon>
         Entry not found
       </div>
     </div>
+
   </div>
 </template>
 
@@ -27,7 +23,7 @@ import * as API from 'api'
 
 export default {
   name: 'Entry',
-  props: ['uuid', 'id', 'source'],
+  props: ['uuid', 'id', 'source', 'destination'],
   data() {
     return {
       mass: 100,
