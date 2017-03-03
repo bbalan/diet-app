@@ -1,11 +1,11 @@
 <template>
   <div class="entry-root page--menu">
 
-    <food v-if="isFood" :id="id" :source="source" :uuid="uuid" :destination="destination"></food>
+    <food v-if="isFood || isRecipe" :id="id" :source="source" :uuid="uuid" :destination="destination"></food>
 
     <workout v-if="isWorkout" :uuid="uuid"></workout>
 
-    <div v-if="!dataEntry && !isFood" class="page--padded">
+    <div v-if="!dataEntry && !isFood && !isRecipe" class="page--padded">
       <div class="md-display-1">
         <md-icon>warning</md-icon>
         Entry not found
@@ -37,11 +37,17 @@ export default {
     dataEntry() {
       return this.entries[this.uuid]
     },
+    dataRecipe() {
+      return store.state.recipe.data[this.uuid]
+    },
     entryType() {
       return this.dataEntry ? this.dataEntry.type : false
     },
     isFood() {
       return this.entryType === 'food' || (!!this.id && !!this.source)
+    },
+    isRecipe() {
+      return !!this.dataRecipe
     },
     isWorkout() {
       return this.entryType === 'workout'

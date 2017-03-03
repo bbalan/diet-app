@@ -8,7 +8,7 @@
         :to="{ name: 'entry', params: { uuid } }"
         class="edit">
 
-        <span class="entry-link__name">{{ name }}</span>
+        <span class="entry-link__name">{{ name | capitalize }}</span>
         <span class="entry-link__calories">{{ calories | roundTo | roundTo | toKcal }}</span>
 
         <button v-if="isWorkout" class="entry-link__edit">
@@ -17,7 +17,7 @@
 
       </router-link>
 
-      <md-input-container v-if="isFood" class="entry-link__mass">
+      <md-input-container v-if="isFood || isRecipe" class="entry-link__mass">
         <md-input
           type="number"
           ref="massInput"
@@ -41,11 +41,11 @@
 // import { truncate } from 'util'
 import store from 'store'
 import * as API from 'api'
-import { toKcal, roundTo } from 'util/filters'
+import { toKcal, roundTo, capitalize } from 'util/filters'
 
 export default {
   props: ['uuid'],
-  filters: { toKcal, roundTo },
+  filters: { toKcal, roundTo, capitalize },
   methods: {
     onFocus() {
       const el = this.$refs.massInput.$el
@@ -57,54 +57,23 @@ export default {
     },
   },
   computed: {
-    dataEntry() {
-      return store.state.entries[this.uuid]
-    },
-    isFood() {
-      if (this.dataEntry) return this.dataEntry.type === 'food'
-      return false
-    },
-    isWorkout() {
-      if (this.dataEntry) return this.dataEntry.type === 'workout'
-      return false
-    },
-    foodFromCache() {
-      if (this.isFood) {
-        return store.state.foodCache[this.dataEntry.item]
-      }
-      return null
-    },
-    dataWorkout() {
-      if (this.isWorkout) {
-        return this.dataEntry.data
-      }
-      return null
-    },
-    dataFood() {
-      if (this.foodFromCache) {
-        return this.foodFromCache.dataFood
-      }
-      return null
-    },
+    dataEntry() { return store.state.entries[this.uuid] },
+    isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
+    isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
+    isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
+    foodFromCache() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
+    dataWorkout() { return this.isWorkout ? this.dataEntry.data : null },
+    dataFood() { return this.foodFromCache ? this.foodFromCache.dataFood : null },
+    dataRecipe() { return this.isRecipe ? store.state.recipe.data[this.dataEntry.item] : null },
     name() {
-      if (this.isFood && this.dataFood) {
-        // return truncate(this.dataFood.name, 50)
-        return this.dataFood.name
-      }
-
-      if (this.isWorkout && this.dataWorkout) {
-        // return truncate(this.dataEntry.data.name, 50)
-        return this.dataEntry.data.name
-      }
-
+      if (this.isFood && this.dataFood) return this.dataFood.name
+      if (this.isRecipe && this.dataRecipe) return this.dataRecipe.name
+      if (this.isWorkout && this.dataWorkout) return this.dataEntry.data.name
       return null
     },
     mass: {
       get() {
-        if (this.isFood && this.dataEntry) {
-          return this.dataEntry.data.mass
-        }
-        return null
+        return (this.isFood || this.isRecipe) && this.dataEntry ? this.dataEntry.data.mass : null
       },
       set(mass) {
         store.commit('entries/setMass', {

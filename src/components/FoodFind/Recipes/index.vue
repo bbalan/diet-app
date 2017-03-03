@@ -3,7 +3,9 @@
 
     <md-list v-if="recipeList && recipeList.length" class="recipe-list md-double-line">
       <md-list-item v-for="recipe in recipeList" v-if="recipe.enabled">
-        <router-link :to="{ name: 'entryRecipe', params: { uuid: recipe.uuid } }" class="recipe-link">
+
+        <router-link :to="{ name: 'entry', params: { uuid: recipe.uuid } }" class="recipe-link">
+
           <div class="md-list-text-container">
             <span class="recipe-link__name wordwrap--fade">{{ recipe.name | capitalize }}</span>
             <span class="recipe-link__nutrients">Nutrients...</span>
@@ -12,8 +14,11 @@
           <md-button class="md-icon-button md-list-action">
             <md-icon>keyboard_arrow_right</md-icon>
           </md-button>
+
         </router-link>
+
         <md-divider></md-divider>
+
       </md-list-item>
     </md-list>
 

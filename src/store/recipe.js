@@ -21,6 +21,7 @@ const recipe = {
         name: null,
         ingredients: [],
         nutrients: {
+          totalMass: null,
           serving: null,
           calories: null,
           fat: null,

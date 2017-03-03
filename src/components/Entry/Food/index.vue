@@ -14,7 +14,7 @@
 
         <form @submit.prevent="onSubmit" :class="{ loading: loading }">
           <div :class="`${headingClass} entry-name wordwrap--fade`">
-            {{ name }}
+            {{ name | capitalize }}
           </div>
 
           <div class="inputs">
@@ -55,6 +55,10 @@
 </template>
 
 <script>
+// TODO: clean up this mess and implement proper separation of concerns
+// Entry.vue should be handling data and passing on to view components
+// foodData should be a computed property
+// created() should call getDataFromAPI if foodData is falsy
 import router from 'router'
 import uuid from 'uuid'
 import store from 'store'
@@ -63,12 +67,14 @@ import * as USDA from 'api/USDA'
 import * as OTHER from 'api/other'
 import { checkStatus, parseJSON } from 'api/util'
 import { onFocusInput, routerBackTo } from 'util'
+import { capitalize } from 'util/filters'
 import NutritionFacts from './NutritionFacts'
 
 export default {
   name: 'Food',
   props: ['id', 'source', 'uuid', 'destination'],
   components: { NutritionFacts },
+  filters: { capitalize },
   data() {
     return {
       mass: 100, // TODO: offer more units (oz, cups, ml, ...)
@@ -78,6 +84,8 @@ export default {
       entrySource: null,
       loading: false,
       cacheUUID: null,
+      isFood: false,
+      isRecipe: false,
     }
   },
   mounted() {
@@ -93,19 +101,28 @@ export default {
     },
     submitText() {
       if (this.uuid) {
+        if (this.isRecipe) {
+          return 'Add'
+        }
         return 'Save'
       } else if (this.isForRecipe) {
         return 'Add to recipe'
       }
       return 'Eat'
     },
+
+    // On submit, add this food to a recipe instead of the log
     isForRecipe() {
       return this.destination === 'recipe'
     },
+
+    // Return 0 if mass is blank
     normalizedMass() {
       if (typeof this.mass !== 'number') return 0
       return this.mass
     },
+
+    // Use smaller font for title if text is too long
     headingClass() {
       if (!this.dataFood) return ''
 
@@ -120,21 +137,78 @@ export default {
     },
     unitFood: () => store.state.config.unitFood,
   },
+
   methods: {
-    focusInput() {
-      setTimeout(() => {
-        const ref = this.$refs.massInput
-
-        if (!ref) return
-
-        const el = this.$refs.massInput.$el
-        const input = el.querySelector('input')
-
-        if (input) input.focus()
-
+    // User pressed the Eat button
+    onSubmit() {
+      // Validate mass
+      if (!this.mass) {
+        this.$refs.massInput.$el.classList.add('md-input-invalid')
         return
-      }, 50)
+      }
+
+      if (this.uuid) {
+        if (this.isFood) {
+          this.entryEdit()
+        }
+
+        if (this.isRecipe) {
+          this.recipeAdd()
+        }
+
+        routerBackTo('log')
+      } else if (this.isForRecipe) {
+        this.entryAdd(true)
+        routerBackTo('entryRecipe')
+      } else {
+        this.entryAdd()
+        routerBackTo('log')
+      }
     },
+
+    recipeAdd() {
+      store.commit('entries/add', {
+        item: this.uuid,
+        type: 'recipe',
+        data: { mass: this.mass },
+      })
+    },
+
+    // Commit new log entry
+    entryAdd(addToRecipe = false) {
+      // Add a food entry with the cached food uuid
+      store.commit('entries/add', {
+        item: this.cacheUUID,
+        type: 'food',
+        data: { mass: this.mass },
+        addToRecipe,
+      })
+
+      store.commit('foodCache/increment', this.cacheUUID)
+      store.commit('foodCache/setLastLoggedMass', {
+        uuid: this.cacheUUID,
+        lastLoggedMass: this.mass,
+      })
+    },
+
+    // Save changes to this entry
+    entryEdit() {
+      store.commit('entries/edit', {
+        uuid: this.uuid,
+        data: { mass: this.mass },
+      })
+      store.commit('foodCache/setLastLoggedMass', {
+        uuid: this.cacheUUID,
+        lastLoggedMass: this.mass,
+      })
+    },
+
+    // Remove this entry forever
+    entryDelete() {
+      store.commit('entries/delete', { uuid: this.uuid })
+      router.push('/log')
+    },
+
     getData() {
       if (this.uuid) {
         this.getDataFromEntry()
@@ -143,21 +217,29 @@ export default {
       }
     },
 
-    // We are looking at a saved food entry
+    // We are looking at a saved entry
     getDataFromEntry() {
-      const entry = store.state.entries[this.uuid]
+      // Check if this is a food entry
+      const entryFood = store.state.entries[this.uuid]
 
-      if (!entry) {
-        // router.push('/log')
+      // Check if this is a recipe entry
+      const entryRecipe = store.state.recipe.data[this.uuid]
+
+      if (entryFood) {
+        const food = store.state.foodCache[entryFood.item]
+        this.isFood = true
+        this.mass = entryFood.data.mass
+        this.dataFood = food.dataFood
+        this.entrySource = food.source
+      } else if (entryRecipe) {
+        this.isRecipe = true
+        this.mass = entryRecipe.nutrients.serving
+        this.dataFood = entryRecipe
+        this.entrySource = API.RECIPE
+      } else {
         routerBackTo('log')
         return
       }
-
-      const food = store.state.foodCache[entry.item]
-
-      this.mass = entry.data.mass
-      this.dataFood = food.dataFood
-      this.entrySource = food.source
 
       this.focusInput()
     },
@@ -241,61 +323,6 @@ export default {
         })
     },
 
-    // User pressed the Eat button
-    onSubmit() {
-      // Validate mass
-      if (!this.mass) {
-        this.$refs.massInput.$el.classList.add('md-input-invalid')
-        return
-      }
-
-      if (this.uuid) {
-        this.entryEdit()
-        routerBackTo('log')
-      } else if (this.isForRecipe) {
-        this.entryAdd(true)
-        routerBackTo('entryRecipe')
-      } else {
-        this.entryAdd()
-        routerBackTo('log')
-      }
-    },
-
-    // Commit new log entry
-    entryAdd(isForRecipe) {
-      // Add a food entry with the cached food uuid
-      store.commit('entries/add', {
-        item: this.cacheUUID,
-        type: 'food',
-        data: { mass: this.mass },
-        isForRecipe,
-      })
-
-      store.commit('foodCache/increment', this.cacheUUID)
-      store.commit('foodCache/setLastLoggedMass', {
-        uuid: this.cacheUUID,
-        lastLoggedMass: this.mass,
-      })
-    },
-
-    // Save changes to this entry
-    entryEdit() {
-      store.commit('entries/edit', {
-        uuid: this.uuid,
-        data: { mass: this.mass },
-      })
-      store.commit('foodCache/setLastLoggedMass', {
-        uuid: this.cacheUUID,
-        lastLoggedMass: this.mass,
-      })
-    },
-
-    // Remove this entry forever
-    entryDelete() {
-      store.commit('entries/delete', { uuid: this.uuid })
-      router.push('/log')
-    },
-
     // Add dataFood to cache
     cacheFood() {
       this.cacheUUID = uuid.v4()
@@ -306,6 +333,20 @@ export default {
         source: this.source,
         dataFood: this.dataFood,
       })
+    },
+    focusInput() {
+      setTimeout(() => {
+        const ref = this.$refs.massInput
+
+        if (!ref) return
+
+        const el = this.$refs.massInput.$el
+        const input = el.querySelector('input')
+
+        if (input) input.focus()
+
+        return
+      }, 100)
     },
     onFocusInput,
     onKeyDown(e) {

@@ -3,7 +3,7 @@
 
     <!-- TODO: macro percentages/gauges -->
 
-    <nutrient 
+    <nutrient
       v-for="nutrient in nutrientData"
       :nutrient="nutrient"
       :mass="mass"
@@ -60,7 +60,7 @@ export default {
       return data
     },
     showSource() {
-      return this.source && this.source !== API.CUSTOM
+      return this.source && ![API.CUSTOM, API.RECIPE].includes(this.source)
     },
   },
 }
