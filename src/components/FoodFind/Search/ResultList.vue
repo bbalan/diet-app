@@ -2,13 +2,13 @@
   <transition name="fade">
     <div class="resultList" v-if="list !== null && list.length > 0 && !!searchText">
 
-      <md-list class="link-list">
+      <md-list class="link-list md-double-line">
         <md-list-item
           v-for="result in orderedList" class="md-subheading">
           <router-link
             class="foodLink wordwrap--fade"
             :to="{ name: 'foodFromCache', params: { source: result.source, id: result.id } }">
-            {{ result.name }}
+            <span class="foodLink__name">{{ result.name }}</span>
           </router-link>
         </md-list-item>
 
@@ -105,21 +105,30 @@ export default {
     width 100%
     margin 0 !important
     box-sizing border-box
-    max-height 56px
     overflow hidden
     text-overflow ellipsis
+    max-height 72px
+    display table
 
     a
-      display block
+      display table-row
       width 100%
       line-height 1.3em
       position relative
-      padding 16px 16px 16px 72px !important
       color black !important
       text-decoration none !important
       white-space normal !important
       text-overflow ellipsis
       overflow hidden
+      padding 0 !important
+      max-height 100%
+
+      span
+        display table-cell
+        padding 16px 16px 16px 72px !important
+        height 100%
+        overflow hidden
+        vertical-align middle
     &.end-of-results
       padding 32px 16px 32px 72px !important
       max-height 82px
