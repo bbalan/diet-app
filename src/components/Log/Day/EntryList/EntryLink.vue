@@ -5,7 +5,7 @@
     <div class="md-list-text-container">
 
       <router-link
-        :to="{ name: 'entry', params: { uuid } }"
+        :to="{ name: 'setData', params: { uuid } }"
         class="edit">
 
         <span class="entry-link__name">{{ name | capitalize }}</span>

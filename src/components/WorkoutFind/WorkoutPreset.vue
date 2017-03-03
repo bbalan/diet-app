@@ -1,6 +1,8 @@
 <template>
   <div class="workout--preset page--padded page page--menu" >
 
+    <!-- TODO: validation -->
+
       <div v-if="workoutData" tag="form" @submit.prevent="onSubmit">
 
         <div class="inputs">

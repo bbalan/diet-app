@@ -1,7 +1,7 @@
 import Welcome from 'components/Welcome'
 
 import Log from 'components/Log'
-import Entry from 'components/Entry'
+// import Entry from 'components/Entry'
 import EntryCustom from 'components/Entry/Custom'
 import EntryRecipe from 'components/Entry/Recipe'
 import Weight from 'components/Entry/Weight'
@@ -13,6 +13,7 @@ import FoodCustom from 'components/Food/Custom'
 import FoodRecipes from 'components/Food/Recipes'
 
 import GetDataFood from 'components/GetData/Food'
+import SetData from 'components/SetData'
 
 import WorkoutFind from 'components/WorkoutFind'
 import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
@@ -64,16 +65,16 @@ export default [
       search: true,
     },
   },
-  {
-    name: 'entry',
-    path: '/entry/:uuid',
-    component: Entry,
-    props: true,
-    meta: {
-      title: 'Edit entry', // TODO: replace with relevant entry type
-      backMode: 'history', // toolbar back arrow behavior
-    },
-  },
+  // {
+  //   name: 'entry',
+  //   path: '/entry/:uuid',
+  //   component: Entry,
+  //   props: true,
+  //   meta: {
+  //     title: 'Edit entry', // TODO: replace with relevant entry type
+  //     backMode: 'history', // toolbar back arrow behavior
+  //   },
+  // },
   {
     name: 'foodGetData',
     path: '/food/getdata/:source/:id',
@@ -81,6 +82,16 @@ export default [
     props: true,
     meta: {
       title: 'Add Food', // TODO: replace with food title?
+      backMode: 'history', // toolbar back arrow behavior
+    },
+  },
+  {
+    name: 'setData',
+    path: '/setdata/:uuid',
+    component: SetData,
+    props: true,
+    meta: {
+      title: 'Edit Entry', // TODO: replace with food title?
       backMode: 'history', // toolbar back arrow behavior
     },
   },
