@@ -48,7 +48,7 @@
 
 <script>
 import store from 'store'
-import NutritionFacts from 'components/Views/NutritionFacts'
+import NutritionFacts from 'components/Forms/NutritionFacts'
 import { capitalize } from 'util/filters'
 import { onFocusInput } from 'util'
 import { USDA, CUSTOM } from 'api'

@@ -19,7 +19,7 @@
 
 <script>
 import { USDA, CUSTOM, RECIPE } from 'api'
-import Nutrient from 'components/Views/Nutrient'
+import Nutrient from 'components/Forms/Nutrient'
 
 export default {
   props: ['dataFood', 'source', 'massFromData', 'massFromUser'],

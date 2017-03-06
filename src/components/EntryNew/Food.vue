@@ -9,7 +9,7 @@
 
     <view-food
       v-if="food"
-      :name="dataFood.name"
+      :name="food.dataFood.name"
       :serving="food.lastLoggedMass"
       :food="food"
       :submitText="submitText"
@@ -34,7 +34,7 @@
 
 import store from 'store'
 import UUID from 'uuid'
-import ViewFood from 'components/Views/Food'
+import ViewFood from 'components/Forms/Food'
 import { USDA, checkStatus, parseJSON } from 'api'
 import * as API_USDA from 'api/USDA'
 import { routerBackTo } from 'util'
@@ -56,8 +56,6 @@ export default {
   computed: {
     // What text to display on the <view-food> submit button
     submitText() { return this.isForRecipe ? 'Add to recipe' : 'Eat' },
-    // Shorthand for this.food.dataFood
-    dataFood() { return this.food.dataFood },
   },
   methods: {
     // Try to get food data from cache
@@ -77,9 +75,9 @@ export default {
         this.food = existing[1]
 
         this.isDataFromCache = true
-        this.loading = false
       }
 
+      this.loading = false
       return this.isDataFromCache
     },
 

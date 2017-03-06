@@ -4,7 +4,7 @@
     <md-list v-if="recipeList && recipeList.length" class="recipe-list md-double-line">
       <md-list-item v-for="recipe in recipeList" v-if="recipe.enabled">
 
-        <router-link :to="{ name: 'entry', params: { uuid: recipe.uuid } }" class="recipe-link">
+        <router-link :to="{ name: 'entryAddFood', params: { source: 'recipe', id: recipe.uuid } }" class="recipe-link">
 
           <div class="md-list-text-container">
             <span class="recipe-link__name wordwrap--fade">{{ recipe.name | capitalize }}</span>

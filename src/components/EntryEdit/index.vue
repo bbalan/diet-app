@@ -1,8 +1,7 @@
 <template>
   <div class="set-data--food page page--menu page--padded">
 
-    <view-food
-      v-if="foodData"
+    <view-food v-if="foodData"
       :name="foodData.dataFood.name"
       :serving="entry.data.mass"
       :food="foodData"
@@ -10,13 +9,16 @@
       @submit="onSubmitFood">
     </view-food>
 
-    <view-workout
-      v-if="workoutData"
+    <view-workout v-if="workoutData"
       :name="workoutData.name"
       :calories="workoutData.calories"
       submitText="Save"
       @submit="onSubmitWorkout">
     </view-workout>
+
+    <view-recipe v-if="recipeData">
+      <pre>{{ recipeData }}</pre>
+    </view-recipe>
 
   </div>
 </template>
@@ -32,12 +34,13 @@
 
 import store from 'store'
 import router from 'router'
-import ViewFood from 'components/Views/Food'
-import ViewWorkout from 'components/Views/Workout'
+import ViewFood from 'components/Forms/Food'
+import ViewRecipe from 'components/Forms/Recipe'
+import ViewWorkout from 'components/Forms/Workout'
 
 export default {
   name: 'EntryEdit',
-  components: { ViewFood, ViewWorkout },
+  components: { ViewFood, ViewRecipe, ViewWorkout },
   props: ['uuid'],
   computed: {
     entry() { return store.state.entry[this.uuid] },
@@ -73,6 +76,10 @@ export default {
     onSubmitWorkout(data) {
       store.commit('entry/edit', { uuid: this.uuid, data })
       router.go(-1)
+    },
+
+    onSubmitRecipe(data) {
+      console.log(data)
     },
   },
 }

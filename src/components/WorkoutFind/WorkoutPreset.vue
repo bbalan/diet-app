@@ -19,7 +19,7 @@
 <script>
 import store from 'store'
 import router from 'router'
-import ViewWorkout from 'components/Views/Workout'
+import ViewWorkout from 'components/Forms/Workout'
 
 export default {
   name: 'WorkoutPreset',
