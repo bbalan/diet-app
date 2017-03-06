@@ -1,6 +1,8 @@
 <template>
   <div class="view--workout">
 
+    <!-- TODO: validation -->
+
     <form @submit.prevent>
 
       <div class="inputs">

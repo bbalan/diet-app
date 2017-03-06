@@ -29,6 +29,7 @@
 <script>
 import store from 'store'
 import router from 'router'
+import routerBackTo from 'util'
 
 export default {
   name: 'RightMenu',
@@ -76,12 +77,16 @@ export default {
     onEntryDelete() {
       // TODO: commit entries/disable instead of entries/delete
       store.commit('entry/delete', { uuid: this.entryUUID })
-      router.replace({ name: 'log' })
+      // router.replace({ name: 'log' })
+      // router.go(-1)
+      routerBackTo('log')
     },
     onPresetDelete() {
       // TODO: commit workout/disable instead of workout/delete
       store.commit('workout/delete', { uuid: this.presetUUID })
-      router.replace({ name: 'workout' })
+      // router.replace({ name: 'workout' })
+      // router.go(-1)
+      routerBackTo('workout')
     },
     onEntryCustomEdit() {
       router.push({ name: 'editCustom', params: { uuid: this.customUUID } })

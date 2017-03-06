@@ -1,74 +1,37 @@
 <template>
-  <div class="workout--preset page--padded page page--menu" >
+  <div class="workout--preset page page--menu page--padded">
 
-    <!-- TODO: validation -->
+    <view-workout
+      v-if="workoutData"
+      :name="workoutData.name"
+      :calories="workoutData.calories"
+      submitText="Save"
+      @submit="onSubmit">
+    </view-workout>
 
-      <div v-if="workoutData" tag="form" @submit.prevent="onSubmit">
-
-        <div class="inputs">
-          <md-input-container class="inputs__name">
-            <label>Name</label>
-            <md-input v-model="name" ref="workoutName" @keyup.native="onKeyUp"></md-input>
-          </md-input-container>
-
-          <md-input-container class="inputs__calories">
-            <label>Calories burned</label>
-            <md-input type="number" v-model.number="calories" @keyup.native="onKeyUp"></md-input>
-            <span class="calories__unit input__unit">kcal</span>
-          </md-input-container>
-
-          <md-button type="submit" v-if="uuid" class="md-raised md-primary inputs__eat inputs__submit" @click.native="onSubmit">
-            Save
-          </md-button>
-        </div>
-      </div>
-
-      <h2 v-else>Workout not found</h2>
+    <h2 class="md-title" v-else>
+      <md-icon>warning</md-icon>
+      Workout not found
+    </h2>
   </div>
 </template>
 
 <script>
-import 'components/WorkoutFind/styles.styl'
 import store from 'store'
 import router from 'router'
+import ViewWorkout from 'components/Views/Workout'
 
 export default {
   name: 'WorkoutPreset',
   props: ['uuid'],
-  data() {
-    return {
-      name: null,
-      calories: null,
-      workoutData: null,
-    }
-  },
-  created() {
-    this.getData()
+  components: { ViewWorkout },
+  computed: {
+    workoutData() { return store.state.workout[this.uuid] },
   },
   methods: {
-    getData() {
-      const workoutData = store.state.workout[this.uuid]
-      this.workoutData = workoutData
-
-      if (workoutData) {
-        this.name = workoutData.name
-        this.calories = workoutData.calories
-      } else {
-        // router.go(-1)
-      }
-    },
-    onSubmit() {
-      store.commit('workout/edit', {
-        uuid: this.uuid,
-        data: {
-          name: this.name,
-          calories: this.calories,
-        },
-      })
+    onSubmit(data) {
+      store.commit('workout/edit', { uuid: this.uuid, data })
       router.go(-1)
-    },
-    onKeyUp(e) {
-      if (e.code === 'Enter') this.onSubmit()
     },
   },
 }

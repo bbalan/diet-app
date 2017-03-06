@@ -2,10 +2,7 @@
   <div class="food-find page page--menu">
 
     <md-tabs md-fixed @change="nav" class="md-transparent food-find__tabs" ref="tabs">
-      <md-tab md-label="Favorites">
-        <router-link :to="{ name: 'foodFavorites'}"></router-link>
-      </md-tab>
-      <!--<md-tab md-label="Search"></md-tab>-->
+      <md-tab md-label="Favorites"></md-tab>
       <md-tab md-label="Custom"></md-tab>
       <md-tab md-label="Recipes"></md-tab>
     </md-tabs>
@@ -25,21 +22,12 @@ export default {
   data() {
     return {
       currentTab: 0,
-      foodPathNames: [
-        'foodFavorites',
-        // 'foodSearch',
-        'foodCustom',
-        'foodRecipes',
-      ],
+      foodPathNames: ['foodFavorites', 'foodCustom', 'foodRecipes'],
     }
   },
-  mounted() {
-    setTimeout(this.updateTabs, 100)
-  },
+  mounted() { setTimeout(this.updateTabs, 100) },
   watch: {
-    $route() {
-      setTimeout(this.updateTabs, 100)
-    },
+    $route() { setTimeout(this.updateTabs, 100) },
   },
   methods: {
     nav(tabIdx) {
