@@ -1,14 +1,14 @@
 <template>
   <transition name="page-fade">
-    <div class="food-view page--padded">
+    <div class="view--food">
 
       <form @submit.prevent>
         <div :class="`${headingClass} entry-name wordwrap--fade`">
           {{ name | capitalize }}
         </div>
 
-        <div class="food-view__inputs">
-          <md-input-container class="food-view__inputs__mass" ref="massInput">
+        <div class="view--food__inputs">
+          <md-input-container class="view--food__inputs__mass" ref="massInput">
             <label>How much?</label>
             <md-input
               type="number"
@@ -24,7 +24,7 @@
           </md-input-container>
 
           <md-button
-            class="md-raised md-primary food-view__inputs__eat inputs__submit"
+            class="md-raised md-primary view--food__inputs__eat inputs__submit"
             @click.native.prevent="onSubmit">
             {{ submitText }}
           </md-button>
@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.food-view
+.view--food
   &__inputs
     display flex
     flex-direction row

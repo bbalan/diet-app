@@ -3,21 +3,7 @@
 
     <form @submit.prevent class="food-search__form">
 
-      <!--<md-whiteframe
-        md-elevation="2"
-        class="search-bar">
-
-        <md-input-container class="search-bar__input" ref="searchBar">
-          <md-icon class="search">search</md-icon>
-          <md-icon class="arrow_back" @click.native="onClear">arrow_back</md-icon>
-          <md-input
-            placeholder="Food name"
-            v-model="searchText">
-          </md-input>
-        </md-input-container>
-
-        <md-icon v-if="searchText" @click="onClear" class="clear">close</md-icon>
-
+      <!--
         <md-list v-if="false" class="search-bar__result-list">
           <md-list-item>
             <md-icon>access_time</md-icon>
@@ -212,17 +198,11 @@ export default {
         library: 'Standard Reference',
       }))
 
-      // How to implement other APIs
-
-      // searches.push(search({
+      // Search the USDA branded food database
+      // searches.push(searchWithAPI({
       //   sanitizedText,
-      //   source: API.USDA,
+      //   source: USDA,
       //   library: 'Branded Food Products',
-      // }))
-
-      // searches.push(search({
-      //   sanitizedText,
-      //   source: API.OTHER,
       // }))
 
       // Execute all searches

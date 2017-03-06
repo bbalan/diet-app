@@ -1,5 +1,5 @@
 <template>
-  <div class="set-data--food page page--menu">
+  <div class="set-data--food page page--menu page--padded">
 
     <view-food
       v-if="foodData"
@@ -9,6 +9,14 @@
       submitText="Save"
       @submit="onSubmitFood">
     </view-food>
+
+    <view-workout
+      v-if="workoutData"
+      :name="workoutData.name"
+      :calories="workoutData.calories"
+      submitText="Save"
+      @submit="onSubmitWorkout">
+    </view-workout>
 
   </div>
 </template>
@@ -25,10 +33,11 @@
 import store from 'store'
 import router from 'router'
 import ViewFood from 'components/Views/Food'
+import ViewWorkout from 'components/Views/Workout'
 
 export default {
   name: 'SetDataFood',
-  components: { ViewFood },
+  components: { ViewFood, ViewWorkout },
   props: ['uuid'],
   computed: {
     entry() { return store.state.entries[this.uuid] },
@@ -59,6 +68,9 @@ export default {
         lastLoggedMass: mass,
       })
       router.go(-1)
+    },
+    onSubmitWorkout(data) {
+      console.log(data)
     },
   },
 }
