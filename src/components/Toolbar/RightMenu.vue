@@ -29,12 +29,12 @@
 <script>
 import store from 'store'
 import router from 'router'
-import routerBackTo from 'util'
+// import { routerBackTo } from 'util'
 
 export default {
   name: 'RightMenu',
   computed: {
-    isEntry() { return this.$route.name === 'entry' },
+    isEntry() { return this.$route.name === 'editEntry' },
     entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
     entryData() { return this.isEntry ? store.state.entry[this.$route.params.uuid] : null },
     isFoodFromCache() { return this.$route.name === 'addFood' },
@@ -78,15 +78,15 @@ export default {
       // TODO: commit entries/disable instead of entries/delete
       store.commit('entry/delete', { uuid: this.entryUUID })
       // router.replace({ name: 'log' })
-      // router.go(-1)
-      routerBackTo('log')
+      router.go(-1)
+      // routerBackTo('log')
     },
     onPresetDelete() {
       // TODO: commit workout/disable instead of workout/delete
       store.commit('workout/delete', { uuid: this.presetUUID })
       // router.replace({ name: 'workout' })
-      // router.go(-1)
-      routerBackTo('workout')
+      router.go(-1)
+      // routerBackTo('workout')
     },
     onEntryCustomEdit() {
       router.push({ name: 'editCustom', params: { uuid: this.customUUID } })
