@@ -2,11 +2,12 @@ import Welcome from 'components/Welcome'
 
 import Log from 'components/Log'
 
-import EntryEdit from 'components/Entry/Edit'
+import EditEntry from 'components/Entry/Edit'
 import AddFood from 'components/Entry/Add/Food'
 import AddCustom from 'components/Entry/Add/Custom'
 import AddRecipe from 'components/Entry/Add/Recipe'
 import AddWeight from 'components/Entry/Add/Weight'
+import EditWorkout from 'components/Entry/Edit/Workout'
 
 import FoodAll from 'components/Food'
 import FoodSearch from 'components/Food/Search'
@@ -15,7 +16,6 @@ import FoodCustom from 'components/Food/Custom'
 import FoodRecipes from 'components/Food/Recipes'
 
 import WorkoutFind from 'components/WorkoutFind'
-import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
 
 import Cache from 'components/Dev/FoodCache'
 import LocalStorage from 'components/Dev/LocalStorage'
@@ -65,8 +65,8 @@ export default [
   },
   {
     name: 'editEntry',
-    path: '/edit/:uuid',
-    component: EntryEdit,
+    path: '/entry/edit/:uuid',
+    component: EditEntry,
     props: true,
     meta: {
       title: 'Edit Entry', // TODO: replace with food title?
@@ -190,8 +190,8 @@ export default [
   },
   {
     name: 'editWorkout',
-    path: '/workout/:uuid',
-    component: WorkoutPreset,
+    path: '/workout/edit/:uuid',
+    component: EditWorkout,
     props: true,
     meta: {
       title: 'Edit workout',
