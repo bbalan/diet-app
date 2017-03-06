@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import * as API from 'api'
+import * as API from 'util/api'
 import { setLocalStorage } from './util'
 
 const MODULE_KEY = 'foodCache'

@@ -8,7 +8,7 @@
 import store from 'store'
 import router from 'router'
 import uuid from 'uuid'
-import { CUSTOM } from 'api'
+import { CUSTOM } from 'util/api'
 import FormCustom from 'components/Entry/Common/Custom'
 
 export default {

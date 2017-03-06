@@ -1,5 +1,19 @@
 import store from 'store'
 
+export function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response
+  }
+
+  const error = new Error(response.statusText)
+  error.response = response
+  throw error
+}
+
+export function parseJSON(response) {
+  return response.json()
+}
+
 export function roundTo(val, decimals = 0) {
   if (val === undefined || val === null || decimals < 0) return null
 

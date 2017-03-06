@@ -49,7 +49,7 @@
 import store from 'store'
 import router from 'router'
 import { capitalize } from 'util/filters'
-import * as API from 'api'
+import * as API from 'util/api'
 
 export default {
   name: 'Custom',

@@ -19,7 +19,7 @@
 
 <script>
 import store from 'store'
-import * as API from 'api'
+import * as API from 'util/api'
 import { toKcal, roundTo, toMassUnit } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 

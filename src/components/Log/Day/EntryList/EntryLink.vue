@@ -40,7 +40,7 @@
 <script>
 // import { truncate } from 'util'
 import store from 'store'
-import * as API from 'api'
+import * as API from 'util/api'
 import { toKcal, roundTo, capitalize } from 'util/filters'
 
 export default {

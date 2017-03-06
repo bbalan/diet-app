@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { USDA, CUSTOM, RECIPE } from 'api'
+import { USDA, CUSTOM, RECIPE } from 'util/api'
 import Nutrient from './Nutrient'
 
 export default {

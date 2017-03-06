@@ -35,9 +35,8 @@
 import store from 'store'
 import UUID from 'uuid'
 import FormFood from 'components/Entry/Common/Food'
-import { USDA, checkStatus, parseJSON } from 'api'
-import * as API_USDA from 'api/USDA'
-import { routerBackTo } from 'util'
+import { routerBackTo, checkStatus, parseJSON } from 'util'
+import { USDA, foodReportUSDA } from 'util/api'
 
 export default {
   name: 'AddFood',
@@ -91,7 +90,7 @@ export default {
       // Figure out which API URLs and handlers to use
       switch (this.source) {
         case USDA:
-          foodReportAPI = API_USDA.foodReport(this.id)
+          foodReportAPI = foodReportUSDA(this.id)
           reportHandler = this.reportHandlerUSDA.bind(this)
           break
         default: return // invalid source

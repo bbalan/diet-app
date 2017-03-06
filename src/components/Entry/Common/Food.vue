@@ -51,7 +51,7 @@ import store from 'store'
 import NutritionFacts from 'components/Entry/Common/NutritionFacts'
 import { capitalize } from 'util/filters'
 import { onFocusInput } from 'util'
-import { USDA, CUSTOM } from 'api'
+import { USDA, CUSTOM } from 'util/api'
 
 export default {
   name: 'FormFood',

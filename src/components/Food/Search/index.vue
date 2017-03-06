@@ -58,8 +58,8 @@
 import 'whatwg-fetch' // https://github.com/github/fetch
 import store from 'store'
 import router from 'router'
-import { USDA, checkStatus, parseJSON } from 'api'
-import * as API_USDA from 'api/USDA'
+import { checkStatus, parseJSON } from 'util'
+import { USDA, searchUSDA } from 'util/api'
 import ResultList from './ResultList'
 
 export default {
@@ -171,7 +171,7 @@ export default {
 
         switch (opts.source) {
           case USDA:
-            searchAPI = API_USDA.search(opts.sanitizedText, opts.library)
+            searchAPI = searchUSDA(opts.sanitizedText, opts.library)
             searchHandler = usdaSearchHandler
             break
           // case OTHER:
