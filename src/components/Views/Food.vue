@@ -13,7 +13,7 @@
             <md-input
               type="number"
               ref="massInput"
-              v-model.number="mass"
+              v-model.number="massFromUser"
               required
               @focus.native="onFocusInput('massInput')"
               @click.native="onFocusInput('massInput')"
@@ -33,10 +33,13 @@
         <div class="clearfix"></div>
       </form>
 
+      <!--<pre>{{ dataFood }}</pre>-->
+
       <nutrition-facts
-        :nutrients="dataFood.nutrients"
+        :dataFood="dataFood"
         :source="food.source"
-        :serving="normalizedMass">
+        :massFromData="massFromData"
+        :massFromUser="massFromUser || 0">
       </nutrition-facts>
 
     </div>
@@ -48,6 +51,7 @@ import store from 'store'
 import NutritionFacts from 'components/Views/NutritionFacts'
 import { capitalize } from 'util/filters'
 import { onFocusInput } from 'util'
+import { USDA, CUSTOM } from 'api'
 
 export default {
   name: 'ViewFood',
@@ -55,18 +59,20 @@ export default {
   filters: { capitalize },
 
   props: ['name', 'serving', 'food', 'submitText'],
-  data: () => ({ mass: null }),
+  data: () => ({ massFromUser: null }),
 
-  created() { this.mass = this.serving || 100 },
+  created() { this.massFromUser = this.serving || 100 },
 
   computed: {
     // Shorthand for this.food.dataFood
     dataFood() { return this.food ? this.food.dataFood : null },
 
-    // Return 0 if mass is blank
-    normalizedMass() {
-      if (typeof this.mass !== 'number') return 0
-      return this.mass
+    massFromData() {
+      switch (this.food.source) {
+        case USDA: return 100
+        case CUSTOM: return this.dataFood.serving
+        default: return 0
+      }
     },
 
     // Use smaller font for title if text is too long
@@ -88,10 +94,10 @@ export default {
   methods: {
     // Validate mass and emit event to parent
     onSubmit() {
-      if (!this.mass) {
+      if (!this.massFromUser) {
         this.$refs.massInput.$el.classList.add('md-input-invalid')
       } else {
-        this.$emit('submit', this.mass)
+        this.$emit('submit', this.massFromUser)
       }
     },
 
@@ -114,9 +120,6 @@ export default {
   &__inputs
     display flex
     flex-direction row
-
-    &__mass
-      //
 
     &__eat
       top 8px

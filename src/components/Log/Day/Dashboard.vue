@@ -5,7 +5,7 @@
 
       <div class="stats">
         <!--<p>Weight: {{ mass | toMassUnit}}</p>-->
-        <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }} each)</p>
+        <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }})</p>
         <p class="percentages">
           Macros: {{ fatPct | roundTo }}% fat &nbsp; {{ carbsPct | roundTo }}% carbs &nbsp; {{ proteinPct | roundTo }}% protein
         </p>

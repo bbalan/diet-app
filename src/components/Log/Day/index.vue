@@ -10,17 +10,15 @@
     <div class="log__day__scroll">
 
       <transition name="fade">
-        <md-card class="weigh-in" v-if="!massUpdated">
-          <div class="page--padded">
-            <p class="md-subheading">It's time to log your body weight!</p>
+        <div class="weigh-in page--padded" v-if="!massUpdated">
+          <p class="md-subheading">It's time to log your body weight!</p>
 
-            <router-link :to="{ name: 'weight' }" class="addLog logWeight">
-              <md-button class="md-raised md-primary">
-                Weigh In
-              </md-button>
-            </router-link>
-          </div>
-        </md-card>
+          <router-link :to="{ name: 'weight' }" class="addLog logWeight">
+            <md-button class="md-raised md-primary">
+              Weigh In
+            </md-button>
+          </router-link>
+        </div>
       </transition>
 
       <entry-list
@@ -104,13 +102,16 @@ export default {
   color #42b983
 
 .weigh-in
-  position absolute
-  top 50%
-  left 50%
-  margin-top -52px
-  margin-left -140px
-  text-align center
-  margin-bottom 16px
+  display flex
+  background white
+
+  p
+    flex-grow 100
+    margin 0
+
+  .md-button
+    flex-basis 0
+    margin-right 0
 
 .no-entries
   position absolute

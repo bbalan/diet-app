@@ -3,7 +3,7 @@
   <div v-if="nutrient && showNutrient" :class="`nutrient nutrient-id-${id} nutrient-name-${name}`">
     <div class="nutrient__name">{{ name | capitalize }}</div>
     <div class="nutrient__value">
-      {{ value }} 
+      {{ value }}
       <span class="nutrient__unit">{{ nutrient.unit }}</span>
     </div>
   </div>
@@ -18,12 +18,12 @@ export default {
   props: {
     nutrient: { type: Object, default: () => {} },
     decimals: { type: Number, default: 1 },
-    mass: { type: Number },
-    serving: { type: Number, default: 100 },
+    massFromData: { type: Number, default: 100 },
+    massFromUser: { type: Number },
   },
   computed: {
     value() {
-      const val = this.nutrient.value * (this.mass / this.serving)
+      const val = this.nutrient.value * (this.massFromUser / this.massFromData)
       return Math.floor(val)
     },
     id() {
@@ -63,7 +63,7 @@ export default {
     display block
     content ''
     clear both
-  
+
   &__name
     font-weight bold
     float left
