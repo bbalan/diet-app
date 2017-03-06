@@ -2,7 +2,7 @@
   <md-list-item v-if="workoutData" class="workout__list__link">
 
     <div class="workout__list__link__inner">
-      <router-link class="workout__edit wordwrap--fade" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">
+      <router-link class="workout__edit wordwrap--fade" :to="{ name: 'editWorkout', params: { uuid: uuid }}">
         <md-icon>create</md-icon>
         <span class="workout__name">{{ name | capitalize }}</span>
 

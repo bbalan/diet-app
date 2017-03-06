@@ -9,7 +9,7 @@
         <!-- TODO: grams input and Add button so we don't have to click through to entryAddFood -->
 
         <router-link
-          :to="{ name: 'entryAddFood', params: { source: food.source, id: food.id }}"
+          :to="{ name: 'addFood', params: { source: food.source, id: food.id }}"
           class="favorites__link">
 
           <div class="md-list-text-container">

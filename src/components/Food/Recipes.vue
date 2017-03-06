@@ -4,8 +4,15 @@
     <md-list v-if="recipeList && recipeList.length" class="recipe-list md-double-line">
       <md-list-item v-for="recipe in recipeList" v-if="recipe.enabled">
 
-        <router-link :to="{ name: 'entryAddFood', params: { source: 'recipe', id: recipe.uuid } }" class="recipe-link">
+        <!--<router-link :to="{ name: 'addFood', params: { source: 'recipe', id: recipe.uuid } }" class="recipe-link">-->
 
+        <router-link :to="{
+          name: 'addFood',
+          params: {
+            source: 'recipe',
+            id: recipe.uuid
+          }
+        }" class="recipe-link">
           <div class="md-list-text-container">
             <span class="recipe-link__name wordwrap--fade">{{ recipe.name | capitalize }}</span>
             <span class="recipe-link__nutrients">Nutrients...</span>
@@ -56,7 +63,7 @@ export default {
   },
   methods: {
     add() {
-      router.push({ name: 'entryRecipe', params: { uuid: UUID.v4() } })
+      router.push({ name: 'editRecipe', params: { uuid: UUID.v4() } })
     },
   },
 }

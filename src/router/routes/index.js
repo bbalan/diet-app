@@ -19,7 +19,6 @@ import WorkoutFind from 'components/WorkoutFind'
 import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
 
 import Cache from 'components/Dev/FoodCache'
-import Entries from 'components/Dev/Entries'
 import LocalStorage from 'components/Dev/LocalStorage'
 
 export default [
@@ -66,7 +65,7 @@ export default [
     },
   },
   {
-    name: 'entryEdit',
+    name: 'editEntry',
     path: '/edit/:uuid',
     component: EntryEdit,
     props: true,
@@ -76,7 +75,7 @@ export default [
     },
   },
   {
-    name: 'entryAddFood',
+    name: 'addFood',
     path: '/food/add/:source/:id',
     component: EntryNewFood,
     props: true,
@@ -86,7 +85,7 @@ export default [
     },
   },
   {
-    name: 'entryAddCustom',
+    name: 'addCustom',
     path: '/food/custom/add',
     component: EntryCustom,
     meta: {
@@ -105,8 +104,8 @@ export default [
     },
   },
   {
-    name: 'entryRecipe',
-    path: '/food/recipeEdit/:uuid',
+    name: 'editRecipe',
+    path: '/food/recipes/edit/:uuid',
     component: EntryRecipe,
     props: true,
     meta: {
@@ -191,7 +190,7 @@ export default [
     },
   },
   {
-    name: 'workoutPreset',
+    name: 'editWorkout',
     path: '/workout/:uuid',
     component: WorkoutPreset,
     props: true,
@@ -206,12 +205,6 @@ export default [
     path: '/cache',
     component: Cache,
     meta: { title: 'Cache' },
-  },
-  {
-    name: 'devEntries',
-    path: '/entries',
-    component: Entries,
-    meta: { title: 'Entries' },
   },
   {
     name: 'devLocalStorage',

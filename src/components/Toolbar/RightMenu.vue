@@ -37,7 +37,7 @@ export default {
     isEntry() { return this.$route.name === 'entry' },
     entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
     entryData() { return this.isEntry ? store.state.entry[this.$route.params.uuid] : null },
-    isFoodFromCache() { return this.$route.name === 'entryAddFood' },
+    isFoodFromCache() { return this.$route.name === 'addFood' },
     cacheUUID() { return this.isFoodFromCache ? this.$route.params.id : null },
 
     foodDataCached() {
@@ -66,7 +66,7 @@ export default {
       return this.entryData ? this.entryData.type === 'workout' : false
     },
 
-    isWorkoutPreset() { return this.$route.name === 'workoutPreset' },
+    isWorkoutPreset() { return this.$route.name === 'editWorkout' },
     presetUUID() { return this.isWorkoutPreset ? this.$route.params.uuid : null },
 
     menuSize() {

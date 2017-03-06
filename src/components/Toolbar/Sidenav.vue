@@ -73,13 +73,6 @@
       </md-list-item>
 
       <md-list-item>
-        <router-link :to="{ name: 'devCache' }">
-          <md-icon>code</md-icon>
-          <span>Cache</span>
-        </router-link>
-      </md-list-item>
-
-      <md-list-item>
         <router-link :to="{ name: 'devLocalStorage' }">
           <md-icon>code</md-icon>
           <span>LocalStorage</span>

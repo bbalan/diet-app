@@ -3,11 +3,11 @@
 
     <day :dataDay="dataCurrentDay" :date="currentDay"></day>
 
-    <md-button class="md-fab md-fab-bottom-right" @click.native="onClickFood">
+    <!--<md-button class="md-fab md-fab-bottom-right" @click.native="onClickFood">
       <md-icon>add</md-icon>
-    </md-button>
+    </md-button>-->
 
-    <!--<router-link :to="{ name: 'food' }">
+    <router-link :to="{ name: 'food' }">
       <md-button class="md-fab md-fab-bottom-right log__food">
         <md-icon>restaurant</md-icon>
       </md-button>
@@ -17,7 +17,7 @@
       <md-button class="md-fab md-fab-bottom-right log__workout md-primary">
         <md-icon>fitness_center</md-icon>
       </md-button>
-    </router-link>-->
+    </router-link>
   </div>
 </template>
 
