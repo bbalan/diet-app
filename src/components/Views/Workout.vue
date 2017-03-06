@@ -4,15 +4,22 @@
     <form @submit.prevent>
 
       <div class="inputs">
-        <md-input-container class="inputs__name">
+        <md-input-container class="inputs__name" ref="workoutName">
           <label>Workout name</label>
-          <md-input v-model="newName" ref="workoutName" @keydown.native="onKeyDown"></md-input>
+          <md-input
+            v-model="newName"
+            @keydown.native="onKeyDown"
+            @focus.native="onFocusInput('workoutName')"></md-input>
         </md-input-container>
 
         <div class="inputs__submit-wrapper">
-          <md-input-container class="inputs__calories">
+          <md-input-container class="inputs__calories" ref="workoutCalories">
             <label>Calories burned</label>
-            <md-input type="number" v-model.number="newCalories" @keydown.native="onKeyDown"></md-input>
+            <md-input
+              type="number"
+              v-model.number="newCalories"
+              @keydown.native="onKeyDown"
+              @focus.native="onFocusInput('workoutCalories')"></md-input>
             <span class="calories__unit input__unit">kcal</span>
           </md-input-container>
 
@@ -27,6 +34,8 @@
 </template>
 
 <script>
+import { onFocusInput } from 'util'
+
 // TODO: add workout notes field
 export default {
   name: 'ViewWorkout',
@@ -66,29 +75,25 @@ export default {
         this.onSubmit()
       }
     },
+    onFocusInput,
   },
 }
 </script>
 
-<style scoped lang="stylus">
-.workout-name
-  margin-top 0
+<style lang="stylus">
+.view--workout
+  .inputs
+    &__submit
+      position relative
+      top 8px
+      margin-left 16px
+      margin-right 0
+      flex-basis 0
+      height 36px
 
-.entry--workout
-  margin-bottom 16px
+    &__calories
+      flex-grow 9000
 
-  .md-input-container
-    margin-top -8px !important
-
-    &.inputs__calories
-      margin-bottom 0 !important
-
-  .inputs__submit
-    position relative
-    top 4px
-    margin-left 16px
-    margin-right 0
-
-  .inputs__submit-wrapper
-    display flex
+    &__submit-wrapper
+      display flex
 </style>
