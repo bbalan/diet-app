@@ -36,7 +36,7 @@ export default {
   props: ['uuid', 'id', 'source', 'destination'],
   // components: { FoodView },
   computed: {
-    dataEntry() { return store.state.entries[this.uuid] },
+    dataEntry() { return store.state.entry[this.uuid] },
     entryType() { return this.dataEntry ? this.dataEntry.type : false },
     isFood() { return this.entryType === 'food' || (!!this.id && !!this.source) },
     isRecipe() { return this.entryType === 'recipe' },
@@ -45,7 +45,7 @@ export default {
 
     dataFood() {
       // Check if this is a food entry
-      const entryFood = store.state.entries[this.uuid]
+      const entryFood = store.state.entry[this.uuid]
 
       // Check if this is a recipe entry
       const entryRecipe = store.state.recipe.data[this.uuid]
@@ -97,7 +97,7 @@ export default {
 
     // User is submitting a recipe entry
     recipeAdd() {
-      store.commit('entries/add', {
+      store.commit('entry/add', {
         item: this.uuid,
         type: 'recipe',
         data: { mass: this.mass },
@@ -107,7 +107,7 @@ export default {
     // Commit new log entry
     entryAdd(addToRecipe = false) {
       // Add a food entry with the cached food uuid
-      store.commit('entries/add', {
+      store.commit('entry/add', {
         item: this.cacheUUID,
         type: 'food',
         data: { mass: this.mass },
@@ -123,7 +123,7 @@ export default {
 
     // Save changes to this entry
     entryEdit() {
-      store.commit('entries/edit', {
+      store.commit('entry/edit', {
         uuid: this.uuid,
         data: { mass: this.mass },
       })
@@ -135,7 +135,7 @@ export default {
 
     // Remove this entry forever
     entryDelete() {
-      store.commit('entries/delete', { uuid: this.uuid })
+      store.commit('entry/delete', { uuid: this.uuid })
       router.push('/log')
     },
   },

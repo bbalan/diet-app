@@ -36,7 +36,7 @@ export default {
   computed: {
     mass: () => store.state.calendar.data[store.state.calendar.currentDay].userInfo.metrics.mass,
     numMeals: () => store.state.userInfo.metrics.numMeals,
-    entryDetails() { return this.entries.map(entry => store.state.entries[entry]) },
+    entryDetails() { return this.entries.map(entry => store.state.entry[entry]) },
     foodDetails() {
       const foodDetails = []
 

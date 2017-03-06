@@ -164,7 +164,7 @@ export default {
     },
 
     recipeAdd() {
-      store.commit('entries/add', {
+      store.commit('entry/add', {
         item: this.uuid,
         type: 'recipe',
         data: { mass: this.mass },
@@ -174,7 +174,7 @@ export default {
     // Commit new log entry
     entryAdd(addToRecipe = false) {
       // Add a food entry with the cached food uuid
-      store.commit('entries/add', {
+      store.commit('entry/add', {
         item: this.cacheUUID,
         type: 'food',
         data: { mass: this.mass },
@@ -190,7 +190,7 @@ export default {
 
     // Save changes to this entry
     entryEdit() {
-      store.commit('entries/edit', {
+      store.commit('entry/edit', {
         uuid: this.uuid,
         data: { mass: this.mass },
       })
@@ -202,7 +202,7 @@ export default {
 
     // Remove this entry forever
     entryDelete() {
-      store.commit('entries/delete', { uuid: this.uuid })
+      store.commit('entry/delete', { uuid: this.uuid })
       router.push('/log')
     },
 
@@ -217,7 +217,7 @@ export default {
     // We are looking at a saved entry
     getDataFromEntry() {
       // Check if this is a food entry
-      const entryFood = store.state.entries[this.uuid]
+      const entryFood = store.state.entry[this.uuid]
 
       // Check if this is a recipe entry
       const entryRecipe = store.state.recipe.data[this.uuid]

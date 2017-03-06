@@ -35,7 +35,7 @@ export default {
   computed: {
     isEntry() { return this.$route.name === 'entry' },
     entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
-    entryData() { return this.isEntry ? store.state.entries[this.$route.params.uuid] : null },
+    entryData() { return this.isEntry ? store.state.entry[this.$route.params.uuid] : null },
     isFoodFromCache() { return this.$route.name === 'entryAddFood' },
     cacheUUID() { return this.isFoodFromCache ? this.$route.params.id : null },
 
@@ -75,7 +75,7 @@ export default {
   methods: {
     onEntryDelete() {
       // TODO: commit entries/disable instead of entries/delete
-      store.commit('entries/delete', { uuid: this.entryUUID })
+      store.commit('entry/delete', { uuid: this.entryUUID })
       router.replace({ name: 'log' })
     },
     onPresetDelete() {

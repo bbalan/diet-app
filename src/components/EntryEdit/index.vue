@@ -36,30 +36,30 @@ import ViewFood from 'components/Views/Food'
 import ViewWorkout from 'components/Views/Workout'
 
 export default {
-  name: 'SetDataFood',
+  name: 'EntryEdit',
   components: { ViewFood, ViewWorkout },
   props: ['uuid'],
   computed: {
-    entry() { return store.state.entries[this.uuid] },
+    entry() { return store.state.entry[this.uuid] },
     entryType() { return this.entry ? this.entry.type : null },
     itemUUID() { return this.entry ? this.entry.item : null },
 
-    isFood() { return this.itemUUID && this.entryType === 'food' },
+    isFood() { return this.itemUUID && this.entryType ? this.entryType === 'food' : false },
     foodData() { return this.isFood ? store.state.foodCache[this.itemUUID] : null },
 
-    isCustom() { return this.itemUUID && this.entryType === 'custom' },
+    isCustom() { return this.itemUUID && this.entryType ? this.entryType === 'custom' : false },
     customData() { return this.isCustom ? store.state.workout[this.itemUUID] : null },
 
-    isRecipe() { return this.itemUUID && this.entryType === 'recipe' },
+    isRecipe() { return this.itemUUID && this.entryType ? this.entryType === 'recipe' : false },
     recipeData() { return this.isRecipe ? store.state.recipes.data[this.itemUUID] : null },
 
-    isWorkout() { return this.itemUUID && this.entryType === 'workout' },
-    workoutData() { return this.isWorkout ? store.state.workout[this.itemUUID] : null },
+    isWorkout() { return this.entryType ? this.entryType === 'workout' : false },
+    workoutData() { return this.isWorkout && this.entry && this.entry ? this.entry.data : null },
   },
   methods: {
     onSubmitFood(mass) {
       // Save changes to this entry
-      store.commit('entries/edit', {
+      store.commit('entry/edit', {
         uuid: this.uuid,
         data: { mass },
       })
@@ -69,8 +69,10 @@ export default {
       })
       router.go(-1)
     },
+
     onSubmitWorkout(data) {
-      console.log(data)
+      store.commit('entry/edit', { uuid: this.uuid, data })
+      router.go(-1)
     },
   },
 }

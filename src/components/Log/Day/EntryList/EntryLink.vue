@@ -57,7 +57,7 @@ export default {
     },
   },
   computed: {
-    dataEntry() { return store.state.entries[this.uuid] },
+    dataEntry() { return store.state.entry[this.uuid] },
     isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
     isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
     isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
@@ -76,7 +76,7 @@ export default {
         return (this.isFood || this.isRecipe) && this.dataEntry ? this.dataEntry.data.mass : null
       },
       set(mass) {
-        store.commit('entries/setMass', {
+        store.commit('entry/setMass', {
           uuid: this.uuid,
           mass,
         })

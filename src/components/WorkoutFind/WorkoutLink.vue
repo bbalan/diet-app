@@ -5,9 +5,9 @@
       <router-link class="workout__edit wordwrap--fade" :to="{ name: 'workoutPreset', params: { uuid: uuid }}">
         <md-icon>create</md-icon>
         <span class="workout__name">{{ name | capitalize }}</span>
-      
+
         <span class="workout__calories md-caption">
-          {{ calories | roundTo | toKcal }} 
+          {{ calories | roundTo | toKcal }}
         </span>
       </router-link>
 
@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     logEntry() {
-      store.commit('entries/add', {
+      store.commit('entry/add', {
         item: null,
         type: 'workout',
         data: {
@@ -100,7 +100,7 @@ export default {
   top 16px
   left 36px
 
-.workout__name 
+.workout__name
   display inline-block
   width 100%
   padding-left 36px

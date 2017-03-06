@@ -40,7 +40,7 @@ import * as API_USDA from 'api/USDA'
 import { routerBackTo } from 'util'
 
 export default {
-  name: 'GetDataFood',
+  name: 'EntryNewFood',
   props: ['id', 'source', 'isForRecipe'],
   components: { ViewFood },
   data: () => ({
@@ -154,7 +154,7 @@ export default {
     // Commit new log entry
     entryAdd(mass, addToRecipe = false) {
       // Add a food entry with the cached food uuid
-      store.commit('entries/add', {
+      store.commit('entry/add', {
         item: this.uuid,
         type: 'food',
         data: { mass },
