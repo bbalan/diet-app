@@ -1,5 +1,5 @@
 <template>
-  <div class="get-data--food page page--menu page--padded">
+  <div class="entry-add--food page page--menu page--padded">
 
     <transition name="fade-spinner">
       <div v-if="loading" class="get-data--food__spinner-wrapper">
@@ -23,18 +23,18 @@
 
 <script>
 /**
- * EntryNew/Food tries to get food data from the foodCache. If
+ * This component tries to get food data from the foodCache. If
  * foodCache does not contain requested food, the food APIs are
  * called.
  *
  * Food data is fed to the <view-food> component, which is just
- * a dumb view containing a form. On form submit, EntryNew/Food
+ * a dumb view containing a form. On form submit, this component
  * creates a new entry in the log or in a recipe.
  */
 
 import store from 'store'
 import UUID from 'uuid'
-import ViewFood from 'components/Forms/Food'
+import ViewFood from 'components/Entry/Common/Food'
 import { USDA, checkStatus, parseJSON } from 'api'
 import * as API_USDA from 'api/USDA'
 import { routerBackTo } from 'util'
@@ -170,8 +170,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.get-data--food
-
+.entry-add--food
   &__spinner-wrapper
     position absolute
     top 0

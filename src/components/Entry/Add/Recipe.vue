@@ -56,7 +56,15 @@ export default {
   },
   computed: {
     recipeData() { return store.state.recipe.data[this.uuid] },
-    ingredients() { return this.recipeData ? this.recipeData.ingredients : [] },
+    ingredients() {
+      let ingredients = []
+
+      if (this.recipeData) {
+        ingredients = this.recipeData.ingredients
+      }
+
+      return ingredients.filter(ingredient => store.state.entry[ingredient])
+    },
   },
   methods: {
     addIngredient() {

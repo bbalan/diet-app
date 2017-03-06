@@ -1,5 +1,5 @@
 <template>
-  <div class="set-data--food page page--menu page--padded">
+  <div class="entry--edit page page--menu page--padded">
 
     <view-food v-if="foodData"
       :name="foodData.dataFood.name"
@@ -34,9 +34,9 @@
 
 import store from 'store'
 import router from 'router'
-import ViewFood from 'components/Forms/Food'
-import ViewRecipe from 'components/Forms/Recipe'
-import ViewWorkout from 'components/Forms/Workout'
+import ViewFood from 'components/Entry/Common/Food'
+import ViewRecipe from 'components/Entry/Common/Recipe'
+import ViewWorkout from 'components/Entry/Common/Workout'
 
 export default {
   name: 'EntryEdit',

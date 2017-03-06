@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import EntryWorkout from 'components/Entry/Workout'
+import EntryWorkout from 'components/Entry/Add/Workout'
 import WorkoutList from 'components/WorkoutFind/WorkoutList'
 
 export default {

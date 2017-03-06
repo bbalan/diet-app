@@ -1,5 +1,5 @@
 <template>
-  <div class="entry--custom page page--padded page--menu">
+  <div class="entry-add--custom page page--padded page--menu">
 
     <p>Enter as much information as you can, then tap Save.</p>
 
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+// TODO: split this into Add and Edit
 import store from 'store'
 import router from 'router'
 import uuid from 'uuid'
@@ -177,7 +178,7 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.entry--custom
+.entry-add--custom
   &__save
     margin 16px 0 !important
     float right

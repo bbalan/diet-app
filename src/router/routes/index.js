@@ -1,19 +1,18 @@
 import Welcome from 'components/Welcome'
 
 import Log from 'components/Log'
-// import Entry from 'components/Entry'
-import EntryCustom from 'components/Entry/Custom'
-import EntryRecipe from 'components/Entry/Recipe'
-import Weight from 'components/Entry/Weight'
 
-import Food from 'components/Food'
+import EntryEdit from 'components/Entry/Edit'
+import AddFood from 'components/Entry/Add/Food'
+import AddCustom from 'components/Entry/Add/Custom'
+import AddRecipe from 'components/Entry/Add/Recipe'
+import AddWeight from 'components/Entry/Add/Weight'
+
+import FoodAll from 'components/Food'
 import FoodSearch from 'components/Food/Search'
 import FoodFavorites from 'components/Food/Favorites'
 import FoodCustom from 'components/Food/Custom'
 import FoodRecipes from 'components/Food/Recipes'
-
-import EntryNewFood from 'components/EntryNew/Food'
-import EntryEdit from 'components/EntryEdit'
 
 import WorkoutFind from 'components/WorkoutFind'
 import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
@@ -77,7 +76,7 @@ export default [
   {
     name: 'addFood',
     path: '/food/add/:source/:id',
-    component: EntryNewFood,
+    component: AddFood,
     props: true,
     meta: {
       title: 'Add Food', // TODO: replace with food title?
@@ -87,7 +86,7 @@ export default [
   {
     name: 'addCustom',
     path: '/food/custom/add',
-    component: EntryCustom,
+    component: AddCustom,
     meta: {
       title: 'Add Custom Food',
       backMode: 'history', // toolbar back arrow behavior
@@ -96,7 +95,7 @@ export default [
   {
     name: 'editCustom',
     path: '/food/custom/edit/:uuid',
-    component: EntryCustom,
+    component: AddCustom,
     props: true,
     meta: {
       title: 'Edit Custom Food',
@@ -106,7 +105,7 @@ export default [
   {
     name: 'editRecipe',
     path: '/food/recipes/edit/:uuid',
-    component: EntryRecipe,
+    component: AddRecipe,
     props: true,
     meta: {
       title: 'Add Recipe',
@@ -116,13 +115,13 @@ export default [
   {
     name: 'weight',
     path: '/weight',
-    component: Weight,
+    component: AddWeight,
     meta: { title: 'Weight' },
   },
   {
     name: 'food',
     path: '/food',
-    component: Food,
+    component: FoodAll,
     redirect: { name: 'foodFavorites' },
     meta: {
       title: 'Food',
