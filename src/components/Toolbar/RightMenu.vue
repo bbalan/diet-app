@@ -36,7 +36,7 @@ export default {
     isEntry() { return this.$route.name === 'entry' },
     entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
     entryData() { return this.isEntry ? store.state.entries[this.$route.params.uuid] : null },
-    isFoodFromCache() { return this.$route.name === 'foodGetData' },
+    isFoodFromCache() { return this.$route.name === 'entryAddFood' },
     cacheUUID() { return this.isFoodFromCache ? this.$route.params.id : null },
 
     foodDataCached() {

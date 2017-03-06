@@ -1,5 +1,5 @@
 <template>
-  <router-link class="foodLink" :to="{ name: 'foodGetData', params: { source, id } }">
+  <router-link class="foodLink" :to="{ name: 'entryAddFood', params: { source, id } }">
     {{ name }}
   </router-link>
 </template>

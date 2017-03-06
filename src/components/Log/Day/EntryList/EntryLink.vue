@@ -5,7 +5,7 @@
     <div class="md-list-text-container">
 
       <router-link
-        :to="{ name: 'setData', params: { uuid } }"
+        :to="{ name: 'entryEdit', params: { uuid } }"
         class="edit">
 
         <span class="entry-link__name">{{ name | capitalize }}</span>
@@ -61,9 +61,9 @@ export default {
     isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
     isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
     isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
-    foodGetData() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
+    entryAddFood() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
     dataWorkout() { return this.isWorkout ? this.dataEntry.data : null },
-    dataFood() { return this.foodGetData ? this.foodGetData.dataFood : null },
+    dataFood() { return this.entryAddFood ? this.entryAddFood.dataFood : null },
     dataRecipe() { return this.isRecipe ? store.state.recipe.data[this.dataEntry.item] : null },
     name() {
       if (this.isFood && this.dataFood) return this.dataFood.name
@@ -84,12 +84,12 @@ export default {
     },
     calories() {
       if (this.isFood) {
-        if (!this.foodGetData) return 0
+        if (!this.entryAddFood) return 0
 
         let energy = 0
         let calories = 0
 
-        switch (this.foodGetData.source) {
+        switch (this.entryAddFood.source) {
           case API.USDA:
             energy = this.dataFood.nutrients.find(
               nutrient => nutrient.nutrient_id === '208'

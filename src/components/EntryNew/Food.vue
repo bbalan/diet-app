@@ -23,12 +23,12 @@
 
 <script>
 /**
- * GetData/Food tries to get food data from the foodCache. If
+ * EntryNew/Food tries to get food data from the foodCache. If
  * foodCache does not contain requested food, the food APIs are
  * called.
  *
  * Food data is fed to the <view-food> component, which is just
- * a dumb view containing a form. On form submit, GetData/Food
+ * a dumb view containing a form. On form submit, EntryNew/Food
  * creates a new entry in the log or in a recipe.
  */
 

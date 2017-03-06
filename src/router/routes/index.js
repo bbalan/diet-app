@@ -12,8 +12,8 @@ import FoodFavorites from 'components/Food/Favorites'
 import FoodCustom from 'components/Food/Custom'
 import FoodRecipes from 'components/Food/Recipes'
 
-import GetDataFood from 'components/GetData/Food'
-import SetData from 'components/SetData'
+import EntryNewFood from 'components/EntryNew/Food'
+import EntryEdit from 'components/EntryEdit'
 
 import WorkoutFind from 'components/WorkoutFind'
 import WorkoutPreset from 'components/WorkoutFind/WorkoutPreset'
@@ -65,30 +65,10 @@ export default [
       search: true,
     },
   },
-  // {
-  //   name: 'entry',
-  //   path: '/entry/:uuid',
-  //   component: Entry,
-  //   props: true,
-  //   meta: {
-  //     title: 'Edit entry', // TODO: replace with relevant entry type
-  //     backMode: 'history', // toolbar back arrow behavior
-  //   },
-  // },
   {
-    name: 'foodGetData',
-    path: '/food/getdata/:source/:id',
-    component: GetDataFood,
-    props: true,
-    meta: {
-      title: 'Add Food', // TODO: replace with food title?
-      backMode: 'history', // toolbar back arrow behavior
-    },
-  },
-  {
-    name: 'setData',
-    path: '/setdata/:uuid',
-    component: SetData,
+    name: 'entryEdit',
+    path: '/edit/:uuid',
+    component: EntryEdit,
     props: true,
     meta: {
       title: 'Edit Entry', // TODO: replace with food title?
@@ -96,8 +76,18 @@ export default [
     },
   },
   {
-    name: 'entryCustom',
-    path: '/food/custom/new',
+    name: 'entryAddFood',
+    path: '/food/add/:source/:id',
+    component: EntryNewFood,
+    props: true,
+    meta: {
+      title: 'Add Food', // TODO: replace with food title?
+      backMode: 'history', // toolbar back arrow behavior
+    },
+  },
+  {
+    name: 'entryAddCustom',
+    path: '/food/custom/add',
     component: EntryCustom,
     meta: {
       title: 'Add Custom Food',
@@ -106,7 +96,7 @@ export default [
   },
   {
     name: 'editCustom',
-    path: '/food/custom/:uuid',
+    path: '/food/custom/edit/:uuid',
     component: EntryCustom,
     props: true,
     meta: {

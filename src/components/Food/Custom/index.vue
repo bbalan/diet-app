@@ -8,7 +8,7 @@
       <md-list-item v-for="food in customFoods" class="food-custom__item">
 
         <router-link
-          :to="{ name: 'foodGetData', params: { source: food.source, id: food.id }}"
+          :to="{ name: 'entryAddFood', params: { source: food.source, id: food.id }}"
           class="custom__link">
 
           <!--<md-icon class="favorites__star">star</md-icon>-->
@@ -70,10 +70,10 @@ export default {
   },
   methods: {
     onAdd() {
-      router.push({ name: 'entryCustom' })
+      router.push({ name: 'entryAddCustom' })
     },
-    onEdit(id) {
-      router.push({ name: 'editCustom', params: { id } })
+    onEdit(uuid) {
+      router.push({ name: 'editCustom', params: { uuid } })
     },
   },
 }
