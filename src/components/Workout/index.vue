@@ -7,10 +7,10 @@
 
 <script>
 import EntryWorkout from 'components/Entry/Add/Workout'
-import WorkoutList from 'components/WorkoutFind/WorkoutList'
+import WorkoutList from 'components/Workout/WorkoutList'
 
 export default {
-  name: 'WorkoutFind',
+  name: 'Workout',
   components: { WorkoutList, EntryWorkout },
 }
 </script>

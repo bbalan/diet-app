@@ -16,7 +16,7 @@ import FoodFavorites from 'components/Food/Favorites'
 import FoodCustom from 'components/Food/Custom'
 import FoodRecipes from 'components/Food/Recipes'
 
-import WorkoutFind from 'components/WorkoutFind'
+import Workout from 'components/Workout'
 
 import Cache from 'components/Dev/FoodCache'
 import LocalStorage from 'components/Dev/LocalStorage'
@@ -184,7 +184,7 @@ export default [
   {
     name: 'workout',
     path: '/workout',
-    component: WorkoutFind,
+    component: Workout,
     meta: {
       title: 'Workouts',
     },

@@ -21,7 +21,7 @@
 
 <script>
 import store from 'store'
-import WorkoutLink from 'components/WorkoutFind/WorkoutLink'
+import WorkoutLink from 'components/Workout/WorkoutLink'
 
 export default {
   name: 'WorkoutList',
