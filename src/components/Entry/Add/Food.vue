@@ -7,14 +7,14 @@
       </div>
     </transition>
 
-    <view-food
+    <form-food
       v-if="food"
       :name="food.dataFood.name"
       :serving="food.lastLoggedMass"
       :food="food"
       :submitText="submitText"
       @submit="onSubmit">
-    </view-food>
+    </form-food>
 
     <!--<pre>{{ food }}</pre>-->
 
@@ -34,15 +34,15 @@
 
 import store from 'store'
 import UUID from 'uuid'
-import ViewFood from 'components/Entry/Common/Food'
+import FormFood from 'components/Entry/Common/Food'
 import { USDA, checkStatus, parseJSON } from 'api'
 import * as API_USDA from 'api/USDA'
 import { routerBackTo } from 'util'
 
 export default {
-  name: 'EntryNewFood',
+  name: 'AddFood',
   props: ['id', 'source', 'isForRecipe'],
-  components: { ViewFood },
+  components: { FormFood },
   data: () => ({
     uuid: null, // cache uuid of food being requested (may be null)
     food: null, // food data from foodCache or API

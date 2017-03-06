@@ -1,5 +1,5 @@
 <template>
-  <div class="view--recipe">
+  <div class="common--recipe">
     A recipe
     <slot></slot>
   </div>
@@ -7,6 +7,6 @@
 
 <script>
 export default {
-  name: 'ViewRecipe',
+  name: 'CommonRecipe',
 }
 </script>

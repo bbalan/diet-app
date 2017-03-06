@@ -39,7 +39,7 @@ import ViewRecipe from 'components/Entry/Common/Recipe'
 import ViewWorkout from 'components/Entry/Common/Workout'
 
 export default {
-  name: 'EntryEdit',
+  name: 'EditEntry',
   components: { ViewFood, ViewRecipe, ViewWorkout },
   props: ['uuid'],
   computed: {

@@ -1,14 +1,14 @@
 <template>
   <transition name="page-fade">
-    <div class="view--food">
+    <div class="common--food">
 
       <form @submit.prevent>
         <div :class="`${headingClass} entry-name wordwrap--fade`">
           {{ name | capitalize }}
         </div>
 
-        <div class="view--food__inputs">
-          <md-input-container class="view--food__inputs__mass" ref="massInput">
+        <div class="common--food__inputs">
+          <md-input-container class="common--food__inputs__mass" ref="massInput">
             <label>How much?</label>
             <md-input
               type="number"
@@ -24,7 +24,7 @@
           </md-input-container>
 
           <md-button
-            class="md-raised md-primary view--food__inputs__eat inputs__submit"
+            class="md-raised md-primary common--food__inputs__eat inputs__submit"
             @click.native.prevent="onSubmit">
             {{ submitText }}
           </md-button>
@@ -54,7 +54,7 @@ import { onFocusInput } from 'util'
 import { USDA, CUSTOM } from 'api'
 
 export default {
-  name: 'ViewFood',
+  name: 'FormFood',
   components: { NutritionFacts },
   filters: { capitalize },
 
@@ -116,7 +116,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.view--food
+.common--food
   &__inputs
     display flex
     flex-direction row

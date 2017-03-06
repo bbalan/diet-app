@@ -1,5 +1,5 @@
 <template>
-  <div class="view--workout">
+  <div class="common--workout">
 
     <!-- TODO: validation -->
 
@@ -40,7 +40,7 @@ import { onFocusInput } from 'util'
 
 // TODO: add workout notes field
 export default {
-  name: 'ViewWorkout',
+  name: 'CommonWorkout',
   props: ['name', 'calories', 'submitText'],
   data: () => ({
     newName: null,
@@ -83,7 +83,7 @@ export default {
 </script>
 
 <style lang="stylus">
-.view--workout
+.common--workout
   .inputs
     &__submit
       position relative

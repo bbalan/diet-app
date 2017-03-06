@@ -2,11 +2,12 @@ import Welcome from 'components/Welcome'
 
 import Log from 'components/Log'
 
-import EditEntry from 'components/Entry/Edit'
+import EditEntry from 'components/Entry/Edit/Entry'
 import AddFood from 'components/Entry/Add/Food'
 import AddCustom from 'components/Entry/Add/Custom'
 import AddRecipe from 'components/Entry/Add/Recipe'
 import AddWeight from 'components/Entry/Add/Weight'
+import EditCustom from 'components/Entry/Edit/Custom'
 import EditWorkout from 'components/Entry/Edit/Workout'
 
 import FoodAll from 'components/Food'
@@ -95,7 +96,7 @@ export default [
   {
     name: 'editCustom',
     path: '/food/custom/edit/:uuid',
-    component: AddCustom,
+    component: EditCustom,
     props: true,
     meta: {
       title: 'Edit Custom Food',
