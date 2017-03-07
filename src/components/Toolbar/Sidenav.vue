@@ -30,7 +30,7 @@
       </md-list-item>
 
       <md-list-item>
-        <router-link :to="{ name: 'weight' }">
+        <router-link :to="{ name: 'addWeight' }">
           <md-icon>insert_chart</md-icon>
           <span>Weight</span>
         </router-link>

@@ -1,13 +1,12 @@
-
-import Food from 'components/Food'
+import FoodAll from 'components/Food'
 import FoodFavorites from 'components/Food/Favorites'
 import FoodCustom from 'components/Food/Custom'
 import FoodRecipes from 'components/Food/Recipes'
 
-export default {
+export default [{
   name: 'food',
   path: '/food',
-  component: Food,
+  component: FoodAll,
   redirect: { name: 'foodFavorites' },
   meta: {
     title: 'Food',
@@ -44,4 +43,4 @@ export default {
       },
     },
   ],
-}
+}]

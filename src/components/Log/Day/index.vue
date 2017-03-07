@@ -13,7 +13,7 @@
         <div class="weigh-in page--padded" v-if="!massUpdated">
           <p class="md-subheading">It's time to log your body weight!</p>
 
-          <router-link :to="{ name: 'weight' }" class="addLog logWeight">
+          <router-link :to="{ name: 'addWeight' }" class="addLog logWeight">
             <md-button class="md-raised md-primary">
               Weigh In
             </md-button>

@@ -19,7 +19,7 @@ export default {
   components: { Toolbar },
   created() {
     this.setToday()
-    this.welcome()
+    this.redirectToWelcome()
   },
   methods: {
     // Update store.state.calendar.today every 1 min
@@ -31,11 +31,15 @@ export default {
         store.commit('calendar/setToday')
       }, 60000)
     },
-    welcome() {
+
+    // Redirect to the welcome page on first visit
+    redirectToWelcome() {
       if (!store.state.config.signupComplete) {
         router.replace('/welcome#intro')
       }
     },
+
+    // Used by recipes to open the searchBar on ingredient add
     onOpenSearch() { this.$refs.toolbar.openSearch() },
   },
 }
