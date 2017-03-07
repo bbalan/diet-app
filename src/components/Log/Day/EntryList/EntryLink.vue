@@ -2,7 +2,7 @@
 
   <md-list-item v-if="dataEntry" class="entry-link">
 
-    <div class="md-list-text-container">
+    <div class="md-list-text-container max-width">
 
       <router-link
         :to="{ name: 'editEntry', params: { uuid } }"
@@ -127,17 +127,17 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 .entry-link
   position relative
+
+  .md-list-item-container
+    padding 0 !important
 
   a
     display block
     width 100%
     height 100%
-    position absolute
-    top 0
-    left 0
     padding 16px 16px 16px 72px
     text-decoration none !important
   &__name
@@ -150,10 +150,10 @@ export default {
     color rgba(0,0,0,.54) !important
 
   &__mass
-    position absolute
+    position absolute !important
     top 0px
     left 16px
-    width 40px
+    width 40px !important
 
     input
       width 36px

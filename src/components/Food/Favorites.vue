@@ -12,14 +12,14 @@
           :to="{ name: 'addFood', params: { source: food.source, id: food.id }}"
           class="favorites__link">
 
-          <div class="md-list-text-container">
+          <div class="md-list-text-container max-width page--padded">
             <span class="favorites__name wordwrap--fade">{{ food.name | capitalize }}</span>
             <span class="favorites__times">Logged {{ food.timesLogged }} time{{ food.timesLogged === 1 ? '' : 's' }}</span>
-          </div>
 
-          <md-button class="md-icon-button md-list-action">
-            <md-icon>keyboard_arrow_right</md-icon>
-          </md-button>
+            <md-button class="md-icon-button md-list-action">
+              <md-icon>keyboard_arrow_right</md-icon>
+            </md-button>
+          </div>
         </router-link>
 
         <md-divider></md-divider>
@@ -82,6 +82,13 @@ export default {
 
 <style scoped lang="stylus">
 .favorites
+  a
+    padding 0 !important
+  .md-list-action
+    position absolute !important
+    right 8px
+    top 50%
+    margin-top -20px !important
   .md-list-item-container
     button
       margin-left 0 !important
@@ -100,6 +107,7 @@ export default {
   &__name
     text-overflow clip
     position relative
+    padding-right 20px
   .empty__search
     margin 16px 0 0 0
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="entry-add--food page page--menu page--padded">
+  <div class="entry-add--food page page--menu page--padded max-width">
 
     <transition name="fade-spinner">
       <div v-if="loading" class="entry-add--food__spinner-wrapper">

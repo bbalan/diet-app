@@ -1,11 +1,11 @@
 <template>
   <div class="food-find page page--menu">
 
-    <md-tabs md-fixed @change="nav" class="md-transparent food-find__tabs" ref="tabs">
-      <md-tab md-label="Favorites"></md-tab>
-      <md-tab md-label="Custom"></md-tab>
-      <md-tab md-label="Recipes"></md-tab>
-    </md-tabs>
+      <md-tabs md-fixed @change="nav" md-elevation="1" class="md-transparent food-find__tabs" ref="tabs">
+        <md-tab md-label="Favorites"></md-tab>
+        <md-tab md-label="Custom"></md-tab>
+        <md-tab md-label="Recipes"></md-tab>
+      </md-tabs>
 
     <transition name="page-fade" mode="out-in">
       <router-view></router-view>
@@ -66,6 +66,11 @@ export default {
     top 56px
     left 0
     z-index 4
+    background white
+
+    nav
+      border-bottom none !important
+
   .md-tabs-content
     display none
 </style>

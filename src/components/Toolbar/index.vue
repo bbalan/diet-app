@@ -5,7 +5,7 @@
 
     <transition name="page-fade">
       <md-whiteframe v-if="!isWelcome" md-tag="md-toolbar" md-elevation="2" md-theme="light-blue" class="toolbar">
-        <div class="md-toolbar-container">
+        <div class="md-toolbar-container max-width">
 
           <left-menu @evtToggleSidenav="toggleSidenav"></left-menu>
 

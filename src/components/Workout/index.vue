@@ -1,7 +1,9 @@
 <template>
-  <div class="page page--menu page--workout page--cards">
-    <entry-workout></entry-workout>
-    <workout-list></workout-list>
+  <div class="page page--menu page--workout page--bg-grey">
+    <div class="max-width page--padded">
+      <entry-workout></entry-workout>
+      <workout-list></workout-list>
+    </div>
   </div>
 </template>
 

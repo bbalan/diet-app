@@ -1,14 +1,16 @@
 <template>
 
   <div class="entry--recipe page page--menu page--bg-grey">
-    <md-whiteframe md-elevation="2" class="entry--recipe__inputs page--padded">
-      <md-input-container class="entry--recipe__inputs__name">
-        <label>Recipe name</label>
-        <md-input name="name" v-model="name"></md-input>
-      </md-input-container>
+    <md-whiteframe md-elevation="2" class="entry--recipe__inputs-wrapper page--padded">
+      <div class="max-width entry--recipe__inputs">
+        <md-input-container class="entry--recipe__inputs__name">
+          <label>Recipe name</label>
+          <md-input name="name" v-model="name"></md-input>
+        </md-input-container>
 
-      <div>
-        {{ fatPct | roundTo }}_{{ carbsPct | roundTo }}_{{ proteinPct | roundTo }}
+        <div>
+          {{ fatPct | roundTo }}_{{ carbsPct | roundTo }}_{{ proteinPct | roundTo }}
+        </div>
       </div>
     </md-whiteframe>
 
@@ -109,13 +111,15 @@ export default {
   input
     font-size 16px
 
+  &__inputs-wrapper
+    top 0
+    left 0
+    background white
+
   &__inputs
     position fixed
     display flex
     flex-direction row
-    top 0
-    left 0
-    background white
 
     &__name
       margin 0 0 8px 0 !important

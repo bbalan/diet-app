@@ -11,13 +11,15 @@
 
       <transition name="fade">
         <div class="weigh-in page--padded" v-if="!massUpdated">
-          <p class="md-subheading">It's time to log your body weight!</p>
+          <div class="weight-in__inner max-width">
+            <p class="md-subheading">It's time to log your body weight!</p>
 
-          <router-link :to="{ name: 'addWeight' }" class="addLog logWeight">
-            <md-button class="md-raised md-primary">
-              Weigh In
-            </md-button>
-          </router-link>
+            <router-link :to="{ name: 'addWeight' }" class="addLog logWeight">
+              <md-button class="md-raised md-primary">
+                Weigh In
+              </md-button>
+            </router-link>
+          </div>
         </div>
       </transition>
 
@@ -77,7 +79,7 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style lang="stylus">
 .log__day
   overflow-x hidden
   overflow-y hidden
@@ -104,17 +106,18 @@ export default {
     button
       margin 0 0 0 16px
 
+  .weight-in__inner
+    max-width 400px
+    text-align center
+
   .weigh-in
-    display flex
     background white
 
     p
-      flex-grow 100
       margin 0
 
     .md-button
-      flex-basis 0
-      margin-right 0
+      margin 8px auto 0 auto !important
 
   .no-entries
     position absolute

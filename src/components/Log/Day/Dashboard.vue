@@ -1,9 +1,9 @@
 <template>
   <md-whiteframe md-elevation="2" class="dashboard page">
 
-    <div class="dashboard__stats page page--padded">
+    <div class="dashboard__stats page">
 
-      <div class="stats">
+      <div class="stats page--padded max-width">
         <!--<p>Weight: {{ mass | toMassUnit}}</p>-->
         <p>Remain: {{ caloriesRemaining | roundTo | toKcal }} ({{ mealsRemaining | roundTo(1) }} meals x {{ caloriesToEat / numMeals | roundTo | toKcal }})</p>
         <p class="percentages">

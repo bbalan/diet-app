@@ -1,5 +1,5 @@
 <template>
-  <div class="workout--preset page page--menu page--padded">
+  <div class="workout--preset page page--menu page--padded max-width">
 
     <view-workout
       v-if="workoutData"
