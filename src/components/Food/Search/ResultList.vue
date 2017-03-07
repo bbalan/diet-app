@@ -14,7 +14,7 @@
               params: {
                 source: result.source,
                 id: result.id,
-                destination: resultDestination,
+                isForRecipe: isForRecipe,
               },
             }">
             <span class="foodLink__name">{{ result.name }}</span>
@@ -31,6 +31,9 @@
 </template>
 
 <script>
+/**
+ * This component displays search results from the searchBar.
+ */
 import FoodLink from './FoodLink'
 
 export default {
@@ -77,8 +80,8 @@ export default {
     },
 
     // What purpose the search result is for (log or recipe)
-    resultDestination() {
-      return this.$route.name === 'searchRecipe' ? 'recipe' : 'log'
+    isForRecipe() {
+      return this.$route.name === 'searchRecipe'
     },
   },
   methods: {

@@ -3,35 +3,6 @@
 
     <form @submit.prevent class="food-search__form">
 
-      <!--
-        <md-list v-if="false" class="search-bar__result-list">
-          <md-list-item>
-            <md-icon>access_time</md-icon>
-            <span>Past search</span>
-          </md-list-item>
-          <md-list-item>
-            <md-icon>access_time</md-icon>
-            <span>Past search</span>
-          </md-list-item>
-          <md-list-item>
-            <md-icon>access_time</md-icon>
-            <span>Past search</span>
-          </md-list-item>
-          <md-list-item>
-            <md-icon>access_time</md-icon>
-            <span>Past search</span>
-          </md-list-item>
-          <md-list-item>
-            <md-icon>access_time</md-icon>
-            <span>Past search</span>
-          </md-list-item>
-          <md-list-item>
-            <md-icon>access_time</md-icon>
-            <span>Past search</span>
-          </md-list-item>
-        </md-list>
-      </md-whiteframe>-->
-
       <transition name="fade-spinner">
         <div v-if="loading && searchText.length" class="search-loader-container">
           <md-spinner md-indeterminate class="search-loader"></md-spinner>

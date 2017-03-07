@@ -64,7 +64,7 @@ export default {
   },
   computed: {
     searchEnabled() { return this.$route.meta.search },
-    isEntryRecipe() { return this.$route.name === 'entryRecipe' },
+    isEntryRecipe() { return this.$route.name === 'editRecipe' },
     isSearchStandard() { return this.$route.name === 'search' },
     isSearchRecipe() { return this.$route.name === 'searchRecipe' },
     isSearchAny() { return this.isSearchStandard || this.isSearchRecipe },
@@ -108,7 +108,7 @@ export default {
       }
     },
     submit() {
-      if (this.isSearchStandard || this.isSearchRecipe) {
+      if (this.isSearchAny) {
         router.replace({ name: this.$route.name, params: { query: this.searchText } })
       } else if (this.isEntryRecipe) {
         router.push({ name: 'searchRecipe', params: { query: this.searchText } })
@@ -127,6 +127,7 @@ export default {
         if (this.isSearchRecipe && !this.hasQuery) this.focus()
       } else {
         this.isOpen = false
+        this.searchText = ''
       }
     },
     onKeyUp(e) {

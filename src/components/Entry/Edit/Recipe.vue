@@ -42,7 +42,7 @@ import store from 'store'
 import EntryLink from 'components/Log/Day/EntryList/EntryLink'
 
 export default {
-  name: 'EntryNewRecipe',
+  name: 'EditRecipe',
   props: ['uuid'],
   components: { EntryLink },
   data() {

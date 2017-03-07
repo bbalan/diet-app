@@ -16,8 +16,6 @@
       @submit="onSubmit">
     </form-food>
 
-    <!--<pre>{{ food }}</pre>-->
-
   </div>
 </template>
 
@@ -32,10 +30,11 @@
  * creates a new entry in the log or in a recipe.
  */
 
+import router from 'router'
 import store from 'store'
 import UUID from 'uuid'
 import FormFood from 'components/Entry/Common/Food'
-import { routerBackTo, checkStatus, parseJSON } from 'util'
+import { /* routerBackTo, */ checkStatus, parseJSON } from 'util'
 import { USDA, foodReportUSDA } from 'util/api'
 
 export default {
@@ -141,21 +140,22 @@ export default {
     onSubmit(mass) {
       if (this.isForRecipe) {
         this.entryAdd(mass, true)
-        routerBackTo('entryRecipe')
+        router.go(-2)
       } else {
         this.entryAdd(mass)
-        routerBackTo('log')
+        router.go(-9000)
+        router.replace({ name: 'log' })
       }
     },
 
     // Commit new log entry
-    entryAdd(mass, addToRecipe = false) {
+    entryAdd(mass, isForRecipe = false) {
       // Add a food entry with the cached food uuid
       store.commit('entry/add', {
         item: this.uuid,
         type: 'food',
         data: { mass },
-        addToRecipe,
+        isForRecipe,
       })
 
       store.commit('foodCache/increment', this.uuid)

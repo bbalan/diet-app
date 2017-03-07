@@ -2,11 +2,12 @@ import Welcome from 'components/Welcome'
 
 import Log from 'components/Log'
 
-import EditEntry from 'components/Entry/Edit/Entry'
 import AddFood from 'components/Entry/Add/Food'
 import AddCustom from 'components/Entry/Add/Custom'
-import AddRecipe from 'components/Entry/Add/Recipe'
 import AddWeight from 'components/Entry/Add/Weight'
+
+import EditEntry from 'components/Entry/Edit/Entry'
+import EditRecipe from 'components/Entry/Edit/Recipe'
 import EditCustom from 'components/Entry/Edit/Custom'
 import EditWorkout from 'components/Entry/Edit/Workout'
 
@@ -106,7 +107,7 @@ export default [
   {
     name: 'editRecipe',
     path: '/food/recipes/edit/:uuid',
-    component: AddRecipe,
+    component: EditRecipe,
     props: true,
     meta: {
       title: 'Add Recipe',
