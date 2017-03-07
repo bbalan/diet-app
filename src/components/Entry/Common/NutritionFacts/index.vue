@@ -27,10 +27,11 @@ export default {
   computed: {
     // Is a user-submitted (custom) food
     isCustom() { return this.source === CUSTOM },
+    isRecipe() { return this.source === RECIPE },
 
     // Process nutrients into a format usable by <nutrition-facts>
     nutrients() {
-      if (this.isCustom) {
+      if (this.isCustom || this.isRecipe) {
         return {
           calories: this.dataFood.calories,
           fat: this.dataFood.fat,
@@ -68,6 +69,7 @@ export default {
           })
           break
         case CUSTOM:
+        case RECIPE:
           data.push({ name: 'calories', decimals: 0, unit: 'kcal', value: this.nutrients.calories, massFromData: this.massFromData })
           data.push({ name: 'fat', decimals: 0, unit: 'g', value: this.nutrients.fat, massFromData: this.massFromData })
           data.push({ name: 'carbs', decimals: 0, unit: 'g', value: this.nutrients.carbs, massFromData: this.massFromData })

@@ -35,7 +35,7 @@ import store from 'store'
 import UUID from 'uuid'
 import FormFood from 'components/Entry/Common/Food'
 import { checkStatus, parseJSON } from 'util'
-import { USDA, foodReportUSDA } from 'util/api'
+import { USDA, RECIPE, foodReportUSDA } from 'util/api'
 
 export default {
   name: 'AddFood',
@@ -92,7 +92,9 @@ export default {
           foodReportAPI = foodReportUSDA(this.id)
           reportHandler = this.reportHandlerUSDA
           break
-        default: return // invalid source
+        default:
+          this.loading = false
+          return // invalid source
       }
 
       // do the search
@@ -115,8 +117,6 @@ export default {
           source: USDA,
         }
         this.isDataFromAPI = true
-
-        console.log('cache food')
 
         this.uuid = UUID.v4()
         store.commit('foodCache/add', {
@@ -152,7 +152,7 @@ export default {
       // Add a food entry with the cached food uuid
       store.commit('entry/add', {
         item: this.uuid,
-        type: 'food',
+        type: this.source === RECIPE ? 'recipe' : 'food',
         data: { mass },
         isForRecipe,
       })

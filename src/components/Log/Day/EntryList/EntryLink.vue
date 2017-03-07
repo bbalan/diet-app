@@ -40,7 +40,7 @@
 <script>
 // import { truncate } from 'util'
 import store from 'store'
-import * as API from 'util/api'
+import { USDA, CUSTOM, RECIPE } from 'util/api'
 import { toKcal, roundTo, capitalize } from 'util/filters'
 
 export default {
@@ -61,13 +61,13 @@ export default {
     isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
     isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
     isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
-    entryFood() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
+    entryFood() {
+      return this.isFood || this.isRecipe ? store.state.foodCache[this.dataEntry.item] : null
+    },
     dataWorkout() { return this.isWorkout ? this.dataEntry.data : null },
     dataFood() { return this.entryFood ? this.entryFood.dataFood : null },
-    dataRecipe() { return this.isRecipe ? store.state.recipe.data[this.dataEntry.item] : null },
     name() {
-      if (this.isFood && this.dataFood) return this.dataFood.name
-      if (this.isRecipe && this.dataRecipe) return this.dataRecipe.name
+      if ((this.isFood || this.isRecipe) && this.dataFood) return this.dataFood.name
       if (this.isWorkout && this.dataWorkout) return this.dataEntry.data.name
       return null
     },
@@ -83,23 +83,23 @@ export default {
       },
     },
     calories() {
-      if (this.isFood) {
+      if (this.isFood || this.isRecipe) {
         if (!this.entryFood) return 0
 
         let energy = 0
         let calories = 0
 
         switch (this.entryFood.source) {
-          case API.USDA:
+          case USDA:
             energy = this.dataFood.nutrients.find(
               nutrient => nutrient.nutrient_id === '208'
             )
             calories = energy.value * (this.mass / 100)
             break
-          case API.OTHER:
-            // not implemented
+          case RECIPE:
+            calories = this.dataFood.calories / this.dataFood.totalMass * this.mass
             break
-          case API.CUSTOM:
+          case CUSTOM:
             calories = this.dataFood.calories / this.dataFood.serving * this.mass
             break
           default:

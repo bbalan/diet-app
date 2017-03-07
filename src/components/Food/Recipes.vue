@@ -1,22 +1,19 @@
 <template>
   <div class="page--recipes page page--tabs page--bg-grey">
 
-    <md-list v-if="recipeList && recipeList.length" class="recipe-list md-double-line">
+    <md-list v-if="recipeList && recipeList.length" class="recipe-list">
       <md-list-item v-for="recipe in recipeList" v-if="recipe.enabled">
 
-        <!--<router-link :to="{ name: 'addFood', params: { source: 'recipe', id: recipe.uuid } }" class="recipe-link">-->
-
-        <router-link :to="{ name: 'editRecipe', params: { uuid: recipe.uuid } }" class="recipe-link">
+        <router-link :to="{ name: 'addFood', params: { source: 'recipe', id: recipe.uuid } }" class="recipe-link">
           <div class="md-list-text-container">
             <span class="recipe-link__name wordwrap--fade">{{ recipe.name || 'Unnamed recipe' | capitalize }}</span>
-            <span class="recipe-link__nutrients">Nutrients...</span>
           </div>
-
-          <md-button class="md-icon-button md-list-action">
-            <md-icon>keyboard_arrow_right</md-icon>
-          </md-button>
-
         </router-link>
+
+        <md-button class="md-icon-button md-list-action recipe-edit" @click.native="edit(recipe.uuid)">
+          <md-icon>create</md-icon>
+        </md-button>
+
 
         <md-divider></md-divider>
 
@@ -59,6 +56,9 @@ export default {
     add() {
       router.push({ name: 'editRecipe', params: { uuid: UUID.v4() } })
     },
+    edit(uuid) {
+      router.push({ name: 'editRecipe', params: { uuid } })
+    },
   },
 }
 </script>
@@ -74,5 +74,14 @@ export default {
     text-align center
     width 100%
     max-width 350px
+
+  .recipe-edit
+    position absolute !important
+    right 0
+    top 0 !important
+    height 48px !important
+    width 56px !important
+    padding-right 24px !important
+    margin 0 !important
 
 </style>

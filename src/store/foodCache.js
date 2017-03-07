@@ -24,15 +24,12 @@ const foodCache = {
 
       switch (source) {
         case USDA:
-          console.log('its USDA')
           dataFood.nutrients.forEach((nutrient) => {
-            console.log(nutrient)
             nutrient.measures = undefined
             nutrient.group = undefined
           })
           break
-        case CUSTOM:
-          // do nothing (?)
+        case CUSTOM: // do nothing (?)
           break
         default:
           break

@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import store from 'store'
+import UUID from 'uuid'
+import { RECIPE } from 'util/api'
 import { computeNutrient } from 'util'
 import { setLocalStorage } from 'store/util'
 
@@ -18,30 +20,52 @@ const recipe = {
       // do nothing if this recipe already exists
       if (!state.data || state.data[uuid]) return
 
+      const cacheUUID = UUID.v4()
+
+      const nutrients = {
+        totalMass: 0,
+        // serving: 0,
+        calories: 0,
+        fat: 0,
+        fat_saturated: 0,
+        fat_trans: 0,
+        carbs: 0,
+        fiber: 0,
+        sugar: 0,
+        protein: 0,
+      }
+
       Vue.set(state.data, uuid, {
         name: null,
         ingredients: [],
-        nutrients: {
-          totalMass: 0,
-          // serving: 0,
-          calories: 0,
-          fat: 0,
-          fat_saturated: 0,
-          fat_trans: 0,
-          carbs: 0,
-          fiber: 0,
-          sugar: 0,
-          protein: 0,
-        },
+        cacheUUID,
+        nutrients,
         enabled: false,
+      })
+
+      store.commit('foodCache/add', {
+        uuid: cacheUUID,
+        id: uuid,
+        source: RECIPE,
+        dataFood: { ...nutrients, name: '' },
+        timesLogged: 0,
       })
 
       setLocalStorage(MODULE_KEY, state)
     },
 
     setName(state, { uuid, name }) {
-      if (state.data[uuid]) state.data[uuid].name = name
+      const target = state.data[uuid]
+      if (!target) return
+
+      target.name = name
+
       if (name) store.commit('recipe/enable', uuid)
+
+      store.commit('foodCache/edit', {
+        uuid: target.cacheUUID,
+        dataFood: { ...target.nutrients, name: target.name },
+      })
 
       setLocalStorage(MODULE_KEY, state)
     },
@@ -95,6 +119,21 @@ const recipe = {
       nutrients.fiber = computeNutrient(foods, 'fiber', '291')
       nutrients.sugar = computeNutrient(foods, 'sugar', '269')
       nutrients.protein = computeNutrient(foods, 'protein', '203')
+
+      store.commit('foodCache/edit', {
+        uuid: state.data[recipeUUID].cacheUUID,
+        dataFood: nutrients,
+      })
+
+      // state.data[recipeUUID].cacheUUID = UUID.v4()
+
+      // store.commit('foodCache/add', {
+      //   uuid: state.data[recipeUUID].cacheUUID,
+      //   id: recipeUUID,
+      //   source: RECIPE,
+      //   dataFood: nutrients,
+      //   timesLogged: 0,
+      // })
     },
 
     deleteIngredient(state, uuid) {

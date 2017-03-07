@@ -43,13 +43,15 @@ export default {
     itemUUID() { return this.entry ? this.entry.item : null },
 
     isFood() { return this.itemUUID && this.entryType ? this.entryType === 'food' : false },
-    foodData() { return this.isFood ? store.state.foodCache[this.itemUUID] : null },
+    foodData() {
+      return this.isFood || this.isRecipe ? store.state.foodCache[this.itemUUID] : null
+    },
 
     isCustom() { return this.itemUUID && this.entryType ? this.entryType === 'custom' : false },
     customData() { return this.isCustom ? store.state.workout[this.itemUUID] : null },
 
     isRecipe() { return this.itemUUID && this.entryType ? this.entryType === 'recipe' : false },
-    recipeData() { return this.isRecipe ? store.state.recipes.data[this.itemUUID] : null },
+    recipeData() { return this.foodData },
 
     isWorkout() { return this.entryType ? this.entryType === 'workout' : false },
     workoutData() { return this.isWorkout && this.entry && this.entry ? this.entry.data : null },

@@ -51,7 +51,7 @@ import store from 'store'
 import NutritionFacts from 'components/Entry/Common/NutritionFacts'
 import { capitalize } from 'util/filters'
 import { onFocusInput } from 'util'
-import { USDA, CUSTOM } from 'util/api'
+import { USDA, CUSTOM, RECIPE } from 'util/api'
 
 export default {
   name: 'FormFood',
@@ -70,6 +70,7 @@ export default {
     massFromData() {
       switch (this.food.source) {
         case USDA: return 100
+        case RECIPE: return this.dataFood.totalMass
         case CUSTOM: return this.dataFood.serving
         default: return 0
       }
@@ -77,6 +78,8 @@ export default {
 
     // Use smaller font for title if text is too long
     headingClass() {
+      if (!this.name) return 'md-subheading'
+
       const len = this.name.length
 
       // Optimized for iPhone 4 screen
