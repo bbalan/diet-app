@@ -18,7 +18,6 @@ const foodCache = {
   state: stateLocalStorage || stateDefault,
   mutations: {
     add(state, { uuid, id, source, dataFood, timesLogged }) {
-      console.log('foodCache/add', id, source, dataFood)
       // Strip unnecessary stuff to make stringification faster
       dataFood.ds = undefined
       dataFood.ru = undefined

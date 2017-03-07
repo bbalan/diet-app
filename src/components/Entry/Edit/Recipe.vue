@@ -2,22 +2,14 @@
 
   <div class="entry--recipe page page--menu page--bg-grey">
     <md-whiteframe md-elevation="2" class="entry--recipe__inputs page--padded">
+      <md-input-container class="entry--recipe__inputs__name">
+        <label>Recipe name</label>
+        <md-input name="name" v-model="name"></md-input>
+      </md-input-container>
 
-      <form @submit.prevent="save">
-        <md-input-container class="entry--recipe__inputs__name">
-          <label>Recipe name</label>
-          <md-input name="name" v-model="name"></md-input>
-        </md-input-container>
-
-        <pre>{{ nutrients }}</pre>
-
-        <!--<md-button
-          v-if="!isEnabled"
-          class="entry--recipe__inputs__save md-raised md-primary"
-          type="submit">
-          Save
-        </md-button>-->
-      </form>
+      <div>
+        {{ fatPct | roundTo }}_{{ carbsPct | roundTo }}_{{ proteinPct | roundTo }}
+      </div>
     </md-whiteframe>
 
     <div class="entry--recipe__ingredients">
@@ -40,18 +32,19 @@
 </template>
 
 <script>
-import router from 'router'
 import store from 'store'
+import { roundTo } from 'util/filters'
 import EntryLink from 'components/Log/Day/EntryList/EntryLink'
 
 export default {
   name: 'EditRecipe',
   props: ['uuid'],
   components: { EntryLink },
+  filters: { roundTo },
   created() {
     store.commit('recipe/deleteAllDisabled')
     store.commit('recipe/add', this.uuid)
-    store.commit('recipe/calculateNutrients')
+    store.commit('recipe/calculateNutrients', this.uuid)
     this.name = this.recipeData ? this.recipeData.name : null
   },
   computed: {
@@ -64,30 +57,42 @@ export default {
         })
       },
     },
+
+    // Get recipe data from store
     recipeData() { return store.state.recipe.data[this.uuid] },
+
+    // Recipe has been edited by the user
     isEnabled() { return this.recipeData ? this.recipeData.enabled : null },
+
+    // Filter out invalid ingredients
     ingredients() {
       let ingredients = []
-
-      if (this.recipeData) {
-        ingredients = this.recipeData.ingredients
-      }
+      if (this.recipeData) { ingredients = this.recipeData.ingredients }
 
       return ingredients ? ingredients.filter(ingredient => store.state.entry[ingredient]) : null
     },
+
+    entries() { return this.ingredients.map(uuid => store.state.entry[uuid]) },
+    masses() { return this.entries.map(entry => entry.data.mass) },
+
     nutrients() { return this.recipeData.nutrients },
+    fat() { return this.nutrients.fat },
+    carbs() { return this.nutrients.carbs },
+    protein() { return this.nutrients.protein },
+    sumMacros() { return this.fat + this.carbs + this.protein },
+    fatPct() { return this.sumMacros !== 0 ? (this.fat / this.sumMacros) * 100 : 0 },
+    carbsPct() { return this.sumMacros !== 0 ? (this.carbs / this.sumMacros) * 100 : 0 },
+    proteinPct() { return this.sumMacros !== 0 ? (this.protein / this.sumMacros) * 100 : 0 },
   },
   methods: {
     addIngredient() {
       store.commit('recipe/setCurrentRecipe', this.uuid)
       this.$emit('evtOpenSearch')
     },
-    save() {
-      store.commit('recipe/setName', {
-        uuid: this.uuid,
-        name: this.name,
-      })
-      router.go(-1)
+  },
+  watch: {
+    masses() {
+      store.commit('recipe/calculateNutrients', this.uuid)
     },
   },
 }

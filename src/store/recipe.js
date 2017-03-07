@@ -61,8 +61,8 @@ const recipe = {
       setLocalStorage(MODULE_KEY, state)
     },
 
-    calculateNutrients(state) {
-      const recipeData = state.data[state.currentRecipe]
+    calculateNutrients(state, recipeUUID) {
+      const recipeData = state.data[recipeUUID]
       if (!recipeData) return
 
       const nutrients = recipeData.nutrients
@@ -86,7 +86,7 @@ const recipe = {
           }
         })
 
-      nutrients.totalMass = masses.reduce((sum, val) => sum + val)
+      nutrients.totalMass = masses.length ? masses.reduce((sum, val) => sum + val) : 0
       nutrients.calories = computeNutrient(foods, 'calories', '208')
       nutrients.fat = computeNutrient(foods, 'fat', '204')
       nutrients.fat_trans = computeNutrient(foods, 'fat_trans', '605')
