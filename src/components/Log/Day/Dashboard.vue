@@ -41,7 +41,7 @@ export default {
       const foodDetails = []
 
       this.entryDetails
-        .filter(entry => entry.type === 'food')
+        .filter(entry => entry.type === 'food' || entry.type === 'recipe')
         .forEach((entry) => {
           const food = store.state.foodCache[entry.item]
           if (!food) return

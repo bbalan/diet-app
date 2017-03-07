@@ -1,4 +1,4 @@
-import { USDA, CUSTOM } from 'util/api'
+import { USDA, CUSTOM, RECIPE } from 'util/api'
 
 // Check response status, when making fetch requests. Not sure if this works...
 export function checkStatus(response) {
@@ -71,6 +71,11 @@ export function computeNutrient(foodDetails, customID, USDA_ID) {
       case CUSTOM:
         if (item && item.dataFood && item.dataFood[customID]) {
           total += item.dataFood[customID] / item.dataFood.serving * item.mass
+        }
+        break
+      case RECIPE:
+        if (item && item.dataFood && item.dataFood[customID]) {
+          total += item.dataFood[customID] / item.dataFood.totalMass * item.mass
         }
         break
       default:
