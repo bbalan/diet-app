@@ -9,11 +9,12 @@
           <md-input name="name" v-model="name"></md-input>
         </md-input-container>
 
-        <md-button
+        <!--<md-button
+          v-if="!isEnabled"
           class="entry--recipe__inputs__save md-raised md-primary"
           type="submit">
           Save
-        </md-button>
+        </md-button>-->
       </form>
     </md-whiteframe>
 
@@ -45,17 +46,23 @@ export default {
   name: 'EditRecipe',
   props: ['uuid'],
   components: { EntryLink },
-  data() {
-    return {
-      name: null,
-    }
-  },
   created() {
+    store.commit('recipe/deleteAllDisabled')
     store.commit('recipe/add', this.uuid)
     this.name = this.recipeData ? this.recipeData.name : null
   },
   computed: {
+    name: {
+      get() { return this.recipeData ? this.recipeData.name : null },
+      set(name) {
+        store.commit('recipe/setName', {
+          uuid: this.uuid,
+          name,
+        })
+      },
+    },
     recipeData() { return store.state.recipe.data[this.uuid] },
+    isEnabled() { return this.recipeData ? this.recipeData.enabled : null },
     ingredients() {
       let ingredients = []
 

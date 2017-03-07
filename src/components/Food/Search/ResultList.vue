@@ -43,36 +43,40 @@ export default {
   components: { FoodLink },
   computed: {
     // Sort list by several criteria, primarily how close to the start the searchText appears
+    // TODO: split search terms before sorting
     orderedList() {
       return this.list.slice().sort((a, b) => {
+        const terms = this.searchText.toLowerCase().split(' ')
         const aName = a.name.toLowerCase()
         const bName = b.name.toLowerCase()
-        const aPos = aName.indexOf(this.searchText.toLowerCase())
-        const bPos = bName.indexOf(this.searchText.toLowerCase())
+        const aPos = terms.map(term => aName.indexOf(term))
+        const bPos = terms.map(term => bName.indexOf(term))
         const searchDepth = 10 // how far into the search result to stop looking
 
-        // Does the searchText even exist in the string?
-        if (aPos < 0 && bPos >= 0) return 1
-        if (aPos >= 0 && bPos < 0) return -1
+        // Does the search term even exist in the string?
+        for (let i = 0; i < aPos.length; i += 1) {
+          if (aPos[i] < 0 && bPos[i] >= 0) return 1
+          if (aPos[i] >= 0 && bPos[i] < 0) return -1
 
-        // Search term is too deep inside string
-        if (aPos >= searchDepth && bPos >= searchDepth) {
-          // Sort alphabetically
-          if (aName < bName) return -1
-          if (aName > bName) return 1
-        }
+          // Search term is too deep inside string
+          if (aPos[i] >= searchDepth && bPos[i] >= searchDepth) {
+            // Sort alphabetically
+            if (aName < bName) return -1
+            if (aName > bName) return 1
+          }
 
-        // How close to the beginning of the string is the searchText located?
-        if (aPos < bPos) return -1
-        if (aPos > bPos) return 1
-        if (aPos === bPos) {
-          // How short is the result string?
-          if (aName.length > b.name.length) return 1
-          if (aName.length < b.name.length) return -1
+          // How close to the beginning of the string is the searchText located?
+          if (aPos[i] < bPos[i]) return -1
+          if (aPos[i] > bPos[i]) return 1
+          if (aPos[i] === bPos[i]) {
+            // How short is the result string?
+            if (aName.length > b.name.length) return 1
+            if (aName.length < b.name.length) return -1
 
-          // Sort alphabetically
-          // if (aName < bName) return -1
-          // if (aName > bName) return 1
+            // Sort alphabetically
+            // if (aName < bName) return -1
+            // if (aName > bName) return 1
+          }
         }
 
         return 0 // Strings are roughly equivalent

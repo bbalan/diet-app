@@ -16,10 +16,6 @@
       @submit="onSubmitWorkout">
     </view-workout>
 
-    <view-recipe v-if="recipeData">
-      <pre>{{ recipeData }}</pre>
-    </view-recipe>
-
   </div>
 </template>
 
@@ -35,12 +31,11 @@
 import store from 'store'
 import router from 'router'
 import ViewFood from 'components/Entry/Common/Food'
-import ViewRecipe from 'components/Entry/Common/Recipe'
 import ViewWorkout from 'components/Entry/Common/Workout'
 
 export default {
   name: 'EditEntry',
-  components: { ViewFood, ViewRecipe, ViewWorkout },
+  components: { ViewFood, ViewWorkout },
   props: ['uuid'],
   computed: {
     entry() { return store.state.entry[this.uuid] },

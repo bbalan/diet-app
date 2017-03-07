@@ -61,9 +61,9 @@ export default {
     isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
     isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
     isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
-    entryAddFood() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
+    entryFood() { return this.isFood ? store.state.foodCache[this.dataEntry.item] : null },
     dataWorkout() { return this.isWorkout ? this.dataEntry.data : null },
-    dataFood() { return this.entryAddFood ? this.entryAddFood.dataFood : null },
+    dataFood() { return this.entryFood ? this.entryFood.dataFood : null },
     dataRecipe() { return this.isRecipe ? store.state.recipe.data[this.dataEntry.item] : null },
     name() {
       if (this.isFood && this.dataFood) return this.dataFood.name

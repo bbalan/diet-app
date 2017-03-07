@@ -2,7 +2,7 @@
   <div class="entry-add--food page page--menu page--padded">
 
     <transition name="fade-spinner">
-      <div v-if="loading" class="get-data--food__spinner-wrapper">
+      <div v-if="loading" class="entry-add--food__spinner-wrapper">
         <md-spinner md-indeterminate></md-spinner>
       </div>
     </transition>
@@ -21,12 +21,12 @@
 
 <script>
 /**
- * This component tries to get food data from the foodCache. If
+ * Entry/Add/Food tries to get food data from the foodCache. If
  * foodCache does not contain requested food, the food APIs are
  * called.
  *
- * Food data is fed to the <view-food> component, which is just
- * a dumb view containing a form. On form submit, this component
+ * Food data is fed to the <form-food> component, which is just
+ * a dumb view containing a form. On form submit, Entry/Add/Food
  * creates a new entry in the log or in a recipe.
  */
 
@@ -90,7 +90,7 @@ export default {
       switch (this.source) {
         case USDA:
           foodReportAPI = foodReportUSDA(this.id)
-          reportHandler = this.reportHandlerUSDA.bind(this)
+          reportHandler = this.reportHandlerUSDA
           break
         default: return // invalid source
       }
@@ -115,34 +115,33 @@ export default {
           source: USDA,
         }
         this.isDataFromAPI = true
+
+        console.log('cache food')
+
+        this.uuid = UUID.v4()
+        store.commit('foodCache/add', {
+          uuid: this.uuid,
+          id: this.id,
+          timesLogged: 0,
+          source: USDA,
+          dataFood: json.report.food,
+        })
+
         return new Promise((resolve) => { resolve() })
       } catch (e) { return e }
     },
 
     loadComplete() {
       this.loading = false
-      // this.cacheFood()
-    },
-
-    // Add dataFood to cache so we don't have to hit the API next time
-    cacheFood() {
-      this.uuid = UUID.v4()
-      store.commit('foodCache/add', {
-        uuid: this.uuid,
-        id: this.id,
-        timesLogged: 0,
-        source: this.source,
-        dataFood: this.food,
-      })
     },
 
     // FoodView emitted a submit event (user clicked Add)
     onSubmit(mass) {
+      this.entryAdd(mass, this.isForRecipe)
+
       if (this.isForRecipe) {
-        this.entryAdd(mass, true)
         router.go(-2)
       } else {
-        this.entryAdd(mass)
         router.go(-9000)
         router.replace({ name: 'log' })
       }

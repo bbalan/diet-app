@@ -40,9 +40,7 @@ const recipe = {
 
     setName(state, { uuid, name }) {
       if (state.data[uuid]) state.data[uuid].name = name
-
-      store.commit('recipe/enable', uuid)
-      store.commit('recipe/deleteAllDisabled')
+      if (name) store.commit('recipe/enable', uuid)
 
       setLocalStorage(MODULE_KEY, state)
     },
@@ -52,9 +50,19 @@ const recipe = {
     },
 
     addIngredient(state, uuid) {
+      store.commit('recipe/enable', state.currentRecipe)
       const target = state.data[state.currentRecipe]
-      if (target) target.ingredients.push(uuid)
+
+      if (target) {
+        target.ingredients.push(uuid)
+        store.commit('recipe/calculateNutrients')
+      }
+
       setLocalStorage(MODULE_KEY, state)
+    },
+
+    calculateNutrients(state) {
+      console.log(state)
     },
 
     deleteIngredient(state, uuid) {

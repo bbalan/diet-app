@@ -69,7 +69,7 @@ export default {
       let title = this.$route.meta.title
 
       if (this.isLog) {
-        if (store.state.calendar.currentDay === store.state.calendar.today) {
+        if (this.isToday) {
           title = 'Today'
         } else {
           title = this.logDate
@@ -77,18 +77,18 @@ export default {
       }
 
       if (this.isRecipe) {
-        const recipe = store.state.recipe.data[this.$route.params.uuid]
-
-        if (recipe) {
-          title = recipe.enabled ? 'Edit Recipe' : 'Add Recipe'
-        }
+        title = this.isRecipeEnabled ? 'Edit Recipe' : 'Add Recipe'
       }
 
       return title
     },
     isWelcome() { return this.$route.name === 'welcome' },
     isLog() { return this.$route.name === 'log' },
-    isRecipe() { return this.$route.name === 'entryRecipe' },
+    isRecipe() { return this.$route.name === 'editRecipe' },
+    isRecipeEnabled() {
+      const recipe = store.state.recipe.data[this.$route.params.uuid]
+      return recipe ? recipe.enabled : null
+    },
     logDate() {
       const currentDay = store.state.calendar.currentDay
       const months = [

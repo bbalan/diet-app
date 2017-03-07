@@ -8,7 +8,7 @@
 
         <router-link :to="{ name: 'editRecipe', params: { uuid: recipe.uuid } }" class="recipe-link">
           <div class="md-list-text-container">
-            <span class="recipe-link__name wordwrap--fade">{{ recipe.name | capitalize }}</span>
+            <span class="recipe-link__name wordwrap--fade">{{ recipe.name || 'Unnamed recipe' | capitalize }}</span>
             <span class="recipe-link__nutrients">Nutrients...</span>
           </div>
 
