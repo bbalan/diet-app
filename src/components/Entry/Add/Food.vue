@@ -34,7 +34,7 @@ import router from 'router'
 import store from 'store'
 import UUID from 'uuid'
 import FormFood from 'components/Entry/Common/Food'
-import { /* routerBackTo, */ checkStatus, parseJSON } from 'util'
+import { checkStatus, parseJSON } from 'util'
 import { USDA, foodReportUSDA } from 'util/api'
 
 export default {

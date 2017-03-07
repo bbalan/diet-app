@@ -19,7 +19,7 @@
 
 <script>
 import store from 'store'
-import * as API from 'util/api'
+import { computeNutrient } from 'util'
 import { toKcal, roundTo, toMassUnit } from 'util/filters'
 import ProgressBar from 'components/Log/Day/ProgressBar'
 
@@ -58,10 +58,10 @@ export default {
     workoutDetails() { return this.entryDetails.filter(entry => entry.type === 'workout') },
     workoutCalories() { return this.workoutDetails.reduce((a, b) => a + b.data.calories, 0) },
 
-    calories() { return this.computeNutrient(this.foodDetails, 'calories', '208') },
-    carbs() { return this.computeNutrient(this.foodDetails, 'carbs', '205') },
-    fat() { return this.computeNutrient(this.foodDetails, 'fat', '204') },
-    protein() { return this.computeNutrient(this.foodDetails, 'protein', '203') },
+    calories() { return computeNutrient(this.foodDetails, 'calories', '208') },
+    fat() { return computeNutrient(this.foodDetails, 'fat', '204') },
+    carbs() { return computeNutrient(this.foodDetails, 'carbs', '205') },
+    protein() { return computeNutrient(this.foodDetails, 'protein', '203') },
 
     sumMacros() { return this.fat + this.carbs + this.protein },
     fatPct() { return this.sumMacros !== 0 ? (this.fat / this.sumMacros) * 100 : 0 },
@@ -73,38 +73,6 @@ export default {
     caloriesPercent() { return this.calories / this.caloriesToEat * 100 },
     mealsEaten() { return this.caloriesPercent / (100 / this.numMeals) },
     mealsRemaining() { return this.numMeals - this.mealsEaten },
-  },
-  methods: {
-    computeNutrient(foodDetails, customID, USDA_ID) {
-      let total = 0
-      let energy
-      let value
-
-      foodDetails.forEach((item) => {
-        switch (item.source) {
-          case API.USDA:
-            energy = item.dataFood.nutrients.find(
-              nutrient => nutrient.nutrient_id === USDA_ID
-            )
-
-            if (energy && energy.value) {
-              value = parseInt(energy.value, 10) * item.mass / 100
-              total += value
-            }
-            break
-          case API.OTHER:
-            total = 0
-            break
-          case API.CUSTOM:
-            total += item.dataFood[customID] / item.dataFood.serving * item.mass
-            break
-          default:
-            break
-        }
-      })
-
-      return total
-    },
   },
 }
 </script>

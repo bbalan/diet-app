@@ -93,31 +93,34 @@ export default {
     overflow-x hidden
     overflow-y scroll
 
-.nutrient
-  margin-right 20px
+  .nutrient
+    margin-right 20px
 
-.addLog
-  font-size 20px
-  font-weight bold
-  color #42b983
+  .addLog
+    font-size 20px
+    font-weight bold
+    color #42b983
 
-.weigh-in
-  display flex
-  background white
+    button
+      margin 0 0 0 16px
 
-  p
-    flex-grow 100
-    margin 0
+  .weigh-in
+    display flex
+    background white
 
-  .md-button
-    flex-basis 0
-    margin-right 0
+    p
+      flex-grow 100
+      margin 0
 
-.no-entries
-  position absolute
-  top 50%
-  margin-top -60px
-  padding 16px
-  text-align center
-  width 100%
+    .md-button
+      flex-basis 0
+      margin-right 0
+
+  .no-entries
+    position absolute
+    top 50%
+    margin-top -60px
+    padding 16px
+    text-align center
+    width 100%
 </style>

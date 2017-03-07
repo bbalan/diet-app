@@ -47,12 +47,12 @@ export default {
   name: 'Recipes',
   filters: { capitalize },
   computed: {
+    recipeData: () => store.state.recipe.data,
     recipeList() {
-      if (!store.state.recipe.data) return []
-
-      return Object.entries(store.state.recipe.data).map(
-        recipe => ({ uuid: recipe[0], ...recipe[1] })
-      )
+      if (!this.recipeData) return []
+      return Object.entries(store.state.recipe.data)
+        .map(recipe => ({ uuid: recipe[0], ...recipe[1] }))
+        .filter(recipe => recipe.enabled)
     },
   },
   methods: {

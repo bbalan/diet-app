@@ -9,6 +9,8 @@
           <md-input name="name" v-model="name"></md-input>
         </md-input-container>
 
+        <pre>{{ nutrients }}</pre>
+
         <!--<md-button
           v-if="!isEnabled"
           class="entry--recipe__inputs__save md-raised md-primary"
@@ -49,6 +51,7 @@ export default {
   created() {
     store.commit('recipe/deleteAllDisabled')
     store.commit('recipe/add', this.uuid)
+    store.commit('recipe/calculateNutrients')
     this.name = this.recipeData ? this.recipeData.name : null
   },
   computed: {
@@ -70,8 +73,9 @@ export default {
         ingredients = this.recipeData.ingredients
       }
 
-      return ingredients.filter(ingredient => store.state.entry[ingredient])
+      return ingredients ? ingredients.filter(ingredient => store.state.entry[ingredient]) : null
     },
+    nutrients() { return this.recipeData.nutrients },
   },
   methods: {
     addIngredient() {

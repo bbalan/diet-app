@@ -32,7 +32,6 @@
 <script>
 import store from 'store'
 import router from 'router'
-// import { routerBackTo } from 'util'
 
 export default {
   name: 'RightMenu',

@@ -1,5 +1,6 @@
-import router from 'router'
+import { USDA, CUSTOM } from 'util/api'
 
+// Check response status, when making fetch requests. Not sure if this works...
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {
     return response
@@ -10,6 +11,7 @@ export function checkStatus(response) {
   throw error
 }
 
+// Returns JSON from a successful fetch request
 export function parseJSON(response) {
   return response.json()
 }
@@ -46,18 +48,36 @@ export function onFocusInput(ref) {
   this.$refs[ref].$el.querySelector('input').select()
 }
 
-let iterations = 0
+// Compute the value of a nutrient in a food, proportional to the amount of that food eaten.
+export function computeNutrient(foodDetails, customID, USDA_ID) {
+  let total = 0
+  let energy
+  let value
 
-// Go back to a named route
-// TODO: this code seems fragile
-export function routerBackTo(routeName) {
-  setTimeout(() => {
-    const matched = router.match(location.pathname)
+  foodDetails.forEach((item) => {
+    switch (item.source) {
+      case USDA:
+        if (item && item.dataFood && item.dataFood.nutrients) {
+          energy = item.dataFood.nutrients.find(
+            nutrient => nutrient.nutrient_id === USDA_ID
+          )
 
-    if (matched.name !== routeName && iterations < 10) {
-      iterations += 1
-      router.go(-1)
-      routerBackTo(routeName)
+          if (energy && energy.value) {
+            value = parseInt(energy.value, 10) * item.mass / 100
+            total += value
+          }
+        }
+        break
+      case CUSTOM:
+        if (item && item.dataFood && item.dataFood[customID]) {
+          total += item.dataFood[customID] / item.dataFood.serving * item.mass
+        }
+        break
+      default:
+        total += 0
+        break
     }
-  }, 100)
+  })
+
+  return total
 }
