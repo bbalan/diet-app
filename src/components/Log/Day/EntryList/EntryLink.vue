@@ -84,12 +84,12 @@ export default {
     },
     calories() {
       if (this.isFood) {
-        if (!this.entryAddFood) return 0
+        if (!this.entryFood) return 0
 
         let energy = 0
         let calories = 0
 
-        switch (this.entryAddFood.source) {
+        switch (this.entryFood.source) {
           case API.USDA:
             energy = this.dataFood.nutrients.find(
               nutrient => nutrient.nutrient_id === '208'
