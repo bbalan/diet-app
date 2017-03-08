@@ -14,14 +14,14 @@
         <md-menu-item v-if="isEntryCustom" @click.native="onEntryCustomEdit">
           Edit custom food
         </md-menu-item>
+        <md-menu-item v-if="isEntryRecipe" @click.native="onEditRecipe">
+          Edit recipe
+        </md-menu-item>
         <md-menu-item v-if="isEntry" @click.native="onDeleteEntry">
           Delete entry
         </md-menu-item>
         <md-menu-item v-if="isWorkout" @click.native="onDeleteWorkout">
           Delete workout
-        </md-menu-item>
-        <md-menu-item v-if="isEntryRecipe" @click.native="onEditRecipe">
-          Edit recipe
         </md-menu-item>
         <md-menu-item v-if="isRecipe" @click.native="onDeleteRecipe">
           Delete recipe
