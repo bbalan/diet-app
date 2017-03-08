@@ -20,6 +20,9 @@
         <md-menu-item v-if="isWorkout" @click.native="onDeleteWorkout">
           Delete workout
         </md-menu-item>
+        <md-menu-item v-if="isEntryRecipe" @click.native="onEditRecipe">
+          Edit recipe
+        </md-menu-item>
         <md-menu-item v-if="isRecipe" @click.native="onDeleteRecipe">
           Delete recipe
         </md-menu-item>
@@ -40,11 +43,12 @@ export default {
     entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
     entryData() { return this.isEntry ? store.state.entry[this.$route.params.uuid] : null },
     isEntryFood() { return this.entryData ? this.entryData.type === 'food' : false },
+    isEntryRecipe() { return this.entryData ? this.entryData.type === 'recipe' : false },
     isFoodFromCache() { return this.$route.name === 'addFood' },
     cacheUUID() { return this.isFoodFromCache ? this.$route.params.id : null },
 
     foodDataCached() {
-      if (this.isEntryFood) {
+      if (this.isEntryFood || this.isEntryRecipe) {
         return store.state.foodCache[this.entryData.item]
       } else if (this.cacheUUID && store.state.foodCache[this.cacheUUID]) {
         return store.state.foodCache[this.cacheUUID]
@@ -61,7 +65,11 @@ export default {
     workoutUUID() { return this.isWorkout ? this.$route.params.uuid : null },
 
     isRecipe() { return this.$route.name === 'editRecipe' },
-    recipeUUID() { return this.isRecipe ? this.$route.params.uuid : null },
+    recipeUUID() {
+      if (this.isRecipe) return this.$route.params.uuid
+      if (this.isEntryRecipe && this.foodDataCached) return this.foodDataCached.id
+      return null
+    },
   },
   methods: {
     onDeleteEntry() {
@@ -83,6 +91,9 @@ export default {
     },
     onEntryCustomEdit() {
       router.push({ name: 'editCustom', params: { uuid: this.customUUID } })
+    },
+    onEditRecipe() {
+      router.push({ name: 'editRecipe', params: { uuid: this.recipeUUID } })
     },
   },
 }

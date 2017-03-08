@@ -124,16 +124,6 @@ const recipe = {
         uuid: state.data[recipeUUID].cacheUUID,
         dataFood: nutrients,
       })
-
-      // state.data[recipeUUID].cacheUUID = UUID.v4()
-
-      // store.commit('foodCache/add', {
-      //   uuid: state.data[recipeUUID].cacheUUID,
-      //   id: recipeUUID,
-      //   source: RECIPE,
-      //   dataFood: nutrients,
-      //   timesLogged: 0,
-      // })
     },
 
     deleteIngredient(state, uuid) {
