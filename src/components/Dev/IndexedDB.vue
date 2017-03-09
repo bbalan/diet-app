@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="max-width page--padded">
     <h2>IndexedDB</h2>
     <form @submit.prevent="onSubmit">
       <input type="text" v-model="name" placeholder="Name">
@@ -7,7 +7,14 @@
       <button type="submit">Submit</button>
     </form>
 
-    <pre>{{ state }}</pre>
+    <ul>
+      <li v-for="friend in friends">
+        {{ friend.id }} - {{ friend.name }} | {{ friend.age}}
+        <a href="#" @click="onDelete(friend.id)">
+          Delete
+        </a>
+      </li>
+    </ul>
 
   </div>
 </template>
@@ -22,9 +29,12 @@ export default {
     age: null,
   }),
   computed: {
-    state: () => store.state.indexeddb,
+    friends: () => store.state.indexeddb.friends,
   },
   methods: {
+    onDelete(id) {
+      store.dispatch('indexeddb/deleteFriend', { id })
+    },
     onSubmit() {
       store.dispatch('indexeddb/addFriend', {
         name: this.name,
