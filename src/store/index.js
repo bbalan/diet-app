@@ -10,6 +10,8 @@ import calendar from 'store/calendar'
 import search from 'store/search'
 import recipe from 'store/recipe'
 
+import indexeddb from 'store/indexeddb'
+
 Vue.use(Vuex)
 
 // TODO: replace localStorage with IndexedDB
@@ -24,6 +26,7 @@ const store = new Vuex.Store({
     calendar,
     search,
     recipe,
+    indexeddb,
   },
 })
 

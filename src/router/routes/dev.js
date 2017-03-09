@@ -1,5 +1,6 @@
 import Cache from 'components/Dev/FoodCache'
 import LocalStorage from 'components/Dev/LocalStorage'
+import IndexedDB from 'components/Dev/IndexedDB'
 
 export default [
   {
@@ -13,5 +14,11 @@ export default [
     path: '/localStorage',
     component: LocalStorage,
     meta: { title: 'localStorage' },
+  },
+  {
+    name: 'devIndexedDB',
+    path: '/indexeddb',
+    component: IndexedDB,
+    meta: { title: 'IndexedDB' },
   },
 ]
