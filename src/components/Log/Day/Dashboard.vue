@@ -36,12 +36,14 @@ export default {
   computed: {
     mass: () => store.state.calendar.data[store.state.calendar.currentDay].userInfo.metrics.mass,
     numMeals: () => store.state.userInfo.metrics.numMeals,
-    entryDetails() { return this.entries.map(entry => store.state.entry[entry]) },
+    entryDetails() {
+      return this.entries.map(entry => store.state.entries.data[entry])
+    },
     foodDetails() {
       const foodDetails = []
 
       this.entryDetails
-        .filter(entry => entry.type === 'food' || entry.type === 'recipe')
+        .filter(entry => entry && (entry.type === 'food' || entry.type === 'recipe'))
         .forEach((entry) => {
           const food = store.state.foodCache[entry.item]
           if (!food) return
@@ -55,7 +57,9 @@ export default {
 
       return foodDetails
     },
-    workoutDetails() { return this.entryDetails.filter(entry => entry.type === 'workout') },
+    workoutDetails() {
+      return this.entryDetails.filter(entry => entry && entry.type === 'workout')
+    },
     workoutCalories() { return this.workoutDetails.reduce((a, b) => a + b.data.calories, 0) },
 
     calories() { return computeNutrient(this.foodDetails, 'calories', '208') },

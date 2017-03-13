@@ -5,7 +5,7 @@
     <div class="md-list-text-container max-width">
 
       <router-link
-        :to="{ name: 'editEntry', params: { uuid } }"
+        :to="{ name: 'editEntry', params: { id } }"
         class="edit">
 
         <span class="entry-link__name">{{ name | capitalize }}</span>
@@ -44,7 +44,7 @@ import { USDA, CUSTOM, RECIPE } from 'util/api'
 import { toKcal, roundTo, capitalize } from 'util/filters'
 
 export default {
-  props: ['uuid'],
+  props: ['id'],
   filters: { toKcal, roundTo, capitalize },
   methods: {
     onFocus() {
@@ -57,7 +57,7 @@ export default {
     },
   },
   computed: {
-    dataEntry() { return store.state.entry[this.uuid] },
+    dataEntry() { return store.state.entries.data.find(e => e.id === this.id) },
     isFood() { return this.dataEntry ? this.dataEntry.type === 'food' : false },
     isRecipe() { return this.dataEntry ? this.dataEntry.type === 'recipe' : false },
     isWorkout() { return this.dataEntry ? this.dataEntry.type === 'workout' : false },
@@ -76,10 +76,7 @@ export default {
         return (this.isFood || this.isRecipe) && this.dataEntry ? this.dataEntry.data.mass : null
       },
       set(mass) {
-        store.commit('entry/setMass', {
-          uuid: this.uuid,
-          mass,
-        })
+        store.dispatch('entries/setMass', { id: this.id, mass })
       },
     },
     calories() {

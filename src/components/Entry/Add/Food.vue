@@ -150,7 +150,7 @@ export default {
     // Commit new log entry
     entryAdd(mass, isForRecipe = false) {
       // Add a food entry with the cached food uuid
-      store.commit('entry/add', {
+      store.dispatch('entries/add', {
         item: this.uuid,
         type: this.source === RECIPE ? 'recipe' : 'food',
         data: { mass },

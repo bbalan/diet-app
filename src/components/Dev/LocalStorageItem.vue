@@ -3,9 +3,9 @@
   <div class="localStorage">
     <h2>{{ lsKey }}</h2>
 
-    <md-button @click.native="toggleVisible" class="md-icon-button md-raised localStorage__toggle">
-      <md-icon v-if="!isVisible">add</md-icon>
-      <md-icon v-else>remove</md-icon>
+    <md-button @click.native="toggleVisible" class="md-icon-button localStorage__toggle">
+      <md-icon v-if="!isVisible">keyboard_arrow_down</md-icon>
+      <md-icon v-else>keyboard_arrow_up</md-icon>
     </md-button>
 
     <transition name="expand">

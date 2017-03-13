@@ -42,7 +42,7 @@ export default {
   },
   methods: {
     logEntry() {
-      store.commit('entry/add', {
+      store.dispatch('entries/add', {
         item: null,
         type: 'workout',
         data: {

@@ -1,10 +1,6 @@
 import db from 'store/db'
 import store from 'store'
 
-const initialState = {
-  friends: [],
-}
-
 // Set initial state
 db.friends
   .toArray()
@@ -14,7 +10,7 @@ db.friends
 
 export default {
   namespaced: true,
-  state: initialState,
+  state: { friends: [] },
   mutations: {
     init(state, friends) {
       state.friends = friends
@@ -36,7 +32,7 @@ export default {
       })
     },
 
-    deleteFriend({ commit, state }, { id }) {
+    deleteFriend({ commit, state }, id) {
       db.friends.delete(id).then(() => {
         commit('deleteFriend', id)
       })

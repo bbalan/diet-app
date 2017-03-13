@@ -71,10 +71,10 @@ export default {
       let ingredients = []
       if (this.recipeData) { ingredients = this.recipeData.ingredients }
 
-      return ingredients ? ingredients.filter(ingredient => store.state.entry[ingredient]) : null
+      return ingredients ? ingredients.filter(ingredient => store.state.entries[ingredient]) : null
     },
 
-    entries() { return this.ingredients.map(uuid => store.state.entry[uuid]) },
+    entries() { return this.ingredients.map(uuid => store.state.entries[uuid]) },
     masses() { return this.entries.map(entry => entry.data.mass) },
 
     nutrients() { return this.recipeData.nutrients },

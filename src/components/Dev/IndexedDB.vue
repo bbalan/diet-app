@@ -1,46 +1,32 @@
 <template>
-  <div class="max-width page--padded">
-    <h2>IndexedDB</h2>
-    <form @submit.prevent="onSubmit">
-      <input type="text" v-model="name" placeholder="Name">
-      <input type="number" v-model="age" placeholder="Age">
-      <button type="submit">Submit</button>
-    </form>
-
-    <ul>
-      <li v-for="friend in friends">
-        {{ friend.id }} - {{ friend.name }} | {{ friend.age}}
-        <a href="#" @click="onDelete(friend.id)">
-          Delete
-        </a>
-      </li>
-    </ul>
-
+  <div class="max-width page--padded page--menu">
+    <iddb-entries></iddb-entries>
+    <iddb-friends></iddb-friends>
   </div>
 </template>
 
 <script>
-import store from 'store'
+import IddbFriends from 'components/Dev/iddbFriends'
+import IddbEntries from 'components/Dev/iddbEntries'
 
 export default {
   name: 'IndexedDB',
-  data: () => ({
-    name: null,
-    age: null,
-  }),
-  computed: {
-    friends: () => store.state.indexeddb.friends,
-  },
-  methods: {
-    onDelete(id) {
-      store.dispatch('indexeddb/deleteFriend', { id })
-    },
-    onSubmit() {
-      store.dispatch('indexeddb/addFriend', {
-        name: this.name,
-        age: this.age,
-      })
-    },
-  },
+  components: { IddbFriends, IddbEntries },
 }
 </script>
+
+<style lang="stylus">
+.iddb-item
+  position relative
+
+  &__clear
+    margin-left 0
+
+  &__toggle
+    position absolute !important
+    top 8px
+    right 0
+
+  h2
+    display inline-block
+</style>

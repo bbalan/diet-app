@@ -81,7 +81,7 @@ export default {
   methods: {
     getData() {
       try {
-        const entry = store.state.entry[this.uuid]
+        const entry = store.state.entries[this.uuid]
 
         if (!entry) {
           this.isNew = true
@@ -111,7 +111,7 @@ export default {
         })
 
         // Add an workout entry with the cached workout uuid
-        store.commit('entry/add', {
+        store.dispatch('entries/add', {
           item: workoutUUID,
           type: 'workout',
           data: {
@@ -121,7 +121,7 @@ export default {
         })
       } else {
         // This is an existing entry, edit it
-        store.commit('entry/edit', {
+        store.dispatch('entries/edit', {
           uuid: this.uuid,
           data: {
             name: this.name,

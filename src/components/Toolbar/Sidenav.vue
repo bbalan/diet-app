@@ -38,30 +38,30 @@
 
       <md-divider></md-divider>
 
-      <md-list-item disabled>
+      <!--<md-list-item disabled>
         <router-link :to="{ name: 'profile' }">
           <md-icon>account_circle</md-icon>
           <span>Profile</span>
         </router-link>
-      </md-list-item>
+      </md-list-item>-->
 
-      <md-list-item disabled>
+      <!--<md-list-item disabled>
         <router-link :to="{ name: 'settings' }">
           <md-icon>settings</md-icon>
           <span>Settings</span>
         </router-link>
-      </md-list-item>
+      </md-list-item>-->
 
-      <md-divider></md-divider>
+      <!--<md-divider></md-divider>-->
 
-      <md-list-item disabled>
+      <!--<md-list-item disabled>
         <router-link :to="{ name: 'feedback' }">
           <md-icon>feedback</md-icon>
           <span>Feedback</span>
         </router-link>
-      </md-list-item>
+      </md-list-item>-->
 
-      <md-divider></md-divider>
+      <!--<md-divider></md-divider>-->
 
       <!-- TODO: remove dev links -->
 

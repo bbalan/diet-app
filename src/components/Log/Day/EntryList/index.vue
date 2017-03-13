@@ -3,8 +3,8 @@
     <md-whiteframe md-elevation="2" class="entry-list__contents">
       <md-list class="md-double-line">
         <entry-link
-          v-for="uuid in entriesReversed"
-          :uuid="uuid">
+          v-for="id in entriesReversed"
+          :id="id">
         </entry-link>
       </md-list>
     </md-whiteframe>

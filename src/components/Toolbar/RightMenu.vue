@@ -41,15 +41,15 @@ export default {
   computed: {
     isEntry() { return this.$route.name === 'editEntry' },
     entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
-    entryData() { return this.isEntry ? store.state.entry[this.$route.params.uuid] : null },
-    isEntryFood() { return this.entryData ? this.entryData.type === 'food' : false },
-    isEntryRecipe() { return this.entryData ? this.entryData.type === 'recipe' : false },
+    entryData() { return this.isEntry ? store.state.entries[this.$route.params.uuid] : null },
+    isEntryFood() { return this.entriesData ? this.entriesData.type === 'food' : false },
+    isEntryRecipe() { return this.entriesData ? this.entriesData.type === 'recipe' : false },
     isFoodFromCache() { return this.$route.name === 'addFood' },
     cacheUUID() { return this.isFoodFromCache ? this.$route.params.id : null },
 
     foodDataCached() {
       if (this.isEntryFood || this.isEntryRecipe) {
-        return store.state.foodCache[this.entryData.item]
+        return store.state.foodCache[this.entriesData.item]
       } else if (this.cacheUUID && store.state.foodCache[this.cacheUUID]) {
         return store.state.foodCache[this.cacheUUID]
       }
@@ -60,7 +60,7 @@ export default {
     isEntryCustom() { return this.foodDataCached ? this.foodDataCached.source === 'custom' : false },
     customUUID() { return this.isEntryCustom ? this.foodDataCached.id : null },
 
-    isEntryWorkout() { return this.entryData ? this.entryData.type === 'workout' : false },
+    isEntryWorkout() { return this.entriesData ? this.entriesData.type === 'workout' : false },
     isWorkout() { return this.$route.name === 'editWorkout' },
     workoutUUID() { return this.isWorkout ? this.$route.params.uuid : null },
 
@@ -74,7 +74,7 @@ export default {
   methods: {
     onDeleteEntry() {
       // TODO: commit entries/disable instead of entries/delete
-      store.commit('entry/delete', { uuid: this.entryUUID })
+      store.dispatch('entries/delete', { uuid: this.entriesUUID })
       router.go(-1)
     },
     onDeleteWorkout() {

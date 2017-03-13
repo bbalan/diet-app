@@ -36,42 +36,44 @@ import ViewWorkout from 'components/Entry/Common/Workout'
 export default {
   name: 'EditEntry',
   components: { ViewFood, ViewWorkout },
-  props: ['uuid'],
+  props: ['id'],
   computed: {
-    entry() { return store.state.entry[this.uuid] },
+    entry() { return store.state.entries.data.find(e => e.id === this.id) },
     entryType() { return this.entry ? this.entry.type : null },
-    itemUUID() { return this.entry ? this.entry.item : null },
+    itemID() { return this.entry ? this.entry.item : null },
 
-    isFood() { return this.itemUUID && this.entryType ? this.entryType === 'food' : false },
+    isFood() { return this.itemID && this.entryType ? this.entryType === 'food' : false },
     foodData() {
-      return this.isFood || this.isRecipe ? store.state.foodCache[this.itemUUID] : null
+      return this.isFood || this.isRecipe ? store.state.foodCache[this.itemID] : null
     },
 
-    isCustom() { return this.itemUUID && this.entryType ? this.entryType === 'custom' : false },
-    customData() { return this.isCustom ? store.state.workout[this.itemUUID] : null },
+    isCustom() { return this.itemID && this.entryType ? this.entryType === 'custom' : false },
+    customData() { return this.isCustom ? store.state.workout[this.itemID] : null },
 
-    isRecipe() { return this.itemUUID && this.entryType ? this.entryType === 'recipe' : false },
+    isRecipe() { return this.itemID && this.entryType ? this.entryType === 'recipe' : false },
     recipeData() { return this.foodData },
 
     isWorkout() { return this.entryType ? this.entryType === 'workout' : false },
-    workoutData() { return this.isWorkout && this.entry && this.entry ? this.entry.data : null },
+    workoutData() {
+      return this.isWorkout && this.entries && this.entries ? this.entries.data : null
+    },
   },
   methods: {
     onSubmitFood(mass) {
       // Save changes to this entry
-      store.commit('entry/edit', {
-        uuid: this.uuid,
+      store.dispatch('entries/edit', {
+        id: this.id,
         data: { mass },
       })
       store.commit('foodCache/setLastLoggedMass', {
-        uuid: this.itemUUID,
+        id: this.itemID,
         lastLoggedMass: mass,
       })
       router.go(-1)
     },
 
     onSubmitWorkout(data) {
-      store.commit('entry/edit', { uuid: this.uuid, data })
+      store.dispatch('entries/edit', { id: this.id, data })
       router.go(-1)
     },
 

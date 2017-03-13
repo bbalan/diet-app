@@ -6,7 +6,7 @@ import EditWorkout from 'components/Entry/Edit/Workout'
 export default [
   {
     name: 'editEntry',
-    path: '/entry/edit/:uuid',
+    path: '/entries/edit/:id',
     component: EditEntry,
     props: true,
     meta: {
@@ -16,7 +16,7 @@ export default [
   },
   {
     name: 'editCustom',
-    path: '/food/custom/edit/:uuid',
+    path: '/food/custom/edit/:id',
     component: EditCustom,
     props: true,
     meta: {
@@ -26,7 +26,7 @@ export default [
   },
   {
     name: 'editRecipe',
-    path: '/food/recipes/edit/:uuid',
+    path: '/food/recipes/edit/:id',
     component: EditRecipe,
     props: true,
     meta: {
@@ -36,7 +36,7 @@ export default [
   },
   {
     name: 'editWorkout',
-    path: '/workout/edit/:uuid',
+    path: '/workout/edit/:id',
     component: EditWorkout,
     props: true,
     meta: {

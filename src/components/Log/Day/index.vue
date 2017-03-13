@@ -52,10 +52,10 @@ export default {
     // This Day is displaying today's data.
     isToday() { return this.date === store.state.calendar.today },
 
-    // Filter only keys that match a value in store.state.entry
+    // Filter only keys that match a value in store.state.entries.data
     filteredEntries() {
       return this.dataDay.entries.filter(
-        entryUUID => store.state.entry[entryUUID]
+        id => !!store.state.entries.data.find(entry => entry.id === id)
       )
     },
 
