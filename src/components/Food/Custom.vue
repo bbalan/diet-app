@@ -24,7 +24,7 @@
         </router-link>
 
         <md-button class="md-icon-button md-list-action food-custom__edit" @click.native="onEdit(food.id)">
-          <md-icon>create</md-icon>
+          <md-icon>edit</md-icon>
         </md-button>
 
         <md-divider></md-divider>

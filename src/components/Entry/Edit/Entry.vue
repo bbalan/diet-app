@@ -55,7 +55,7 @@ export default {
 
     isWorkout() { return this.entryType ? this.entryType === 'workout' : false },
     workoutData() {
-      return this.isWorkout && this.entries && this.entries ? this.entries.data : null
+      return this.isWorkout && this.entry && this.entry ? this.entry.data : null
     },
   },
   methods: {

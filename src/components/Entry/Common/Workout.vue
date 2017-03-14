@@ -10,7 +10,6 @@
           <label>Workout name</label>
           <md-input
             v-model="newName"
-            @keydown.native="onKeyDown"
             @focus.native="onFocusInput('workoutName')"></md-input>
         </md-input-container>
 
@@ -47,7 +46,7 @@ export default {
     newCalories: null,
   }),
   created() {
-    this.newName = this.name || ''
+    this.newName = this.name || null
     this.newCalories = this.calories || null
   },
   computed: {
@@ -67,7 +66,7 @@ export default {
   methods: {
     onSubmit() {
       this.$emit('submit', {
-        name: this.newName || this.name,
+        name: this.newName,
         calories: this.newCalories,
       })
     },

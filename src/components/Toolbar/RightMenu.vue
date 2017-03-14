@@ -40,7 +40,7 @@ export default {
   name: 'RightMenu',
   computed: {
     isEntry() { return this.$route.name === 'editEntry' },
-    entryUUID() { return this.isEntry ? this.$route.params.uuid : null },
+    entryID() { return this.isEntry ? this.$route.params.id : null },
     entryData() { return this.isEntry ? store.state.entries[this.$route.params.uuid] : null },
     isEntryFood() { return this.entriesData ? this.entriesData.type === 'food' : false },
     isEntryRecipe() { return this.entriesData ? this.entriesData.type === 'recipe' : false },
@@ -62,7 +62,7 @@ export default {
 
     isEntryWorkout() { return this.entriesData ? this.entriesData.type === 'workout' : false },
     isWorkout() { return this.$route.name === 'editWorkout' },
-    workoutUUID() { return this.isWorkout ? this.$route.params.uuid : null },
+    workoutID() { return this.isWorkout ? this.$route.params.id : null },
 
     isRecipe() { return this.$route.name === 'editRecipe' },
     recipeUUID() {
@@ -73,18 +73,18 @@ export default {
   },
   methods: {
     onDeleteEntry() {
-      // TODO: commit entries/disable instead of entries/delete
-      store.dispatch('entries/delete', { uuid: this.entriesUUID })
+      // TODO: dispatch entries/disable instead of entries/delete
+      store.dispatch('entries/delete', this.entryID)
       router.go(-1)
     },
     onDeleteWorkout() {
-      // TODO: commit workout/disable instead of workout/delete
-      store.commit('workout/delete', { uuid: this.workoutUUID })
+      // TODO: dispatch workouts/disable instead of workouts/delete
+      store.dispatch('workouts/delete', this.workoutID)
       router.go(-9000)
       router.push({ name: 'workout' })
     },
     onDeleteRecipe() {
-      // TODO: commit workout/disable instead of workout/delete
+      // TODO: dispatch workouts/disable instead of workouts/delete
       store.commit('recipe/disable', this.recipeUUID)
       router.go(-9000)
       router.push({ name: 'foodRecipes' })

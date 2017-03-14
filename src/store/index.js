@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import userInfo from 'store/userInfo'
 import config from 'store/config'
 import foodCache from 'store/foodCache'
-import workout from 'store/workout'
+import workouts from 'store/workouts'
 import entries from 'store/entries'
 import calendar from 'store/calendar'
 import search from 'store/search'
@@ -21,7 +21,7 @@ const store = new Vuex.Store({
     userInfo,
     config,
     foodCache,
-    workout,
+    workouts,
     entries,
     calendar,
     search,
@@ -29,5 +29,7 @@ const store = new Vuex.Store({
     indexeddb,
   },
 })
+
+store.dispatch('workouts/init')
 
 export default store

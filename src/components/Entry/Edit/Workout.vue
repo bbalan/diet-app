@@ -3,8 +3,8 @@
 
     <view-workout
       v-if="workoutData"
-      :name="workoutData.name"
-      :calories="workoutData.calories"
+      :name="name"
+      :calories="calories"
       submitText="Save"
       @submit="onSubmit">
     </view-workout>
@@ -22,15 +22,31 @@ import router from 'router'
 import ViewWorkout from 'components/Entry/Common/Workout'
 
 export default {
-  name: 'WorkoutPreset',
-  props: ['uuid'],
+  name: 'EditWorkout',
+  props: { id: Number },
   components: { ViewWorkout },
   computed: {
-    workoutData() { return store.state.workout[this.uuid] },
+    workoutData() {
+      return store.state.workouts.data.find(workout => workout.id === this.id)
+    },
+    name: {
+      get() {
+        return this.workoutData ? this.workoutData.name : null
+      },
+    },
+    calories: {
+      get() {
+        return this.workoutData ? this.workoutData.calories : null
+      },
+    },
   },
   methods: {
     onSubmit(data) {
-      store.commit('workout/edit', { uuid: this.uuid, data })
+      store.dispatch('workouts/edit', {
+        id: this.id,
+        name: data.name,
+        calories: data.calories,
+      })
       router.go(-1)
     },
   },

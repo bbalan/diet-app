@@ -12,7 +12,7 @@
         <span class="entry-link__calories">{{ calories | roundTo | roundTo | toKcal }}</span>
 
         <button v-if="isWorkout" class="entry-link__edit">
-          <md-icon>create</md-icon>
+          <md-icon>edit</md-icon>
         </button>
 
       </router-link>

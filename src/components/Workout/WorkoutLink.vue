@@ -1,9 +1,9 @@
 <template>
-  <md-list-item v-if="workoutData" class="workout__list__link">
+  <md-list-item class="workout__list__link">
 
     <div class="workout__list__link__inner">
-      <router-link class="workout__edit wordwrap--fade" :to="{ name: 'editWorkout', params: { uuid: uuid }}">
-        <md-icon>create</md-icon>
+      <router-link class="workout__edit wordwrap--fade" :to="{ name: 'editWorkout', params: { id }}">
+        <md-icon>edit</md-icon>
         <span class="workout__name">{{ name | capitalize }}</span>
 
         <span class="workout__calories md-caption">
@@ -26,20 +26,8 @@ import { toKcal, capitalize, roundTo } from 'util/filters'
 
 export default {
   name: 'WorkoutLink',
-  props: ['workoutData', 'uuid'],
+  props: ['id', 'name', 'calories'],
   filters: { toKcal, capitalize, roundTo },
-  data() {
-    return {
-      name: null,
-      calories: null,
-    }
-  },
-  created() {
-    if (this.workoutData) {
-      this.name = this.workoutData.name
-      this.calories = this.workoutData.calories
-    }
-  },
   methods: {
     logEntry() {
       store.dispatch('entries/add', {

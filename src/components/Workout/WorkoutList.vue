@@ -7,8 +7,9 @@
       <md-list v-if="reversed.length">
         <workout-link
           v-for="workout in reversed"
-          :workoutData="workout.data"
-          :uuid="workout.uuid">
+          :name="workout.name"
+          :calories="workout.calories"
+          :id="workout.id">
         </workout-link>
       </md-list>
       <div v-else class="md-body-1 saved-workout">
@@ -27,18 +28,9 @@ export default {
   name: 'WorkoutList',
   components: { WorkoutLink },
   computed: {
-    workout: () => store.state.workout,
+    workouts: () => store.state.workouts.data,
     reversed() {
-      const reversed = []
-
-      Object.entries(this.workout).forEach((preset) => {
-        reversed.unshift({
-          uuid: preset[0],
-          data: preset[1],
-        })
-      })
-
-      return reversed
+      return this.workouts.slice().reverse()
     },
   },
 }

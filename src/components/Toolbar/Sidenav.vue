@@ -73,6 +73,13 @@
       </md-list-item>
 
       <md-list-item>
+        <router-link :to="{ name: 'devIndexedDB' }">
+          <md-icon>code</md-icon>
+          <span>IndexedDB</span>
+        </router-link>
+      </md-list-item>
+
+      <md-list-item>
         <router-link :to="{ name: 'devLocalStorage' }">
           <md-icon>code</md-icon>
           <span>LocalStorage</span>

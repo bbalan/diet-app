@@ -11,7 +11,7 @@
         </router-link>
 
         <md-button class="md-icon-button md-list-action recipe-edit" @click.native="edit(recipe.uuid)">
-          <md-icon>create</md-icon>
+          <md-icon>edit</md-icon>
         </md-button>
 
 

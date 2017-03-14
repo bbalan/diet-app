@@ -19,4 +19,11 @@ db.version(3)
     entries: '++id, item, type, data, enabled, checked',
   })
 
+db.version(4)
+  .stores({
+    friends: '++id, name, age',
+    entries: '++id, item, type, data, enabled, checked',
+    workouts: '++id, name, calories',
+  })
+
 export default db

@@ -10,15 +10,15 @@ export default [
     meta: { title: 'Cache' },
   },
   {
-    name: 'devLocalStorage',
-    path: '/localStorage',
-    component: LocalStorage,
-    meta: { title: 'localStorage' },
-  },
-  {
     name: 'devIndexedDB',
     path: '/indexeddb',
     component: IndexedDB,
     meta: { title: 'IndexedDB' },
+  },
+  {
+    name: 'devLocalStorage',
+    path: '/localStorage',
+    component: LocalStorage,
+    meta: { title: 'localStorage' },
   },
 ]

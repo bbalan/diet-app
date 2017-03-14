@@ -74,13 +74,11 @@ const entries = {
     // TODO: disable entry instead of deleting
     // TODO: snackbar with undo button
     delete(state, id) {
-      let e = state.data.find(entry => entry.id === id)
+      const idx = state.data.findIndex(entry => entry.id === id)
 
-      if (e) {
-        const date = e.date
-        e = undefined
-
-        // TODO: replace with dispatch
+      if (idx !== -1) {
+        const date = state.data[idx].date
+        state.data.splice(idx, 1)
         store.commit('calendar/entryDelete', { uuid: id, date })
       }
     },
