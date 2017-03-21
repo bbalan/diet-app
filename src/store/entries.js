@@ -1,17 +1,17 @@
 import store from 'store'
 import db from 'store/db'
 
-// Set initial state
-db.entries
-  .toArray()
-  .then((entries) => {
-    store.commit('entries/init', entries)
-  })
-
-const entries = {
+export default {
   namespaced: true,
   state: { data: [] },
   actions: {
+    init({ commit }) {
+      db.entries
+        .toArray()
+        .then((entries) => {
+          commit('entries/init', entries)
+        })
+    },
     add({ commit }, { item, type, data, isForRecipe }) {
       db.entries
         .add({ item, type, data, enabled: true, checked: false })
@@ -105,5 +105,3 @@ const entries = {
     },
   },
 }
-
-export default entries

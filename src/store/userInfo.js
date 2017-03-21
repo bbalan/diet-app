@@ -1,5 +1,5 @@
-import store from '.'
-import { setLocalStorage } from './util'
+import store from 'store'
+import { setLocalStorage } from 'util'
 
 const MODULE_KEY = 'userInfo'
 

@@ -1,5 +1,10 @@
 import { USDA, CUSTOM, RECIPE } from 'util/api'
 
+// Shorthand for settings a key/value pair in localStorage
+export function setLocalStorage(key, val) {
+  localStorage.setItem(key, JSON.stringify(val, null, ''))
+}
+
 // Check response status, when making fetch requests. Not sure if this works...
 export function checkStatus(response) {
   if (response.status >= 200 && response.status < 300) {

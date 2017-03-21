@@ -7,7 +7,6 @@ import foodCache from 'store/foodCache'
 import workouts from 'store/workouts'
 import entries from 'store/entries'
 import calendar from 'store/calendar'
-import search from 'store/search'
 import recipe from 'store/recipe'
 
 import indexeddb from 'store/indexeddb'
@@ -24,12 +23,13 @@ const store = new Vuex.Store({
     workouts,
     entries,
     calendar,
-    search,
     recipe,
     indexeddb,
   },
 })
 
+store.dispatch('entries/init')
+store.dispatch('recipes/init')
 store.dispatch('workouts/init')
 
 export default store

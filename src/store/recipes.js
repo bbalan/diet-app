@@ -5,16 +5,41 @@ import { RECIPE } from 'util/api'
 import { computeNutrient } from 'util'
 import { setLocalStorage } from 'store/util'
 
+import db from 'store/db'
+
 const MODULE_KEY = 'recipe'
 const stateDefault = {
   currentRecipe: null,
-  data: {},
+  data: [],
 }
 const stateFromLocalStorage = JSON.parse(localStorage.getItem(MODULE_KEY))
 
 const recipe = {
   namespaced: true,
   state: stateFromLocalStorage || stateDefault,
+  actions: {
+    add({ commit }) {
+      db.recipes
+        .add({
+          name: null,
+          ingredients: [],
+          cacheUUID,
+          nutrients: {
+            totalMass: 0,
+            // serving: 0,
+            calories: 0,
+            fat: 0,
+            fat_saturated: 0,
+            fat_trans: 0,
+            carbs: 0,
+            fiber: 0,
+            sugar: 0,
+            protein: 0,
+          },
+          enabled: false,
+        })
+    }
+  },
   mutations: {
     add(state, uuid) {
       // do nothing if this recipe already exists
