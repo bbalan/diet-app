@@ -2,7 +2,7 @@
 
 > A nutrition app.
 
-![Food log](./notes/Screenshot_20170331-133738.png?raw=true)![Favorites](./notes/Screenshot_20170331-134349.png?raw=true)
+![Food log](./notes/Screenshot_20170331-133738.png?raw=true | width=200)![Favorites](./notes/Screenshot_20170331-134349.png?raw=true | width=200)
 
 ## Build Setup
 
