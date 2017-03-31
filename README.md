@@ -2,7 +2,7 @@
 
 > A nutrition app.
 
-<img src="./notes/Screenshot_20170331-133738.png?raw=true" alt="Food log" width="200"><img src="./notes/Screenshot_20170331-134349.png" alt="Favorites" width="200">
+<img src="./notes/Screenshot_20170331-133738.png?raw=true" alt="Food log" width="300"> <img src="./notes/Screenshot_20170331-134349.png" alt="Favorites" width="300">
 
 ## Build Setup
 
