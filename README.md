@@ -2,6 +2,8 @@
 
 > A nutrition app.
 
+![Food log](/../<screenshots>/notes/Screenshot_20170331-133738.png?raw=true)![Favorites](/../<screenshots>/notes/Screenshot_20170331-134349.png?raw=true)
+
 ## Build Setup
 
 ``` bash
