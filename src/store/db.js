@@ -34,4 +34,12 @@ db.version(5)
     workouts: '++id, name, calories',
   })
 
+db.version(6)
+  .stores({
+    calendar: '++id, date, userInfo, entries',
+    friends: '++id, name, age',
+    entries: '++id, item, type, data, enabled, checked',
+    workouts: '++id, name, calories',
+  })
+
 export default db

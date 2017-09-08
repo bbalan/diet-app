@@ -6,8 +6,8 @@ import config from 'store/config'
 import foodCache from 'store/foodCache'
 import workouts from 'store/workouts'
 import entries from 'store/entries'
+import recipe from 'store/recipes'
 import calendar from 'store/calendar'
-import recipe from 'store/recipe'
 
 Vue.use(Vuex)
 
