@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import store from 'store'
+import db from 'store/db'
 import dateFormat from 'dateformat'
 import { setLocalStorage } from 'store/util'
 
@@ -19,13 +20,26 @@ const stateLocalStorage = JSON.parse(
 const log = {
   namespaced: true,
   state: stateLocalStorage || stateDefault,
+  actions: {
+    init({ commit }) {
+      db.calendar
+        .toArray()
+        .then((days) => { commit('calendar/init', days) })
+    },
+
+
+  },
   mutations: {
+    init(state, fromIndexedDB) {
+      state.data = fromIndexedDB
+    },
+
     setCurrentDay(state, currentDay) {
       state.currentDay = currentDay
       if (!state.data[currentDay]) {
         store.commit('calendar/add', currentDay)
       }
-      setLocalStorage(MODULE_KEY, state)
+      // setLocalStorage(MODULE_KEY, state)
     },
 
     setToday(state, today) {
@@ -85,13 +99,13 @@ const log = {
         entries: [],
       })
 
-      setLocalStorage(MODULE_KEY, state)
+      // setLocalStorage(MODULE_KEY, state)
     },
 
     // TODO: add day argument to add entry to any day
     entryAdd(state, uuid) {
       state.data[state.currentDay].entries.push(uuid)
-      setLocalStorage(MODULE_KEY, state)
+      // setLocalStorage(MODULE_KEY, state)
     },
 
     entryDelete(state, { uuid, date }) {
