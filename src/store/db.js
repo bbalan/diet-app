@@ -36,8 +36,9 @@ db.version(5)
 
 db.version(6)
   .stores({
-    calendar: '++id, date, userInfo, entries',
-    friends: '++id, name, age',
+    calendar: '&timestamp, userInfo, entries',
+    config: '&key, value',
+    foodCache: '&id, source, dataFood, timesLogged',
     entries: '++id, item, type, data, enabled, checked',
     workouts: '++id, name, calories',
   })
