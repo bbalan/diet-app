@@ -1,23 +1,22 @@
 import Vue from 'vue'
+import db from 'store/db'
 import { USDA, CUSTOM } from 'util/api'
-import { setLocalStorage } from './util'
-
-const MODULE_KEY = 'foodCache'
 
 // TODO: split this into cache/food and create cache/search, etc
 
-// Personal info about the user
-const stateDefault = {}
-
-const stateLocalStorage = JSON.parse(
-  localStorage.getItem(MODULE_KEY)
-)
-
+// A cache storing USDA search entries
 const foodCache = {
   namespaced: true,
-  state: stateLocalStorage || stateDefault,
-  mutations: {
-    add(state, { uuid, id, source, dataFood, timesLogged }) {
+  state: {},
+  actions: {
+    init({ commit }) {
+      db.foodCache
+        .toArray()
+        .then((food) => {
+          commit('foodCache/init', food)
+        })
+    },
+    add({ commit }, { uuid, source, dataFood, timesLogged }) {
       // Strip unnecessary stuff to make stringification faster
       dataFood.ds = undefined
       dataFood.ru = undefined
@@ -37,8 +36,21 @@ const foodCache = {
 
       const lastLoggedMass = dataFood.serving || 100
 
-      Vue.set(state, uuid, { id, source, dataFood, timesLogged, lastLoggedMass })
-      setLocalStorage(MODULE_KEY, state)
+      db.foodCache
+        .update({ uuid, source, dataFood, timesLogged })
+        .then(() => commit('foodCache/add', { uuid, source, dataFood, timesLogged, lastLoggedMass }))
+    },
+    edit({ commit }, { uuid, dataFood }) {
+      db.foodCache
+        .update(uuid, dataFood)
+        .then(() => {
+          commit('foodCache/edit', { uuid, dataFood })
+        })
+    },
+  },
+  mutations: {
+    add(state, { uuid, source, dataFood, timesLogged, lastLoggedMass }) {
+      Vue.set(state, uuid, { source, dataFood, timesLogged, lastLoggedMass })
     },
 
     edit(state, { uuid, dataFood }) {
@@ -61,15 +73,12 @@ const foodCache = {
           food.timesLogged = 1
         }
       }
-
-      setLocalStorage(MODULE_KEY, state)
     },
 
     // Save the last mass amount this food was logged with
     setLastLoggedMass(state, { uuid, lastLoggedMass }) {
       const cached = state[uuid]
       if (cached) cached.lastLoggedMass = lastLoggedMass
-      setLocalStorage(MODULE_KEY, state)
     },
   },
 }

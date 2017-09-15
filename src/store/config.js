@@ -22,35 +22,35 @@ export default {
     },
     setUnitWeight({ commit }, unitWeight) {
       db.config
-        .update('unitWeight', unitWeight)
+        .put('unitWeight', unitWeight)
         .then(() => {
           commit('config/setUnitWeight', unitWeight)
         })
     },
     setUnitHeight({ commit }, unitHeight) {
       db.config
-        .update('unitHeight', unitHeight)
+        .put('unitHeight', unitHeight)
         .then(() => {
           commit('config/setUnitHeight', unitHeight)
         })
     },
     setUnitFood({ commit }, unitFood) {
       db.config
-        .update('unitFood', unitFood)
+        .put('unitFood', unitFood)
         .then(() => {
           commit('config/setUnitFood', unitFood)
         })
     },
-    setSignupDate({ commit }, signupDate) {
+    setSignput({ commit }, signupDate) {
       db.config
-        .update('signupDate', signupDate)
+        .put('signupDate', signupDate)
         .then(() => {
           commit('config/setSignupDate', signupDate)
         })
     },
     setSignupComplete({ commit }, signupComplete) {
       db.config
-        .update('signupComplete', signupComplete)
+        .put('signupComplete', signupComplete)
         .then(() => {
           commit('config/setSignupComplete', signupComplete)
         })
@@ -86,7 +86,7 @@ export default {
       store.dispatch('config/setSignupDate', new Date())
     },
 
-    setSignupDate(state, date) {
+    setSignput(state, date) {
       state.signupDate = date
     },
   },
