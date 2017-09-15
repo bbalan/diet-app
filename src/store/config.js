@@ -1,7 +1,6 @@
 import store from 'store'
 import dateFormat from 'dateformat'
-import { roundTo } from 'util'
-import { setLocalStorage } from 'store/util'
+import { setLocalStorage, roundTo } from 'util'
 
 const MODULE_KEY = 'config'
 

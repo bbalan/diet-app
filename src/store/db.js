@@ -36,7 +36,17 @@ db.version(5)
 
 db.version(6)
   .stores({
+    recipes: '++id, cacheUUID, name, ingredients, nutrients, enabled',
     calendar: '++id, date, userInfo, entries',
+    friends: '++id, name, age',
+    entries: '++id, item, type, data, enabled, checked',
+    workouts: '++id, name, calories',
+  })
+
+db.version(7)
+  .stores({
+    recipes: '++id, cacheUUID, name, ingredients, nutrients, enabled',
+    calendar: '&date, userInfo, entries',
     friends: '++id, name, age',
     entries: '++id, item, type, data, enabled, checked',
     workouts: '++id, name, calories',

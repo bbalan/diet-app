@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import { USDA, CUSTOM } from 'util/api'
-import { setLocalStorage } from './util'
+import { setLocalStorage } from 'util'
 
 const MODULE_KEY = 'foodCache'
 
