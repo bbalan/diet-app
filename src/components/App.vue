@@ -24,7 +24,9 @@ export default {
   methods: {
     // Update store.state.calendar.today every 1 min
     setTodayInterval() {
-      setInterval(() => store.dispatch('calendar/setToday'), 60000)
+      store.commit('calendar/setToday')
+      store.commit('calendar/setCurrentDay')
+      setInterval(() => store.commit('calendar/setToday'), 60000)
     },
 
     // Redirect to the welcome page on first visit

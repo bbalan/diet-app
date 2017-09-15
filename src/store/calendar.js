@@ -11,20 +11,19 @@ const log = {
     data: [],
   },
   actions: {
-    init({ commit, dispatch, state }) {
+    // get data from indexeddb and commit it into the app store
+    init({ commit }) {
       console.log('dispatch calendar/init')
-      dispatch('setToday')
-      dispatch('setCurrentDay', state.today)
-
       db.calendar
         .toArray()
         .then((days) => { commit('calendar/init', days) })
     },
 
+    // add a day to the calendar
     add({ commit, state }, newDate) {
       console.log('dispatch calendar/add', newDate)
 
-      // find nearest date to copy data from
+      // find nearest date to clone user data from (the user will modify weight, etc later)
       const nearestDates = Object.entries(state.data).map(
         day => Date.parse(day[0]) - Date.parse(newDate)
       ).sort((a, b) => {
@@ -137,25 +136,6 @@ const log = {
     setUserMetrics({ commit }, metrics) {
       commit('setUserMetrics', metrics)
     },
-
-    setToday({ commit, dispatch, state }, today) {
-      // today's date hasn't been determined yet
-      if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
-      console.log('setToday', today)
-
-      commit('setToday', today)
-
-      // no data for today, create some
-      if (!Object.hasOwnProperty.call(state.data, today)) dispatch('add', today)
-
-      if (state.currentDay === '' || !state.curentDay) dispatch('setCurrentDay', today)
-    },
-
-    setCurrentDay({ commit, dispatch, state }, currentDay) {
-      commit('setCurrentDay', currentDay)
-
-      if (!state.data[currentDay]) dispatch('add', currentDay)
-    },
   },
   mutations: {
     init(state, fromIndexedDB) {
@@ -163,11 +143,33 @@ const log = {
     },
 
     setCurrentDay(state, currentDay) {
-      state.currentDay = currentDay
+      console.log('commit setCurrentDay', currentDay)
+      state.currentDay = currentDay || state.today
+
+      if (!state.data[currentDay]) {
+        console.log('no data for current day')
+        store.dispatch('calendar/add', currentDay)
+      }
     },
 
     setToday(state, today) {
+      console.log('commit calendar/setToday', today)
+
+      // today's date hasn't been determined yet
+      if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
+      console.log('dispatch calendar/setToday', today)
+
       state.today = today
+
+      // no data for today, create some
+      if (!Object.hasOwnProperty.call(state.data, today)) {
+        console.log('no data for today')
+        store.dispatch('calendar/add', today)
+      }
+
+      if (state.currentDay === '' || !state.currentDay) {
+        store.commit('calendar/setCurrentDay')
+      }
     },
 
     goToToday(state) {
