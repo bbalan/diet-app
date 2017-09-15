@@ -6,10 +6,12 @@ export default {
   state: { data: [] },
   actions: {
     init({ commit }) {
+      console.log('dispatch(entries/init)')
       db.entries
         .toArray()
         .then((entries) => {
-          commit('entries/init', entries)
+          console.log('entries', entries)
+          commit('init', entries)
         })
     },
     add({ commit }, { item, type, data, isForRecipe }) {
@@ -20,6 +22,7 @@ export default {
 
           // TODO: change to dispatch
           if (isForRecipe) {
+            // this entry represents an ingredient in a recipe, not food eaten on a particular day
             store.commit('recipe/addIngredient', id)
           } else {
             store.commit('calendar/entryAdd', id)
@@ -59,6 +62,7 @@ export default {
   },
   mutations: {
     init(state, fromIndexedDB) {
+      console.log('commit(entries/init)')
       state.data = fromIndexedDB
     },
 

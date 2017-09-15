@@ -2,8 +2,7 @@ import Vue from 'vue'
 import store from 'store'
 import UUID from 'uuid'
 import { RECIPE } from 'util/api'
-import { computeNutrient } from 'util'
-import { setLocalStorage } from 'store/util'
+import { setLocalStorage, computeNutrient } from 'util'
 
 import db from 'store/db'
 
@@ -14,69 +13,72 @@ const stateDefault = {
 }
 const stateFromLocalStorage = JSON.parse(localStorage.getItem(MODULE_KEY))
 
+const defaultNutrients = {
+  totalMass: 0,
+  // serving: 0,
+  calories: 0,
+  fat: 0,
+  fat_saturated: 0,
+  fat_trans: 0,
+  carbs: 0,
+  fiber: 0,
+  sugar: 0,
+  protein: 0,
+}
+
 const recipe = {
   namespaced: true,
   state: stateFromLocalStorage || stateDefault,
   actions: {
+    init({ commit }) {
+      console.log('dispatch(recipes/init)')
+      db.recipes
+        .toArray()
+        .then((recipes) => {
+          console.log('recipes', recipes)
+          commit('init', recipes)
+        })
+    },
     add({ commit }) {
+      const cacheUUID = UUID.v4()
+
       db.recipes
         .add({
           name: null,
           ingredients: [],
           cacheUUID,
-          nutrients: {
-            totalMass: 0,
-            // serving: 0,
-            calories: 0,
-            fat: 0,
-            fat_saturated: 0,
-            fat_trans: 0,
-            carbs: 0,
-            fiber: 0,
-            sugar: 0,
-            protein: 0,
-          },
+          nutrients: defaultNutrients,
           enabled: false,
         })
-    }
+        .then((id) => {
+          commit('add', { id, cacheUUID })
+          store.commit('foodCache/add', {
+            id,
+            uuid: cacheUUID,
+            source: RECIPE,
+            dataFood: { ...defaultNutrients, name: '' },
+            timesLogged: 0,
+          })
+        })
+    },
   },
   mutations: {
-    add(state, uuid) {
+    init(state, recipes) {
+      console.log('commit(recipes/init)', recipes)
+      // Vue.set(state, 'data', recipes)
+    },
+
+    add(state, { id, cacheUUID }) {
       // do nothing if this recipe already exists
-      if (!state.data || state.data[uuid]) return
+      if (!state.data || state.data[id]) return
 
-      const cacheUUID = UUID.v4()
-
-      const nutrients = {
-        totalMass: 0,
-        // serving: 0,
-        calories: 0,
-        fat: 0,
-        fat_saturated: 0,
-        fat_trans: 0,
-        carbs: 0,
-        fiber: 0,
-        sugar: 0,
-        protein: 0,
-      }
-
-      Vue.set(state.data, uuid, {
+      Vue.set(state.data, id, {
         name: null,
         ingredients: [],
         cacheUUID,
-        nutrients,
+        nutrients: defaultNutrients,
         enabled: false,
       })
-
-      store.commit('foodCache/add', {
-        uuid: cacheUUID,
-        id: uuid,
-        source: RECIPE,
-        dataFood: { ...nutrients, name: '' },
-        timesLogged: 0,
-      })
-
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setName(state, { uuid, name }) {

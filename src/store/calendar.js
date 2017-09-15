@@ -11,14 +11,21 @@ const log = {
     data: [],
   },
   actions: {
-    init({ commit }) {
+    init({ commit, dispatch, state }) {
+      console.log('dispatch calendar/init')
+      dispatch('setToday')
+      dispatch('setCurrentDay', state.today)
+
       db.calendar
         .toArray()
         .then((days) => { commit('calendar/init', days) })
     },
-    add({ commit }, newDate) {
+
+    add({ commit, state }, newDate) {
+      console.log('dispatch calendar/add', newDate)
+
       // find nearest date to copy data from
-      const nearestDates = Object.entries(store.state.calendar.data).map(
+      const nearestDates = Object.entries(state.data).map(
         day => Date.parse(day[0]) - Date.parse(newDate)
       ).sort((a, b) => {
         if (Math.abs(a) > Math.abs(b)) return 1
@@ -39,15 +46,29 @@ const log = {
 
       let metrics
 
-      if (store.state.calendar.data[formattedNearest]) {
-        metrics = store.state.calendar.data[formattedNearest].userInfo.metrics
+      if (state.data[formattedNearest]) {
+        metrics = state.data[formattedNearest].userInfo.metrics
       } else {
-        metrics = store.state.userInfo.metrics
+        metrics = store ?
+          store.state.userInfo.metrics : {
+            age: undefined,
+            gender: undefined,
+            height: undefined,
+            weight: undefined,
+            bodyFatPct: undefined,
+            mass: undefined,
+            tdee: undefined,
+            numMeals: null, // TODO: expose this to user
+            mealStops: [],
+            goal: undefined,
+            goalSpeed: 500,
+            activityLevel: undefined,
+          }
       }
 
       db.calendar
         .add({
-          newDate,
+          date: newDate,
           userInfo: { massUpdated: false, metrics },
           entries: [],
         }, newDate)
@@ -59,9 +80,10 @@ const log = {
           })
         })
     },
-    entryAdd({ commit }, entryID) {
+
+    entryAdd({ commit, state }, entryID) {
       db.calendar
-        .where('date').equals(store.state.calendar.currentDay)
+        .where('date').equals(state.currentDay)
         .then((day) => {
           const { date, userInfo, entries } = day
           const newEntries = entries.slice(0)
@@ -74,6 +96,7 @@ const log = {
             })
         })
     },
+
     entryDelete({ commit }, entry) {
       const id = entry.id
       const entryDate = entry.date
@@ -92,6 +115,47 @@ const log = {
             })
         })
     },
+
+    setMassUpdated({ commit, state }) {
+      db.calendar
+        .get(state.currentDay)
+        .then((day) => {
+          db.calendar
+            .update(state.currentDay, {
+              ...day,
+              userInfo: {
+                ...day.userInfo,
+                massUpdated: true,
+              },
+            })
+            .then(() => {
+              commit('setMass')
+            })
+        })
+    },
+
+    setUserMetrics({ commit }, metrics) {
+      commit('setUserMetrics', metrics)
+    },
+
+    setToday({ commit, dispatch, state }, today) {
+      // today's date hasn't been determined yet
+      if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
+      console.log('setToday', today)
+
+      commit('setToday', today)
+
+      // no data for today, create some
+      if (!Object.hasOwnProperty.call(state.data, today)) dispatch('add', today)
+
+      if (state.currentDay === '' || !state.curentDay) dispatch('setCurrentDay', today)
+    },
+
+    setCurrentDay({ commit, dispatch, state }, currentDay) {
+      commit('setCurrentDay', currentDay)
+
+      if (!state.data[currentDay]) dispatch('add', currentDay)
+    },
   },
   mutations: {
     init(state, fromIndexedDB) {
@@ -100,26 +164,10 @@ const log = {
 
     setCurrentDay(state, currentDay) {
       state.currentDay = currentDay
-      if (!state.data[currentDay]) {
-        store.commit('calendar/add', currentDay)
-      }
-      // setLocalStorage(MODULE_KEY, state)
     },
 
     setToday(state, today) {
-      // today's date hasn't been determined yet
-      if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
-
       state.today = today
-
-      // no data for today, create some
-      if (!Object.hasOwnProperty.call(state.data, today)) {
-        store.commit('calendar/add', today)
-      }
-
-      if (state.currentDay === '') state.currentDay = today
-
-      store.commit('calendar/setUserMetrics')
     },
 
     goToToday(state) {
@@ -127,7 +175,9 @@ const log = {
     },
 
     add(state, newDay) {
-      Vue.set(state.data, [...state.data, newDay])
+      console.log('commit calendar/add', newDay)
+
+      Vue.set(state, 'data', state.data.concat([newDay]))
     },
 
     // TODO: add day argument to add entry to any day
@@ -147,14 +197,18 @@ const log = {
     },
 
     // @TODO: port this to indexeddb
-    setMass(state) {
+    setMassUpdated(state) {
       state.data[state.currentDay].userInfo.massUpdated = true
     },
 
-    setUserMetrics(state) {
+    setUserMetrics(state, newMetrics = {}) {
       // do a shallow copy to prevent reference bugs
-      const newMetrics = {}
-      Object.assign(newMetrics, store.state.userInfo.metrics)
+      if (store) {
+        Object.assign(newMetrics, store.state.userInfo.metrics)
+      }
+
+      console.log('setUserMetrics currentDay', state.currentDay, state.data[state.currentDay])
+
       state.data[state.currentDay].userInfo.metrics = newMetrics
     },
   },

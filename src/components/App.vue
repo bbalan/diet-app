@@ -18,18 +18,13 @@ import Toolbar from 'components/Toolbar'
 export default {
   components: { Toolbar },
   created() {
-    this.setToday()
+    this.setTodayInterval()
     this.redirectToWelcome()
   },
   methods: {
     // Update store.state.calendar.today every 1 min
-    setToday() {
-      store.commit('calendar/setToday')
-      store.commit('calendar/setCurrentDay', store.state.calendar.today)
-
-      setInterval(() => {
-        store.commit('calendar/setToday')
-      }, 60000)
+    setTodayInterval() {
+      setInterval(() => store.dispatch('calendar/setToday'), 60000)
     },
 
     // Redirect to the welcome page on first visit

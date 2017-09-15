@@ -1,5 +1,4 @@
 import store from 'store'
-import dateFormat from 'dateformat'
 import db from 'db'
 import { roundTo } from 'util'
 
