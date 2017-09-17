@@ -8,7 +8,7 @@ const log = {
   state: {
     today: '',
     currentDay: '',
-    data: [],
+    data: {},
   },
   actions: {
     // get data from indexeddb and commit it into the app store
@@ -16,7 +16,10 @@ const log = {
       console.log('dispatch calendar/init')
       db.calendar
         .toArray()
-        .then((days) => { commit('calendar/init', days) })
+        .then((days) => {
+          commit('init', days)
+          commit('setToday')
+        })
     },
 
     // add a day to the calendar
@@ -70,7 +73,7 @@ const log = {
           date: newDate,
           userInfo: { massUpdated: false, metrics },
           entries: [],
-        }, newDate)
+        })
         .then(() => {
           commit('add', {
             newDate,
@@ -134,38 +137,42 @@ const log = {
     },
 
     setUserMetrics({ commit }, metrics) {
+      console.log('dispatch calendar/setUserMetrics', metrics)
       commit('setUserMetrics', metrics)
     },
   },
   mutations: {
     init(state, fromIndexedDB) {
-      state.data = fromIndexedDB
+      console.log('commit calendar/init', fromIndexedDB)
+      const data = {}
+
+      fromIndexedDB.forEach((day) => {
+        const { date, userInfo, entries } = day
+        data[date] = { userInfo, entries }
+      })
+
+      Vue.set(state, 'data', data)
+      console.log(state.data)
     },
 
     setCurrentDay(state, currentDay) {
-      console.log('commit setCurrentDay', currentDay)
-      state.currentDay = currentDay || state.today
+      currentDay = currentDay || state.today
+      console.log('commit calendar/setCurrentDay', currentDay)
+      state.currentDay = currentDay
 
-      if (!state.data[currentDay]) {
-        console.log('no data for current day')
+      // no data for today, create some
+      if (!Object.hasOwnProperty.call(state.data, currentDay)) {
+        console.log('no data for current day', currentDay)
         store.dispatch('calendar/add', currentDay)
       }
     },
 
     setToday(state, today) {
-      console.log('commit calendar/setToday', today)
-
       // today's date hasn't been determined yet
       if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
-      console.log('dispatch calendar/setToday', today)
+      console.log('commit calendar/setToday', today)
 
       state.today = today
-
-      // no data for today, create some
-      if (!Object.hasOwnProperty.call(state.data, today)) {
-        console.log('no data for today')
-        store.dispatch('calendar/add', today)
-      }
 
       if (state.currentDay === '' || !state.currentDay) {
         store.commit('calendar/setCurrentDay')
@@ -177,9 +184,8 @@ const log = {
     },
 
     add(state, newDay) {
-      console.log('commit calendar/add', newDay)
-
-      Vue.set(state, 'data', state.data.concat([newDay]))
+      const { userInfo, entries } = newDay
+      Vue.set(state.data, newDay.date, { userInfo, entries })
     },
 
     // TODO: add day argument to add entry to any day
@@ -209,7 +215,7 @@ const log = {
         Object.assign(newMetrics, store.state.userInfo.metrics)
       }
 
-      console.log('setUserMetrics currentDay', state.currentDay, state.data[state.currentDay])
+      console.log('commit calendar/setUserMetrics', state.currentDay, state.data[state.currentDay])
 
       state.data[state.currentDay].userInfo.metrics = newMetrics
     },

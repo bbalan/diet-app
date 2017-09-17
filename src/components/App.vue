@@ -24,8 +24,6 @@ export default {
   methods: {
     // Update store.state.calendar.today every 1 min
     setTodayInterval() {
-      store.commit('calendar/setToday')
-      store.commit('calendar/setCurrentDay')
       setInterval(() => store.commit('calendar/setToday'), 60000)
     },
 

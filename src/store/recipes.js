@@ -31,11 +31,11 @@ const recipe = {
   state: stateFromLocalStorage || stateDefault,
   actions: {
     init({ commit }) {
-      console.log('dispatch(recipes/init)')
+      // console.log('dispatch(recipes/init)')
       db.recipes
         .toArray()
         .then((recipes) => {
-          console.log('recipes', recipes)
+          // console.log('recipes', recipes)
           commit('init', recipes)
         })
     },
@@ -64,8 +64,8 @@ const recipe = {
   },
   mutations: {
     init(state, recipes) {
-      console.log('commit(recipes/init)', recipes)
-      // Vue.set(state, 'data', recipes)
+      // console.log('commit(recipes/init)', recipes)
+      Vue.set(state, 'data', recipes)
     },
 
     add(state, { id, cacheUUID }) {

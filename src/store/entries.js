@@ -6,11 +6,11 @@ export default {
   state: { data: [] },
   actions: {
     init({ commit }) {
-      console.log('dispatch(entries/init)')
+      // console.log('dispatch(entries/init)')
       db.entries
         .toArray()
         .then((entries) => {
-          console.log('entries', entries)
+          // console.log('entries', entries)
           commit('init', entries)
         })
     },
@@ -62,7 +62,7 @@ export default {
   },
   mutations: {
     init(state, fromIndexedDB) {
-      console.log('commit(entries/init)')
+      // console.log('commit(entries/init)')
       state.data = fromIndexedDB
     },
 

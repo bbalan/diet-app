@@ -39,6 +39,8 @@ export default {
   state: stateLocalStorage || stateDefault,
   mutations: {
     prepopulate(state) {
+      console.log('commit userInfo/prepopulate')
+
       state.metrics.gender = 'male'
       state.metrics.height = 177
       store.commit('userInfo/setWeight', 151.6)
@@ -52,6 +54,7 @@ export default {
 
     /** Translates the user's birthday into a timestamp, and calculates their age. */
     setBirthday(state, birthday) {
+      console.log('commit userInfo/setBirthday')
       const today = new Date().getTime()
       const birthdayTimestamp = new Date(birthday).getTime()
       const secondsInAYear = 365 * 24 * 60 * 60
@@ -67,6 +70,7 @@ export default {
     },
 
     setGender(state, gender) {
+      console.log('commit userInfo/setGender')
       state.metrics.gender = gender
       store.commit('userInfo/calcTDEE')
       store.commit('calendar/setUserMetrics')
@@ -74,6 +78,7 @@ export default {
     },
 
     setHeight(state, height) {
+      console.log('commit userInfo/setHeight')
       if (!height) {
         state.metrics.height = 0
       } else {
@@ -85,6 +90,7 @@ export default {
     },
 
     setMass(state, mass) {
+      console.log('commit userInfo/setMass')
       if (!mass) {
         state.metrics.mass = 0
       } else {
@@ -97,6 +103,7 @@ export default {
     },
 
     setBodyFatPct(state, bodyFatPct) {
+      console.log('commit userInfo/setBodyFatPct')
       state.metrics.bodyFatPct = bodyFatPct
       store.commit('userInfo/calcTDEE')
       store.commit('calendar/setUserMetrics')
@@ -105,6 +112,7 @@ export default {
 
     // Converts between metric and lbs
     setWeight(state, weight) {
+      console.log('commit userInfo/setWeight')
       let w = parseFloat(weight)
       let mass
 
@@ -133,12 +141,14 @@ export default {
     },
 
     setNumMeals(state, numMeals) {
+      console.log('commit userInfo/setNumMeals')
       state.metrics.numMeals = numMeals
       store.commit('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
     setGoal(state, goal) {
+      console.log('commit userInfo/setGoal')
       state.metrics.goal = goal
       store.commit('userInfo/calcTDEE')
       store.commit('calendar/setUserMetrics')
@@ -146,6 +156,7 @@ export default {
     },
 
     setGoalSpeed(state, goalSpeed) {
+      console.log('commit userInfo/setGoalSpeed')
       state.metrics.goalSpeed = goalSpeed
       store.commit('userInfo/calcTDEE')
       store.commit('calendar/setUserMetrics')
@@ -153,6 +164,7 @@ export default {
     },
 
     setActivityLevel(state, activityLevel) {
+      console.log('commit userInfo/setActivityLevel')
       state.metrics.activityLevel = activityLevel
       store.commit('userInfo/calcTDEE')
       store.commit('calendar/setUserMetrics')
@@ -161,6 +173,7 @@ export default {
 
     // Calculate the TDEE using various formulas
     calcTDEE(state) {
+      console.log('commit userInfo/calcTDEE')
       const bodyFatPct = state.metrics.bodyFatPct
       const mass = state.metrics.mass
       const height = state.metrics.height

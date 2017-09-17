@@ -26,6 +26,10 @@ export default {
     },
 
     setUnitHeight(state, unitHeight) {
+      console.log('commit config/setUnitHeight', unitHeight)
+
+      if (unitHeight === state.unitHeight) return
+
       state.unitHeight = unitHeight
 
       // Round metric height unit to nearest imperial unit
