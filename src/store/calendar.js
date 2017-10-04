@@ -13,7 +13,7 @@ const log = {
   actions: {
     // get data from indexeddb and commit it into the app store
     init({ commit }) {
-      console.log('dispatch calendar/init')
+      // console.log('dispatch calendar/init')
       db.calendar
         .toArray()
         .then((days) => {
@@ -24,7 +24,7 @@ const log = {
 
     // add a day to the calendar
     add({ commit, state }, newDate) {
-      console.log('dispatch calendar/add', newDate)
+      // console.log('dispatch calendar/add', newDate)
 
       // find nearest date to clone user data from (the user will modify weight, etc later)
       const nearestDates = Object.entries(state.data).map(
@@ -44,7 +44,7 @@ const log = {
       const day = `0${nearestDate.getUTCDate()}`.slice(-2)
       const formattedNearest = `${year}-${month}-${day}`
 
-      // console.log(`Copying metrics from ${formattedNearest}`)
+      // // console.log(`Copying metrics from ${formattedNearest}`)
 
       let metrics
 
@@ -84,15 +84,20 @@ const log = {
     },
 
     entryAdd({ commit, state }, entryID) {
+      console.log('entryAdd', entryID)
+
       db.calendar
         .where('date').equals(state.currentDay)
-        .then((day) => {
+        .first((day) => {
+          console.log('date equals ', state.currentDay, day)
           const { date, userInfo, entries } = day
           const newEntries = entries.slice(0)
           newEntries.push(entryID)
 
+          console.log('updating', date, { userInfo, entries: newEntries })
+
           db.calendar
-            .update(day.id, { date, userInfo, entries: newEntries })
+            .update(date, { userInfo, entries: newEntries })
             .then(() => {
               commit('entryAdd', entryID)
             })
@@ -131,19 +136,19 @@ const log = {
               },
             })
             .then(() => {
-              commit('setMass')
+              commit('setMassUpdated')
             })
         })
     },
 
     setUserMetrics({ commit }, metrics) {
-      console.log('dispatch calendar/setUserMetrics', metrics)
+      // console.log('dispatch calendar/setUserMetrics', metrics)
       commit('setUserMetrics', metrics)
     },
   },
   mutations: {
     init(state, fromIndexedDB) {
-      console.log('commit calendar/init', fromIndexedDB)
+      // console.log('commit calendar/init', fromIndexedDB)
       const data = {}
 
       fromIndexedDB.forEach((day) => {
@@ -152,17 +157,17 @@ const log = {
       })
 
       Vue.set(state, 'data', data)
-      console.log(state.data)
+      // console.log(state.data)
     },
 
     setCurrentDay(state, currentDay) {
       currentDay = currentDay || state.today
-      console.log('commit calendar/setCurrentDay', currentDay)
+      // console.log('commit calendar/setCurrentDay', currentDay)
       state.currentDay = currentDay
 
       // no data for today, create some
       if (!Object.hasOwnProperty.call(state.data, currentDay)) {
-        console.log('no data for current day', currentDay)
+        // console.log('no data for current day', currentDay)
         store.dispatch('calendar/add', currentDay)
       }
     },
@@ -170,7 +175,7 @@ const log = {
     setToday(state, today) {
       // today's date hasn't been determined yet
       if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
-      console.log('commit calendar/setToday', today)
+      // console.log('commit calendar/setToday', today)
 
       state.today = today
 
@@ -184,19 +189,17 @@ const log = {
     },
 
     add(state, newDay) {
-      const { userInfo, entries } = newDay
-      Vue.set(state.data, newDay.date, { userInfo, entries })
+      const { date, userInfo, entries } = newDay
+      Vue.set(state.data, date, { userInfo, entries })
     },
 
-    // TODO: add day argument to add entry to any day
-    entryAdd(state, id) {
-      state.data
-        .find(day => day.date === state.currentDay)
-        .entries.push(id)
+    entryAdd(state, id, date) {
+      date = date || state.currentDay
+      state.data[date].entries.push(id)
     },
 
     entryDelete(state, { id, date }) {
-      const day = state.data.find(d => d.date === date)
+      const day = state.data[date]
 
       if (day && day.entries && day.entries.length > 0) {
         const idx = day.entries.findIndex(entry => entry.id === id)
@@ -204,20 +207,20 @@ const log = {
       }
     },
 
-    // @TODO: port this to indexeddb
     setMassUpdated(state) {
       state.data[state.currentDay].userInfo.massUpdated = true
     },
 
+    // Store the user's data in the calendar for today.
     setUserMetrics(state, newMetrics = {}) {
       // do a shallow copy to prevent reference bugs
       if (store) {
         Object.assign(newMetrics, store.state.userInfo.metrics)
       }
 
-      console.log('commit calendar/setUserMetrics', state.currentDay, state.data[state.currentDay])
+      // console.log('commit calendar/setUserMetrics', state.today, state.data[state.today])
 
-      state.data[state.currentDay].userInfo.metrics = newMetrics
+      state.data[state.today].userInfo.metrics = newMetrics
     },
   },
 }

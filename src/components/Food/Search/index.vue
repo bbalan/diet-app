@@ -27,7 +27,7 @@
 
 <script>
 import 'whatwg-fetch' // https://github.com/github/fetch
-import store from 'store'
+// import store from 'store'
 import router from 'router'
 import { checkStatus, parseJSON } from 'util'
 import { USDA, searchUSDA } from 'util/api'
@@ -82,14 +82,16 @@ export default {
     cancelSearch() {
       // TODO: implement this when a new search is done while previous search still in progress
     },
-    tryCachedResults(text) {
+    tryCachedResults() {
       // TODO: cache search results
+      /*
       const cachedResults = store.state.search.history
 
       if (Object.hasOwnProperty.call(cachedResults, text)) {
         this.searchResults = cachedResults[text]
         return true
       }
+      */
 
       return false
     },
@@ -112,10 +114,11 @@ export default {
 
       const loadComplete = (function f() {
         this.loading = false
-        store.commit('search/setSearchResults', {
-          query: this.searchText,
-          results: this.searchResults,
-        })
+        // @TODO: cache search results
+        // store.commit('search/setSearchResults', {
+        //   query: this.searchText,
+        //   results: this.searchResults,
+        // })
       }).bind(this)
 
       // Append USDA search results to the total search results

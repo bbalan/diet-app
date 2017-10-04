@@ -1,7 +1,7 @@
 <template>
   <div class="log solid__bg page page--main page--menu">
 
-    <day :dataDay="dataCurrentDay" :date="currentDay"></day>
+    <day v-if="dataCurrentDay" :dataDay="dataCurrentDay" :date="currentDay"></day>
 
     <!--<md-button class="md-fab md-fab-bottom-right" @click.native="onClickFood">
       <md-icon>add</md-icon>
@@ -32,7 +32,9 @@ export default {
   computed: {
     calendar() { return store.state.calendar.data },
     currentDay() { return this.calendar ? store.state.calendar.currentDay : null },
-    dataCurrentDay() { return this.calendar ? store.state.calendar.data[this.currentDay] : null },
+    dataCurrentDay() {
+      return this.calendar ? store.state.calendar.data[this.currentDay] : null
+    },
   },
   methods: {
     onClickFood() {

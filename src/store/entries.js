@@ -6,11 +6,9 @@ export default {
   state: { data: [] },
   actions: {
     init({ commit }) {
-      // console.log('dispatch(entries/init)')
       db.entries
         .toArray()
         .then((entries) => {
-          // console.log('entries', entries)
           commit('init', entries)
         })
     },
@@ -25,7 +23,7 @@ export default {
             // this entry represents an ingredient in a recipe, not food eaten on a particular day
             store.commit('recipe/addIngredient', id)
           } else {
-            store.commit('calendar/entryAdd', id)
+            store.dispatch('calendar/entryAdd', id)
           }
         })
     },
@@ -83,7 +81,7 @@ export default {
       if (idx !== -1) {
         const date = state.data[idx].date
         state.data.splice(idx, 1)
-        store.commit('calendar/entryDelete', { uuid: id, date })
+        store.dispatch('calendar/entryDelete', { uuid: id, date })
       }
     },
 

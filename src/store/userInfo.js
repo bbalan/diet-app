@@ -49,7 +49,7 @@ export default {
       store.commit('userInfo/setActivityLevel', 1.2)
       store.commit('userInfo/setNumMeals', 6)
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
     },
 
     /** Translates the user's birthday into a timestamp, and calculates their age. */
@@ -64,7 +64,7 @@ export default {
       state.personal.personal.birthdayTimestamp = birthdayTimestamp
       state.metrics.age = age
 
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
 
       setLocalStorage(MODULE_KEY, state)
     },
@@ -73,7 +73,7 @@ export default {
       console.log('commit userInfo/setGender')
       state.metrics.gender = gender
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -85,7 +85,7 @@ export default {
         state.metrics.height = height
       }
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -96,9 +96,9 @@ export default {
       } else {
         state.metrics.mass = mass
       }
-      store.commit('calendar/setMass', mass)
+      store.dispatch('calendar/setMassUpdated')
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -106,7 +106,7 @@ export default {
       console.log('commit userInfo/setBodyFatPct')
       state.metrics.bodyFatPct = bodyFatPct
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -135,7 +135,7 @@ export default {
 
       store.commit('userInfo/setMass', mass)
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
 
       setLocalStorage(MODULE_KEY, state)
     },
@@ -143,7 +143,7 @@ export default {
     setNumMeals(state, numMeals) {
       console.log('commit userInfo/setNumMeals')
       state.metrics.numMeals = numMeals
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -151,7 +151,7 @@ export default {
       console.log('commit userInfo/setGoal')
       state.metrics.goal = goal
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -159,7 +159,7 @@ export default {
       console.log('commit userInfo/setGoalSpeed')
       state.metrics.goalSpeed = goalSpeed
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 
@@ -167,7 +167,7 @@ export default {
       console.log('commit userInfo/setActivityLevel')
       state.metrics.activityLevel = activityLevel
       store.commit('userInfo/calcTDEE')
-      store.commit('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserMetrics')
       setLocalStorage(MODULE_KEY, state)
     },
 

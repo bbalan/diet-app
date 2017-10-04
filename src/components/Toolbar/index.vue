@@ -103,7 +103,7 @@ export default {
   },
   methods: {
     toggleSidenav() { this.$refs.sidenav.toggleSidenav() },
-    goToToday() { store.commit('calendar/goToToday') },
+    goToToday() { store.dispatch('calendar/goToToday') },
     openSearch() { this.$refs.searchBar.open() },
   },
 }
