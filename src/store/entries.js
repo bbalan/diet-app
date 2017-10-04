@@ -60,7 +60,6 @@ export default {
   },
   mutations: {
     init(state, fromIndexedDB) {
-      // console.log('commit(entries/init)')
       state.data = fromIndexedDB
     },
 

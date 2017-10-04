@@ -44,7 +44,7 @@ const log = {
       const day = `0${nearestDate.getUTCDate()}`.slice(-2)
       const formattedNearest = `${year}-${month}-${day}`
 
-      // // console.log(`Copying metrics from ${formattedNearest}`)
+      // console.log(`Copying metrics from ${formattedNearest}`)
 
       let metrics
 
@@ -84,17 +84,17 @@ const log = {
     },
 
     entryAdd({ commit, state }, entryID) {
-      console.log('entryAdd', entryID)
+      // console.log('entryAdd', entryID, state.currentDay)
 
       db.calendar
         .where('date').equals(state.currentDay)
         .first((day) => {
-          console.log('date equals ', state.currentDay, day)
+          // console.log('date equals ', state.currentDay, day)
           const { date, userInfo, entries } = day
           const newEntries = entries.slice(0)
           newEntries.push(entryID)
 
-          console.log('updating', date, { userInfo, entries: newEntries })
+          // console.log('updating', date, { userInfo, entries: newEntries })
 
           db.calendar
             .update(date, { userInfo, entries: newEntries })
@@ -157,7 +157,6 @@ const log = {
       })
 
       Vue.set(state, 'data', data)
-      // console.log(state.data)
     },
 
     setCurrentDay(state, currentDay) {
