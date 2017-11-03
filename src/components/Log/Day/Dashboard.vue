@@ -34,8 +34,8 @@ export default {
   },
   components: { ProgressBar },
   computed: {
-    mass: () => store.state.calendar.data[store.state.calendar.currentDay].userInfo.metrics.mass,
-    numMeals: () => store.state.userInfo.metrics.numMeals,
+    mass: () => store.state.calendar.data[store.state.calendar.currentDay].userInfo.mass,
+    numMeals: () => store.state.userInfo.numMeals,
     entryDetails() {
       return this.entries.map(entry => store.state.entries.data[entry])
     },

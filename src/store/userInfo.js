@@ -1,20 +1,17 @@
-import store from 'store'
-import { setLocalStorage } from 'util'
-
-const MODULE_KEY = 'userInfo'
-
 // Personal info about the user
-const stateDefault = {
-  personal: {
+
+import store from 'store'
+import { db, setKeyValue } from 'store/db'
+
+export default {
+  namespaced: true,
+  state: {
     firstName: '',
     lastName: '',
     fullName: '',
     email: '',
     birthday: null,
-    birthdayTimestamp: null,
-  },
-  // TODO: replace default values with HTML5 form placeholder
-  metrics: {
+    // TODO: replace default values with HTML5 form placeholder
     age: undefined,
     gender: undefined,
     height: undefined,
@@ -28,28 +25,105 @@ const stateDefault = {
     goalSpeed: 500,
     activityLevel: undefined,
   },
-}
+  actions: {
+    init({ commit }) {
+      db.userInfo
+        .toArray()
+        .then((userInfo) => { commit('init', userInfo) })
+    },
+    prepopulate({ dispatch }) {
+      Promise.all([
+        dispatch('setGender', 'male'),
+        dispatch('setHeight', 177),
+        dispatch('setWeight', 151.6),
+        dispatch('setBodyFatPct', 20),
+        dispatch('setGoal', 'burn-fat'),
+        dispatch('setActivityLevel', 1.2),
+        dispatch('setNumMeals', 6),
+        dispatch('setTdee'),
+      ]).then(() => {
+        store.dispatch('calendar/setUserMetrics')
+      })
+    },
+    setFirstName({ commit }, firstName) {
+      setKeyValue({ commit }, 'userInfo', 'firstName', firstName)
+    },
+    setLastName({ commit }, lastName) {
+      setKeyValue({ commit }, 'userInfo', 'lastName', lastName)
+    },
+    setFullName({ commit }, fullName) {
+      setKeyValue({ commit }, 'userInfo', 'fullName', fullName)
+    },
+    setEmail({ commit }, email) {
+      setKeyValue({ commit }, 'userInfo', 'email', email)
+    },
+    setBirthday({ commit }, birthday) {
+      const today = new Date().getTime()
+      const birthdayTimestamp = new Date(birthday).getTime()
+      const secondsInAYear = 365 * 24 * 60 * 60
+      const age = Math.round(((today - birthdayTimestamp) / secondsInAYear / 1000) * 10) / 10
 
-const stateLocalStorage = JSON.parse(
-  localStorage.getItem(MODULE_KEY)
-)
-
-export default {
-  namespaced: true,
-  state: stateLocalStorage || stateDefault,
+      setKeyValue({ commit }, 'userInfo', 'birthday', birthdayTimestamp)
+      setKeyValue({ commit }, 'userInfo', 'setAge', age)
+    },
+    setAge({ commit }, age) {
+      setKeyValue({ commit }, 'userInfo', 'setAge', age)
+    },
+    setGender({ commit }, gender) {
+      setKeyValue({ commit }, 'userInfo', 'setGender', gender)
+    },
+    setHeight({ commit }, height) {
+      setKeyValue({ commit }, 'userInfo', 'setHeight', height)
+    },
+    setWeight({ commit }, weight) {
+      setKeyValue({ commit }, 'userInfo', 'setWeight', weight)
+    },
+    setBodyFatPct({ commit }, bodyFatPct) {
+      setKeyValue({ commit }, 'userInfo', 'setBodyFatPct', bodyFatPct)
+    },
+    setMass({ commit }, mass) {
+      setKeyValue({ commit }, 'userInfo', 'setMass', mass)
+    },
+    setTdee({ commit }, tdee) {
+      setKeyValue({ commit }, 'userInfo', 'setTdee', tdee)
+    },
+    setNumMeals({ commit }, numMeals) {
+      setKeyValue({ commit }, 'userInfo', 'setNumMeals', numMeals)
+    },
+    // setMealStops({ commit }, mealStops) {
+    //   setKeyValue({ commit }, 'userInfo', 'mealStops', mealStops)
+    // },
+    setGoal({ commit }, goal) {
+      setKeyValue({ commit }, 'userInfo', 'setGoal', goal)
+    },
+    setGoalSpeed({ commit }, goalSpeed) {
+      setKeyValue({ commit }, 'userInfo', 'setGoalSpeed', goalSpeed)
+    },
+    setActivityLevel({ commit }, activityLevel) {
+      setKeyValue({ commit }, 'userInfo', 'setActivityLevel', activityLevel)
+    },
+  },
   mutations: {
-    prepopulate(state) {
-      console.log('commit userInfo/prepopulate')
+    init(state, fromIndexedDB) {
+      console.log('commit(userInfo/init)', fromIndexedDB)
 
-      state.metrics.gender = 'male'
-      state.metrics.height = 177
-      store.commit('userInfo/setWeight', 151.6)
-      state.metrics.bodyFatPct = 20
-      store.commit('userInfo/setGoal', 'burn-fat')
-      store.commit('userInfo/setActivityLevel', 1.2)
-      store.commit('userInfo/setNumMeals', 6)
-      store.commit('userInfo/calcTDEE')
-      store.dispatch('calendar/setUserMetrics')
+      state.firstName = fromIndexedDB.firstName
+      state.lastName = fromIndexedDB.lastName
+      state.fullName = fromIndexedDB.fullName
+      state.email = fromIndexedDB.email
+      state.birthday = fromIndexedDB.birthday
+      state.age = fromIndexedDB.age
+      state.gender = fromIndexedDB.gender
+      state.height = fromIndexedDB.height
+      state.weight = fromIndexedDB.weight
+      state.bodyFatPct = fromIndexedDB.bodyFatPct
+      state.mass = fromIndexedDB.mass
+      state.tdee = fromIndexedDB.tdee
+      state.numMeals = fromIndexedDB.numMeals
+      state.mealStops = fromIndexedDB.mealStops
+      state.goal = fromIndexedDB.goal
+      state.goalSpeed = fromIndexedDB.goalSpeed
+      state.activityLevel = fromIndexedDB.activityLevel
     },
 
     /** Translates the user's birthday into a timestamp, and calculates their age. */
@@ -62,52 +136,46 @@ export default {
 
       state.personal.birthday = birthday
       state.personal.personal.birthdayTimestamp = birthdayTimestamp
-      state.metrics.age = age
+      state.age = age
 
       store.dispatch('calendar/setUserMetrics')
-
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setGender(state, gender) {
       console.log('commit userInfo/setGender')
-      state.metrics.gender = gender
-      store.commit('userInfo/calcTDEE')
+      state.gender = gender
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setHeight(state, height) {
       console.log('commit userInfo/setHeight')
       if (!height) {
-        state.metrics.height = 0
+        state.height = 0
       } else {
-        state.metrics.height = height
+        state.height = height
       }
-      store.commit('userInfo/calcTDEE')
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setMass(state, mass) {
       console.log('commit userInfo/setMass')
       if (!mass) {
-        state.metrics.mass = 0
+        state.mass = 0
       } else {
-        state.metrics.mass = mass
+        state.mass = mass
       }
       store.dispatch('calendar/setMassUpdated')
-      store.commit('userInfo/calcTDEE')
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setBodyFatPct(state, bodyFatPct) {
       console.log('commit userInfo/setBodyFatPct')
-      state.metrics.bodyFatPct = bodyFatPct
-      store.commit('userInfo/calcTDEE')
+      state.bodyFatPct = bodyFatPct
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     // Converts between metric and lbs
@@ -131,58 +199,52 @@ export default {
         }
       }
 
-      state.metrics.weight = w
+      state.weight = w
 
       store.commit('userInfo/setMass', mass)
-      store.commit('userInfo/calcTDEE')
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setNumMeals(state, numMeals) {
       console.log('commit userInfo/setNumMeals')
-      state.metrics.numMeals = numMeals
+      state.numMeals = numMeals
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setGoal(state, goal) {
       console.log('commit userInfo/setGoal')
-      state.metrics.goal = goal
-      store.commit('userInfo/calcTDEE')
+      state.goal = goal
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setGoalSpeed(state, goalSpeed) {
       console.log('commit userInfo/setGoalSpeed')
-      state.metrics.goalSpeed = goalSpeed
-      store.commit('userInfo/calcTDEE')
+      state.goalSpeed = goalSpeed
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     setActivityLevel(state, activityLevel) {
       console.log('commit userInfo/setActivityLevel')
-      state.metrics.activityLevel = activityLevel
-      store.commit('userInfo/calcTDEE')
+      state.activityLevel = activityLevel
+      store.commit('userInfo/setTdee')
       store.dispatch('calendar/setUserMetrics')
-      setLocalStorage(MODULE_KEY, state)
     },
 
     // Calculate the TDEE using various formulas
-    calcTDEE(state) {
-      console.log('commit userInfo/calcTDEE')
-      const bodyFatPct = state.metrics.bodyFatPct
-      const mass = state.metrics.mass
-      const height = state.metrics.height
-      const goalSpeed = store.state.userInfo.metrics.goalSpeed
+    setTdee(state) {
+      console.log('commit userInfo/setTdee')
+      const bodyFatPct = state.bodyFatPct
+      const mass = state.mass
+      const height = state.height
+      const goalSpeed = store.state.userInfo.goalSpeed
 
       let leanBodyMass
       let deficit
 
-      switch (store.state.userInfo.metrics.goal) {
+      switch (store.state.userInfo.goal) {
         case 'burn-fat':
           deficit = goalSpeed * -1
           break
@@ -198,7 +260,7 @@ export default {
       // Body fat percentage
       if (bodyFatPct) {
         leanBodyMass = mass * (100 - bodyFatPct) / 100
-      } else if (state.metrics.gender === 'male') {
+      } else if (state.gender === 'male') {
         // Boer formula (1984)
         leanBodyMass = (0.407 * mass) + (0.267 * height) - 19.2
       } else {
@@ -210,11 +272,9 @@ export default {
       const basalMetabolicRate = 370 + (21.6 * leanBodyMass)
 
       // Multiply by activity level to get TDEE
-      const tdee = basalMetabolicRate * store.state.userInfo.metrics.activityLevel + deficit
+      const tdee = basalMetabolicRate * store.state.userInfo.activityLevel + deficit
 
-      state.metrics.tdee = tdee
-
-      setLocalStorage(MODULE_KEY, state)
+      state.tdee = tdee
     },
   },
 }

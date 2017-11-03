@@ -3,33 +3,33 @@
 
     <p slot="description">This will affect how much you can eat.</p>
 
-    <md-radio 
-      type="radio" 
-      name="goal" 
-      id="burn-fat" 
-      md-value="burn-fat" 
+    <md-radio
+      type="radio"
+      name="goal"
+      id="burn-fat"
+      md-value="burn-fat"
       v-model="goal"
       class="md-primary goal-radio"
       required>Burn fat</md-radio>
 
-    <md-radio 
-      type="radio" 
-      name="goal" 
-      id="build-muscle" 
-      md-value="build-muscle" 
+    <md-radio
+      type="radio"
+      name="goal"
+      id="build-muscle"
+      md-value="build-muscle"
       v-model="goal"
       class="md-primary goal-radio"
       required>Build muscle</md-radio>
 
-    <md-radio 
-      type="radio" 
-      name="goal" 
-      id="maintain-weight" 
-      md-value="maintain-weight" 
+    <md-radio
+      type="radio"
+      name="goal"
+      id="maintain-weight"
+      md-value="maintain-weight"
       v-model="goal"
       class="md-primary goal-radio"
       required>Maintain weight</md-radio>
-    
+
   </slide>
 </template>
 
@@ -44,7 +44,7 @@ export default {
   computed: {
     goal: {
       get() {
-        return store.state.userInfo.metrics.goal
+        return store.state.userInfo.goal
       },
       set(goal) {
         store.commit('userInfo/setGoal', goal)

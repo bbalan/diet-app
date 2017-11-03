@@ -13,7 +13,7 @@ const log = {
   actions: {
     // get data from indexeddb and commit it into the app store
     init({ commit }) {
-      // console.log('dispatch calendar/init')
+      console.log('dispatch calendar/init')
       db.calendar
         .toArray()
         .then((days) => {
@@ -24,7 +24,7 @@ const log = {
 
     // add a day to the calendar
     add({ commit, state }, newDate) {
-      // console.log('dispatch calendar/add', newDate)
+      console.log('dispatch calendar/add', newDate)
 
       // find nearest date to clone user data from (the user will modify weight, etc later)
       const nearestDates = Object.entries(state.data).map(
@@ -51,21 +51,20 @@ const log = {
       if (state.data[formattedNearest]) {
         metrics = state.data[formattedNearest].userInfo.metrics
       } else {
-        metrics = store ?
-          store.state.userInfo.metrics : {
-            age: undefined,
-            gender: undefined,
-            height: undefined,
-            weight: undefined,
-            bodyFatPct: undefined,
-            mass: undefined,
-            tdee: undefined,
-            numMeals: null, // TODO: expose this to user
-            mealStops: [],
-            goal: undefined,
-            goalSpeed: 500,
-            activityLevel: undefined,
-          }
+        metrics = store ? store.state.userInfo : {
+          age: undefined,
+          gender: undefined,
+          height: undefined,
+          weight: undefined,
+          bodyFatPct: undefined,
+          mass: undefined,
+          tdee: undefined,
+          numMeals: null, // TODO: expose this to user
+          mealStops: [],
+          goal: undefined,
+          goalSpeed: 500,
+          activityLevel: undefined,
+        }
       }
 
       db.calendar
@@ -76,7 +75,7 @@ const log = {
         })
         .then(() => {
           commit('add', {
-            newDate,
+            date: newDate,
             userInfo: { massUpdated: false, metrics },
             entries: [],
           })
@@ -161,12 +160,14 @@ const log = {
 
     setCurrentDay(state, currentDay) {
       currentDay = currentDay || state.today
-      // console.log('commit calendar/setCurrentDay', currentDay)
       state.currentDay = currentDay
+      // console.log('commit calendar/setCurrentDay', currentDay)
+
+      // console.log('calendar.data[currentDay]', state.data[currentDay])
 
       // no data for today, create some
       if (!Object.hasOwnProperty.call(state.data, currentDay)) {
-        // console.log('no data for current day', currentDay)
+        console.log('no data for current day', currentDay)
         store.dispatch('calendar/add', currentDay)
       }
     },
@@ -174,7 +175,7 @@ const log = {
     setToday(state, today) {
       // today's date hasn't been determined yet
       if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
-      // console.log('commit calendar/setToday', today)
+      console.log('commit calendar/setToday', today)
 
       state.today = today
 
@@ -188,8 +189,11 @@ const log = {
     },
 
     add(state, newDay) {
+      console.log('commit(calendar/add)', newDay)
+
       const { date, userInfo, entries } = newDay
       Vue.set(state.data, date, { userInfo, entries })
+      console.log('add done', date, state.data[date], state.today)
     },
 
     entryAdd(state, id, date) {
@@ -217,7 +221,7 @@ const log = {
         Object.assign(newMetrics, store.state.userInfo.metrics)
       }
 
-      // console.log('commit calendar/setUserMetrics', state.today, state.data[state.today])
+      console.log('commit calendar/setUserMetrics', state.today, state.currentDay, state.data[state.today])
 
       state.data[state.today].userInfo.metrics = newMetrics
     },

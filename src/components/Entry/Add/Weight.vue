@@ -3,7 +3,7 @@
 
       <h2 class="card__heading md-heading">Today's weight</h2>
 
-      <p>For the most accurate results, measure your weight when you wake up, right after you use the washroom.</p>
+      <p>For consistent results, measure your weight when you wake up, right after you use the toilet.</p>
 
       <form @submit.prevent="onSubmit">
 

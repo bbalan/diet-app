@@ -34,7 +34,7 @@ export default {
 
       // Round metric height unit to nearest imperial unit
       if (unitHeight === 'ft') {
-        const height = store.state.userInfo.metrics.height
+        const height = store.state.userInfo.height
         const roundedHeight = Math.floor(roundTo(height, 2.54))
 
         store.commit('userInfo/setHeight', roundedHeight)

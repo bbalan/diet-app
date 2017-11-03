@@ -10,14 +10,14 @@
       <md-input name="bodyFatPct__input" v-model="bodyFatPct" type="number" @focus.native="onFocusInput('bodyFatInput')"></md-input>
       <span class="bodyFatPct__percent">%</span>
     </md-input-container>
-    
-    <md-button 
-      @click.native="onDontKnow" 
+
+    <md-button
+      @click.native="onDontKnow"
       class="md-raised md-primary icon-right bodyFatPct__dont-know">
       I'm not sure
       <md-icon>navigate_next</md-icon>
     </md-button>
-    
+
   </slide>
 </template>
 
@@ -31,7 +31,7 @@ export default {
   computed: {
     bodyFatPct: {
       get() {
-        return store.state.userInfo.metrics.bodyFatPct
+        return store.state.userInfo.bodyFatPct
       },
       set(bodyFatPct) {
         store.commit('userInfo/setBodyFatPct', bodyFatPct)

@@ -4,14 +4,14 @@
       {{ progressWarnings }}
     </p>
     <div class="progressBar">
-      <div 
-        class="progressBar__indicator" 
+      <div
+        class="progressBar__indicator"
         :style="{ width: `${percent}%` }"
         :class="progressClasses">
       </div>
       <div class="progressBar__mealStops">
         <div
-          v-for="meal in (numMeals - 1 || 0)" 
+          v-for="meal in (numMeals - 1 || 0)"
           :style="{ left: progressWidth(meal) + '%' }"
           class="progressBar__mealStops__stop">
         </div>
@@ -29,7 +29,7 @@ export default {
     return { calorieTolerance: 25 }
   },
   computed: {
-    numMeals: () => store.state.userInfo.metrics.numMeals,
+    numMeals: () => store.state.userInfo.numMeals,
     progressClasses() {
       const remain = this.remaining * -1
       return {

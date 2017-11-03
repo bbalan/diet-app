@@ -55,7 +55,7 @@ export default {
   computed: {
     height: {
       get() {
-        return store.state.userInfo.metrics.height
+        return store.state.userInfo.height
       },
       set(height) {
         store.commit('userInfo/setHeight', height)

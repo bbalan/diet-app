@@ -46,7 +46,7 @@ export default {
   computed: {
     weight: {
       get() {
-        const mass = store.state.userInfo.metrics.mass
+        const mass = store.state.userInfo.mass
 
         if (mass === null || mass === undefined) return mass
 

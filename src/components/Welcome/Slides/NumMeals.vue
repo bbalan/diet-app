@@ -25,7 +25,7 @@ export default {
   components: { Slide },
   computed: {
     numMeals: {
-      get: () => store.state.userInfo.metrics.numMeals,
+      get: () => store.state.userInfo.numMeals,
       set(numMeals) {
         store.commit('userInfo/setNumMeals', numMeals)
       },

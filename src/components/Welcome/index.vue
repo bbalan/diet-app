@@ -138,7 +138,7 @@ export default {
     // swiper.destroy()
   },
   computed: {
-    tdee: () => store.state.userInfo.metrics.tdee,
+    tdee: () => store.state.userInfo.tdee,
   },
   components: {
     Intro, Gender, Height, Weight, BodyFat, Goals, ActivityLevel, NumMeals,
@@ -154,7 +154,7 @@ export default {
       //   .push(store.state.userInfo)
     },
     onPrepopulate() {
-      store.commit('userInfo/prepopulate')
+      store.dispatch('userInfo/prepopulate')
       this.onSubmit()
     },
     updateSwiper(s) {

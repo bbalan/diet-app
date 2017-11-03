@@ -61,17 +61,17 @@ export default {
 
     // Get the user's latest TDEE
     tdee() {
-      if (this.dataDay && this.dataDay.userInfo.metrics) {
-        return this.dataDay.userInfo.metrics.tdee
+      if (this.dataDay && this.dataDay.userInfo) {
+        return this.dataDay.userInfo.tdee
       }
-      return store.state.userInfo.metrics.tdee
+      return store.state.userInfo.tdee
     },
 
     mass() {
-      if (this.dataDay && this.dataDay.userInfo.metrics) {
-        return this.dataDay.userInfo.metrics.mass
+      if (this.dataDay && this.dataDay.userInfo) {
+        return this.dataDay.userInfo.mass
       }
-      return store.state.userInfo.metrics.mass
+      return store.state.userInfo.mass
     },
 
     massUpdated() { return this.dataDay ? this.dataDay.userInfo.massUpdated : false },

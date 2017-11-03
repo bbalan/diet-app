@@ -3,20 +3,20 @@
 
     <p slot="description">This is required to calculate your basal metabolic rate.</p>
 
-    <md-radio 
-      type="radio" 
-      name="gender" 
-      id="gender-male" 
-      md-value="male" 
+    <md-radio
+      type="radio"
+      name="gender"
+      id="gender-male"
+      md-value="male"
       v-model="gender"
       class="md-primary gender-radio"
       required>Male</md-radio>
 
-    <md-radio 
-      type="radio" 
-      name="gender" 
-      id="gender-female" 
-      md-value="female" 
+    <md-radio
+      type="radio"
+      name="gender"
+      id="gender-female"
+      md-value="female"
       v-model="gender"
       class="md-primary gender-radio"
       required>Female</md-radio>
@@ -36,7 +36,7 @@ export default {
   computed: {
     gender: {
       get() {
-        return store.state.userInfo.metrics.gender
+        return store.state.userInfo.gender
       },
       set(value) {
         store.commit('userInfo/setGender', value)
