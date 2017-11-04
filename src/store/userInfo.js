@@ -56,7 +56,7 @@ const userInfo = {
         dispatch('setTdee'),
       ]).then((values) => {
         console.log('resolved all', values)
-        store.dispatch('calendar/setUserMetrics')
+        store.dispatch('calendar/setUserInfo')
       })
     },
     setFirstName({ commit }, firstName) {
@@ -154,7 +154,7 @@ const userInfo = {
       state.personal.personal.birthdayTimestamp = birthdayTimestamp
       state.age = age
 
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     gender(state, gender) {
@@ -162,7 +162,7 @@ const userInfo = {
 
       state.gender = gender
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     height(state, height) {
@@ -174,7 +174,7 @@ const userInfo = {
         state.height = height
       }
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     mass(state, mass) {
@@ -187,7 +187,7 @@ const userInfo = {
       }
       store.dispatch('calendar/setMassUpdated')
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     bodyFatPct(state, bodyFatPct) {
@@ -195,7 +195,7 @@ const userInfo = {
 
       state.bodyFatPct = bodyFatPct
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     // Converts between metric and lbs
@@ -224,14 +224,14 @@ const userInfo = {
 
       store.commit('userInfo/mass', mass)
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     numMeals(state, numMeals) {
       console.log('commit userInfo/numMeals', numMeals)
 
       state.numMeals = numMeals
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     goal(state, goal) {
@@ -239,7 +239,7 @@ const userInfo = {
 
       state.goal = goal
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     goalSpeed(state, goalSpeed) {
@@ -247,7 +247,7 @@ const userInfo = {
 
       state.goalSpeed = goalSpeed
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     activityLevel(state, activityLevel) {
@@ -255,7 +255,7 @@ const userInfo = {
 
       state.activityLevel = activityLevel
       store.commit('userInfo/tdee')
-      store.dispatch('calendar/setUserMetrics')
+      store.dispatch('calendar/setUserInfo')
     },
 
     // Calculate the TDEE using various formulas

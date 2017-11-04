@@ -140,9 +140,9 @@ const calendar = {
         })
     },
 
-    setUserMetrics({ commit }, metrics) {
-      console.log('dispatch calendar/setUserMetrics', metrics)
-      commit('setUserMetrics', metrics)
+    setUserInfo({ commit }, metrics) {
+      console.log('dispatch calendar/setUserInfo', metrics)
+      commit('setUserInfo', metrics)
     },
   },
   mutations: {
@@ -215,13 +215,13 @@ const calendar = {
     },
 
     // Store the user's data in the calendar for today.
-    setUserMetrics(state, newMetrics = {}) {
+    setUserInfo(state, newMetrics = {}) {
       // do a shallow copy to prevent reference bugs
       if (store) {
-        Object.assign(newMetrics, store.state.userInfo)
+        Object.assign(newMetrics, JSON.parse(JSON.stringify(store.state.userInfo)))
       }
 
-      // console.log('commit calendar/setUserMetrics', state.today, state.data[state.today])
+      console.log('commit calendar/setUserInfo', state.today, state.data[state.today])
 
       state.data[state.today].userInfo = newMetrics
     },
