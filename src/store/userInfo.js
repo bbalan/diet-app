@@ -1,35 +1,48 @@
 // Personal info about the user
 
 import store from 'store'
-import { db, setKeyValue } from 'store/db'
+import db from 'store/db'
+import setKeyValue from 'store/dbUtils'
 
-export default {
+const defaultState = {
+  firstName: '',
+  lastName: '',
+  fullName: '',
+  email: '',
+  birthday: null,
+  // TODO: replace default values with HTML5 form placeholder
+  age: undefined,
+  gender: undefined,
+  height: undefined,
+  weight: undefined,
+  bodyFatPct: undefined,
+  mass: undefined,
+  tdee: undefined,
+  numMeals: null, // TODO: expose this to user
+  mealStops: [],
+  goal: undefined,
+  goalSpeed: 500,
+  activityLevel: undefined,
+}
+
+const userInfo = {
   namespaced: true,
-  state: {
-    firstName: '',
-    lastName: '',
-    fullName: '',
-    email: '',
-    birthday: null,
-    // TODO: replace default values with HTML5 form placeholder
-    age: undefined,
-    gender: undefined,
-    height: undefined,
-    weight: undefined,
-    bodyFatPct: undefined,
-    mass: undefined,
-    tdee: undefined,
-    numMeals: null, // TODO: expose this to user
-    mealStops: [],
-    goal: undefined,
-    goalSpeed: 500,
-    activityLevel: undefined,
-  },
+  state: defaultState,
   actions: {
     init({ commit }) {
+      // console.log('dispatch userInfo/init', db)
+
       db.userInfo
         .toArray()
-        .then((userInfo) => { commit('init', userInfo) })
+        .then((data) => {
+          if (data.length === 0) {
+            db.userInfo
+              .add(defaultState)
+              .then(() => { commit('init', defaultState) })
+          } else {
+            commit('init', data[0])
+          }
+        })
     },
     prepopulate({ dispatch }) {
       Promise.all([
@@ -41,21 +54,22 @@ export default {
         dispatch('setActivityLevel', 1.2),
         dispatch('setNumMeals', 6),
         dispatch('setTdee'),
-      ]).then(() => {
+      ]).then((values) => {
+        console.log('resolved all', values)
         store.dispatch('calendar/setUserMetrics')
       })
     },
     setFirstName({ commit }, firstName) {
-      setKeyValue({ commit }, 'userInfo', 'firstName', firstName)
+      return setKeyValue({ commit }, 'userInfo', 'firstName', firstName)
     },
     setLastName({ commit }, lastName) {
-      setKeyValue({ commit }, 'userInfo', 'lastName', lastName)
+      return setKeyValue({ commit }, 'userInfo', 'lastName', lastName)
     },
     setFullName({ commit }, fullName) {
-      setKeyValue({ commit }, 'userInfo', 'fullName', fullName)
+      return setKeyValue({ commit }, 'userInfo', 'fullName', fullName)
     },
     setEmail({ commit }, email) {
-      setKeyValue({ commit }, 'userInfo', 'email', email)
+      return setKeyValue({ commit }, 'userInfo', 'email', email)
     },
     setBirthday({ commit }, birthday) {
       const today = new Date().getTime()
@@ -63,44 +77,45 @@ export default {
       const secondsInAYear = 365 * 24 * 60 * 60
       const age = Math.round(((today - birthdayTimestamp) / secondsInAYear / 1000) * 10) / 10
 
-      setKeyValue({ commit }, 'userInfo', 'birthday', birthdayTimestamp)
-      setKeyValue({ commit }, 'userInfo', 'setAge', age)
+      return setKeyValue({ commit }, 'userInfo', 'birthday', birthdayTimestamp, () => {
+        setKeyValue({ commit }, 'userInfo', 'age', age)
+      })
     },
     setAge({ commit }, age) {
-      setKeyValue({ commit }, 'userInfo', 'setAge', age)
+      return setKeyValue({ commit }, 'userInfo', 'age', age)
     },
     setGender({ commit }, gender) {
-      setKeyValue({ commit }, 'userInfo', 'setGender', gender)
+      return setKeyValue({ commit }, 'userInfo', 'gender', gender)
     },
     setHeight({ commit }, height) {
-      setKeyValue({ commit }, 'userInfo', 'setHeight', height)
+      return setKeyValue({ commit }, 'userInfo', 'height', height)
     },
     setWeight({ commit }, weight) {
-      setKeyValue({ commit }, 'userInfo', 'setWeight', weight)
+      return setKeyValue({ commit }, 'userInfo', 'weight', weight)
     },
     setBodyFatPct({ commit }, bodyFatPct) {
-      setKeyValue({ commit }, 'userInfo', 'setBodyFatPct', bodyFatPct)
+      return setKeyValue({ commit }, 'userInfo', 'bodyFatPct', bodyFatPct)
     },
     setMass({ commit }, mass) {
-      setKeyValue({ commit }, 'userInfo', 'setMass', mass)
+      return setKeyValue({ commit }, 'userInfo', 'mass', mass)
     },
     setTdee({ commit }, tdee) {
-      setKeyValue({ commit }, 'userInfo', 'setTdee', tdee)
+      return setKeyValue({ commit }, 'userInfo', 'tdee', tdee)
     },
     setNumMeals({ commit }, numMeals) {
-      setKeyValue({ commit }, 'userInfo', 'setNumMeals', numMeals)
+      return setKeyValue({ commit }, 'userInfo', 'numMeals', numMeals)
     },
-    // setMealStops({ commit }, mealStops) {
-    //   setKeyValue({ commit }, 'userInfo', 'mealStops', mealStops)
-    // },
+    setMealStops({ commit }, mealStops) {
+      return setKeyValue({ commit }, 'userInfo', 'mealStops', mealStops)
+    },
     setGoal({ commit }, goal) {
-      setKeyValue({ commit }, 'userInfo', 'setGoal', goal)
+      return setKeyValue({ commit }, 'userInfo', 'goal', goal)
     },
     setGoalSpeed({ commit }, goalSpeed) {
-      setKeyValue({ commit }, 'userInfo', 'setGoalSpeed', goalSpeed)
+      return setKeyValue({ commit }, 'userInfo', 'goalSpeed', goalSpeed)
     },
     setActivityLevel({ commit }, activityLevel) {
-      setKeyValue({ commit }, 'userInfo', 'setActivityLevel', activityLevel)
+      return setKeyValue({ commit }, 'userInfo', 'activityLevel', activityLevel)
     },
   },
   mutations: {
@@ -127,8 +142,9 @@ export default {
     },
 
     /** Translates the user's birthday into a timestamp, and calculates their age. */
-    setBirthday(state, birthday) {
-      console.log('commit userInfo/setBirthday')
+    birthday(state, birthday) {
+      console.log('commit userInfo/birthday', birthday)
+
       const today = new Date().getTime()
       const birthdayTimestamp = new Date(birthday).getTime()
       const secondsInAYear = 365 * 24 * 60 * 60
@@ -141,46 +157,51 @@ export default {
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setGender(state, gender) {
-      console.log('commit userInfo/setGender')
+    gender(state, gender) {
+      console.log('commit userInfo/gender', gender)
+
       state.gender = gender
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setHeight(state, height) {
-      console.log('commit userInfo/setHeight')
+    height(state, height) {
+      console.log('commit userInfo/height', height)
+
       if (!height) {
         state.height = 0
       } else {
         state.height = height
       }
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setMass(state, mass) {
-      console.log('commit userInfo/setMass')
+    mass(state, mass) {
+      console.log('commit userInfo/mass', mass)
+
       if (!mass) {
         state.mass = 0
       } else {
         state.mass = mass
       }
       store.dispatch('calendar/setMassUpdated')
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setBodyFatPct(state, bodyFatPct) {
-      console.log('commit userInfo/setBodyFatPct')
+    bodyFatPct(state, bodyFatPct) {
+      console.log('commit userInfo/bodyFatPct', bodyFatPct)
+
       state.bodyFatPct = bodyFatPct
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
     // Converts between metric and lbs
-    setWeight(state, weight) {
-      console.log('commit userInfo/setWeight')
+    weight(state, weight) {
+      console.log('commit userInfo/weight', weight)
+
       let w = parseFloat(weight)
       let mass
 
@@ -201,41 +222,46 @@ export default {
 
       state.weight = w
 
-      store.commit('userInfo/setMass', mass)
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/mass', mass)
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setNumMeals(state, numMeals) {
-      console.log('commit userInfo/setNumMeals')
+    numMeals(state, numMeals) {
+      console.log('commit userInfo/numMeals', numMeals)
+
       state.numMeals = numMeals
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setGoal(state, goal) {
-      console.log('commit userInfo/setGoal')
+    goal(state, goal) {
+      console.log('commit userInfo/goal', goal)
+
       state.goal = goal
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setGoalSpeed(state, goalSpeed) {
-      console.log('commit userInfo/setGoalSpeed')
+    goalSpeed(state, goalSpeed) {
+      console.log('commit userInfo/goalSpeed', goalSpeed)
+
       state.goalSpeed = goalSpeed
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
-    setActivityLevel(state, activityLevel) {
-      console.log('commit userInfo/setActivityLevel')
+    activityLevel(state, activityLevel) {
+      console.log('commit userInfo/activityLevel', activityLevel)
+
       state.activityLevel = activityLevel
-      store.commit('userInfo/setTdee')
+      store.commit('userInfo/tdee')
       store.dispatch('calendar/setUserMetrics')
     },
 
     // Calculate the TDEE using various formulas
-    setTdee(state) {
-      console.log('commit userInfo/setTdee')
+    tdee(state) {
+      console.log('commit userInfo/tdee')
+
       const bodyFatPct = state.bodyFatPct
       const mass = state.mass
       const height = state.height
@@ -278,3 +304,5 @@ export default {
     },
   },
 }
+
+export default userInfo

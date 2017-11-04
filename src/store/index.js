@@ -25,6 +25,7 @@ const store = new Vuex.Store({
 })
 
 store.dispatch('calendar/init')
+store.dispatch('userInfo/init')
 store.dispatch('entries/init')
 // store.dispatch('recipes/init')
 store.dispatch('workouts/init')

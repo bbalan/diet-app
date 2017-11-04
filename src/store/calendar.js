@@ -3,7 +3,7 @@ import dateFormat from 'dateformat'
 import store from 'store'
 import db from 'store/db'
 
-const log = {
+const calendar = {
   namespaced: true,
   state: {
     today: '',
@@ -13,7 +13,8 @@ const log = {
   actions: {
     // get data from indexeddb and commit it into the app store
     init({ commit }) {
-      console.log('dispatch calendar/init')
+      // console.log('dispatch calendar/init', db)
+
       db.calendar
         .toArray()
         .then((days) => {
@@ -24,7 +25,7 @@ const log = {
 
     // add a day to the calendar
     add({ commit, state }, newDate) {
-      console.log('dispatch calendar/add', newDate)
+      // console.log('dispatch calendar/add', newDate)
 
       // find nearest date to clone user data from (the user will modify weight, etc later)
       const nearestDates = Object.entries(state.data).map(
@@ -46,12 +47,12 @@ const log = {
 
       // console.log(`Copying metrics from ${formattedNearest}`)
 
-      let metrics
+      let userInfo
 
       if (state.data[formattedNearest]) {
-        metrics = state.data[formattedNearest].userInfo.metrics
+        userInfo = state.data[formattedNearest].userInfo
       } else {
-        metrics = store ? store.state.userInfo : {
+        userInfo = store ? store.state.userInfo : {
           age: undefined,
           gender: undefined,
           height: undefined,
@@ -67,18 +68,17 @@ const log = {
         }
       }
 
+      const newDay = {
+        date: newDate,
+        massUpdated: false,
+        userInfo,
+        entries: [],
+      }
+
       db.calendar
-        .add({
-          date: newDate,
-          userInfo: { massUpdated: false, metrics },
-          entries: [],
-        })
+        .add(newDay)
         .then(() => {
-          commit('add', {
-            date: newDate,
-            userInfo: { massUpdated: false, metrics },
-            entries: [],
-          })
+          commit('add', newDay)
         })
     },
 
@@ -141,7 +141,7 @@ const log = {
     },
 
     setUserMetrics({ commit }, metrics) {
-      // console.log('dispatch calendar/setUserMetrics', metrics)
+      console.log('dispatch calendar/setUserMetrics', metrics)
       commit('setUserMetrics', metrics)
     },
   },
@@ -167,7 +167,7 @@ const log = {
 
       // no data for today, create some
       if (!Object.hasOwnProperty.call(state.data, currentDay)) {
-        console.log('no data for current day', currentDay)
+        // console.log('no data for current day', currentDay)
         store.dispatch('calendar/add', currentDay)
       }
     },
@@ -175,7 +175,7 @@ const log = {
     setToday(state, today) {
       // today's date hasn't been determined yet
       if (!today) today = dateFormat(new Date(), 'yyyy-mm-dd')
-      console.log('commit calendar/setToday', today)
+      // console.log('commit calendar/setToday', today)
 
       state.today = today
 
@@ -189,11 +189,11 @@ const log = {
     },
 
     add(state, newDay) {
-      console.log('commit(calendar/add)', newDay)
+      // console.log('commit(calendar/add)', newDay)
 
       const { date, userInfo, entries } = newDay
       Vue.set(state.data, date, { userInfo, entries })
-      console.log('add done', date, state.data[date], state.today)
+      // console.log('add done', date, state.data[date], state.today)
     },
 
     entryAdd(state, id, date) {
@@ -211,21 +211,21 @@ const log = {
     },
 
     setMassUpdated(state) {
-      state.data[state.currentDay].userInfo.massUpdated = true
+      state.data[state.currentDay].massUpdated = true
     },
 
     // Store the user's data in the calendar for today.
     setUserMetrics(state, newMetrics = {}) {
       // do a shallow copy to prevent reference bugs
       if (store) {
-        Object.assign(newMetrics, store.state.userInfo.metrics)
+        Object.assign(newMetrics, store.state.userInfo)
       }
 
-      console.log('commit calendar/setUserMetrics', state.today, state.currentDay, state.data[state.today])
+      // console.log('commit calendar/setUserMetrics', state.today, state.data[state.today])
 
-      state.data[state.today].userInfo.metrics = newMetrics
+      state.data[state.today].userInfo = newMetrics
     },
   },
 }
 
-export default log
+export default calendar
