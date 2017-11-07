@@ -123,8 +123,6 @@ const calendar = {
     },
 
     setMassUpdated({ commit, state }) {
-      console.log('dispatch setMassUpdated')
-
       const day = state.data[state.currentDay]
 
       db.calendar
@@ -136,7 +134,6 @@ const calendar = {
           massUpdated: true,
         })
         .then(() => {
-          console.log('EEEHHHHHH>>???')
           commit('setMassUpdated')
         })
     },
@@ -212,7 +209,7 @@ const calendar = {
     },
 
     setMassUpdated(state) {
-      console.log('commit setMassUpdated')
+      // console.log('commit setMassUpdated')
       state.data[state.currentDay].massUpdated = true
     },
 

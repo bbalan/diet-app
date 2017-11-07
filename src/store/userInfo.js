@@ -113,9 +113,7 @@ const userInfo = {
       })
     },
     setMass({ commit }, mass) {
-      console.log('sdfdsfsdfdsfsdf')
       return setKeyValue({ commit }, 'userInfo', 'mass', mass, () => {
-        console.log('############')
         store.dispatch('calendar/setMassUpdated')
       })
     },
