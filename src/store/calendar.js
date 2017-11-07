@@ -123,25 +123,26 @@ const calendar = {
     },
 
     setMassUpdated({ commit, state }) {
+      console.log('dispatch setMassUpdated')
+
+      const day = state.data[state.currentDay]
+
       db.calendar
-        .get(state.currentDay)
-        .then((day) => {
-          db.calendar
-            .update(state.currentDay, {
-              ...day,
-              userInfo: {
-                ...day.userInfo,
-                massUpdated: true,
-              },
-            })
-            .then(() => {
-              commit('setMassUpdated')
-            })
+        .update(state.currentDay, {
+          ...day,
+          userInfo: {
+            ...day.userInfo,
+          },
+          massUpdated: true,
+        })
+        .then(() => {
+          console.log('EEEHHHHHH>>???')
+          commit('setMassUpdated')
         })
     },
 
     setUserInfo({ commit }, metrics) {
-      console.log('dispatch calendar/setUserInfo', metrics)
+      // console.log('dispatch calendar/setUserInfo', metrics)
       commit('setUserInfo', metrics)
     },
   },
@@ -151,8 +152,8 @@ const calendar = {
       const data = {}
 
       fromIndexedDB.forEach((day) => {
-        const { date, userInfo, entries } = day
-        data[date] = { userInfo, entries }
+        const { date, userInfo, entries, massUpdated } = day
+        data[date] = { userInfo, entries, massUpdated }
       })
 
       Vue.set(state, 'data', data)
@@ -211,17 +212,20 @@ const calendar = {
     },
 
     setMassUpdated(state) {
+      console.log('commit setMassUpdated')
       state.data[state.currentDay].massUpdated = true
     },
 
     // Store the user's data in the calendar for today.
     setUserInfo(state, newMetrics = {}) {
+      // console.log('commit calendar/setUserInfo', store, store.state, store.state.userInfo)
+
       // do a shallow copy to prevent reference bugs
       if (store) {
         Object.assign(newMetrics, JSON.parse(JSON.stringify(store.state.userInfo)))
       }
 
-      console.log('commit calendar/setUserInfo', state.today, state.data[state.today])
+      // console.log('commit calendar/setUserInfo', state.today, state.data[state.today])
 
       state.data[state.today].userInfo = newMetrics
     },

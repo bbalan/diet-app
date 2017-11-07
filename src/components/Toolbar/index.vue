@@ -86,8 +86,11 @@ export default {
     isLog() { return this.$route.name === 'log' },
     isRecipe() { return this.$route.name === 'editRecipe' },
     isRecipeEnabled() {
-      const recipe = store.state.recipe.data[this.$route.params.uuid]
-      return recipe ? recipe.enabled : null
+      const recipeID = this.$route.params.uuid
+      if (!recipeID) return false
+
+      const recipe = store.state.recipe.data[recipeID]
+      return recipe ? recipe.enabled : false
     },
     logDate() {
       const currentDay = store.state.calendar.currentDay

@@ -54,7 +54,7 @@ export default {
   methods: {
     onSubmit() {
       if (this.isValidWeight) {
-        store.commit('userInfo/setWeight', this.weight)
+        store.dispatch('userInfo/setWeight', this.weight)
         router.push({ name: 'log' })
       }
     },
@@ -72,10 +72,11 @@ export default {
     el.select()
   },
   computed: {
+    currentDay: () => store.state.calendar.currentDay,
+    currentDayData() { return store.state.calendar.data[this.currentDay] },
     weight: {
       get() {
-        const currentDay = store.state.calendar.currentDay
-        const mass = store.state.calendar.data[currentDay].userInfo.metrics.mass
+        const mass = this.currentDayData && this.currentDayData.userInfo.mass
 
         if (mass === null || mass === undefined) return mass
 
@@ -90,7 +91,7 @@ export default {
         return weight
       },
       set(weight) {
-        store.commit('userInfo/setWeight', weight)
+        store.dispatch('userInfo/setWeight', weight)
       },
     },
     unitWeight: {

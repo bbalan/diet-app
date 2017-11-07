@@ -74,7 +74,9 @@ export default {
       return store.state.userInfo.mass
     },
 
-    massUpdated() { return this.dataDay ? this.dataDay.massUpdated : false },
+    massUpdated() {
+      return this.dataDay && this.dataDay.massUpdated ? this.dataDay.massUpdated : false
+    },
   },
 }
 </script>

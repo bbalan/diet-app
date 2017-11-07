@@ -61,7 +61,7 @@ export default {
         return weight
       },
       set(weight) {
-        store.commit('userInfo/setWeight', weight)
+        store.dispatch('userInfo/setWeight', weight)
       },
     },
     unitWeight: {
